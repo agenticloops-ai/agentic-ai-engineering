@@ -1,0 +1,11 @@
+{
+  "python.defaultInterpreterPath": ".venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.terminal.executeInFileDir": true,
+  "code-runner.executorMap": {
+    "python": "uv run --directory \"$dirWithoutTrailingSlash\" python \"$fileName\""
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.clearPreviousOutput": true
+}

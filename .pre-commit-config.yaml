@@ -1,0 +1,88 @@
+# Pre-commit hooks for code quality
+# Install: pre-commit install
+# Run manually: pre-commit run --all-files
+# Update hooks: pre-commit autoupdate
+
+repos:
+  # Ruff - Fast Python linter and formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.10
+    hooks:
+      # Run the linter
+      - id: ruff
+        args: [--fix]
+        types_or: [python, pyi]
+      # Run the formatter
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  # MyPy - Static type checker
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - types-requests
+          - types-beautifulsoup4
+        args: [--ignore-missing-imports, --show-error-codes]
+
+  # Conventional Commits - Enforce commit message format
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.6.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: []
+
+  # Built-in pre-commit hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # File format checks
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+        exclude: ^\.vscode/.*\.json$
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+
+      # Python-specific
+      - id: check-ast
+      - id: check-docstring-first
+      - id: debug-statements
+      - id: name-tests-test
+        args: [--pytest-test-first]
+
+      # Security
+      - id: detect-private-key
+
+      # Merge conflict markers
+      - id: check-merge-conflict
+
+  # Black - Python code formatter (optional, since we use ruff-format)
+  # Uncomment if you prefer black over ruff-format
+  # - repo: https://github.com/psf/black
+  #   rev: 24.1.1
+  #   hooks:
+  #     - id: black
+  #       language_version: python3.11
+
+# Global configuration
+default_language_version:
+  python: python3.11
+
+# Only run on specific file types
+files: \.(py|pyi|toml|yaml|yml|json|md)$
+
+# Exclude patterns
+exclude: |
+  (?x)^(
+      \.venv/.*|
+      __pycache__/.*|
+      .*\.egg-info/.*|
+      build/.*|
+      dist/.*
+  )$

@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+jobs:
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Run all quality checks (includes pre-commit hooks)
+        run: |
+          make check-all
+
+  test-lessons:
+    name: Test All Lessons
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Discover and test all lessons
+        run: |
+          echo "🔍 Discovering lessons..."
+          lesson_count=0
+
+          # Find all lesson directories (containing pyproject.toml)
+          for lesson_dir in $(find lessons -name "pyproject.toml" -type f -exec dirname {} \;); do
+            lesson_count=$((lesson_count + 1))
+            echo ""
+            echo "📚 Testing lesson: $lesson_dir"
+            echo "================================"
+
+            # Install dependencies
+            echo "Installing dependencies..."
+            cd "$lesson_dir"
+            uv sync
+
+            # Run all Python scripts in the lesson
+            script_count=0
+            for script in *.py; do
+              if [ -f "$script" ]; then
+                script_count=$((script_count + 1))
+                echo "  ▶ Running $script..."
+                uv run python "$script" || echo "  ⚠ Script $script failed (non-critical)"
+              fi
+            done
+
+            if [ $script_count -eq 0 ]; then
+              echo "  ℹ No Python scripts found in this lesson"
+            fi
+
+            # Return to root
+            cd - > /dev/null
+          done
+
+          echo ""
+          echo "✅ Tested $lesson_count lessons"

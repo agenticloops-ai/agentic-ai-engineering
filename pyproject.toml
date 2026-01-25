@@ -1,0 +1,186 @@
+[project]
+name = "ai-agents-engineering"
+version = "0.1.0"
+description = "Python course repository with independent lesson folders"
+requires-python = ">=3.11"
+dependencies = [
+    "rich>=13.7.0",  # For interactive menu
+    "readchar>=4.0.0",  # For keyboard navigation
+]
+
+[project.scripts]
+# Entry point for the interactive menu
+menu = "cli.main:main"
+
+# This is the root configuration file
+# Each lesson folder will have its own pyproject.toml and uv.lock
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+# Only include the cli package, exclude lessons directory
+include = ["cli*"]
+exclude = ["lessons*"]
+
+[tool.uv]
+# Enable packaging to allow script entry points
+package = true
+
+[dependency-groups]
+# Shared dev dependencies available across all lessons
+# Install at root level with: uv sync
+dev = [
+    # Testing
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+
+    # Code quality
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+    "black>=24.0.0",
+
+    # Type stubs for mypy (for lessons that use these libraries)
+    "types-requests>=2.31.0",
+    "types-beautifulsoup4>=4.12.0",
+
+    # Development tools
+    "ipython>=8.20.0",
+    "ipdb>=0.13.13",
+
+    # Pre-commit hooks
+    "pre-commit>=3.6.0",
+]
+
+# ========================================
+# Code Quality Tool Configurations
+# ========================================
+
+[tool.ruff]
+# Enable pycodestyle, pyflakes, isort, and more
+line-length = 100
+target-version = "py311"
+
+# Exclude common directories
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Enable recommended rules + extras
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+    "PTH",    # flake8-use-pathlib
+    "RUF",    # Ruff-specific rules
+]
+
+ignore = [
+    "E501",   # Line too long (handled by formatter)
+    "B008",   # Do not perform function call in argument defaults
+    "TCH003", # Move stdlib import into type-checking block
+]
+
+# Allow autofix for all enabled rules
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore import rules in __init__.py files
+"__init__.py" = ["F401", "F403"]
+# Ignore certain rules in test files
+"test_*.py" = ["S101"]  # Allow assert in tests
+
+[tool.ruff.lint.isort]
+known-first-party = ["lessons"]
+combine-as-imports = true
+
+[tool.ruff.format]
+# Use single quotes for strings
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false  # Set to true for stricter checking
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+ignore_missing_imports = true
+mypy_path = "common/src"
+
+[tool.pytest.ini_options]
+testpaths = ["lessons"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--showlocals",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.coverage.run]
+source = ["lessons"]
+omit = [
+    "*/tests/*",
+    "*/__pycache__/*",
+    "*/.venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "python": "${fileDirname}/.venv/bin/python",
+      "cwd": "${fileDirname}",
+      "autoReload": {
+        "enable": false
+      },
+      "env": {
+        "VIRTUAL_ENV": "${fileDirname}/.venv",
+        "PATH": "${fileDirname}/.venv/bin:${env:PATH}"
+      }
+    }
+  ]
+}

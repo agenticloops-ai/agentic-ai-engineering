@@ -1,0 +1,19 @@
+{
+  // Disable automatic terminal activation to prevent root venv activation
+  "python.terminal.activateEnvironment": false,
+
+  // Analysis settings for better import resolution
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.extraPaths": [],
+
+  // Run Python files from the file's directory
+  "python.terminal.executeInFileDir": true,
+  "python.REPL.sendToNativeREPL": false,
+
+  // Code runner extension integration (if installed)
+  "code-runner.executorMap": {
+    "python": "uv run --directory $dirWithoutTrailingSlash python \"$fileName\""
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.clearPreviousOutput": true
+}
