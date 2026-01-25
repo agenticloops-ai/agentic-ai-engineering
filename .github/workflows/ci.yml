@@ -35,7 +35,7 @@ jobs:
 
       - name: Run all quality checks (includes pre-commit hooks)
         run: |
-          make check-all
+          make check
 
   test-lessons:
     name: Test All Lessons
