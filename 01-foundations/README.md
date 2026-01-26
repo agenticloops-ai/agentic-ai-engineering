@@ -1,17 +1,17 @@
 ---
 title: "Foundations of AI Agents"
-description: "Master the core building blocks of AI agents through progressive, hands-on lessons"
+description: "Master the core building blocks of AI agents through progressive, hands-on tutorials"
 ---
 
 # Foundations of AI Agents
 
-Master the core building blocks of AI agents through progressive, hands-on lessons.
+Master the core building blocks of AI agents through progressive, hands-on tutorials.
 
 <!-- TODO: Add reference to blog post "How Agents Work: The Patterns Behind the Magic" on Substack -->
 
 ## Progression Path
 
-Each lesson builds on the previous one:
+Each tutorial builds on the previous one:
 
 ```
 Simple LLM Call
@@ -35,16 +35,16 @@ Agent Loop
 
 ## Tips for Success
 
-1. **Run each lesson** - Don't just read the code, execute it
+1. **Run each tutorial** - Don't just read the code, execute it
 2. **Try both versions** - Compare Anthropic and OpenAI approaches
 3. **Modify and experiment** - Change prompts, add features, break things
 4. **Read the logs** - Understand what's happening at each step
 5. **Track tokens** - Be aware of API usage and costs
-6. **Build progressively** - Each lesson introduces one new concept
+6. **Build progressively** - Each tutorial introduces one new concept
 
-> Each lesson includes **both Anthropic and OpenAI implementations** in the same directory for easy comparison!
+> Each tutorial includes **both Anthropic and OpenAI implementations** in the same directory for easy comparison!
 
-## Lessons
+## Tutorials
 
 ### [01 - Simple LLM Call](01-simple-llm-call/)
 
@@ -79,7 +79,7 @@ Agent Loop
 - Create better user experiences with Rich formatting
 
 
-**Evolution:** Adds conversation context and interactivity to previous lessons
+**Evolution:** Adds conversation context and interactivity to previous tutorials
 
 ---
 
@@ -120,4 +120,3 @@ Agent Loop
 - [Responses API](https://platform.openai.com/docs/api-reference/responses)
 - [Function Calling Guide](https://platform.openai.com/docs/guides/function-calling)
 - [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
-
