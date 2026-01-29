@@ -1,0 +1,15 @@
+[project]
+name = "lesson-chat"
+version = "0.1.0"
+description = "Lesson 2: Interactive chat with message history (Anthropic & OpenAI)"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",  # Anthropic API client
+    "common",
+    "openai>=1.0.0",  # OpenAI API client
+    "python-dotenv>=1.0.0",  # Environment variable management
+    "rich>=13.7.0",  # Beautiful terminal output
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
