@@ -5,10 +5,14 @@ description = "Lesson 4: Tool use - enabling LLMs to call functions (Anthropic &
 requires-python = ">=3.11"
 dependencies = [
     "anthropic>=0.40.0",  # Anthropic API client
+    "common",
     "openai>=1.0.0",  # OpenAI API client
     "python-dotenv>=1.0.0",  # Environment variable management
     "rich>=13.7.0",  # Beautiful terminal output
 ]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
 
 [tool.ruff]
 line-length = 100
