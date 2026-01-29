@@ -1,0 +1,16 @@
+[project]
+name = "lesson-simple-llm-call"
+version = "0.1.0"
+description = "Lesson 1: Simple LLM call with Anthropic Claude, OpenAI GPT, and LiteLLM"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",  # Anthropic API client
+    "common",
+    "litellm>=1.0.0",  # Unified LLM API client
+    "openai>=1.0.0",  # OpenAI API client
+    "python-dotenv>=1.0.0",  # Environment variable management
+    "rich>=14.2.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
