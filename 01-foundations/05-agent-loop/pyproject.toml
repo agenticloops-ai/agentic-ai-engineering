@@ -5,7 +5,11 @@ description = "Lesson 5: Agent Loop - Autonomous agents that use tools iterative
 requires-python = ">=3.11"
 dependencies = [
     "anthropic>=0.40.0",
+    "common",
     "openai>=1.0.0",
     "python-dotenv>=1.0.0",
-    "rich>=13.0.0",
+    "rich>=14.0.0",
 ]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
