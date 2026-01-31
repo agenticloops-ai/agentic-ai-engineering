@@ -23,20 +23,25 @@ Build an interactive chat application with conversation history management. This
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API |
-| **OpenAI** | [02_chat_openai.py](02_chat_openai.py) | Interactive chat using OpenAI Responses API |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_chat_openai.py](02_chat_openai.py) | Interactive chat using OpenAI Responses API |
 
 ## Key Concepts
 
 ### 1. Chat Loop Pattern
 
 ```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
 flowchart TD
-    A([User Input]) --> B[Append to History]
-    B --> C[Send History to LLM]
-    C --> D[Append Response to History]
-    D --> E([Display Response])
-    E --> A
+    A(["🗣️ User Input      "]) -->|append| B["📝 Store in History "]
+    B -->|send| C["🧠 LLM Call       "]
+    C -->|append| D["📝 Store Response   "]
+    D -->|render| E(["💬 Display Output   "])
+    E -->|loop| A
 ```
 
 ### 2. Message History Management

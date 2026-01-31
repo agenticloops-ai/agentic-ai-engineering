@@ -108,6 +108,24 @@ icon: "icon name"
 7. **Important Considerations** — production concerns and gotchas
 8. **Next Steps** — link to next tutorial + suggested experiments
 
+## Mermaid Diagrams
+
+- Use **only when a visual flow adds clarity** — not every tutorial needs a diagram
+- Best suited for: data flows, loop patterns, decision trees, multi-step architectures
+- Skip diagrams for: simple linear concepts, single API calls that are self-explanatory
+- Use **handDrawn look** with **neutral theme** for consistent style:
+  ```
+  ---
+  config:
+    look: handDrawn
+    theme: neutral
+  ---
+  ```
+- Add **emoji icons** to nodes: `🧠` LLM, `🔧` tools, `📝` storage, `🗣️` input, `📄` output, `⚙️` logic, `💬` display
+- Add **edge labels** with engineering verbs (`request`, `response`, `iterate`, `evaluate`, `append`)
+- **Pad node text** with trailing spaces to normalize widths across nodes
+- Use `"LLM Call"` not `"Send to LLM"` — prefer technical, concise labels
+
 ## Code Quality
 
 - **Linter**: ruff (rules: F, E, W, I, N, UP, B, C4, SIM, PTH, RUF)
