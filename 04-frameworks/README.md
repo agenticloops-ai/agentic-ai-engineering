@@ -29,7 +29,7 @@ Graph-based agent orchestration from LangChain. Define agents as nodes and edges
 
 ---
 
-### [03 - PydanticAI](03-pydantic-ai/)
+### [03 - Pydantic AI](03-pydantic-ai/)
 
 Type-safe agent framework built on Pydantic. Strong typing, dependency injection, and structured outputs as first-class citizens.
 

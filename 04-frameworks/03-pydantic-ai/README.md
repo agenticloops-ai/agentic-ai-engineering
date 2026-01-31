@@ -1,11 +1,11 @@
 ---
-title: "PydanticAI"
+title: "Pydantic AI"
 description: "Type-safe agent framework built on Pydantic"
 icon: "shield"
 order: 3
 ---
 
-# PydanticAI
+# Pydantic AI
 
 Type-safe agent framework built on Pydantic. Strong typing, dependency injection, and structured outputs as first-class citizens.
 

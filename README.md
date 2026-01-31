@@ -32,7 +32,7 @@ The tutorials are organized into **modules** (`01-foundations`, `02-advanced`) t
 
 You can explore individual scripts independently or follow the complete learning path from start to finish.
 
-### 🎓 [01 - Foundations](01-foundations/README.md) <code style="color: white; background-color: green; padding: 2px 6px; border-radius: 5px">available</code>
+### 🎓 [01 - Foundations](01-foundations/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Your first steps — from a single API call to a fully autonomous agent loop. Build everything from scratch to understand what's really happening under the hood.
 
@@ -42,9 +42,9 @@ Your first steps — from a single API call to a fully autonomous agent loop. Bu
 4. **[Tool Use](01-foundations/04-tool-use/)** — Enable function calling
 5. **[Agent Loop](01-foundations/05-agent-loop/)** — Autonomous tool-using agents
 
-### 🧩 [02 - Effective Agent Patterns](02-effective-agents/README.md) <code style="color: white; background-color: orange; padding: 2px 6px; border-radius: 5px">coming soon</code>
+### 🧩 [02 - Effective Agents Patterns](02-effective-agents/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
-Architectural patterns that separate toy demos from real agents. Based on Anthropic's "Building Effective Agents" — learn when to chain, route, parallelize, or delegate.
+Architectural patterns that separate toy demos from real agents. Based on Anthropic's "[Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)" — learn when to chain, route, parallelize, or delegate.
 
 1. **[Augmented LLM](02-effective-agents/01-augmented-llm/)** — RAG, retrieval, knowledge grounding
 2. **[Prompt Chaining](02-effective-agents/02-prompt-chaining/)** — Sequential multi-step pipelines
@@ -54,7 +54,7 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 6. **[Evaluator-Optimizer](02-effective-agents/06-evaluator-optimizer/)** — Self-critique, iterative refinement
 7. **[Human in the Loop](02-effective-agents/07-human-in-the-loop/)** — Approval gates, escalation, feedback
 
-### 🚀 [03 - Advanced Techniques](03-advanced-techniques/README.md) <code style="color: white; background-color: orange; padding: 2px 6px; border-radius: 5px">coming soon</code>
+### 🚀 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 Practical engineering problems you'll hit the moment agents leave the prototype stage. Context limits, cost, memory, multimodal input — solved one tutorial at a time.
 
@@ -67,13 +67,13 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 7. **[Multi-Agent Systems](03-advanced-techniques/07-multi-agent-systems/)** — Agent-to-agent communication, delegation
 8. **[RAG Techniques](03-advanced-techniques/08-rag-techniques/)** — Hybrid search, GraphRAG, agentic retrieval
 
-### 🏗️ [04 - Frameworks](04-frameworks/README.md) <code style="color: white; background-color: orange; padding: 2px 6px; border-radius: 5px">coming soon</code>
+### 🏗️ [04 - Frameworks](04-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 One agent, nine implementations. Build the same system with each framework and compare trade-offs with your own hands.
 
 1. **[No Framework](04-frameworks/01-no-framework/)** — Raw SDK baseline
 2. **[LangGraph](04-frameworks/02-langgraph/)** — Graph-based orchestration
-3. **[PydanticAI](04-frameworks/03-pydantic-ai/)** — Type-safe agents
+3. **[Pydantic AI](04-frameworks/03-pydantic-ai/)** — Type-safe agents
 4. **[Google ADK](04-frameworks/04-google-adk/)** — Google's Agent Development Kit
 5. **[AWS Strands](04-frameworks/05-aws-strands/)** — AWS agent SDK
 6. **[CrewAI](04-frameworks/06-crewai/)** — Role-based multi-agent collaboration
@@ -81,7 +81,7 @@ One agent, nine implementations. Build the same system with each framework and c
 8. **[LlamaIndex](04-frameworks/08-llamaindex/)** — Data-centric agents
 9. **[Semantic Kernel](04-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
 
-### 🧪 [05 - Testing & Evaluation](05-testing-evaluation/README.md) <code style="color: white; background-color: orange; padding: 2px 6px; border-radius: 5px">coming soon</code>
+### 🧪 [05 - Testing & Evaluation](05-testing-evaluation/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 Agents are non-deterministic — testing them requires different thinking. Measure quality, catch regressions, and build confidence before shipping.
 
@@ -90,7 +90,7 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 3. **[Tracing & Debugging](05-testing-evaluation/03-tracing-debugging/)** — Observability during development
 4. **[Red Teaming & Safety](05-testing-evaluation/04-red-teaming-safety/)** — Adversarial testing, guardrails
 
-### 🏭 [06 - Production](06-production/README.md) <code style="color: white; background-color: orange; padding: 2px 6px; border-radius: 5px">coming soon</code>
+### 🏭 [06 - Production](06-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 The gap between "works on my laptop" and "runs reliably at scale." Principles, deployment, monitoring, cost control, and security.
 
