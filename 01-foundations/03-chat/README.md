@@ -23,12 +23,23 @@ Build an interactive chat application with conversation history management. This
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API |
-| **OpenAI** | [chat_openai.py](02_chat_openai.py) | Interactive chat using OpenAI Responses API |
+| **Anthropic** | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API |
+| **OpenAI** | [02_chat_openai.py](02_chat_openai.py) | Interactive chat using OpenAI Responses API |
 
 ## Key Concepts
 
-### 1. Message History Management
+### 1. Chat Loop Pattern
+
+```mermaid
+flowchart TD
+    A([User Input]) --> B[Append to History]
+    B --> C[Send History to LLM]
+    C --> D[Append Response to History]
+    D --> E([Display Response])
+    E --> A
+```
+
+### 2. Message History Management
 
 The key to multi-turn conversations is maintaining a message history array:
 
@@ -86,7 +97,7 @@ class ChatSession:
         return assistant_message
 ```
 
-### 2. Interactive Chat Loop
+### 3. Interactive Chat Loop
 
 Create a continuous conversation flow:
 
@@ -117,7 +128,7 @@ def main() -> None:
             break
 ```
 
-### 3. Token Tracking
+### 4. Token Tracking
 
 Monitor API usage across the conversation:
 
@@ -165,6 +176,6 @@ These strategies will be covered in future tutorials.
 ## Next Steps
 
 Once you've built interactive chat sessions, continue to:
-- **[Tool Calling](../04-tool-calling/README.md)** - Add external capabilities to your chat agent
+- **[Tool Use](../04-tool-use/README.md)** - Add external capabilities to your chat agent
 - **Experiment** - Try different conversation flows and system prompts
 - **Enhance** - Add features like conversation summarization or history persistence

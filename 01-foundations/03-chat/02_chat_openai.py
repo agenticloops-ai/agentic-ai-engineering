@@ -21,7 +21,8 @@ logger = setup_logging(__name__)
 
 class ChatSession:
     """
-    Chat agent that maintains conversation history and encapsulates all chat logic including message management and API interaction.
+    Chat agent that maintains conversation history and encapsulates
+    all chat logic including message management and API interaction.
     """
 
     def __init__(self, model: str, token_callback: OpenAITokenTracker):

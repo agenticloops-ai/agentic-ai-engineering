@@ -22,7 +22,8 @@ Learn how to build autonomous coding agents that use tools in a loop to complete
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Agent loop using Claude Messages API |
+| **Anthropic** | [01_minimal_agent.py](01_minimal_agent.py) | Minimal agent loop (~55 lines) with human-in-the-loop confirmation |
+| **Anthropic** | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API |
 | **OpenAI** | [02_agent_loop_openai.py](02_agent_loop_openai.py) | Agent loop using OpenAI Responses API |
 
 ## Key Concepts

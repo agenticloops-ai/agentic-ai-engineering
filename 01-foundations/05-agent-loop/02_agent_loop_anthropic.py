@@ -1,5 +1,5 @@
 """
-Agent Loop (OpenAI)
+Agent Loop (Anthropic)
 
 Demonstrates a minimal autonomous agent that:
 - Takes a task from the user
@@ -12,12 +12,15 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from common.logging_config import setup_logging
-from common.token_tracking import OpenAITokenTracker
+import anthropic
+from anthropic.types import TextBlock, ToolUseBlock
 from dotenv import find_dotenv, load_dotenv
-from openai import OpenAI
 from rich.console import Console
+from rich.markdown import Markdown
 from rich.panel import Panel
+
+from common.logging_config import setup_logging
+from common.token_tracking import AnthropicTokenTracker
 
 # Load environment variables from root .env file
 load_dotenv(find_dotenv())
@@ -34,13 +37,12 @@ Guidelines:
 - When done, provide a brief summary of what you accomplished"""
 
 
-# Tool definitions (OpenAI Responses API format)
+# Tool definitions
 TOOLS = [
     {
-        "type": "function",
         "name": "read_file",
         "description": "Read the contents of a file at the given path.",
-        "parameters": {
+        "input_schema": {
             "type": "object",
             "properties": {
                 "path": {
@@ -48,15 +50,13 @@ TOOLS = [
                     "description": "The file path to read",
                 }
             },
-            "additionalProperties": False,
             "required": ["path"],
         },
     },
     {
-        "type": "function",
         "name": "write_file",
         "description": "Write content to a file at the given path.",
-        "parameters": {
+        "input_schema": {
             "type": "object",
             "properties": {
                 "path": {
@@ -68,15 +68,13 @@ TOOLS = [
                     "description": "The content to write",
                 },
             },
-            "additionalProperties": False,
             "required": ["path", "content"],
         },
     },
     {
-        "type": "function",
         "name": "bash",
         "description": "Execute a bash command and return its output.",
-        "parameters": {
+        "input_schema": {
             "type": "object",
             "properties": {
                 "command": {
@@ -84,7 +82,6 @@ TOOLS = [
                     "description": "The bash command to execute",
                 }
             },
-            "additionalProperties": False,
             "required": ["command"],
         },
     },
@@ -132,70 +129,71 @@ class CodingAgent:
     Executes tools in a loop until the task is complete.
     """
 
-    def __init__(self, model: str = "codex-mini-latest"):
-        self.client = OpenAI()
+    def __init__(self, model: str = "claude-sonnet-4-20250514"):
+        self.client = anthropic.Anthropic()
         self.model = model
         self.max_iterations = 10
-        self.token_tracker = OpenAITokenTracker()
+        self.token_tracker = AnthropicTokenTracker()
 
     def run(self, task: str) -> str:
         """Execute the agent loop for the given task."""
         logger.info(f"Task: {task}")
 
-        input_messages: list[Any] = [{"role": "user", "content": task}]
-        previous_response_id: str | None = None
+        messages: list[dict[str, Any]] = [{"role": "user", "content": task}]
 
         for iteration in range(self.max_iterations):
             logger.info(f"--- Iteration {iteration + 1} ---")
 
-            # Call the model using responses API
-            response = self.client.responses.create(
+            # Call the model
+            response = self.client.messages.create(
                 model=self.model,
                 temperature=0.1,
+                max_tokens=4096,
+                system=SYSTEM_PROMPT,
                 tools=TOOLS,
-                instructions=SYSTEM_PROMPT,
-                input=input_messages,
-                **({"previous_response_id": previous_response_id} if previous_response_id else {}),
+                messages=messages,
             )
 
-            if response.usage:
-                self.token_tracker.track(response.usage)
+            self.token_tracker.track(response.usage)
 
-            # Log any text output
-            if response.output_text:
-                logger.info(f"🤖 Agent: {response.output_text}")
+            # Process response content
+            assistant_content = []
+            for block in response.content:
+                if isinstance(block, TextBlock):
+                    logger.info(f"🤖 Agent: {block.text}")
+                    assistant_content.append({"type": "text", "text": block.text})
+                elif isinstance(block, ToolUseBlock):
+                    logger.info(f"🔧 Tool: {block.name}({json.dumps(block.input)})")
+                    assistant_content.append(
+                        {
+                            "type": "tool_use",
+                            "id": block.id,
+                            "name": block.name,
+                            "input": block.input,
+                        }
+                    )
 
-            # Check if there are function calls
-            function_calls = [o for o in response.output if o.type == "function_call"]
+            messages.append({"role": "assistant", "content": assistant_content})
 
-            # If no function calls, task is complete
-            if not function_calls:
-                return response.output_text or "Done"
+            # If no tool use, task is complete
+            if response.stop_reason == "end_turn":
+                return response.content[0].text if response.content else "Done"
 
             # Execute tools and collect results
-            tool_outputs: list[dict[str, str]] = []
-            for call in function_calls:
-                try:
-                    args = json.loads(call.arguments)
-                except json.JSONDecodeError as e:
-                    args = {}
-                    logger.error(f"Invalid tool arguments: {e}")
+            tool_results = []
+            for block in response.content:
+                if isinstance(block, ToolUseBlock):
+                    result = execute_tool(block.name, block.input)
+                    logger.info(f"📋 Result: {result[:100]}{'...' if len(result) > 100 else ''}")
+                    tool_results.append(
+                        {
+                            "type": "tool_result",
+                            "tool_use_id": block.id,
+                            "content": result,
+                        }
+                    )
 
-                logger.info(f"🔧 Tool: {call.name}({json.dumps(args)})")
-                result = execute_tool(call.name, args)
-                logger.info(f"📋 Result: {result[:100]}{'...' if len(result) > 100 else ''}")
-
-                tool_outputs.append(
-                    {
-                        "type": "function_call_output",
-                        "call_id": call.call_id,
-                        "output": json.dumps({"result": result}),
-                    }
-                )
-
-            # Continue conversation with tool outputs
-            previous_response_id = response.id
-            input_messages = tool_outputs
+            messages.append({"role": "user", "content": tool_results})
 
         return "Max iterations reached"
 
@@ -210,7 +208,7 @@ def main() -> None:
             "  - List current dependencies\n"
             "  - Explain code in the current folder\n\n"
             "Type 'quit' to exit.",
-            title="Coding Agent (OpenAI)",
+            title="Coding Agent (Anthropic)",
         )
     )
 
@@ -218,14 +216,21 @@ def main() -> None:
 
     try:
         while True:
-            user_input = input("You: ")
-            if user_input.lower() in ("exit", "quit", "q"):
-                break
-            response = agent.run(user_input)
-            print(f"Agent: {response}")
-    except KeyboardInterrupt:
-        print("\nInterrupted")
+            console.print("\n[bold green]You:[/bold green] ", end="")
+            user_input = input().strip()
 
+            if user_input.lower() in ("exit", "quit", "q", ""):
+                console.print("\n[yellow]Ending session...[/yellow]")
+                break
+
+            response = agent.run(user_input)
+            console.print("\n[bold blue]Agent:[/bold blue]")
+            console.print(Markdown(response))
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Interrupted.[/yellow]")
+
+    console.print()
     agent.token_tracker.report()
 
 

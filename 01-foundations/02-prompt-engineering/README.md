@@ -9,6 +9,4 @@ order: 2
 
 Learn prompt engineering techniques including system messages, few-shot examples, and structured output.
 
-Comming soon...
-
-
+Coming soon...

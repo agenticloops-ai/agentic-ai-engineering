@@ -6,9 +6,10 @@ for multiple LLM providers (OpenAI, Anthropic, Google, etc.).
 Shows separation of agent logic from orchestration.
 """
 
-from common.logging_config import setup_logging
 from dotenv import find_dotenv, load_dotenv
 from litellm import completion
+
+from common.logging_config import setup_logging
 
 # Load environment variables from root .env file
 load_dotenv(find_dotenv())

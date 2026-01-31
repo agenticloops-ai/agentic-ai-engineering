@@ -5,9 +5,10 @@ Demonstrates a basic call to the OpenAI API.
 Shows separation of agent logic from orchestration.
 """
 
-from common.logging_config import setup_logging
 from dotenv import find_dotenv, load_dotenv
 from openai import OpenAI
+
+from common.logging_config import setup_logging
 
 # Load environment variables from root .env file
 load_dotenv(find_dotenv())
@@ -24,12 +25,7 @@ class LLMClient:
     """
 
     def __init__(self, model: str):
-        """
-        Initialize the agent.
-
-        Args:
-            model: OpenAI model name
-        """
+        """Initialize the agent."""
         self.client = OpenAI()
         self.model = model
         self.system_prompt = "You are a helpful AI assistant. Provide clear and concise answers."
