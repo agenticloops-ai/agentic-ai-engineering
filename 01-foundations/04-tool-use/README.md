@@ -11,35 +11,23 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 
 > **Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
 
-## What You'll Learn
+## 🎯 What You'll Learn
 
 - Define tools with JSON Schema for LLM consumption
 - Handle the tool call loop (request -> execute -> respond)
 - Execute functions safely with guardrails
 - Work with multiple tool calls in a single response
 
-## Available Examples
+## 📦 Available Examples
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API |
-| **OpenAI** | [02_tool_use_openai.py](02_tool_use_openai.py) | Tool use with OpenAI Responses API |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_tool_use_openai.py](02_tool_use_openai.py) | Tool use with OpenAI Responses API |
 
-## Key Concepts
+## 🔑 Key Concepts
 
-### 1. Tool Call Flow
-
-```mermaid
-flowchart TD
-    A([User Message]) --> B[LLM with Tools]
-    B --> C{Tool Call?}
-    C -->|No| D([Final Response])
-    C -->|Yes| E[Execute Tool]
-    E --> F[Send Result to LLM]
-    F --> B
-```
-
-### 2. Tool Definition
+### 1. Tool Definition
 
 Tools are defined using JSON Schema so the LLM understands what functions are available:
 
@@ -88,7 +76,7 @@ TOOLS = [
 ]
 ```
 
-### 3. The Tool Call Loop
+### 2. The Tool Call Loop
 
 The LLM doesn't execute tools directly - it requests tool calls that you execute:
 
@@ -133,7 +121,7 @@ for output in response.output:
         # Send result back with call_id
 ```
 
-### 4. Tool Implementation with Guardrails
+### 3. Tool Implementation with Guardrails
 
 Always validate and sanitize tool inputs, especially for system-level tools:
 
@@ -156,7 +144,7 @@ def run_bash(command: str, timeout: int = 30) -> dict:
     return {"stdout": result.stdout, "stderr": result.stderr}
 ```
 
-### 5. Handling Multiple Tool Calls
+### 4. Handling Multiple Tool Calls
 
 LLMs can request multiple tool calls in a single response. Process all of them before continuing:
 
@@ -188,7 +176,7 @@ for func_call in function_calls:
     })
 ```
 
-## Tools in This Tutorial
+## 🧰 Tools in This Tutorial
 
 | Tool | Description |
 |------|-------------|
@@ -196,7 +184,7 @@ for func_call in function_calls:
 | `read_file` | Read file contents from the filesystem |
 | `run_bash` | Execute shell commands (with safety guardrails) |
 
-## Code Structure
+## 🏗️ Code Structure
 
 Both examples follow a consistent structure:
 
@@ -243,7 +231,7 @@ def main():
         print(response)
 ```
 
-## Next Steps
+## 👉 Next Steps
 
 Once you've mastered tool use, continue to:
 - **[Agent Loop](../05-agent-loop/README.md)** - Build autonomous agents that use tools to complete tasks

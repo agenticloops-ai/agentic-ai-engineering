@@ -11,29 +11,34 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 
 > **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
 
-## What You'll Learn
+## 🎯 What You'll Learn
 
 - Initialize and configure LLM clients for different providers
 - Make simple API calls with single prompts
 - Extract text responses from API calls
 - Use a unified interface (LiteLLM) to work with multiple providers
 
-## Available Examples
+## 📦 Available Examples
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls |
-| **OpenAI** | [02_llm_call_openai.py](02_llm_call_openai.py) | Basic OpenAI Responses API calls |
-| **LiteLLM** | [03_llm_call_litellm.py](03_llm_call_litellm.py) | Unified interface for any provider |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_llm_call_openai.py](02_llm_call_openai.py) | Basic OpenAI Responses API calls |
+| ![LiteLLM](https://img.shields.io/badge/LiteLLM-ED7D31?style=for-the-badge) | [03_llm_call_litellm.py](03_llm_call_litellm.py) | Unified interface for any provider |
 
-## Key Concepts
+## 🔑 Key Concepts
 
 ### 1. Simple LLM Call Flow
 
 ```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
 flowchart LR
-    A([Prompt]) --> B[LLM API Call]
-    B --> C([Response Text])
+    A(["⚡ Input Prompt"]) -->|request| B["🧠 LLM Call   "]
+    B -->|response| C(["📄 Response Text"])
 ```
 
 ### 2. LLM Client Initialization
@@ -127,7 +132,7 @@ text = response.choices[0].message.content
 
 > Other advanced parameters like `top_p`, `top_k`, `stop_sequences`, `presence_penalty`, `frequency_penalty`, and `seed` will be covered in future tutorials.
 
-## Code structure
+## 🏗️ Code Structure
 
 All examples follow a consistent structure:
 
@@ -164,7 +169,7 @@ def main() -> None:
     logger.info(f"Response: {response}")
 ```
 
-## Next Steps
+## 👉 Next Steps
 
 Once you've mastered simple LLM calls, continue to:
 - **[Prompt Engineering](../02-prompt-engineering/README.md)** - Learn to craft effective prompts for better responses

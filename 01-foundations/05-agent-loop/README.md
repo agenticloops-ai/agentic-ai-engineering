@@ -7,39 +7,37 @@ order: 5
 
 # Agent Loop
 
-Learn how to build autonomous coding agents that use tools in a loop to complete tasks. This tutorial demonstrates the core pattern behind AI coding assistants.
-
-> **Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
-
-## What You'll Learn
-
-- Implement an autonomous agent loop that iterates until task completion
-- Define and execute tools (read_file, write_file, bash)
+Learn how to build autonomous coding agents that use tools in a loop to complete tasks. This tutorial demonstrates the core pattern behind read_file, write_file, bash)
 - Handle tool calls and results in conversation flow
 - Build interactive CLI agents with proper error handling
 
-## Available Examples
+## 📦 Available Examples
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [01_minimal_agent.py](01_minimal_agent.py) | Minimal agent loop (~55 lines) with human-in-the-loop confirmation |
-| **Anthropic** | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API |
-| **OpenAI** | [02_agent_loop_openai.py](02_agent_loop_openai.py) | Agent loop using OpenAI Responses API |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_minimal_agent.py](01_minimal_agent.py) | Minimal agent loop (~55 lines) with human-in-the-loop confirmation |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_agent_loop_openai.py](02_agent_loop_openai.py) | Agent loop using OpenAI Responses API |
 
-## Key Concepts
+## 🔑 Key Concepts
 
 ### 1. The Agent Loop Pattern
 
 The core pattern is simple: call the LLM, execute any requested tools, feed results back, repeat until done.
 
 ```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
 flowchart TD
-    A([User Task]) --> B[Call LLM with Tools]
-    B --> C{Tool Calls?}
-    C -->|No| D([Return Response])
-    C -->|Yes| E[Execute Tools]
-    E --> F[Append Results]
-    F --> B
+    A(["🗣️ User Task        "]) -->|init| B["🧠 LLM Call      "]
+    B -->|evaluate| C{"⚙️ Tool Calls?     "}
+    C -->|"no tools"| D(["📄 Return Response  "])
+    C -->|"has tools"| E["🔧 Execute Tools    "]
+    E -->|collect| F["📝 Append Results   "]
+    F -->|iterate| B
 ```
 
 ```python
@@ -94,7 +92,7 @@ response = client.responses.create(
 )
 ```
 
-## Code Structure
+## 🏗️ Code Structure
 
 Both examples follow a consistent structure:
 
@@ -133,7 +131,7 @@ def main() -> None:
 ```
 
 
-## Next Steps
+## 👉 Next Steps
 
 Once you've mastered the agent loop pattern:
 - Add more tools (web search, database queries, API calls)

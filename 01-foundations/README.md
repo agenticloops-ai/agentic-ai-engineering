@@ -9,7 +9,7 @@ Master the core building blocks of AI agents through progressive, hands-on tutor
 
 <!-- TODO: Add reference to blog post "How Agents Work: The Patterns Behind the Magic" on Substack -->
 
-## Progression Path
+## 🗺️ Progression Path
 
 Each tutorial builds on the previous one:
 
@@ -33,7 +33,7 @@ Tool Use
 Agent Loop
 ```
 
-## Tips for Success
+## 💡 Tips for Success
 
 1. **Run each tutorial** - Don't just read the code, execute it
 2. **Try both versions** - Compare Anthropic and OpenAI approaches
@@ -44,7 +44,7 @@ Agent Loop
 
 > Each tutorial includes **both Anthropic and OpenAI implementations** in the same directory for easy comparison!
 
-## Tutorials
+## 📚 Tutorials
 
 ### [01 - Simple LLM Call](01-simple-llm-call/)
 
@@ -107,7 +107,7 @@ Agent Loop
 
 ---
 
-## Resources
+## 🔗 Resources
 
 ### Anthropic Claude
 - [Anthropic Documentation](https://docs.anthropic.com/)
