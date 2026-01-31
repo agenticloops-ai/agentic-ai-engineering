@@ -1,5 +1,5 @@
 # AI Agents Engineering
-### by [AgenticLoops.ai](https://agenticloops.ai) - from engineers, for engineers
+#### by [AgenticLoops.ai](https://agenticloops.ai) - for engineers, from engineers
 
 [![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?logo=googlechrome&logoColor=white)](https://agenticloops.ai)
 [![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
@@ -37,7 +37,7 @@ You can explore individual scripts independently or follow the complete learning
 Your first steps — from a single API call to a fully autonomous agent loop. Build everything from scratch to understand what's really happening under the hood.
 
 1. **[Simple LLM Call](01-foundations/01-simple-llm-call/)** — First API call with token tracking
-2. **[Prompt Engineering](01-foundations/02-prompt-engineering/)** — Guide model behavior
+2. **[Prompt Engineering](01-foundations/02-prompt-engineering/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Guide model behavior
 3. **[Chat](01-foundations/03-chat/)** — Interactive chat with message history
 4. **[Tool Use](01-foundations/04-tool-use/)** — Enable function calling
 5. **[Agent Loop](01-foundations/05-agent-loop/)** — Autonomous tool-using agents

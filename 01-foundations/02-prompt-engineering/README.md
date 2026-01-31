@@ -9,4 +9,11 @@ order: 2
 
 Learn prompt engineering techniques including system messages, few-shot examples, and structured output.
 
-Coming soon...
+## 🎯 What You'll Learn
+
+- Craft effective system messages to control model behavior
+- Use role-based prompting for consistent outputs
+- Apply few-shot learning with example-based guidance
+- Request structured output (JSON) from LLMs
+
+> 🚧 **Coming soon** — [Subscribe to our Substack](https://agenticloopsai.substack.com) or ⭐️ star the repo to get notified when this tutorial drops.
