@@ -27,7 +27,19 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 
 ## Key Concepts
 
-### 1. Tool Definition
+### 1. Tool Call Flow
+
+```mermaid
+flowchart TD
+    A([User Message]) --> B[LLM with Tools]
+    B --> C{Tool Call?}
+    C -->|No| D([Final Response])
+    C -->|Yes| E[Execute Tool]
+    E --> F[Send Result to LLM]
+    F --> B
+```
+
+### 2. Tool Definition
 
 Tools are defined using JSON Schema so the LLM understands what functions are available:
 
@@ -76,7 +88,7 @@ TOOLS = [
 ]
 ```
 
-### 2. The Tool Call Loop
+### 3. The Tool Call Loop
 
 The LLM doesn't execute tools directly - it requests tool calls that you execute:
 
@@ -121,7 +133,7 @@ for output in response.output:
         # Send result back with call_id
 ```
 
-### 3. Tool Implementation with Guardrails
+### 4. Tool Implementation with Guardrails
 
 Always validate and sanitize tool inputs, especially for system-level tools:
 
@@ -144,7 +156,7 @@ def run_bash(command: str, timeout: int = 30) -> dict:
     return {"stdout": result.stdout, "stderr": result.stderr}
 ```
 
-### 4. Handling Multiple Tool Calls
+### 5. Handling Multiple Tool Calls
 
 LLMs can request multiple tool calls in a single response. Process all of them before continuing:
 

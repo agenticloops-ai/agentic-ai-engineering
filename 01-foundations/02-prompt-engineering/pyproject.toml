@@ -7,8 +7,12 @@ dependencies = [
     "anthropic>=0.40.0",  # Anthropic API client
     "openai>=1.0.0",  # OpenAI API client
     "python-dotenv>=1.0.0",  # Environment variable management
+    "common",
     "rich>=13.7.0",  # Beautiful terminal output
 ]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
 
 [tool.ruff]
 line-length = 100

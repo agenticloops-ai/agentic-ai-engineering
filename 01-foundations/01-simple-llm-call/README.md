@@ -22,13 +22,21 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 
 | Provider | File | Description |
 |----------|------|-------------|
-| **Anthropic** | [llm_call_anthropic.py](llm_call_anthropic.py) | Basic Claude Messages API calls |
-| **OpenAI** | [llm_call_openai.py](llm_call_openai.py) | Basic OpenAI Responses API calls |
-| **LiteLLM** | [llm_call_litellm.py](llm_call_litellm.py) | Unified interface for any provider |
+| **Anthropic** | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls |
+| **OpenAI** | [02_llm_call_openai.py](02_llm_call_openai.py) | Basic OpenAI Responses API calls |
+| **LiteLLM** | [03_llm_call_litellm.py](03_llm_call_litellm.py) | Unified interface for any provider |
 
 ## Key Concepts
 
-### 1. LLM Client Initialization
+### 1. Simple LLM Call Flow
+
+```mermaid
+flowchart LR
+    A([Prompt]) --> B[LLM API Call]
+    B --> C([Response Text])
+```
+
+### 2. LLM Client Initialization
 
 Each provider has its own client initialization:
 
@@ -56,7 +64,7 @@ from litellm import completion
 # Uses appropriate API key based on model name
 ```
 
-### 2. Making API Calls
+### 3. Making API Calls
 
 **Anthropic (Messages API):**
 ```python
@@ -100,7 +108,7 @@ text = response.choices[0].message.content
 
 > These examples show basic (non-streaming) API calls. For streaming responses, see the [Anthropic Streaming docs](https://docs.anthropic.com/en/api/messages-streaming), [OpenAI Streaming docs](https://platform.openai.com/docs/api-reference/streaming), and [LiteLLM Streaming docs](https://docs.litellm.ai/docs/completion/stream).
 
-### 3. Key Configuration Parameters
+### 4. Key Configuration Parameters
 
 **Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-20250514`, `gpt-4o`)
 
