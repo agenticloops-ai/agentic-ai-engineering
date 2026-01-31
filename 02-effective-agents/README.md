@@ -1,9 +1,9 @@
 ---
-title: "Effective Agent Patterns"
+title: "Effective Agents Patterns"
 description: "Architectural patterns that separate toy demos from real agents — learn when to chain, route, parallelize, or delegate"
 ---
 
-# Effective Agent Patterns
+# Effective Agents Patterns
 
 Architectural patterns that separate toy demos from real agents. Based on Anthropic's [Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) — learn when to chain, route, parallelize, or delegate.
 

@@ -45,6 +45,12 @@ Authentication, sandboxing, prompt injection defense, and tool-use permissions. 
 
 ---
 
+### [06 - Error Handling & Resilience](06-error-handling-resilience/)
+
+Retries, fallback models, graceful degradation, and rate limit handling. LLM APIs fail more than traditional APIs — build agents that recover automatically.
+
+---
+
 ## 🔗 Resources
 
 - [12-Factor Agents](https://github.com/humanlayer/12-factor-agents)

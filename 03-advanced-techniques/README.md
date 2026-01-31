@@ -41,6 +41,10 @@ Multi-Agent Systems
   (adds advanced retrieval)
     ↓
 RAG Techniques
+    ↓
+  (adds real-time output)
+    ↓
+Streaming
 ```
 
 ## 📚 Tutorials
@@ -90,6 +94,12 @@ Multiple agents collaborating on shared tasks. Communication patterns, delegatio
 ### [08 - RAG Techniques](08-rag-techniques/)
 
 Move beyond basic vector similarity search. Hybrid retrieval, knowledge graphs, contextual chunking, and agentic RAG patterns for complex queries.
+
+---
+
+### [09 - Streaming](09-streaming/)
+
+SSE, token-by-token output, and streaming tool calls. Every production UI needs this and it's surprisingly tricky to get right with agents.
 
 ---
 

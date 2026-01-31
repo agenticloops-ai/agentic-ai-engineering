@@ -39,6 +39,12 @@ Adversarial testing for agents. Prompt injection, jailbreaks, tool misuse, and b
 
 ---
 
+### [05 - Benchmarking](05-benchmarking/)
+
+Compare models, prompts, and architectures systematically. Head-to-head evaluation across dimensions that matter — accuracy, latency, cost, and reliability.
+
+---
+
 ## 🔗 Resources
 
 - [Anthropic Evals Guide](https://docs.anthropic.com/en/docs/build-with-claude/develop-tests)

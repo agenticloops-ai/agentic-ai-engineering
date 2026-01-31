@@ -66,6 +66,7 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 6. **[MCP](03-advanced-techniques/06-mcp/)** — Model Context Protocol, standardized tool integration
 7. **[Multi-Agent Systems](03-advanced-techniques/07-multi-agent-systems/)** — Agent-to-agent communication, delegation
 8. **[RAG Techniques](03-advanced-techniques/08-rag-techniques/)** — Hybrid search, GraphRAG, agentic retrieval
+9. **[Streaming](03-advanced-techniques/09-streaming/)** — SSE, token-by-token output, streaming tool calls
 
 ### 🏗️ [04 - Frameworks](04-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
@@ -89,6 +90,7 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 2. **[Evals](05-testing-evaluation/02-evals/)** — Accuracy, quality, regression benchmarks
 3. **[Tracing & Debugging](05-testing-evaluation/03-tracing-debugging/)** — Observability during development
 4. **[Red Teaming & Safety](05-testing-evaluation/04-red-teaming-safety/)** — Adversarial testing, guardrails
+5. **[Benchmarking](05-testing-evaluation/05-benchmarking/)** — Comparing models, prompts, architectures head-to-head
 
 ### 🏭 [06 - Production](06-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
@@ -99,6 +101,7 @@ The gap between "works on my laptop" and "runs reliably at scale." Principles, d
 3. **[Monitoring & Observability](06-production/03-monitoring-observability/)** — Metrics, logging, tracing in prod
 4. **[Cost Optimization](06-production/04-cost-optimization/)** — Token budgets, caching, model routing
 5. **[Security & Guardrails](06-production/05-security-guardrails/)** — Auth, sandboxing, injection defense
+6. **[Error Handling & Resilience](06-production/06-error-handling-resilience/)** — Retries, fallbacks, graceful degradation
 
 
 ## 💜 Support Us
