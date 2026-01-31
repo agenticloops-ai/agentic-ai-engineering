@@ -1,10 +1,31 @@
-# AI Agents Engineering
-#### by [AgenticLoops.ai](https://agenticloops.ai) - for engineers, from engineers
 
-[![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?logo=googlechrome&logoColor=white)](https://agenticloops.ai)
-[![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
-[![X](https://img.shields.io/badge/X-Follow_@agenticloops__ai-black)](https://x.com/agenticloops_ai)
+
+<div align="center">
+
+![AI Agents Engineering](common/images/banner.png)
+
+[![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
+[![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
+[![Follow @agenticloops_ai](https://img.shields.io/badge/Follow%20%40agenticloops__ai-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/agenticloops_ai)
+
+</div>
+
+<!-- TODO: Uncomment when repo is public — readme-i18n.com requires a public repo to generate translations
+<p align="center">
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=de">Deutsch</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=es">Español</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=fr">Français</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=ja">日本語</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=ko">한국어</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=pt">Português</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=uk">Українська</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=zh">中文</a>
+</p>
+-->
+
+# AI Agents Engineering
+*by [AgenticLoops.ai](https://agenticloops.ai) - for Engineers, from Engineers*
 
 **A practical, hands-on guide to AI agent development**. Learn by building real agents - from basic LLM interactions to autonomous tool-using systems. Master agentic patterns, explore popular frameworks, and discover deployment strategies through interactive tutorials.
 

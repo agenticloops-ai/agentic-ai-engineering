@@ -50,15 +50,6 @@ dmypy.json
 *~
 .DS_Store
 
-# Generated files
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.pdf
-*.csv
-*.xlsx
-
 # uv
 # Note: We keep uv.lock files in git for reproducibility
 # But you can uncomment the next line if you prefer not to
