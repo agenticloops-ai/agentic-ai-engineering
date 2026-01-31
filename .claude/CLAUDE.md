@@ -83,10 +83,10 @@ description: "Brief description"
 ```
 
 1. **Title & Introduction** — module name and one-line summary
-2. **Progression Path** — ASCII diagram showing tutorial flow and what each step adds
-3. **Tips for Success** — numbered list of practical advice
-4. **Tutorials** — one section per tutorial with heading link, "What you'll learn" bullets, and "Evolution" note describing what it adds over the previous tutorial
-5. **Resources** — grouped external links (e.g. Anthropic docs, OpenAI docs, etc.)
+2. **🗺️ Progression Path** — ASCII diagram showing tutorial flow and what each step adds
+3. **💡 Tips for Success** — numbered list of practical advice
+4. **📚 Tutorials** — one section per tutorial with heading link, "What you'll learn" bullets, and "Evolution" note describing what it adds over the previous tutorial
+5. **🔗 Resources** — grouped external links (e.g. Anthropic docs, OpenAI docs, etc.)
 
 ### Tutorial README Structure (e.g., `01-simple-llm-call/README.md`)
 
@@ -101,12 +101,12 @@ icon: "icon name"
 
 1. **Title & Introduction** — what you'll learn
 2. **Setup Reference** — link to SETUP.md (typically the same)
-3. **What You'll Learn** — bullet list of learning objectives
-4. **Available Examples** — table of implementations
-5. **Key Concepts** — detailed explanations with code examples showing key concepts for the tutorial, reference to previous tutorials instead of duplicating
-6. **Code Structure** — optional, architecture patterns (for complex tutorials)
-7. **Important Considerations** — production concerns and gotchas
-8. **Next Steps** — link to next tutorial + suggested experiments
+3. **🎯 What You'll Learn** — bullet list of learning objectives
+4. **📦 Available Examples** — table of implementations
+5. **🔑 Key Concepts** — detailed explanations with code examples showing key concepts for the tutorial, reference to previous tutorials instead of duplicating
+6. **🏗️ Code Structure** — optional, architecture patterns (for complex tutorials)
+7. **⚠️ Important Considerations** — production concerns and gotchas
+8. **👉 Next Steps** — link to next tutorial + suggested experiments
 
 ## Mermaid Diagrams
 

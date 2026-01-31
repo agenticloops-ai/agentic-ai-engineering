@@ -11,7 +11,7 @@ Learn how to build autonomous coding agents that use tools in a loop to complete
 - Handle tool calls and results in conversation flow
 - Build interactive CLI agents with proper error handling
 
-## Available Examples
+## 📦 Available Examples
 
 | Provider | File | Description |
 |----------|------|-------------|
@@ -19,7 +19,7 @@ Learn how to build autonomous coding agents that use tools in a loop to complete
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API |
 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_agent_loop_openai.py](02_agent_loop_openai.py) | Agent loop using OpenAI Responses API |
 
-## Key Concepts
+## 🔑 Key Concepts
 
 ### 1. The Agent Loop Pattern
 
@@ -92,7 +92,7 @@ response = client.responses.create(
 )
 ```
 
-## Code Structure
+## 🏗️ Code Structure
 
 Both examples follow a consistent structure:
 
@@ -131,7 +131,7 @@ def main() -> None:
 ```
 
 
-## Next Steps
+## 👉 Next Steps
 
 Once you've mastered the agent loop pattern:
 - Add more tools (web search, database queries, API calls)
