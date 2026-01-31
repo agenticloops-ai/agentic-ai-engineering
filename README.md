@@ -14,10 +14,10 @@
 
 ## 🎯 Who Is This For?
 
-- **Engineers** who want to understand how AI agents work under the hood and move beyond chat wrappers... and build tool-using, autonomous agents
-- **Anyone** who prefers learning by running real code over watching videos or reading theory
+- **Engineers** who want to understand how AI agents work **under the hood** and move beyond chat wrappers... and build tool-using, autonomous agents
+- **Anyone** who prefers **learning by running real code** over watching videos or reading theory
 
-No prior AI/ML experience required - just Python fundamentals and curiosity.
+No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
 
 ## 🚀 Quick Start
 
