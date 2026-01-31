@@ -19,15 +19,26 @@
 
 No prior AI/ML experience required - just Python fundamentals and curiosity.
 
-## 📚 Setup
+## 🚀 Quick Start
 
-See [SETUP.md](SETUP.md) for detailed setup instructions.
+```bash
+brew install uv
+
+git clone https://github.com/agenticloops-ai/ai-agents-engineering.git
+
+cd ai-agents-engineering
+cp .env.example .env  # add your API keys
+
+uv run --directory 01-foundations/01-simple-llm-call python 01_simple_call_anthropic.py
+```
+
+See 📚[SETUP.md](SETUP.md) for detailed setup instructions.
 
 ## 🗂️ Tutorials Structure
 
-The tutorials are organized into **modules** (`01-foundations`, `02-advanced`) that progress from basics to advanced concepts. Each module contains numbered **tutorials** that build on previous lessons. Inside each tutorial folder, you'll find:
+The tutorials are organized into **modules** (`01-foundations`, `02-effective-agents`) that progress from basics to advanced concepts. Each module contains numbered **tutorials** that build on previous lessons. Inside each tutorial folder, you'll find:
 
-- **Python scripts** - Self-contained, runnable examples demonstrating key concepts
+- **Python scripts** ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white) - Self-contained, runnable examples demonstrating key concepts
 - **README.md** - Detailed explanations, code walkthroughs, and learning objectives
 
 You can explore individual scripts independently or follow the complete learning path from start to finish.
@@ -54,7 +65,7 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 6. **[Evaluator-Optimizer](02-effective-agents/06-evaluator-optimizer/)** — Self-critique, iterative refinement
 7. **[Human in the Loop](02-effective-agents/07-human-in-the-loop/)** — Approval gates, escalation, feedback
 
-### 🚀 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 Practical engineering problems you'll hit the moment agents leave the prototype stage. Context limits, cost, memory, multimodal input — solved one tutorial at a time.
 
