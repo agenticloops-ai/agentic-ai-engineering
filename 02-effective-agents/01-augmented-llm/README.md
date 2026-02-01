@@ -30,6 +30,8 @@ This tutorial implements a **Codebase Navigator** — an agent that helps engine
 |---|--------|----------|---------------------|
 | 01 | `01_augmented_llm.py` | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | Full augmented LLM with RAG, tools, and memory |
 
+> **Contributions welcome!** We're looking for help porting this tutorial to additional providers. See [#11 — Port to OpenAI API](https://github.com/agenticloops-ai/ai-agents-engineering/issues/11) if you'd like to contribute.
+
 ## 🔑 Key Concepts
 
 ### Augmentations
