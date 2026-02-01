@@ -24,7 +24,7 @@ repos:
         additional_dependencies:
           - types-requests
           - types-beautifulsoup4
-        args: [--ignore-missing-imports, --show-error-codes]
+        args: [--show-error-codes]
 
   # Conventional Commits - Enforce commit message format
   - repo: https://github.com/compilerla/conventional-pre-commit

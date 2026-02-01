@@ -5,6 +5,11 @@
 MODULES := $(wildcard [0-9][0-9]-*)
 LESSONS := $(wildcard [0-9][0-9]-*/[0-9][0-9]-*)
 
+# Directories to exclude from linting/type checking
+EXCLUDE_DIRS := repos .venv
+RUFF_EXCLUDES := $(foreach dir,$(EXCLUDE_DIRS),--exclude "*/$(dir)/*")
+FIND_EXCLUDES := $(foreach dir,$(EXCLUDE_DIRS),! -path "*/$(dir)/*")
+
 help: ## Show commands
 	@echo "make check    - lint, format, type check"
 	@echo "make fix      - auto-fix lint/format issues"
@@ -13,10 +18,9 @@ help: ## Show commands
 	@echo "make clean    - remove cache files"
 
 check: ## Lint, format check, and type check
-	@uv run ruff check $(MODULES)
-	@uv run ruff format --check $(MODULES)
-	@uv run mypy $(MODULES) --ignore-missing-imports || true
-
+	uv run ruff check $(MODULES) $(RUFF_EXCLUDES)
+	uv run ruff format --check $(MODULES) $(RUFF_EXCLUDES)
+	@find $(MODULES) -name "*.py" $(FIND_EXCLUDES) | xargs uv run mypy --show-error-codes
 fix: ## Auto-fix lint and format issues
 	@uv run ruff check --fix $(MODULES)
 	@uv run ruff format $(MODULES)
