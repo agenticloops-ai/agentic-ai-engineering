@@ -4,13 +4,6 @@
 
 ![AI Agents Engineering](common/images/banner.png)
 
-[![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
-[![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
-[![Follow @agenticloops_ai](https://img.shields.io/badge/Follow%20%40agenticloops__ai-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/agenticloops_ai)
-
-</div>
-
 <!-- TODO: Uncomment when repo is public — readme-i18n.com requires a public repo to generate translations
 <p align="center">
   <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=de">Deutsch</a> |
@@ -23,6 +16,13 @@
   <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=zh">中文</a>
 </p>
 -->
+
+[![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
+[![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
+[![Follow @AgenticLoopsAI](https://img.shields.io/badge/Follow%20%40AgenticLoopsAI-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/agenticloopsai)
+
+</div>
 
 # AI Agents Engineering
 *by [AgenticLoops.ai](https://agenticloops.ai) - for Engineers, from Engineers*
