@@ -9,20 +9,12 @@ status: "coming-soon"
 
 The basic building block of agentic systems is an LLM enhanced with augmentations such as retrieval, tools, and memory. Modern models can actively use these capabilities — generating their own search queries, selecting appropriate tools, and determining what information to retain.
 
-This tutorial implements a **Codebase Navigator** — an agent that helps engineers explore and understand unfamiliar codebases. Point it at any GitHub repo, and it will clone, index, and answer questions using semantic search while maintaining memory across sessions.
-
 > Based on the [Augmented LLM](https://www.anthropic.com/engineering/building-effective-agents) pattern from Anthropic's "Building Effective Agents" guide.
 
-## Setup Reference
+This tutorial implements a **Codebase Navigator** — an agent that helps engineers explore and understand unfamiliar codebases. Point it at any GitHub repo, and it will clone, index, and answer questions using semantic search while maintaining memory across sessions.
 
-See [SETUP.md](../../SETUP.md) for environment configuration.
 
-Additional dependencies for this tutorial:
-
-```bash
-cd 02-effective-agents/01-augmented-llm
-uv sync
-```
+> **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
 
 ## 🎯 What You'll Learn
 
@@ -40,60 +32,37 @@ uv sync
 
 ## 🔑 Key Concepts
 
-### The Three Augmentations
-
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-block-beta
-  columns 3
-
-  block:llm:3
-    columns 3
-    A["🧠 Augmented LLM"]:3
-
-    block:tools
-      columns 1
-      B["🔧 Tools"]
-      B1["clone & index"]
-      B2["search code"]
-      B3["read & grep"]
-    end
-
-    block:rag
-      columns 1
-      C["📚 RAG"]
-      C1["ChromaDB"]
-      C2["sentence-transformers"]
-      C3["semantic search"]
-    end
-
-    block:memory
-      columns 1
-      D["📝 Memory"]
-      D1["facts"]
-      D2["insights"]
-      D3["preferences"]
-    end
-  end
-```
+### Augmentations
 
 **Retrieval (RAG)** — Semantic search over indexed codebases using ChromaDB and sentence-transformers. The agent generates search queries to find relevant code chunks based on meaning, not just keywords.
 
+| Component | Description |
+|-----------|-------------|
+| **Vector Store** | Local ChromaDB containing embedded code chunks |
+| **Chunking** | Tree-sitter for AST-aware chunking (functions, classes, modules) |
+| **Embeddings** | Sentence-transformers (`all-MiniLM-L6-v2`) for local embeddings |
+
 **Tools** — Clone repos, read files, search code, grep for patterns. The LLM decides which tools to use and when, executing them through Anthropic's native tool use API.
+
+| Tool | Purpose | Example use |
+|------|---------|-------------|
+| `clone_and_index` | Clone and index a GitHub repo | "index pallets/flask" |
+| `list_repos` | List all indexed repositories | "what repos do I have?" |
+| `search_code` | Semantic search over code | "how does routing work?" |
+| `read_file` | Read file with line numbers | reading a specific file |
+| `list_directory` | Explore repo structure | "show me the project layout" |
+| `grep` | Regex pattern search | "find all TODO comments" |
+| `save_memory` | Persist a fact/insight/preference | automatic when discovering patterns |
+| `recall_memory` | Retrieve stored memories | automatic at session start |
 
 **Memory** — Persistent JSON storage for facts, insights, and user preferences. Memory is loaded into the system prompt at the start of each session, giving the agent context from previous conversations.
 
+Enables context-aware follow-ups like:
+  > *"Earlier you found the auth logic in `src/auth/` — want me to look for related middleware?"*
+
 ### The Agentic Loop
 
-The core pattern that makes this work (same as the [Agent Loop](../../01-foundations/05-agent-loop/README.md) tutorial):
-
-```
-User message → LLM → Tool calls? → Execute tools → LLM → Tool calls? → ... → Text response
-```
+The core pattern that makes this work (same as the [Agent Loop](../../01-foundations/05-agent-loop/README.md) tutorial).
 
 The loop continues until the LLM responds with just text (no tool calls), indicating it has enough information to answer.
 
@@ -105,18 +74,18 @@ config:
   look: handDrawn
   theme: neutral
 ---
-flowchart LR
-  subgraph Indexing
+flowchart TB
+  subgraph Indexing["📥 Indexing"]
+    direction LR
     A["📁 Repository"] -->|chunk| B["📄 Chunks"]
     B -->|embed| C["🔢 Vectors"]
-    C -->|store| D["🗄️ ChromaDB"]
-  end
 
-  subgraph Query
-    E["🗣️ User Query"] -->|embed| F["🔢 Query Vector"]
-    F -->|similarity search| D
-    D -->|relevant chunks| G["🧠 LLM"]
   end
+  C -->|store| D["🗄️ ChromaDB"]  
+
+  E["🗣️ User Query"] -->|embed| F["🔢 Query Vector"]
+  F -->|similarity search| D
+  D -->|relevant chunks| G["🧠 LLM"]
 ```
 
 **Chunking strategy**: Python files split on top-level `class`/`def` definitions. Other files split every 50 lines with 10-line overlap. Simple heuristics that work well for educational purposes.
@@ -127,7 +96,7 @@ flowchart LR
 
 ```
 01-augmented-llm/
-├── 01_augmented_llm_anthropic.py   # Main entry point — agent + CLI
+├── 01_augmented_llm.py             # Main entry point — agent + CLI
 ├── store/
 │   ├── memory.py                   # JSON-based persistent memory
 │   └── vector.py                   # ChromaDB wrapper for embeddings
@@ -144,23 +113,10 @@ flowchart LR
 └── memory.json                     # Persistent memory (gitignored)
 ```
 
-### Tools Reference
-
-| Tool | Purpose | Example use |
-|------|---------|-------------|
-| `clone_and_index` | Clone and index a GitHub repo | "index pallets/flask" |
-| `list_repos` | List all indexed repositories | "what repos do I have?" |
-| `search_code` | Semantic search over code | "how does routing work?" |
-| `read_file` | Read file with line numbers | reading a specific file |
-| `list_directory` | Explore repo structure | "show me the project layout" |
-| `grep` | Regex pattern search | "find all TODO comments" |
-| `save_memory` | Persist a fact/insight/preference | automatic when discovering patterns |
-| `recall_memory` | Retrieve stored memories | automatic at session start |
-
 ## 💬 Example Session
 
 ```
-Codebase Navigator — Augmented LLM Demo
+Codebase Navigator
 
 > index the flask repo from pallets/flask
   [tool: clone_and_index] {"repo":"pallets/flask"}
