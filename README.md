@@ -74,17 +74,17 @@ Your first steps — from a single API call to a fully autonomous agent loop. Bu
 4. **[Tool Use](01-foundations/04-tool-use/)** — Enable function calling
 5. **[Agent Loop](01-foundations/05-agent-loop/)** — Autonomous tool-using agents
 
-### 🧩 [02 - Effective Agents Patterns](02-effective-agents/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🧩 [02 - Effective Agents Patterns](02-effective-agents/README.md)
 
 Architectural patterns that separate toy demos from real agents. Based on Anthropic's "[Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)" — learn when to chain, route, parallelize, or delegate.
 
-1. **[Augmented LLM](02-effective-agents/01-augmented-llm/)** — RAG, retrieval, knowledge grounding
-2. **[Prompt Chaining](02-effective-agents/02-prompt-chaining/)** — Sequential multi-step pipelines
-3. **[Routing](02-effective-agents/03-routing/)** — Classify input, dispatch to specialized handlers
-4. **[Parallelization](02-effective-agents/04-parallelization/)** — Fan-out/fan-in, parallel tool calls
-5. **[Orchestrator-Workers](02-effective-agents/05-orchestrator-workers/)** — Dynamic task decomposition
-6. **[Evaluator-Optimizer](02-effective-agents/06-evaluator-optimizer/)** — Self-critique, iterative refinement
-7. **[Human in the Loop](02-effective-agents/07-human-in-the-loop/)** — Approval gates, escalation, feedback
+1. **[Augmented LLM](02-effective-agents/01-augmented-llm/)** ![new](https://img.shields.io/badge/new-brightgreen) — RAG, retrieval, knowledge grounding
+2. **[Prompt Chaining](02-effective-agents/02-prompt-chaining/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Sequential multi-step pipelines
+3. **[Routing](02-effective-agents/03-routing/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Classify input, dispatch to specialized handlers
+4. **[Parallelization](02-effective-agents/04-parallelization/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Fan-out/fan-in, parallel tool calls
+5. **[Orchestrator-Workers](02-effective-agents/05-orchestrator-workers/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Dynamic task decomposition
+6. **[Evaluator-Optimizer](02-effective-agents/06-evaluator-optimizer/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Self-critique, iterative refinement
+7. **[Human in the Loop](02-effective-agents/07-human-in-the-loop/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange)— Approval gates, escalation, feedback
 
 ### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
