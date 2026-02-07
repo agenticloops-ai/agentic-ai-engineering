@@ -2,7 +2,7 @@
 title: "Evals"
 description: "Build evaluation suites that measure accuracy, quality, and regression over time"
 icon: "bar-chart"
-order: 2
+status: "coming-soon"
 ---
 
 # Evals

@@ -2,7 +2,6 @@
 title: "Tool Use"
 description: "Enable LLMs to call functions and interact with external systems"
 icon: "wrench"
-order: 4
 ---
 
 # Tool Use

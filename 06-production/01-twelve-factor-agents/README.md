@@ -2,7 +2,7 @@
 title: "12-Factor Agents"
 description: "Principles for building production-grade agents"
 icon: "list"
-order: 1
+status: "coming-soon"
 ---
 
 # 12-Factor Agents

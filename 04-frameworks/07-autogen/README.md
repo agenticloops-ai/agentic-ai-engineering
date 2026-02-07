@@ -2,7 +2,7 @@
 title: "AutoGen"
 description: "Microsoft's multi-agent conversation framework"
 icon: "message-circle"
-order: 7
+status: "coming-soon"
 ---
 
 # AutoGen

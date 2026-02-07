@@ -2,7 +2,7 @@
 title: "Google ADK"
 description: "Google's Agent Development Kit with multi-agent orchestration"
 icon: "cpu"
-order: 4
+status: "coming-soon"
 ---
 
 # Google ADK

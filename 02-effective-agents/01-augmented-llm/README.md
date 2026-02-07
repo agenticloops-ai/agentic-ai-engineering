@@ -2,7 +2,7 @@
 title: "Augmented LLM"
 description: "The basic building block of agentic systems — an LLM enhanced with retrieval, tools, and memory"
 icon: "layers"
-order: 1
+status: "coming-soon"
 ---
 
 # Augmented LLM

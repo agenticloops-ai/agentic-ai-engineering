@@ -2,7 +2,7 @@
 title: "Multimodal"
 description: "Process images, audio, and files alongside text"
 icon: "image"
-order: 5
+status: "coming-soon"
 ---
 
 # Multimodal

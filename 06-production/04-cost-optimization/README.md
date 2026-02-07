@@ -2,7 +2,7 @@
 title: "Cost Optimization"
 description: "Token budgets, caching strategies, and model routing for cost control"
 icon: "dollar-sign"
-order: 4
+status: "coming-soon"
 ---
 
 # Cost Optimization

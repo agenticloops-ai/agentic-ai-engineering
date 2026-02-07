@@ -2,7 +2,7 @@
 title: "No Framework"
 description: "The raw SDK baseline — pure client code with no abstractions"
 icon: "code"
-order: 1
+status: "coming-soon"
 ---
 
 # No Framework

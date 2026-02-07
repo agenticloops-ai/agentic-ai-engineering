@@ -2,7 +2,7 @@
 title: "Parallelization"
 description: "Fan-out work across multiple LLM calls simultaneously, then aggregate results"
 icon: "layers"
-order: 4
+status: "coming-soon"
 ---
 
 # Parallelization

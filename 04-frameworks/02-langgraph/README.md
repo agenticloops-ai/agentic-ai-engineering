@@ -2,7 +2,7 @@
 title: "LangGraph"
 description: "Graph-based agent orchestration from LangChain"
 icon: "git-branch"
-order: 2
+status: "coming-soon"
 ---
 
 # LangGraph

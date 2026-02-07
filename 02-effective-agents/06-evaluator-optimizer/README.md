@@ -2,7 +2,7 @@
 title: "Evaluator-Optimizer"
 description: "One LLM generates, another critiques, and the cycle repeats until quality thresholds are met"
 icon: "refresh"
-order: 6
+status: "coming-soon"
 ---
 
 # Evaluator-Optimizer

@@ -2,7 +2,7 @@
 title: "CrewAI"
 description: "Role-based multi-agent collaboration framework"
 icon: "users"
-order: 6
+status: "coming-soon"
 ---
 
 # CrewAI

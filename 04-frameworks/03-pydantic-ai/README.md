@@ -2,7 +2,7 @@
 title: "Pydantic AI"
 description: "Type-safe agent framework built on Pydantic"
 icon: "shield"
-order: 3
+status: "coming-soon"
 ---
 
 # Pydantic AI

@@ -2,7 +2,6 @@
 title: "Simple LLM Call"
 description: "Make your first API call using Anthropic Claude, OpenAI GPT, and LiteLLM"
 icon: "zap"
-order: 1
 ---
 
 # Simple LLM Call

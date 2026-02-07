@@ -2,7 +2,7 @@
 title: "Human in the Loop"
 description: "Build approval gates, escalation paths, and feedback mechanisms for production agents"
 icon: "user-check"
-order: 7
+status: "coming-soon"
 ---
 
 # Human in the Loop

@@ -2,7 +2,6 @@
 title: "Agent Loop"
 description: "Build autonomous agents that use tools iteratively to accomplish complex goals"
 icon: "repeat"
-order: 5
 ---
 
 # Agent Loop

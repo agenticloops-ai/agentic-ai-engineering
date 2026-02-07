@@ -2,7 +2,7 @@
 title: "Tracing & Debugging"
 description: "Trace every LLM call, tool invocation, and decision point"
 icon: "search"
-order: 3
+status: "coming-soon"
 ---
 
 # Tracing & Debugging
