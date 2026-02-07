@@ -2,7 +2,6 @@
 title: "Interactive Chat"
 description: "Build an interactive chat loop with message history using Anthropic Claude and OpenAI GPT"
 icon: "message-circle"
-order: 3
 ---
 
 # Interactive Chat

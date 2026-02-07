@@ -2,7 +2,7 @@
 title: "Structured Output"
 description: "Force LLM responses into exact schemas — JSON mode, Pydantic models, constrained generation"
 icon: "code"
-order: 1
+status: "coming-soon"
 ---
 
 # Structured Output

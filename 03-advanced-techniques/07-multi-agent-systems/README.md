@@ -2,7 +2,7 @@
 title: "Multi-Agent Systems"
 description: "Multiple agents collaborating on shared tasks with communication and delegation"
 icon: "users"
-order: 7
+status: "coming-soon"
 ---
 
 # Multi-Agent Systems

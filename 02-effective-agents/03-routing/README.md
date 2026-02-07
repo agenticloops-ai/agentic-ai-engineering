@@ -2,7 +2,7 @@
 title: "Routing"
 description: "Classify incoming requests and dispatch them to specialized handlers"
 icon: "split"
-order: 3
+status: "coming-soon"
 ---
 
 # Routing

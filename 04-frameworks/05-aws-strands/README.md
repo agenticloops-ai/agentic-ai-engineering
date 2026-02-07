@@ -2,7 +2,7 @@
 title: "AWS Strands"
 description: "AWS's agent SDK with native service integration"
 icon: "cloud"
-order: 5
+status: "coming-soon"
 ---
 
 # AWS Strands

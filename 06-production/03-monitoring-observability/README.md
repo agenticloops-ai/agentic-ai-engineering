@@ -2,7 +2,7 @@
 title: "Monitoring & Observability"
 description: "Metrics, structured logging, and distributed tracing for production agents"
 icon: "activity"
-order: 3
+status: "coming-soon"
 ---
 
 # Monitoring & Observability

@@ -2,7 +2,7 @@
 title: "Prompt Caching"
 description: "Cache static prompt prefixes to cut latency and cost"
 icon: "zap"
-order: 4
+status: "coming-soon"
 ---
 
 # Prompt Caching
