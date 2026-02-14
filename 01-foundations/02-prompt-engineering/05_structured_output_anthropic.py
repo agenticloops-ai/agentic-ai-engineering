@@ -1,10 +1,11 @@
 """
 Structured Output & Prompt Scaffolding (Anthropic)
 
-Demonstrates techniques for getting parseable structured output from Claude:
-1. JSON via prompt instructions — asking for JSON in the system prompt
-2. XML tag scaffolding — using XML tags to structure input and guide output
-3. Assistant prefill — starting the assistant's response with '{' to force JSON
+Demonstrates three approaches for getting structured JSON from Claude, progressing from
+least to most reliable:
+1. Prompt-based JSON — asking for JSON in the system prompt (can fail)
+2. XML scaffolding + prefill — Anthropic-specific prompting techniques (more reliable)
+3. Native JSON schema — API-level schema enforcement via output_config (guaranteed)
 
 Structured output is essential for agents that must parse LLM responses programmatically.
 """
@@ -13,6 +14,7 @@ import json
 
 import anthropic
 from dotenv import find_dotenv, load_dotenv
+from pydantic import BaseModel
 from rich.console import Console
 from rich.panel import Panel
 from rich.syntax import Syntax
@@ -23,14 +25,26 @@ load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
 
-# Schema that the LLM should populate
-TASK_SCHEMA = {
+# Schema description for prompt-based methods (human-readable)
+TASK_SCHEMA_DESCRIPTION = {
     "title": "string — concise task title",
     "priority": "HIGH | MEDIUM | LOW",
     "complexity": "integer 1-5",
     "required_tools": "list of tool names needed",
     "summary": "string — one sentence description",
 }
+
+
+# Pydantic model for native structured output (machine-enforced)
+class TaskExtraction(BaseModel):
+    """Schema for extracting structured task data from free-form descriptions."""
+
+    title: str
+    priority: str
+    complexity: int
+    required_tools: list[str]
+    summary: str
+
 
 # Free-form task descriptions to extract structured data from
 SAMPLE_TASKS = [
@@ -59,7 +73,7 @@ class StructuredOutputClient:
         self.model = model
         self.token_tracker = token_tracker
 
-    def _call(self, system: str, messages: list[dict]) -> str:
+    def _call(self, system: str, messages: list[dict], **kwargs: object) -> str:
         """Make an API call and track tokens."""
         response = self.client.messages.create(
             model=self.model,
@@ -67,13 +81,14 @@ class StructuredOutputClient:
             max_tokens=512,
             system=system,
             messages=messages,
+            **kwargs,
         )
         self.token_tracker.track(response.usage)
         return str(response.content[0].text)
 
     def extract_json_prompted(self, task_description: str) -> str:
-        """Extract structured data by asking for JSON in the prompt."""
-        schema_str = json.dumps(TASK_SCHEMA, indent=2)
+        """Extract structured data by asking for JSON in the prompt — least reliable."""
+        schema_str = json.dumps(TASK_SCHEMA_DESCRIPTION, indent=2)
         system = (
             "You are a task analysis assistant. Extract structured information from task "
             "descriptions.\n\n"
@@ -83,31 +98,14 @@ class StructuredOutputClient:
         messages = [{"role": "user", "content": task_description}]
         return self._call(system, messages)
 
-    def extract_with_scaffolding(self, task_description: str) -> str:
-        """Use XML tags to scaffold the input and guide the output structure."""
-        schema_str = json.dumps(TASK_SCHEMA, indent=2)
-        # XML tags help Claude understand the structure of the input
-        system = (
-            "You are a task analysis assistant. You receive task descriptions wrapped in "
-            "XML tags and extract structured data.\n\n"
-            "Output ONLY valid JSON matching the provided schema. "
-            "No markdown, no explanation."
-        )
-        user_content = (
-            f"<schema>\n{schema_str}\n</schema>\n\n"
-            f"<task_description>\n{task_description}\n</task_description>\n\n"
-            "Extract the task information as JSON:"
-        )
-        messages = [{"role": "user", "content": user_content}]
-        return self._call(system, messages)
-
     def extract_with_prefill(self, task_description: str) -> str:
-        """Use assistant prefill to force JSON output — Anthropic-specific technique."""
-        schema_str = json.dumps(TASK_SCHEMA, indent=2)
+        """Use XML scaffolding + assistant prefill — Anthropic-specific technique."""
+        schema_str = json.dumps(TASK_SCHEMA_DESCRIPTION, indent=2)
         system = (
             "You are a task analysis assistant. Extract structured information from task "
             "descriptions as JSON matching the provided schema."
         )
+        # XML tags help Claude parse the input structure
         user_content = (
             f"<schema>\n{schema_str}\n</schema>\n\n"
             f"<task_description>\n{task_description}\n</task_description>"
@@ -120,6 +118,30 @@ class StructuredOutputClient:
         raw = self._call(system, messages)
         # Reconstruct the full JSON since we prefilled the opening brace
         return "{" + raw
+
+    def extract_with_native_schema(self, task_description: str) -> str:
+        """Use native JSON schema enforcement via output_config — guaranteed valid JSON."""
+        system = (
+            "You are a task analysis assistant. Extract structured information from task "
+            "descriptions."
+        )
+        messages = [{"role": "user", "content": task_description}]
+
+        # Native structured output: API guarantees valid JSON matching the Pydantic schema
+        response = self.client.beta.messages.parse(
+            model=self.model,
+            temperature=0.0,
+            max_tokens=512,
+            system=system,
+            messages=messages,
+            output_format=TaskExtraction,
+        )
+        self.token_tracker.track(response.usage)
+
+        # parsed_output is a validated Pydantic model instance
+        if response.parsed_output:
+            return response.parsed_output.model_dump_json(indent=2)
+        return str(response.content[0].text)
 
 
 def _try_parse_json(raw: str) -> dict | None:
@@ -139,23 +161,23 @@ def main() -> None:
     """Run sample tasks through three structured output methods."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    client = StructuredOutputClient("claude-sonnet-4-20250514", token_tracker)
+    client = StructuredOutputClient("claude-sonnet-4-5-20250929", token_tracker)
 
     console.print(
         Panel(
             "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
             "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
-            "  1. JSON via prompt instructions\n"
-            "  2. XML tag scaffolding\n"
-            "  3. Assistant prefill (Anthropic-specific)",
+            "  A. Prompt-based JSON — ask for JSON in the system prompt\n"
+            "  B. XML scaffolding + prefill — Anthropic-specific prompting technique\n"
+            "  C. Native JSON schema — API-level enforcement via output_config (recommended)",
             title="Prompt Engineering — Anthropic",
         )
     )
 
     methods = {
-        "Prompted JSON": client.extract_json_prompted,
-        "XML Scaffolding": client.extract_with_scaffolding,
-        "Prefill": client.extract_with_prefill,
+        "A: Prompt-Based JSON": client.extract_json_prompted,
+        "B: XML + Prefill": client.extract_with_prefill,
+        "C: Native Schema": client.extract_with_native_schema,
     }
 
     for i, task in enumerate(SAMPLE_TASKS, 1):
@@ -169,7 +191,6 @@ def main() -> None:
                 parsed = _try_parse_json(raw)
 
                 if parsed:
-                    # Display parsed JSON with syntax highlighting
                     formatted = json.dumps(parsed, indent=2)
                     syntax = Syntax(formatted, "json", theme="monokai")
                     console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))

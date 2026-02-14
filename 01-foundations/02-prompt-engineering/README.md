@@ -116,26 +116,37 @@ system = (
 
 ### 4. Structured Output & Scaffolding
 
-Agents must produce parseable output. This is where Anthropic and OpenAI differ the most:
+Agents must produce parseable output. Both providers now offer native JSON schema enforcement alongside prompt-based techniques:
 
-**Anthropic — XML scaffolding + assistant prefill:**
+**Anthropic — native JSON schema via `output_config` (recommended):**
 ```python
-# XML tags structure the input clearly
-user_content = (
-    "<schema>\n{schema}\n</schema>\n"
-    "<task_description>\n{task}\n</task_description>"
-)
+from pydantic import BaseModel
 
-# Prefill forces JSON output by starting the assistant's response
+class TaskExtraction(BaseModel):
+    title: str
+    priority: str
+    complexity: int
+
+# API-level schema enforcement — guaranteed valid JSON
+response = client.messages.parse(
+    model="claude-sonnet-4-20250514",
+    messages=[{"role": "user", "content": task_description}],
+    output_format=TaskExtraction,
+)
+task = response.parsed_output  # Validated Pydantic model instance
+```
+
+**Anthropic — XML scaffolding + assistant prefill (prompting technique):**
+```python
+# XML tags structure the input, prefill forces JSON start
 messages = [
-    {"role": "user", "content": user_content},
+    {"role": "user", "content": "<schema>...</schema>\n<task>...</task>"},
     {"role": "assistant", "content": "{"},  # Prefill technique
 ]
 ```
 
 **OpenAI — native JSON schema enforcement:**
 ```python
-# API-level schema enforcement guarantees valid JSON
 response = client.responses.create(
     model="gpt-4o",
     instructions="Extract task information...",
@@ -149,11 +160,11 @@ response = client.responses.create(
 )
 ```
 
-> **Key difference:** Anthropic's prefill is a prompting technique (the LLM cooperates but isn't forced), while OpenAI's schema enforcement is a structural guarantee at the API level.
+> **Both providers now offer schema enforcement.** Anthropic's `output_config` and OpenAI's `text.format` both guarantee valid JSON via constrained decoding. Prompt-based techniques (prefill, XML scaffolding) remain useful for older models or when you need more control over the prompting strategy.
 
 ### 5. Output Validation
 
-Always validate structured output — even with schema enforcement:
+Always validate structured output for prompt-based methods. Native schema enforcement handles validation automatically, but check for refusals (`stop_reason: "refusal"`) and token limits (`stop_reason: "max_tokens"`) which can produce non-conforming output:
 
 ```python
 def try_parse_json(raw: str) -> dict | None:
@@ -172,7 +183,7 @@ def try_parse_json(raw: str) -> dict | None:
 
 - **Prompt injection** — System prompts can be overridden by adversarial user input. Never rely solely on prompts for security boundaries. This becomes critical in [Tool Use](../04-tool-use/README.md).
 - **Token costs** — Few-shot examples add input tokens to every call. In high-volume agents, consider whether the accuracy improvement justifies the cost.
-- **JSON reliability** — Prompt-based JSON extraction can fail. Use provider-native enforcement (OpenAI schemas) or validation with fallbacks in production.
+- **JSON reliability** — Prompt-based JSON extraction can fail. Use provider-native schema enforcement (Anthropic `output_config`, OpenAI `text.format`) for guaranteed valid JSON in production.
 - **Temperature** — Set `temperature=0.0` for classification and structured output tasks where consistency matters. These scripts all use low temperature for reproducible results.
 
 ## 👉 Next Steps
