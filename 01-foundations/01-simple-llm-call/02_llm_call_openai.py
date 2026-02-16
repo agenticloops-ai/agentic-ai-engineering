@@ -63,7 +63,7 @@ def main() -> None:
     Sets up the agent and coordinates execution flow.
     """
 
-    agent = LLMClient("gpt-4o")
+    agent = LLMClient("gpt-4.1")
 
     prompt = "Explain what an AI agent is in 2-3 sentences."
     logger.info(f"👤 User: {prompt}")

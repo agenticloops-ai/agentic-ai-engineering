@@ -75,7 +75,7 @@ def main() -> None:
     console = Console()
     # Create token tracker and chat session
     token_tracker = AnthropicTokenTracker()
-    agent = ChatSession("claude-sonnet-4-20250514", token_tracker)
+    agent = ChatSession("claude-sonnet-4-5-20250929", token_tracker)
 
     # Display welcome message
     console.print(

@@ -49,7 +49,7 @@ Each provider has its own client initialization:
 import anthropic
 
 client = anthropic.Anthropic()  # Uses ANTHROPIC_API_KEY from env
-model = "claude-sonnet-4-20250514"
+model = "claude-sonnet-4-5-20250929"
 ```
 
 **OpenAI:**
@@ -57,7 +57,7 @@ model = "claude-sonnet-4-20250514"
 from openai import OpenAI
 
 client = OpenAI()  # Uses OPENAI_API_KEY from env
-model = "gpt-4o"
+model = "gpt-4.1"
 ```
 
 **LiteLLM:**
@@ -73,7 +73,7 @@ from litellm import completion
 **Anthropic (Messages API):**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-5-20250929",
     temperature=0.1,
     max_tokens=1024,
     system="You are a helpful AI assistant.",
@@ -87,7 +87,7 @@ text = response.content[0].text
 **OpenAI (Responses API):**
 ```python
 response = client.responses.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     temperature=0.1,
     max_output_tokens=1024,
     instructions="You are a helpful AI assistant.",
@@ -99,7 +99,7 @@ text = response.output_text
 **LiteLLM (Unified API):**
 ```python
 response = completion(
-    model="gpt-4o",  # Or "claude-sonnet-4-20250514"
+    model="gpt-4.1",  # Or "claude-sonnet-4-5-20250929"
     temperature=0.1,
     max_tokens=1024,
     messages=[
@@ -114,7 +114,7 @@ text = response.choices[0].message.content
 
 ### 4. Key Configuration Parameters
 
-**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-20250514`, `gpt-4o`)
+**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-5-20250929`, `gpt-4.1`)
 
 **Temperature**: Controls randomness (0.0 = deterministic, 1.0 = creative)
 - Lower values (0.0-0.3) for factual, consistent responses

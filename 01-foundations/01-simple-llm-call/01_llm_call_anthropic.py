@@ -69,7 +69,7 @@ def main() -> None:
     """
 
     # Initialize agent
-    agent = LLMClient("claude-sonnet-4-20250514")
+    agent = LLMClient("claude-sonnet-4-5-20250929")
 
     prompt = "Explain what an AI agent is in 2-3 sentences."
     logger.info(f"👤 User: {prompt}")

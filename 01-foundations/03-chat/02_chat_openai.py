@@ -72,7 +72,7 @@ def main() -> None:
     console = Console()
     # Create token tracker and chat session
     token_tracker = OpenAITokenTracker()
-    chat = ChatSession("gpt-4o", token_tracker)
+    chat = ChatSession("gpt-4.1", token_tracker)
 
     # Welcome message
     console.print(

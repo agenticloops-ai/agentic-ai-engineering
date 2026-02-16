@@ -94,7 +94,7 @@ LLM Response (final answer)
 **Anthropic:**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-5-20250929",
     tools=TOOLS,
     messages=messages,
 )
@@ -109,7 +109,7 @@ if response.stop_reason == "tool_use":
 **OpenAI:**
 ```python
 response = client.responses.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     tools=TOOLS,
     input=messages,
 )
