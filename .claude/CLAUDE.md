@@ -110,17 +110,17 @@ icon: "icon name"
 
 ## Provider Badges
 
-- Use **local SVG badges** from `assets/badges/` — do NOT use shields.io URLs
+- Use **local SVG badges** from `common/badges/` — do NOT use shields.io URLs
 - Available badges: `anthropic.svg`, `openai.svg`, `litellm.svg`
-- Reference with relative path from tutorial READMEs: `../../assets/badges/<provider>.svg`
+- Reference with relative path from tutorial READMEs: `../../common/badges/<provider>.svg`
 - Usage in Available Examples table:
   ```markdown
-  | ![Anthropic](../../assets/badges/anthropic.svg) | [01_script.py](01_script.py) | Description |
-  | ![OpenAI](../../assets/badges/openai.svg)       | [02_script.py](02_script.py) | Description |
-  | ![LiteLLM](../../assets/badges/litellm.svg)     | [03_script.py](03_script.py) | Description |
+  | ![Anthropic](../../common/badges/anthropic.svg) | [01_script.py](01_script.py) | Description |
+  | ![OpenAI](../../common/badges/openai.svg)       | [02_script.py](02_script.py) | Description |
+  | ![LiteLLM](../../common/badges/litellm.svg)     | [03_script.py](03_script.py) | Description |
   ```
 - All badges use consistent dark (`#191919`) background with white logos/text
-- To add a new provider badge, create an SVG in `assets/badges/` matching the existing style (28px height, 3px border radius, Verdana bold 10px uppercase text)
+- To add a new provider badge, create an SVG in `common/badges/` matching the existing style (28px height, 3px border radius, Verdana bold 10px uppercase text)
 
 ## Mermaid Diagrams
 

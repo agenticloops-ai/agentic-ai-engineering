@@ -18,10 +18,10 @@ Build an interactive chat application with conversation history management. This
 
 ## 📦 Available Examples
 
-| Provider                                         | File                                         | Description                                 |
-| ------------------------------------------------ | -------------------------------------------- | ------------------------------------------- |
-| ![Anthropic](../../assets/badges/anthropic.svg)  | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API  |
-| ![OpenAI](../../assets/badges/openai.svg)        | [02_chat_openai.py](02_chat_openai.py)       | Interactive chat using OpenAI Responses API |
+| Provider                                        | File                                         | Description                                 |
+| ----------------------------------------------- | -------------------------------------------- | ------------------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API  |
+| ![OpenAI](../../common/badges/openai.svg)       | [02_chat_openai.py](02_chat_openai.py)       | Interactive chat using OpenAI Responses API |
 
 ## 🚀 Quick Start
 
