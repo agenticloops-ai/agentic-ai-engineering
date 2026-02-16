@@ -108,6 +108,20 @@ icon: "icon name"
 7. **⚠️ Important Considerations** — production concerns and gotchas
 8. **👉 Next Steps** — link to next tutorial + suggested experiments
 
+## Provider Badges
+
+- Use **local SVG badges** from `assets/badges/` — do NOT use shields.io URLs
+- Available badges: `anthropic.svg`, `openai.svg`, `litellm.svg`
+- Reference with relative path from tutorial READMEs: `../../assets/badges/<provider>.svg`
+- Usage in Available Examples table:
+  ```markdown
+  | ![Anthropic](../../assets/badges/anthropic.svg) | [01_script.py](01_script.py) | Description |
+  | ![OpenAI](../../assets/badges/openai.svg)       | [02_script.py](02_script.py) | Description |
+  | ![LiteLLM](../../assets/badges/litellm.svg)     | [03_script.py](03_script.py) | Description |
+  ```
+- All badges use consistent dark (`#191919`) background with white logos/text
+- To add a new provider badge, create an SVG in `assets/badges/` matching the existing style (28px height, 3px border radius, Verdana bold 10px uppercase text)
+
 ## Mermaid Diagrams
 
 - Use **only when a visual flow adds clarity** — not every tutorial needs a diagram

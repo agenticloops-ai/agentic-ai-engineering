@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="148" height="28" role="img" aria-label="Anthropic">
+  <rect rx="3" width="148" height="28" fill="#191919"/>
+  <g transform="translate(9,7) scale(0.583)">
+    <path fill="#fff" d="M13.827 3.52h3.603L24 20.48h-3.603l-1.404-3.6H13.25l-1.404 3.6H8.243zm3.065 10.56L14.83 7.92l-2.062 6.16zM8.854 20.48 2.078 3.52H5.95l4.04 10.16L14.03 3.52h3.873L11.127 20.48z"/>
+  </g>
+  <text x="33" y="17" fill="#fff" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="10" font-weight="bold" letter-spacing="1.5">ANTHROPIC</text>
+</svg>

@@ -271,7 +271,7 @@ def main() -> None:
     """Main orchestration function that handles user interaction and coordinates the chat flow."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    chat = ToolUseChat("claude-sonnet-4-20250514", token_tracker, console)
+    chat = ToolUseChat("claude-sonnet-4-5-20250929", token_tracker, console)
 
     # Welcome message
     console.print(

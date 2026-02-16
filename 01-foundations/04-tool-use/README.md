@@ -17,10 +17,10 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 
 ## 📦 Available Examples
 
-| Provider                                                                                                       | File                                                 | Description                        |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
+| Provider                                         | File                                                 | Description                        |
+| ------------------------------------------------ | ---------------------------------------------------- | ---------------------------------- |
+| ![Anthropic](../../assets/badges/anthropic.svg)  | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
+| ![OpenAI](../../assets/badges/openai.svg)        | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
 
 ## 🚀 Quick Start
 
@@ -105,7 +105,7 @@ LLM Response (final answer)
 **Anthropic:**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-5-20250929",
     tools=TOOLS,
     messages=messages,
 )
@@ -120,7 +120,7 @@ if response.stop_reason == "tool_use":
 **OpenAI:**
 ```python
 response = client.responses.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     tools=TOOLS,
     input=messages,
 )

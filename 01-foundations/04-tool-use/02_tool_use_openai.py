@@ -266,7 +266,7 @@ def main() -> None:
     """Main orchestration function that handles user interaction and coordinates the chat flow."""
     console = Console()
     token_tracker = OpenAITokenTracker()
-    chat = ToolUseChat("gpt-4o", token_tracker, console)
+    chat = ToolUseChat("gpt-4.1", token_tracker, console)
 
     # Welcome message
     console.print(

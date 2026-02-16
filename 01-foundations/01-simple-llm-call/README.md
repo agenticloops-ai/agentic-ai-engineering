@@ -17,11 +17,11 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 
 ## 📦 Available Examples
 
-| Provider                                                                                                       | File                                                 | Description                        |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
-| ![LiteLLM](https://img.shields.io/badge/LiteLLM-ED7D31?style=for-the-badge)                                    | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
+| Provider                                        | File                                                 | Description                        |
+| ----------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+| ![Anthropic](../../assets/badges/anthropic.svg) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
+| ![OpenAI](../../assets/badges/openai.svg)       | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
+| ![LiteLLM](../../assets/badges/litellm.svg)     | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
 
 ## 🚀 Quick Start
 
@@ -60,7 +60,7 @@ Each provider has its own client initialization:
 import anthropic
 
 client = anthropic.Anthropic()  # Uses ANTHROPIC_API_KEY from env
-model = "claude-sonnet-4-20250514"
+model = "claude-sonnet-4-5-20250929"
 ```
 
 **OpenAI:**
@@ -68,7 +68,7 @@ model = "claude-sonnet-4-20250514"
 from openai import OpenAI
 
 client = OpenAI()  # Uses OPENAI_API_KEY from env
-model = "gpt-4o"
+model = "gpt-4.1"
 ```
 
 **LiteLLM:**
@@ -84,7 +84,7 @@ from litellm import completion
 **Anthropic (Messages API):**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-5-20250929",
     temperature=0.1,
     max_tokens=1024,
     system="You are a helpful AI assistant.",
@@ -98,7 +98,7 @@ text = response.content[0].text
 **OpenAI (Responses API):**
 ```python
 response = client.responses.create(
-    model="gpt-4o",
+    model="gpt-4.1",
     temperature=0.1,
     max_output_tokens=1024,
     instructions="You are a helpful AI assistant.",
@@ -110,7 +110,7 @@ text = response.output_text
 **LiteLLM (Unified API):**
 ```python
 response = completion(
-    model="gpt-4o",  # Or "claude-sonnet-4-20250514"
+    model="gpt-4.1",  # Or "claude-sonnet-4-5-20250929"
     temperature=0.1,
     max_tokens=1024,
     messages=[
@@ -125,7 +125,7 @@ text = response.choices[0].message.content
 
 ### 4. Key Configuration Parameters
 
-**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-20250514`, `gpt-4o`)
+**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-5-20250929`, `gpt-4.1`)
 
 **Temperature**: Controls randomness (0.0 = deterministic, 1.0 = creative)
 - Lower values (0.0-0.3) for factual, consistent responses

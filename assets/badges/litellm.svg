@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="28" role="img" aria-label="LiteLLM">
+  <rect rx="3" width="100" height="28" fill="#191919"/>
+  <text x="9" y="18" font-size="13">🚅</text>
+  <text x="62" y="17" fill="#fff" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="10" font-weight="bold" letter-spacing="1.5" text-anchor="middle">LITELLM</text>
+</svg>
