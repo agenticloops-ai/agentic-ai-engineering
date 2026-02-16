@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Red Teaming & Safety"
 description: "Adversarial testing for agents — prompt injection, jailbreaks, and guardrails"
 icon: "shield-off"
 status: "coming-soon"
----
+--- -->
 
 # Red Teaming & Safety
 

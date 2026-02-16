@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Multimodal"
 description: "Process images, audio, and files alongside text"
 icon: "image"
 status: "coming-soon"
----
+--- -->
 
 # Multimodal
 

@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Deployment Strategies"
 description: "Containers, serverless, and scaling patterns for agents"
 icon: "upload-cloud"
 status: "coming-soon"
----
+--- -->
 
 # Deployment Strategies
 

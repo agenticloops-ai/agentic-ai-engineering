@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Prompt Chaining"
 description: "Break complex tasks into sequential steps where each LLM call builds on the previous output"
 icon: "link"
 status: "coming-soon"
----
+--- -->
 
 # Prompt Chaining
 

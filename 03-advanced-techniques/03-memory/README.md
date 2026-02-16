@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Memory"
 description: "Give agents memory that persists across sessions — short-term buffers, long-term stores, and vector databases"
 icon: "database"
 status: "coming-soon"
----
+--- -->
 
 # Memory
 

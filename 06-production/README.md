@@ -1,7 +1,7 @@
----
+<!-- ---
 title: "Production"
 description: "The gap between 'works on my laptop' and 'runs reliably at scale' — principles, deployment, monitoring, cost control, and security"
----
+--- -->
 
 # Production
 

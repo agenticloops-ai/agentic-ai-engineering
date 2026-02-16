@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Context Management"
 description: "Handle the reality of finite context windows with sliding windows, summarization, and chunking"
 icon: "layers"
 status: "coming-soon"
----
+--- -->
 
 # Context Management
 

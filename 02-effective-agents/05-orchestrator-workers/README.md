@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Orchestrator-Workers"
 description: "A central agent dynamically breaks down tasks and delegates to specialized workers"
 icon: "network"
 status: "coming-soon"
----
+--- -->
 
 # Orchestrator-Workers
 

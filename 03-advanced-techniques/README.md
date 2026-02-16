@@ -1,7 +1,7 @@
----
+<!-- ---
 title: "Advanced Techniques"
 description: "Practical engineering problems you'll hit the moment agents leave the prototype stage — solved one tutorial at a time"
----
+--- -->
 
 # Advanced Techniques
 

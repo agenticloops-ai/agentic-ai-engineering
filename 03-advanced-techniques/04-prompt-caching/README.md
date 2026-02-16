@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Prompt Caching"
 description: "Cache static prompt prefixes to cut latency and cost"
 icon: "zap"
 status: "coming-soon"
----
+--- -->
 
 # Prompt Caching
 

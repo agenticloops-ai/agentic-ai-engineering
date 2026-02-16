@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Semantic Kernel"
 description: "Microsoft's AI orchestration SDK with plugin architecture"
 icon: "puzzle"
 status: "coming-soon"
----
+--- -->
 
 # Semantic Kernel
 

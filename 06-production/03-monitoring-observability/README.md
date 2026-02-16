@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Monitoring & Observability"
 description: "Metrics, structured logging, and distributed tracing for production agents"
 icon: "activity"
 status: "coming-soon"
----
+--- -->
 
 # Monitoring & Observability
 

@@ -1,7 +1,7 @@
----
+<!-- ---
 title: "Agent Frameworks"
 description: "One agent, nine implementations — build the same system with each framework and compare trade-offs with your own hands"
----
+--- -->
 
 # Agent Frameworks
 
