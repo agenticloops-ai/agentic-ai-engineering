@@ -3,7 +3,7 @@ revision = 3
 requires-python = ">=3.11"
 
 [[package]]
-name = "ai-agents-engineering"
+name = "agentic-ai-engineering"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

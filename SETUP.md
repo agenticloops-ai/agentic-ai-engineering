@@ -27,8 +27,8 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ## 2. Clone the Repository
 
 ```bash
-git clone ai-agents-engineering
-cd ai-agents-engineering
+git clone agentic-ai-engineering
+cd agentic-ai-engineering
 ```
 
 ## 3. Set Up Environment Variables
