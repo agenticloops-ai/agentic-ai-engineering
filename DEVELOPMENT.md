@@ -504,7 +504,7 @@ deactivate
 ```bash
 cd 01-foundations/05-agent-loop
 uv sync
-uv run python agent_loop_anthropic.py
+uv run python 02_coding_agent_anthropic.py
 ```
 
 **Wrong Python version:**

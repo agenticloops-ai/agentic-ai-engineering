@@ -8,8 +8,6 @@ icon: "zap"
 
 Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to interact with different LLM providers and get a simple text response.
 
-> **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
-
 ## 🎯 What You'll Learn
 
 - Initialize and configure LLM clients for different providers
@@ -24,6 +22,19 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 | ![Anthropic](../../assets/badges/anthropic.svg) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
 | ![OpenAI](../../assets/badges/openai.svg)       | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
 | ![LiteLLM](../../assets/badges/litellm.svg)     | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
+
+## 🚀 Quick Start
+
+> **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
+
+```bash
+uv run --directory 01-foundations/01-simple-llm-call python {script_name}
+
+# Example
+uv run --directory 01-foundations/01-simple-llm-call python 01_llm_call_anthropic.py
+```
+
+Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
 

@@ -8,8 +8,6 @@ icon: "wrench"
 
 Learn how to give LLMs the ability to call functions (tools) to interact with the real world. This tutorial demonstrates how to define tools, handle tool calls, and execute functions on behalf of the model.
 
-> **Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
-
 ## 🎯 What You'll Learn
 
 - Define tools with JSON Schema for LLM consumption
@@ -23,6 +21,19 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 | ------------------------------------------------ | ---------------------------------------------------- | ---------------------------------- |
 | ![Anthropic](../../assets/badges/anthropic.svg)  | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
 | ![OpenAI](../../assets/badges/openai.svg)        | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
+
+## 🚀 Quick Start
+
+> **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
+
+```bash
+uv run --directory 01-foundations/04-tool-use python {script_name}
+
+# Example
+uv run --directory 01-foundations/04-tool-use python 01_tool_use_anthropic.py
+```
+
+Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
 
