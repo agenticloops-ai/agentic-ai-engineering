@@ -1,6 +1,7 @@
 name: Trigger Website Rebuild
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -8,6 +9,7 @@ on:
       - '[0-9][0-9]-*/**'
       - 'README.md'
       - 'SETUP.md'
+      - '.github/workflows/trigger-website-rebuild.yml'
 
 jobs:
   trigger-rebuild:
