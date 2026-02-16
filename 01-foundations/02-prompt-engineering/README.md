@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Prompt Engineering"
 description: "Learn prompt engineering techniques including system messages, few-shot examples, and structured output"
 icon: "wand"
 status: "coming-soon"
----
+--- -->
 
 # Prompt Engineering
 

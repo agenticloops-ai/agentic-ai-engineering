@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "LlamaIndex"
 description: "Data-centric agent framework with strong RAG primitives"
 icon: "database"
 status: "coming-soon"
----
+--- -->
 
 # LlamaIndex
 

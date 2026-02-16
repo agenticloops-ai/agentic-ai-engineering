@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "CrewAI"
 description: "Role-based multi-agent collaboration framework"
 icon: "users"
 status: "coming-soon"
----
+--- -->
 
 # CrewAI
 

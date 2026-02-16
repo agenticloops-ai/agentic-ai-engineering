@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "MCP (Model Context Protocol)"
 description: "Connect agents to external tools through a standardized protocol"
 icon: "plug"
 status: "coming-soon"
----
+--- -->
 
 # MCP (Model Context Protocol)
 

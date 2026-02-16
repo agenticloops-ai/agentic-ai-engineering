@@ -1,8 +1,8 @@
----
+<!-- ---
 title: "Simple LLM Call"
 description: "Make your first API call using Anthropic Claude, OpenAI GPT, and LiteLLM"
 icon: "zap"
----
+--- -->
 
 # Simple LLM Call
 
@@ -19,11 +19,11 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 
 ## 📦 Available Examples
 
-| Provider | File | Description |
-|----------|------|-------------|
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_llm_call_openai.py](02_llm_call_openai.py) | Basic OpenAI Responses API calls |
-| ![LiteLLM](https://img.shields.io/badge/LiteLLM-ED7D31?style=for-the-badge) | [03_llm_call_litellm.py](03_llm_call_litellm.py) | Unified interface for any provider |
+| Provider                                                                                                       | File                                                 | Description                        |
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
+| ![LiteLLM](https://img.shields.io/badge/LiteLLM-ED7D31?style=for-the-badge)                                    | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
 
 ## 🔑 Key Concepts
 

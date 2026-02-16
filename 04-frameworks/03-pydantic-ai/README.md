@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Pydantic AI"
 description: "Type-safe agent framework built on Pydantic"
 icon: "shield"
 status: "coming-soon"
----
+--- -->
 
 # Pydantic AI
 

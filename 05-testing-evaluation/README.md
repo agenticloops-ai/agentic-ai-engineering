@@ -1,7 +1,7 @@
----
+<!-- ---
 title: "Testing & Evaluation"
 description: "Agents are non-deterministic — testing them requires different thinking. Measure quality, catch regressions, and build confidence before shipping"
----
+--- -->
 
 # Testing & Evaluation
 

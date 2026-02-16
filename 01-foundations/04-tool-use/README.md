@@ -1,8 +1,8 @@
----
+<!-- ---
 title: "Tool Use"
 description: "Enable LLMs to call functions and interact with external systems"
 icon: "wrench"
----
+--- -->
 
 # Tool Use
 
@@ -19,10 +19,10 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 
 ## 📦 Available Examples
 
-| Provider | File | Description |
-|----------|------|-------------|
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | [02_tool_use_openai.py](02_tool_use_openai.py) | Tool use with OpenAI Responses API |
+| Provider                                                                                                       | File                                                 | Description                        |
+| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
 
 ## 🔑 Key Concepts
 
@@ -177,11 +177,11 @@ for func_call in function_calls:
 
 ## 🧰 Tools in This Tutorial
 
-| Tool | Description |
-|------|-------------|
+| Tool         | Description                                        |
+| ------------ | -------------------------------------------------- |
 | `calculator` | Basic arithmetic (add, subtract, multiply, divide) |
-| `read_file` | Read file contents from the filesystem |
-| `run_bash` | Execute shell commands (with safety guardrails) |
+| `read_file`  | Read file contents from the filesystem             |
+| `run_bash`   | Execute shell commands (with safety guardrails)    |
 
 ## 🏗️ Code Structure
 

@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "RAG Techniques"
 description: "Advanced retrieval patterns — vector search, hybrid retrieval, GraphRAG, and agentic RAG"
 icon: "search"
 status: "coming-soon"
----
+--- -->
 
 # RAG Techniques
 

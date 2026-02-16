@@ -1,9 +1,9 @@
----
+<!-- ---
 title: "Security & Guardrails"
 description: "Authentication, sandboxing, and prompt injection defense"
 icon: "lock"
 status: "coming-soon"
----
+--- -->
 
 # Security & Guardrails
 

@@ -1,7 +1,7 @@
----
+<!-- ---
 title: "Foundations of AI Agents"
 description: "Master the core building blocks of AI agents through progressive, hands-on tutorials"
----
+--- -->
 
 # Foundations of AI Agents
 
