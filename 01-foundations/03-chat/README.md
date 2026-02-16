@@ -8,8 +8,6 @@ icon: "message-circle"
 
 Build an interactive chat application with conversation history management. This tutorial demonstrates how to maintain context across multiple turns and create an engaging conversational user experience.
 
-> **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
-
 ## 🎯 What You'll Learn
 
 - Implement an interactive chat loop with user input
@@ -24,6 +22,19 @@ Build an interactive chat application with conversation history management. This
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------- |
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_chat_anthropic.py](01_chat_anthropic.py) | Interactive chat using Claude Messages API  |
 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_chat_openai.py](02_chat_openai.py)       | Interactive chat using OpenAI Responses API |
+
+## 🚀 Quick Start
+
+> **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
+
+```bash
+uv run --directory 01-foundations/03-chat python {script_name}
+
+# Example
+uv run --directory 01-foundations/03-chat python 01_chat_anthropic.py
+```
+
+Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
 
