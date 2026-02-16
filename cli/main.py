@@ -3,8 +3,10 @@
 
 import os
 import re
+import select
 import subprocess
 import sys
+import termios
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,6 +15,46 @@ import readchar
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+
+
+def readkey_with_esc_support() -> str:
+    """Read a keypress with proper single-press ESC support.
+
+    readchar.readkey() blocks after reading ESC (\\x1b) waiting for a second byte,
+    since escape sequences (arrow keys, etc.) also start with \\x1b.
+    This uses select() with a short timeout to distinguish standalone ESC.
+    """
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    term = termios.tcgetattr(fd)
+    try:
+        term[3] &= ~(termios.ICANON | termios.ECHO | termios.IGNBRK | termios.BRKINT)
+        termios.tcsetattr(fd, termios.TCSAFLUSH, term)
+
+        c1 = sys.stdin.read(1)
+        if c1 != "\x1b":
+            return c1
+
+        # ESC received — wait briefly for more bytes (escape sequence)
+        if not select.select([fd], [], [], 0.05)[0]:
+            return "\x1b"  # standalone ESC
+
+        c2 = sys.stdin.read(1)
+        if c2 not in ("\x4f", "\x5b"):
+            return c1 + c2
+
+        c3 = sys.stdin.read(1)
+        if c3 not in ("\x31", "\x32", "\x33", "\x35", "\x36"):
+            return c1 + c2 + c3
+
+        c4 = sys.stdin.read(1)
+        if c4 not in ("\x30", "\x31", "\x33", "\x34", "\x35", "\x37", "\x38", "\x39"):
+            return c1 + c2 + c3 + c4
+
+        c5 = sys.stdin.read(1)
+        return c1 + c2 + c3 + c4 + c5
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
 
 @dataclass
@@ -156,7 +198,7 @@ class InteractiveMenu:
             self.console.print()
             self.console.print(self.create_menu_panel("Select Module", module_names, selected_idx))
 
-            key = readchar.readkey()
+            key = readkey_with_esc_support()
 
             if key == readchar.key.UP:
                 selected_idx = (selected_idx - 1) % len(module_names)
@@ -164,7 +206,7 @@ class InteractiveMenu:
                 selected_idx = (selected_idx + 1) % len(module_names)
             elif key == readchar.key.ENTER:
                 return self.modules[selected_idx]
-            elif key in (readchar.key.ESC, "\x1b", "q", "Q"):
+            elif key in ("\x1b", "q", "Q"):
                 return None
 
     def show_lesson_menu(self, module: Module) -> Lesson | None:
@@ -187,7 +229,7 @@ class InteractiveMenu:
             self.console.print()
             self.console.print(self.create_menu_panel("Select Lesson", lesson_names, selected_idx))
 
-            key = readchar.readkey()
+            key = readkey_with_esc_support()
 
             if key == readchar.key.UP:
                 selected_idx = (selected_idx - 1) % len(lesson_names)
@@ -195,7 +237,7 @@ class InteractiveMenu:
                 selected_idx = (selected_idx + 1) % len(lesson_names)
             elif key == readchar.key.ENTER:
                 return module.lessons[selected_idx]
-            elif key in (readchar.key.ESC, "\x1b", "q", "Q"):
+            elif key in ("\x1b", "q", "Q"):
                 return None
 
     def show_script_menu(self, module: Module, lesson: Lesson) -> Script | None:
@@ -221,7 +263,7 @@ class InteractiveMenu:
             self.console.print()
             self.console.print(self.create_menu_panel("Select Script", script_names, selected_idx))
 
-            key = readchar.readkey()
+            key = readkey_with_esc_support()
 
             if key == readchar.key.UP:
                 selected_idx = (selected_idx - 1) % len(script_names)
@@ -229,7 +271,7 @@ class InteractiveMenu:
                 selected_idx = (selected_idx + 1) % len(script_names)
             elif key == readchar.key.ENTER:
                 return lesson.scripts[selected_idx]
-            elif key in (readchar.key.ESC, "\x1b", "q", "Q"):
+            elif key in ("\x1b", "q", "Q"):
                 return None
 
     def execute_script(self, script: Script, lesson: Lesson) -> None:
