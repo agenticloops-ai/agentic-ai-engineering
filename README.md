@@ -6,14 +6,14 @@
 
 <!-- TODO: Uncomment when repo is public — readme-i18n.com requires a public repo to generate translations
 <p align="center">
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=de">Deutsch</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=es">Español</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=fr">Français</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=ja">日本語</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=ko">한국어</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=pt">Português</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=uk">Українська</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/ai-agents-engineering?lang=zh">中文</a>
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=de">Deutsch</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=es">Español</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=fr">Français</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=ja">日本語</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=ko">한국어</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=pt">Português</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=uk">Українська</a> |
+  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=zh">中文</a>
 </p>
 -->
 
@@ -29,7 +29,7 @@
 
 **A practical, hands-on guide to AI agent development**. Learn by building real agents - from basic LLM interactions to autonomous tool-using systems. Master agentic patterns, explore popular frameworks, and discover deployment strategies through interactive tutorials.
 
-**We're starting small but adding new tutorials continuously.** If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/ai-agents-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/ai-agents-engineering/issues) - your input directly shapes what we build next.
+**We're starting small but adding new tutorials continuously.** If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) - your input directly shapes what we build next.
 
 📝 **[Subscribe to our Substack](https://agenticloopsai.substack.com)** to get deep-dive engineering posts on AI agents. No hype, just engineering insights.
 
@@ -45,9 +45,9 @@ No prior AI/ML experience required - just Python basics and **curiosity** about 
 ```bash
 brew install uv
 
-git clone https://github.com/agenticloops-ai/ai-agents-engineering.git
+git clone https://github.com/agenticloops-ai/agentic-ai-engineering.git
 
-cd ai-agents-engineering
+cd agentic-ai-engineering
 cp .env.example .env  # add your API keys
 
 uv run --directory 01-foundations/01-simple-llm-call python 01_simple_call_anthropic.py

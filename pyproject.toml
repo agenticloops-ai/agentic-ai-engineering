@@ -1,5 +1,5 @@
 [project]
-name = "ai-agents-engineering"
+name = "agentic-ai-engineering"
 version = "0.1.0"
 description = "Python course repository with independent lesson folders"
 requires-python = ">=3.11"
