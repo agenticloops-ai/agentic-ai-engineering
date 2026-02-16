@@ -20,8 +20,8 @@ Learn how to build autonomous coding agents that use tools in a loop to complete
 | Provider                                                                                                       | File                                                     | Description                                                        |
 | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------ |
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_minimal_agent.py](01_minimal_agent.py)               | Minimal agent loop (~55 lines) with human-in-the-loop confirmation |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API                          |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_agent_loop_openai.py](02_agent_loop_openai.py)       | Agent loop using OpenAI Responses API                              |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [02_coding_agent_anthropic.py](02_coding_agent_anthropic.py) | Full coding agent using Claude Messages API                        |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [03_coding_agent_openai.py](03_coding_agent_openai.py)       | Coding agent using OpenAI Responses API                            |
 
 ## 🚀 Quick Start
 
