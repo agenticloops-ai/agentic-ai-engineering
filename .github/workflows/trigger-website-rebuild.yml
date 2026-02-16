@@ -18,7 +18,7 @@ jobs:
         uses: actions/create-github-app-token@v2
         with:
           app-id: ${{ secrets.AGENTIC_LOOPS_GITHUB_APP_ID }}
-          private-key: ${{ secrets.AGENTIC_LOOPS_GITHUB_APP_CLIENT_SECRET }}
+          private-key: ${{ secrets.AGENTIC_LOOPS_GITHUB_APP_PRIVATE_KEY }}
           owner: agenticloops-ai
           repositories: agenticloops-website
 
