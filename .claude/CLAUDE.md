@@ -100,9 +100,9 @@ icon: "icon name"
 ```
 
 1. **Title & Introduction** — what you'll learn
-2. **Setup Reference** — link to SETUP.md (typically the same)
-3. **🎯 What You'll Learn** — bullet list of learning objectives
-4. **📦 Available Examples** — table of implementations
+2. **🎯 What You'll Learn** — bullet list of learning objectives
+3. **📦 Available Examples** — table of implementations
+4. **🚀 Quick Start** — prerequisites note linking to SETUP.md, `uv run --directory` command pattern with example, Code Runner mention
 5. **🔑 Key Concepts** — detailed explanations with code examples showing key concepts for the tutorial, reference to previous tutorials instead of duplicating
 6. **🏗️ Code Structure** — optional, architecture patterns (for complex tutorials)
 7. **⚠️ Important Considerations** — production concerns and gotchas

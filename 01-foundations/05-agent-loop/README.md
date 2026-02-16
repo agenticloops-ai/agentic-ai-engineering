@@ -6,7 +6,12 @@ icon: "repeat"
 
 # Agent Loop
 
-Learn how to build autonomous coding agents that use tools in a loop to complete tasks. This tutorial demonstrates the core pattern behind read_file, write_file, bash)
+Learn how to build autonomous coding agents that use tools in a loop to complete tasks. This tutorial demonstrates the core pattern behind AI agents: iteratively calling an LLM, executing requested tools, and feeding results back until the task is complete.
+
+## 🎯 What You'll Learn
+
+- Implement the core agent loop pattern (LLM call → tool execution → result feedback)
+- Build coding agents with filesystem tools (read_file, write_file, bash)
 - Handle tool calls and results in conversation flow
 - Build interactive CLI agents with proper error handling
 
@@ -17,6 +22,19 @@ Learn how to build autonomous coding agents that use tools in a loop to complete
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_minimal_agent.py](01_minimal_agent.py)               | Minimal agent loop (~55 lines) with human-in-the-loop confirmation |
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_agent_loop_anthropic.py](01_agent_loop_anthropic.py) | Full agent loop using Claude Messages API                          |
 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_agent_loop_openai.py](02_agent_loop_openai.py)       | Agent loop using OpenAI Responses API                              |
+
+## 🚀 Quick Start
+
+> **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
+
+```bash
+uv run --directory 01-foundations/05-agent-loop python {script_name}
+
+# Example
+uv run --directory 01-foundations/05-agent-loop python 01_minimal_agent.py
+```
+
+Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
 
