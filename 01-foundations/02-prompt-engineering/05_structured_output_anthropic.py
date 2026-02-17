@@ -182,6 +182,7 @@ def main() -> None:
             raw = method(PRODUCT_DESCRIPTION)
             parsed = _try_parse_json(raw)
 
+            console.input("\n[dim]Press Enter to continue...[/dim]")
             if parsed:
                 formatted = json.dumps(parsed, indent=2)
                 syntax = Syntax(formatted, "json", theme="monokai")
@@ -191,7 +192,6 @@ def main() -> None:
         except Exception as e:
             logger.error("Error in %s: %s", method_name, e)
 
-        console.input("\n[dim]Press Enter to continue...[/dim]")
 
     console.print()
     token_tracker.report()

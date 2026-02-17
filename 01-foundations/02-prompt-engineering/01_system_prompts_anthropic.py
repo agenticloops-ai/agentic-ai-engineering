@@ -32,16 +32,16 @@ SUPPORT_TICKETS = [
             "Can you please fix this ASAP?"
         ),
     },
-    {
-        "label": "Ticket 2 — Feature not working",
-        "text": (
-            "Subject: Export button doesn't work\n\n"
-            "I've been trying to export my report but nothing happens when I click the "
-            "export button. I've tried multiple times. I'm using Chrome on Windows. "
-            "My colleague says it works for them but I can't figure out what I'm doing wrong. "
-            "Is this a known issue?"
-        ),
-    },
+    # {
+    #     "label": "Ticket 2 — Feature not working",
+    #     "text": (
+    #         "Subject: Export button doesn't work\n\n"
+    #         "I've been trying to export my report but nothing happens when I click the "
+    #         "export button. I've tried multiple times. I'm using Chrome on Windows. "
+    #         "My colleague says it works for them but I can't figure out what I'm doing wrong. "
+    #         "Is this a known issue?"
+    #     ),
+    # },
 ]
 
 # Three system prompt configurations showing progressive refinement
@@ -100,7 +100,7 @@ def main() -> None:
     """Run support ticket triage with three different system prompts."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    engineer = PromptEngineer("claude-sonnet-4-20250514", token_tracker)
+    engineer = PromptEngineer("claude-sonnet-4-5-20250929", token_tracker)
 
     console.print(
         Panel(
@@ -123,12 +123,12 @@ def main() -> None:
             console.print(f"[dim]System prompt: {system_prompt[:80]}...[/dim]\n")
 
             try:
+                console.input("\n[dim]Press Enter to continue...[/dim]")
                 response = engineer.run(system_prompt, user_prompt)
                 console.print(Panel(response, title=config_name, border_style="green"))
             except Exception as e:
                 logger.error("Error with config %s: %s", config_name, e)
 
-            console.input("\n[dim]Press Enter to continue...[/dim]")
 
     # Session summary
     console.print()

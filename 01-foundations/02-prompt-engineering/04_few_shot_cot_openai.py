@@ -124,7 +124,7 @@ def main() -> None:
     """Run three demos showing when to use each prompting technique."""
     console = Console()
     token_tracker = OpenAITokenTracker()
-    client = PromptingClient("gpt-4o", token_tracker)
+    client = PromptingClient("gpt-4.1", token_tracker)
 
     console.print(
         Panel(
@@ -154,8 +154,9 @@ def main() -> None:
             logger.error("Sentiment error: %s", e)
             sentiment_table.add_row(review[:55], "ERROR")
 
-    console.print(sentiment_table)
     console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print(sentiment_table)
+    
 
     # --- Demo B: Few-Shot Custom Labels ---
     console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
@@ -177,8 +178,9 @@ def main() -> None:
             logger.error("Few-shot error: %s", e)
             ticket_table.add_row(ticket[:55], "ERROR")
 
-    console.print(ticket_table)
     console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print(ticket_table)
+    
 
     # --- Demo C: Chain-of-Thought Root Cause ---
     console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
@@ -186,22 +188,23 @@ def main() -> None:
     console.print("[dim]Comparing zero-shot vs CoT on a bug that requires reasoning.[/dim]\n")
     console.print(Panel(BUG_REPORT, title="Bug Report", border_style="dim"))
 
-    try:
-        zero_shot = client.analyze_zero_shot(BUG_REPORT)
-        console.print(Panel(zero_shot, title="Zero-Shot Analysis", border_style="yellow"))
-    except Exception as e:
-        logger.error("Zero-shot analysis error: %s", e)
+    # try:
+    #     zero_shot = client.analyze_zero_shot(BUG_REPORT)
+    #     console.print(Panel(zero_shot, title="Zero-Shot Analysis", border_style="yellow"))
+    # except Exception as e:
+    #     logger.error("Zero-shot analysis error: %s", e)
 
-    console.input("\n[dim]Press Enter to continue...[/dim]")
+    # console.input("\n[dim]Press Enter to continue...[/dim]")
 
     try:
         cot = client.analyze_cot(BUG_REPORT)
+        console.input("\n[dim]Press Enter to continue...[/dim]")
         console.print(Panel(cot, title="Chain-of-Thought Analysis", border_style="green"))
     except Exception as e:
         logger.error("CoT analysis error: %s", e)
 
-    console.input("\n[dim]Press Enter to continue...[/dim]")
 
+    console.input("\n[dim]Press Enter to continue...[/dim]")
     # --- Summary: When to Use What ---
     console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
     summary = Table(title="When to Use Each Technique", show_lines=True)

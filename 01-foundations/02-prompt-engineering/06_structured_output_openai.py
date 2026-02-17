@@ -153,7 +153,7 @@ def main() -> None:
     """Run one product description through three structured output methods."""
     console = Console()
     token_tracker = OpenAITokenTracker()
-    client = StructuredOutputClient("gpt-4o", token_tracker)
+    client = StructuredOutputClient("gpt-4.1", token_tracker)
 
     console.print(
         Panel(
@@ -182,6 +182,7 @@ def main() -> None:
             raw = method(PRODUCT_DESCRIPTION)
             parsed = _try_parse_json(raw)
 
+            console.input("\n[dim]Press Enter to continue...[/dim]")
             if parsed:
                 formatted = json.dumps(parsed, indent=2)
                 syntax = Syntax(formatted, "json", theme="monokai")
@@ -190,8 +191,6 @@ def main() -> None:
                 console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
         except Exception as e:
             logger.error("Error in %s: %s", method_name, e)
-
-        console.input("\n[dim]Press Enter to continue...[/dim]")
 
     console.print()
     token_tracker.report()
