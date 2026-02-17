@@ -15,7 +15,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from common import OpenAITokenTracker, setup_logging
+from common import OpenAITokenTracker, interactive_menu, setup_logging
 
 load_dotenv(find_dotenv())
 
@@ -120,27 +120,39 @@ class PromptingClient:
         return self._call(instructions, bug_report, max_tokens=512)
 
 
-def main() -> None:
-    """Run three demos showing when to use each prompting technique."""
-    console = Console()
-    token_tracker = OpenAITokenTracker()
-    client = PromptingClient("gpt-4.1", token_tracker)
+DEMO_LABELS = [
+    "A: Zero-Shot — Sentiment Analysis",
+    "B: Few-Shot — Custom Label Classification",
+    "C: Chain-of-Thought — Root Cause Analysis",
+]
 
-    console.print(
-        Panel(
-            "[bold cyan]Few-Shot & Chain-of-Thought Prompting[/bold cyan]\n\n"
-            "Three demos, each using the technique where it shines:\n"
-            "  A. Zero-shot — sentiment analysis (task the model already knows)\n"
-            "  B. Few-shot — custom label classification (teaching YOUR taxonomy)\n"
-            "  C. Chain-of-thought — root cause analysis (multi-step reasoning)",
-            title="Prompt Engineering — OpenAI",
-        )
-    )
 
-    # --- Demo A: Zero-Shot Sentiment ---
-    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
-    console.print("[bold magenta]Demo A: Zero-Shot — Sentiment Analysis[/bold magenta]")
+ZERO_SHOT_INSTRUCTIONS = (
+    "Classify the sentiment of the following product review.\n"
+    "Respond with exactly one word: POSITIVE, NEGATIVE, or NEUTRAL."
+)
+
+FEW_SHOT_INSTRUCTIONS_TEMPLATE = (
+    "Classify support tickets into one of these categories: "
+    "BILLING_DISPUTE, ACCOUNT_ACCESS, TECHNICAL_BUG, FEATURE_REQUEST\n\n"
+    "Examples:\n\n{examples}\n\n"
+    "Respond with ONLY the category name."
+)
+
+COT_INSTRUCTIONS = (
+    "You are a senior engineer. Analyze this bug report step by step:\n"
+    "1. What patterns do you observe? (timing, scope, triggers)\n"
+    "2. What does each clue rule in or rule out?\n"
+    "3. What is the most likely root cause?\n"
+    "4. What would you check first to confirm?\n\n"
+    "Think through each step before concluding."
+)
+
+
+def _run_zero_shot(console: Console, client: PromptingClient) -> None:
+    """Run the zero-shot sentiment analysis demo."""
     console.print("[dim]No examples needed — the model already understands sentiment.[/dim]\n")
+    console.print(Panel(ZERO_SHOT_INSTRUCTIONS, title="Instructions", border_style="dim"))
 
     sentiment_table = Table(show_lines=True)
     sentiment_table.add_column("Review", style="cyan", max_width=55)
@@ -149,21 +161,25 @@ def main() -> None:
     for review in REVIEWS:
         try:
             result = client.classify_sentiment(review)
-            sentiment_table.add_row(review[:55], result)
+            sentiment_table.add_row(review, result)
         except Exception as e:
             logger.error("Sentiment error: %s", e)
-            sentiment_table.add_row(review[:55], "ERROR")
+            sentiment_table.add_row(review, "ERROR")
 
-    console.input("\n[dim]Press Enter to continue...[/dim]")
     console.print(sentiment_table)
 
-    # --- Demo B: Few-Shot Custom Labels ---
-    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
-    console.print("[bold magenta]Demo B: Few-Shot — Custom Label Classification[/bold magenta]")
+
+def _run_few_shot(console: Console, client: PromptingClient) -> None:
+    """Run the few-shot custom label classification demo."""
     console.print(
         "[dim]The model doesn't know labels like BILLING_DISPUTE — "
         "examples teach your taxonomy.[/dim]\n"
     )
+    examples = "\n".join(
+        f'Ticket: "{text}"\nCategory: {label}' for text, label in FEW_SHOT_EXAMPLES
+    )
+    instructions = FEW_SHOT_INSTRUCTIONS_TEMPLATE.format(examples=examples)
+    console.print(Panel(instructions, title="Instructions", border_style="dim"))
 
     ticket_table = Table(show_lines=True)
     ticket_table.add_column("Support Ticket", style="cyan", max_width=55)
@@ -172,61 +188,74 @@ def main() -> None:
     for ticket in FEW_SHOT_TEST_INPUTS:
         try:
             result = client.classify_ticket_few_shot(ticket)
-            ticket_table.add_row(ticket[:55], result)
+            ticket_table.add_row(ticket, result)
         except Exception as e:
             logger.error("Few-shot error: %s", e)
-            ticket_table.add_row(ticket[:55], "ERROR")
+            ticket_table.add_row(ticket, "ERROR")
 
-    console.input("\n[dim]Press Enter to continue...[/dim]")
     console.print(ticket_table)
 
-    # --- Demo C: Chain-of-Thought Root Cause ---
-    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
-    console.print("[bold magenta]Demo C: Chain-of-Thought — Root Cause Analysis[/bold magenta]")
-    console.print("[dim]Comparing zero-shot vs CoT on a bug that requires reasoning.[/dim]\n")
-    console.print(Panel(BUG_REPORT, title="Bug Report", border_style="dim"))
 
-    # try:
-    #     zero_shot = client.analyze_zero_shot(BUG_REPORT)
-    #     console.print(Panel(zero_shot, title="Zero-Shot Analysis", border_style="yellow"))
-    # except Exception as e:
-    #     logger.error("Zero-shot analysis error: %s", e)
-
-    # console.input("\n[dim]Press Enter to continue...[/dim]")
+def _run_cot(console: Console, client: PromptingClient) -> None:
+    """Run the chain-of-thought root cause analysis demo."""
+    console.print("[dim]CoT on a bug report that requires multi-step reasoning.[/dim]\n")
+    console.print(Panel(COT_INSTRUCTIONS, title="Instructions", border_style="dim"))
+    console.print(Panel(BUG_REPORT, title="User Input", border_style="dim"))
 
     try:
         cot = client.analyze_cot(BUG_REPORT)
-        console.input("\n[dim]Press Enter to continue...[/dim]")
         console.print(Panel(cot, title="Chain-of-Thought Analysis", border_style="green"))
     except Exception as e:
         logger.error("CoT analysis error: %s", e)
 
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    # --- Summary: When to Use What ---
-    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
-    summary = Table(title="When to Use Each Technique", show_lines=True)
-    summary.add_column("Technique", style="bold", max_width=14)
-    summary.add_column("Best For", style="cyan", max_width=30)
-    summary.add_column("Trade-off", style="dim", max_width=30)
-    summary.add_row(
-        "Zero-Shot",
-        "Well-known tasks (sentiment,\ntranslation, summarization)",
-        "Fast & cheap, but unreliable\nfor custom taxonomies",
-    )
-    summary.add_row(
-        "Few-Shot",
-        "Custom labels, domain-specific\nclassification, style matching",
-        "More input tokens, but teaches\nthe model YOUR categories",
-    )
-    summary.add_row(
-        "CoT",
-        "Reasoning tasks (debugging,\nmath, root cause analysis)",
-        "More output tokens, but better\naccuracy on complex problems",
-    )
-    console.print(summary)
 
-    console.print()
-    token_tracker.report()
+def main() -> None:
+    """Run three demos showing when to use each prompting technique."""
+    console = Console()
+    token_tracker = OpenAITokenTracker()
+    client = PromptingClient("gpt-4.1", token_tracker)
+
+    header = Panel(
+        "[bold cyan]Few-Shot & Chain-of-Thought Prompting[/bold cyan]\n\n"
+        "Three demos, each using the technique where it shines:\n"
+        "  A. Zero-shot — sentiment analysis (task the model already knows)\n"
+        "  B. Few-shot — custom label classification (teaching YOUR taxonomy)\n"
+        "  C. Chain-of-thought — root cause analysis (multi-step reasoning)",
+        title="Prompt Engineering — OpenAI",
+    )
+
+    demos = {
+        DEMO_LABELS[0]: _run_zero_shot,
+        DEMO_LABELS[1]: _run_few_shot,
+        DEMO_LABELS[2]: _run_cot,
+    }
+
+    try:
+        while True:
+            selection = interactive_menu(
+                console,
+                DEMO_LABELS,
+                title="Select a Demo",
+                header=header,
+            )
+            if not selection:
+                break
+
+            console.print(f"\n[bold yellow]━━━ {selection} ━━━[/bold yellow]")
+
+            try:
+                demos[selection](console, client)
+            except Exception as e:
+                logger.error("Demo error: %s", e)
+
+            token_tracker.report()
+            token_tracker.reset()
+
+            console.print("\n[dim]Press Enter to continue...[/dim]")
+            input()
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Interrupted.[/yellow]")
 
 
 if __name__ == "__main__":

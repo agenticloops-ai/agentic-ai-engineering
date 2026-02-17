@@ -19,7 +19,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.syntax import Syntax
 
-from common import OpenAITokenTracker, setup_logging
+from common import OpenAITokenTracker, interactive_menu, setup_logging
 
 load_dotenv(find_dotenv())
 
@@ -161,34 +161,16 @@ def _display_result(console: Console, method_name: str, raw: str) -> None:
         console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
 
 
-def main() -> None:
-    """Run one product description through three structured output methods."""
-    console = Console()
-    token_tracker = OpenAITokenTracker()
-    client = StructuredOutputClient("gpt-4.1", token_tracker)
+METHOD_LABELS = [
+    "1: Prompted JSON",
+    "2: Markdown Scaffolding",
+    "3: Schema Enforcement",
+]
 
-    console.print(
-        Panel(
-            "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
-            "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
-            "  1. JSON via prompt instructions\n"
-            "  2. Markdown scaffolding\n"
-            "  3. JSON schema enforcement (OpenAI-specific)\n\n"
-            "All three extract from the same product description for easy comparison.",
-            title="Prompt Engineering — OpenAI",
-        )
-    )
 
-    console.print(
-        "\n[bold yellow]━━━ Product Description (input for all methods) ━━━[/bold yellow]"
-    )
-    console.print(Panel(PRODUCT_DESCRIPTION, border_style="dim"))
-
+def _run_method_1(console: Console, client: StructuredOutputClient) -> None:
+    """Run the prompted JSON extraction method."""
     schema_str = json.dumps(PRODUCT_SCHEMA, indent=2)
-
-    # --- Method 1: Prompted JSON ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ 1: Prompted JSON ━━━[/bold yellow]")
     console.print("[dim]Embed the schema in the instructions and ask for JSON output.[/dim]\n")
     prompt_1 = (
         "**Instructions:**\n"
@@ -201,16 +183,16 @@ def main() -> None:
     )
     console.print(Markdown(prompt_1))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_json_prompted(PRODUCT_DESCRIPTION)
         _display_result(console, "Prompted JSON", raw)
     except Exception as e:
         logger.error("Error in method 1: %s", e)
 
-    # --- Method 2: Markdown Scaffolding ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ 2: Markdown Scaffolding ━━━[/bold yellow]")
+
+def _run_method_2(console: Console, client: StructuredOutputClient) -> None:
+    """Run the markdown scaffolding extraction method."""
+    schema_str = json.dumps(PRODUCT_SCHEMA, indent=2)
     console.print("[dim]Structure the input with markdown sections to guide the output.[/dim]\n")
     prompt_2 = (
         "**Instructions:**\n"
@@ -228,16 +210,15 @@ def main() -> None:
     )
     console.print(Markdown(prompt_2))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_with_scaffolding(PRODUCT_DESCRIPTION)
         _display_result(console, "Markdown Scaffolding", raw)
     except Exception as e:
         logger.error("Error in method 2: %s", e)
 
-    # --- Method 3: Schema Enforcement ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ 3: Schema Enforcement ━━━[/bold yellow]")
+
+def _run_method_3(console: Console, client: StructuredOutputClient) -> None:
+    """Run the schema enforcement extraction method."""
     console.print("[dim]API-level enforcement via text.format — guaranteed valid JSON.[/dim]\n")
     schema_preview = json.dumps(PRODUCT_JSON_SCHEMA, indent=2)
     prompt_3 = (
@@ -253,15 +234,61 @@ def main() -> None:
     )
     console.print(Markdown(prompt_3))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_with_schema(PRODUCT_DESCRIPTION)
         _display_result(console, "Schema Enforcement", raw)
     except Exception as e:
         logger.error("Error in method 3: %s", e)
 
-    console.print()
-    token_tracker.report()
+
+def main() -> None:
+    """Run one product description through three structured output methods."""
+    console = Console()
+    token_tracker = OpenAITokenTracker()
+    client = StructuredOutputClient("gpt-4.1", token_tracker)
+
+    header = Panel(
+        "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
+        "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
+        "  1. JSON via prompt instructions\n"
+        "  2. Markdown scaffolding\n"
+        "  3. JSON schema enforcement (OpenAI-specific)\n\n"
+        f"[bold]Product Description:[/bold]\n{PRODUCT_DESCRIPTION}",
+        title="Prompt Engineering — OpenAI",
+    )
+
+    methods = {
+        METHOD_LABELS[0]: _run_method_1,
+        METHOD_LABELS[1]: _run_method_2,
+        METHOD_LABELS[2]: _run_method_3,
+    }
+
+    try:
+        while True:
+            selection = interactive_menu(
+                console,
+                METHOD_LABELS,
+                title="Select a Method",
+                header=header,
+            )
+            if not selection:
+                break
+
+            console.print(f"\n[bold yellow]━━━ {selection} ━━━[/bold yellow]")
+
+            try:
+                methods[selection](console, client)
+            except Exception as e:
+                logger.error("Method error: %s", e)
+
+            token_tracker.report()
+            token_tracker.reset()
+
+            console.print("\n[dim]Press Enter to continue...[/dim]")
+            input()
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Interrupted.[/yellow]")
 
 
 if __name__ == "__main__":

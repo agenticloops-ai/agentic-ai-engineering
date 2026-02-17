@@ -14,7 +14,7 @@ from openai import OpenAI
 from rich.console import Console
 from rich.panel import Panel
 
-from common import OpenAITokenTracker, setup_logging
+from common import OpenAITokenTracker, interactive_menu, setup_logging
 
 load_dotenv(find_dotenv())
 
@@ -32,38 +32,51 @@ SUPPORT_TICKETS = [
             "Can you please fix this ASAP?"
         ),
     },
-    # {
-    #     "label": "Ticket 2 — Feature not working",
-    #     "text": (
-    #         "Subject: Export button doesn't work\n\n"
-    #         "I've been trying to export my report but nothing happens when I click the "
-    #         "export button. I've tried multiple times. I'm using Chrome on Windows. "
-    #         "My colleague says it works for them but I can't figure out what I'm doing wrong. "
-    #         "Is this a known issue?"
-    #     ),
-    # },
+    {
+        "label": "Ticket 2 — Feature not working",
+        "text": (
+            "Subject: Export button doesn't work\n\n"
+            "I've been trying to export my report but nothing happens when I click the "
+            "export button. I've tried multiple times. I'm using Chrome on Windows. "
+            "My colleague says it works for them but I can't figure out what I'm doing wrong. "
+            "Is this a known issue?"
+        ),
+    },
 ]
 
+TICKET_LABELS = [t["label"] for t in SUPPORT_TICKETS]
+
 # Three system prompt configurations showing progressive refinement
-PROMPT_CONFIGS = {
-    "A: Generic Assistant": ("You are a helpful assistant. Help analyze this support ticket."),
-    "B: Role-Assigned Expert": (
-        "You are a senior support engineer at a SaaS company. You've triaged thousands "
-        "of tickets. When analyzing tickets, you identify the most likely root cause, "
-        "estimate severity, and recommend next steps. You don't hedge — you make a call "
-        "based on experience."
-    ),
-    "C: Role + Constraints + Format": (
-        "You are a senior support engineer at a SaaS company. You've triaged thousands "
-        "of tickets.\n\n"
-        "Respond in EXACTLY these sections:\n\n"
-        "CATEGORY: Bug / User Error / Feature Request / Configuration\n\n"
-        "ROOT CAUSE: One sentence.\n\n"
-        "SEVERITY: P1-P4\n\n"
-        "NEXT ACTION: One concrete step for the support team.\n\n"
-        "Be terse. No explanations beyond what's requested."
-    ),
-}
+PROMPT_CONFIGS = [
+    {
+        "label": "A: Generic Assistant",
+        "system": "You are a helpful assistant. Help analyze this support ticket.",
+    },
+    {
+        "label": "B: Role-Assigned Expert",
+        "system": (
+            "You are a senior support engineer at a SaaS company. You've triaged thousands "
+            "of tickets. When analyzing tickets, you identify the most likely root cause, "
+            "estimate severity, and recommend next steps. You don't hedge — you make a call "
+            "based on experience."
+        ),
+    },
+    {
+        "label": "C: Role + Constraints + Format",
+        "system": (
+            "You are a senior support engineer at a SaaS company. You've triaged thousands "
+            "of tickets.\n\n"
+            "Respond in EXACTLY these sections:\n\n"
+            "CATEGORY: Bug / User Error / Feature Request / Configuration\n\n"
+            "ROOT CAUSE: One sentence.\n\n"
+            "SEVERITY: P1-P4\n\n"
+            "NEXT ACTION: One concrete step for the support team.\n\n"
+            "Be terse. No explanations beyond what's requested."
+        ),
+    },
+]
+
+CONFIG_LABELS = [c["label"] for c in PROMPT_CONFIGS]
 
 
 class PromptEngineer:
@@ -104,35 +117,68 @@ def main() -> None:
     token_tracker = OpenAITokenTracker()
     engineer = PromptEngineer("gpt-4.1", token_tracker)
 
-    console.print(
-        Panel(
-            "[bold cyan]System Prompts & Role Engineering[/bold cyan]\n\n"
-            "Comparing 3 system prompt configurations on support ticket triage.\n"
-            "Watch how the response style and actionability change with better prompts.",
-            title="Prompt Engineering — OpenAI",
-        )
+    header = Panel(
+        "[bold cyan]System Prompts & Role Engineering[/bold cyan]\n\n"
+        "Comparing 3 system prompt configurations on support ticket triage.\n"
+        "Watch how the response style and actionability change with better prompts.",
+        title="Prompt Engineering — OpenAI",
     )
 
-    for ticket in SUPPORT_TICKETS:
-        console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
-        console.print(f"[bold magenta]{ticket['label']}[/bold magenta]")
-        console.print(f"[dim]{ticket['text'][:80]}...[/dim]")
+    try:
+        while True:
+            # Step 1: Select a support ticket
+            selection = interactive_menu(
+                console,
+                TICKET_LABELS,
+                title="Select a Support Ticket",
+                header=header,
+                allow_custom=True,
+                custom_prompt="Enter a custom support ticket",
+            )
+            if not selection:
+                break
 
-        user_prompt = f"Analyze this support ticket:\n\n{ticket['text']}"
+            ticket = next((t for t in SUPPORT_TICKETS if t["label"] == selection), None)
+            ticket_text = ticket["text"] if ticket else selection
+            ticket_label = ticket["label"] if ticket else "Custom Ticket"
+            user_prompt = f"Analyze this support ticket:\n\n{ticket_text}"
 
-        for config_name, system_prompt in PROMPT_CONFIGS.items():
-            console.print(f"\n[bold yellow]━━━ {config_name} ━━━[/bold yellow]")
-            console.print(f"[dim]System prompt: {system_prompt[:80]}...[/dim]\n")
+            # Step 2: Select prompt configs to run against the ticket
+            ticket_header = Panel(
+                f"[bold magenta]{ticket_label}[/bold magenta]\n[dim]{ticket_text}[/dim]",
+                title="Selected Ticket",
+                border_style="magenta",
+            )
 
-            try:
-                console.input("\n[dim]Press Enter to continue...[/dim]")
-                response = engineer.run(system_prompt, user_prompt)
-                console.print(Panel(response, title=config_name, border_style="green"))
-            except Exception as e:
-                logger.error("Error with config %s: %s", config_name, e)
+            while True:
+                config_selection = interactive_menu(
+                    console,
+                    CONFIG_LABELS,
+                    title="Select a Prompt Configuration",
+                    header=ticket_header,
+                )
+                if not config_selection:
+                    break
 
-    console.print()
-    token_tracker.report()
+                config = next(c for c in PROMPT_CONFIGS if c["label"] == config_selection)
+
+                console.print(f"\n[bold yellow]━━━ {config['label']} ━━━[/bold yellow]")
+                console.print(Panel(config["system"], title="System Prompt", border_style="dim"))
+
+                try:
+                    response = engineer.run(config["system"], user_prompt)
+                    console.print(Panel(response, title=config["label"], border_style="green"))
+                except Exception as e:
+                    logger.error("Error with config %s: %s", config["label"], e)
+
+                token_tracker.report()
+                token_tracker.reset()
+
+                console.print("\n[dim]Press Enter to continue...[/dim]")
+                input()
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Interrupted.[/yellow]")
 
 
 if __name__ == "__main__":

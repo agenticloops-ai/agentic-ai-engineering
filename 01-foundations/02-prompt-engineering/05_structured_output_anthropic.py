@@ -21,7 +21,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.syntax import Syntax
 
-from common import AnthropicTokenTracker, setup_logging
+from common import AnthropicTokenTracker, interactive_menu, setup_logging
 
 load_dotenv(find_dotenv())
 
@@ -161,34 +161,16 @@ def _display_result(console: Console, method_name: str, raw: str) -> None:
         console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
 
 
-def main() -> None:
-    """Run one product description through three structured output methods."""
-    console = Console()
-    token_tracker = AnthropicTokenTracker()
-    client = StructuredOutputClient("claude-sonnet-4-5-20250929", token_tracker)
+METHOD_LABELS = [
+    "A: Prompt-Based JSON",
+    "B: XML Scaffolding + Prefill",
+    "C: Native JSON Schema",
+]
 
-    console.print(
-        Panel(
-            "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
-            "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
-            "  A. Prompt-based JSON — ask for JSON in the system prompt\n"
-            "  B. XML scaffolding + prefill — Anthropic-specific prompting technique\n"
-            "  C. Native JSON schema — API-level enforcement via output_config (recommended)\n\n"
-            "All three extract from the same product description for easy comparison.",
-            title="Prompt Engineering — Anthropic",
-        )
-    )
 
-    console.print(
-        "\n[bold yellow]━━━ Product Description (input for all methods) ━━━[/bold yellow]"
-    )
-    console.print(Panel(PRODUCT_DESCRIPTION, border_style="dim"))
-
+def _run_method_a(console: Console, client: StructuredOutputClient) -> None:
+    """Run the prompt-based JSON extraction method."""
     schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
-
-    # --- Method A: Prompt-Based JSON ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ A: Prompt-Based JSON ━━━[/bold yellow]")
     console.print("[dim]Embed the schema in the system prompt and ask for JSON output.[/dim]\n")
     prompt_a = (
         "**System prompt:**\n"
@@ -201,16 +183,16 @@ def main() -> None:
     )
     console.print(Markdown(prompt_a))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_json_prompted(PRODUCT_DESCRIPTION)
         _display_result(console, "A: Prompt-Based JSON", raw)
     except Exception as e:
         logger.error("Error in method A: %s", e)
 
-    # --- Method B: XML Scaffolding + Prefill ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ B: XML + Prefill ━━━[/bold yellow]")
+
+def _run_method_b(console: Console, client: StructuredOutputClient) -> None:
+    """Run the XML scaffolding + prefill extraction method."""
+    schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
     console.print("[dim]Wrap input in XML tags, prefill assistant response with '{'.[/dim]\n")
     prompt_b = (
         "**System prompt:**\n"
@@ -226,16 +208,15 @@ def main() -> None:
     )
     console.print(Markdown(prompt_b))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_with_prefill(PRODUCT_DESCRIPTION)
         _display_result(console, "B: XML + Prefill", raw)
     except Exception as e:
         logger.error("Error in method B: %s", e)
 
-    # --- Method C: Native Schema ---
-    console.input("\n[dim]Press Enter to continue...[/dim]")
-    console.print("\n[bold yellow]━━━ C: Native Schema ━━━[/bold yellow]")
+
+def _run_method_c(console: Console, client: StructuredOutputClient) -> None:
+    """Run the native JSON schema extraction method."""
     console.print("[dim]API-level enforcement via Pydantic model — guaranteed valid JSON.[/dim]\n")
     prompt_c = (
         "**System prompt:**\n"
@@ -256,15 +237,61 @@ def main() -> None:
     )
     console.print(Markdown(prompt_c))
 
-    console.input("\n[dim]Press Enter to run...[/dim]")
     try:
         raw = client.extract_with_native_schema(PRODUCT_DESCRIPTION)
         _display_result(console, "C: Native Schema", raw)
     except Exception as e:
         logger.error("Error in method C: %s", e)
 
-    console.print()
-    token_tracker.report()
+
+def main() -> None:
+    """Run one product description through three structured output methods."""
+    console = Console()
+    token_tracker = AnthropicTokenTracker()
+    client = StructuredOutputClient("claude-sonnet-4-5-20250929", token_tracker)
+
+    header = Panel(
+        "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
+        "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
+        "  A. Prompt-based JSON — ask for JSON in the system prompt\n"
+        "  B. XML scaffolding + prefill — Anthropic-specific prompting technique\n"
+        "  C. Native JSON schema — API-level enforcement via output_config (recommended)\n\n"
+        f"[bold]Product Description:[/bold]\n{PRODUCT_DESCRIPTION}",
+        title="Prompt Engineering — Anthropic",
+    )
+
+    methods = {
+        METHOD_LABELS[0]: _run_method_a,
+        METHOD_LABELS[1]: _run_method_b,
+        METHOD_LABELS[2]: _run_method_c,
+    }
+
+    try:
+        while True:
+            selection = interactive_menu(
+                console,
+                METHOD_LABELS,
+                title="Select a Method",
+                header=header,
+            )
+            if not selection:
+                break
+
+            console.print(f"\n[bold yellow]━━━ {selection} ━━━[/bold yellow]")
+
+            try:
+                methods[selection](console, client)
+            except Exception as e:
+                logger.error("Method error: %s", e)
+
+            token_tracker.report()
+            token_tracker.reset()
+
+            console.print("\n[dim]Press Enter to continue...[/dim]")
+            input()
+
+    except KeyboardInterrupt:
+        console.print("\n[yellow]Interrupted.[/yellow]")
 
 
 if __name__ == "__main__":
