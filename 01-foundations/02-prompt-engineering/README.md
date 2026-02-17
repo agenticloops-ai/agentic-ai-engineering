@@ -26,8 +26,8 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- |
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering              |
 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering              |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Few-shot & chain-of-thought classification     |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Few-shot & chain-of-thought classification     |
+| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos   |
+| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos   |
 | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Structured output with XML tags & prefill      |
 | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [06_structured_output_openai.py](06_structured_output_openai.py)       | Structured output with JSON schema enforcement |
 
@@ -82,65 +82,77 @@ response = client.responses.create(
 
 ### 3. Few-Shot & Chain-of-Thought
 
-**Few-shot prompting** teaches the LLM through examples in the prompt. **Chain-of-thought (CoT)** guides the LLM to reason step by step before answering. The scripts compare four approaches on an agent request classifier:
+The scripts demonstrate three techniques, each on a task where it shines — showing *why* you'd choose one over another:
 
-| Method             | Approach                       | Trade-off                             |
-| ------------------ | ------------------------------ | ------------------------------------- |
-| **Zero-shot**      | No examples, no reasoning      | Lowest token cost, least reliable     |
-| **Few-shot**       | Examples provided              | More input tokens, better consistency |
-| **CoT**            | Reasoning steps requested      | More output tokens, better accuracy   |
-| **Few-shot + CoT** | Examples with reasoning traces | Highest token cost, most reliable     |
+| Technique      | Demo Task                  | Why This Technique                                    |
+| -------------- | -------------------------- | ----------------------------------------------------- |
+| **Zero-shot**  | Sentiment analysis         | Model already knows POSITIVE/NEGATIVE/NEUTRAL         |
+| **Few-shot**   | Custom label classification | Teaches domain labels like `BILLING_DISPUTE`          |
+| **CoT**        | Root cause analysis        | Multi-step reasoning produces better diagnosis        |
 
-**Few-shot example construction:**
+**Zero-shot** — no examples needed when the task is well-understood:
+```python
+system = (
+    "Classify the sentiment of the following product review.\n"
+    "Respond with exactly one word: POSITIVE, NEGATIVE, or NEUTRAL."
+)
+```
+
+**Few-shot** — examples teach the model YOUR custom taxonomy:
 ```python
 EXAMPLES = [
-    ("Write a merge sort function", "CODE_GENERATION"),
-    ("My app crashes with KeyError", "DEBUGGING"),
+    ("I was charged twice for the same subscription", "BILLING_DISPUTE"),
+    ("Can't log in even after resetting my password", "ACCOUNT_ACCESS"),
 ]
 
 examples_text = "\n".join(
-    f'Request: "{req}"\nCategory: {cat}' for req, cat in EXAMPLES
+    f'Ticket: "{text}"\nCategory: {label}' for text, label in EXAMPLES
 )
 ```
 
-**Chain-of-thought prompt pattern:**
+**Chain-of-thought** — step-by-step reasoning for complex problems:
 ```python
 system = (
-    "Think step by step:\n"
-    "1. What is the user trying to accomplish?\n"
-    "2. Are they creating, reviewing, fixing, documenting, or asking?\n"
-    "3. Based on your reasoning, state the category.\n\n"
-    "End your response with: Category: <CATEGORY_NAME>"
+    "Analyze this bug report step by step:\n"
+    "1. What patterns do you observe? (timing, scope, triggers)\n"
+    "2. What does each clue rule in or rule out?\n"
+    "3. What is the most likely root cause?\n"
+    "4. What would you check first to confirm?"
 )
 ```
+
+> **When to use what:** Zero-shot for well-known tasks (fast, cheap). Few-shot when you need custom labels or domain-specific classification (more input tokens). CoT when accuracy on reasoning tasks matters more than speed (more output tokens).
 
 ### 4. Structured Output & Scaffolding
 
-Agents must produce parseable output. Both providers now offer native JSON schema enforcement alongside prompt-based techniques:
+Agents must produce parseable output. The scripts extract product data from a single description using three methods each, making it easy to compare reliability:
+
+```python
+# Product extraction schema used across all methods
+class ProductExtraction(BaseModel):
+    name: str
+    category: str
+    price: float
+    features: list[str]
+    in_stock: bool
+```
 
 **Anthropic — native JSON schema via `output_config` (recommended):**
 ```python
-from pydantic import BaseModel
-
-class TaskExtraction(BaseModel):
-    title: str
-    priority: str
-    complexity: int
-
 # API-level schema enforcement — guaranteed valid JSON
 response = client.messages.parse(
     model="claude-sonnet-4-20250514",
-    messages=[{"role": "user", "content": task_description}],
-    output_format=TaskExtraction,
+    messages=[{"role": "user", "content": product_description}],
+    output_format=ProductExtraction,
 )
-task = response.parsed_output  # Validated Pydantic model instance
+product = response.parsed_output  # Validated Pydantic model instance
 ```
 
 **Anthropic — XML scaffolding + assistant prefill (prompting technique):**
 ```python
 # XML tags structure the input, prefill forces JSON start
 messages = [
-    {"role": "user", "content": "<schema>...</schema>\n<task>...</task>"},
+    {"role": "user", "content": "<schema>...</schema>\n<product_description>...</product_description>"},
     {"role": "assistant", "content": "{"},  # Prefill technique
 ]
 ```
@@ -149,11 +161,11 @@ messages = [
 ```python
 response = client.responses.create(
     model="gpt-4o",
-    instructions="Extract task information...",
-    input=task_description,
+    instructions="Extract product information...",
+    input=product_description,
     text={"format": {
         "type": "json_schema",
-        "name": "task_extraction",
+        "name": "product_extraction",
         "strict": True,
         "schema": { ... }
     }},

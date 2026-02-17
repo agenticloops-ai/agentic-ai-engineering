@@ -1,13 +1,12 @@
 """
 Few-Shot & Chain-of-Thought Prompting (Anthropic)
 
-Compares four prompting strategies for classifying agent requests:
-1. Zero-shot — no examples, no reasoning guidance
-2. Few-shot — examples provided for in-context learning
-3. Chain-of-thought — explicit reasoning steps before classification
-4. Few-shot + CoT — examples with reasoning traces
+Demonstrates three prompting techniques, each on a task where it shines:
+1. Zero-shot — sentiment analysis (well-understood task, no examples needed)
+2. Few-shot — classification with custom domain labels (teaches YOUR taxonomy)
+3. Chain-of-thought — root cause analysis (multi-step reasoning needed)
 
-Classification is directly relevant to agent routing in multi-agent systems.
+Each demo shows WHY you'd pick that technique over the others.
 """
 
 import anthropic
@@ -22,176 +21,209 @@ load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
 
-CATEGORIES = "CODE_GENERATION, CODE_REVIEW, DEBUGGING, DOCUMENTATION, GENERAL_QUESTION"
-
-# Few-shot examples for classification
-CLASSIFICATION_EXAMPLES = [
-    ("Write a Python function that sorts a list using merge sort", "CODE_GENERATION"),
-    ("Check this function for bugs and suggest improvements", "CODE_REVIEW"),
-    ("My app crashes with a KeyError when I access the config dict", "DEBUGGING"),
-    ("Write a docstring for this class explaining its public API", "DOCUMENTATION"),
-    ("What's the difference between REST and GraphQL?", "GENERAL_QUESTION"),
+# --- Demo A: Zero-Shot (Sentiment Analysis) ---
+# Zero-shot works great when the task is well-understood by the model
+REVIEWS = [
+    "This laptop is incredible — fast, lightweight, and the battery lasts all day.",
+    "The charging cable broke after two weeks. Total waste of money.",
+    "It's fine for the price. Nothing special but gets the job done.",
 ]
 
-# Chain-of-thought examples with reasoning traces
-COT_EXAMPLES = [
-    (
-        "Write a Python function that sorts a list using merge sort",
-        "The user is asking me to CREATE new code (a sorting function). They're not reviewing "
-        "existing code or fixing a bug — they want something written from scratch. "
-        "Category: CODE_GENERATION",
-    ),
-    (
-        "My app crashes with a KeyError when I access the config dict",
-        "The user has existing code that is FAILING — they mention a specific error (KeyError) "
-        "and a runtime crash. This is about finding and fixing an existing problem, not writing "
-        "new code or reviewing for quality. Category: DEBUGGING",
-    ),
-    (
-        "What's the difference between REST and GraphQL?",
-        "The user is asking a conceptual question about technology. They don't have code to "
-        "write, review, or debug — they want an explanation of concepts. "
-        "Category: GENERAL_QUESTION",
-    ),
+# --- Demo B: Few-Shot (Custom Domain Labels) ---
+# Few-shot teaches the model YOUR categories that it wouldn't know otherwise
+FEW_SHOT_EXAMPLES = [
+    ("I was charged twice for the same subscription", "BILLING_DISPUTE"),
+    ("Can't log in even after resetting my password three times", "ACCOUNT_ACCESS"),
+    ("The export function crashes when the report has more than 1000 rows", "TECHNICAL_BUG"),
+    ("It would be great if we could schedule reports to run automatically", "FEATURE_REQUEST"),
 ]
 
-# Test inputs to classify with all four methods
-TEST_INPUTS = [
-    "Create a REST API endpoint that handles user registration",
-    "Why does this recursive function cause a stack overflow?",
-    "Look at my authentication middleware and tell me if it's secure",
-    "Generate API reference docs for these three modules",
-    "How does garbage collection work in Python?",
+FEW_SHOT_TEST_INPUTS = [
+    "My invoice shows a charge from last month that I already disputed",
+    "The dashboard keeps showing a spinning wheel and never loads the charts",
+    "Would love to be able to tag tickets with custom labels for our team",
 ]
 
+# --- Demo C: Chain-of-Thought (Root Cause Analysis) ---
+# CoT shines when the task requires multi-step reasoning
+BUG_REPORT = (
+    "Users report that the app works fine in the morning but becomes extremely slow "
+    "after lunch. The slowdown affects all users simultaneously, not just individual "
+    "sessions. Restarting the app server temporarily fixes the issue but it returns "
+    "within a few hours. Memory usage on the server appears normal."
+)
 
-class FewShotClient:
-    """Demonstrates few-shot and chain-of-thought prompting techniques."""
+
+class PromptingClient:
+    """Demonstrates zero-shot, few-shot, and chain-of-thought prompting."""
 
     def __init__(self, model: str, token_tracker: AnthropicTokenTracker):
         self.client = anthropic.Anthropic()
         self.model = model
         self.token_tracker = token_tracker
 
-    def _call(self, system_prompt: str, user_content: str) -> str:
+    def _call(self, system_prompt: str, user_content: str, max_tokens: int = 256) -> str:
         """Make a single API call and track tokens."""
         response = self.client.messages.create(
             model=self.model,
             temperature=0.0,
-            max_tokens=256,
+            max_tokens=max_tokens,
             system=system_prompt,
             messages=[{"role": "user", "content": user_content}],
         )
         self.token_tracker.track(response.usage)
         return str(response.content[0].text).strip()
 
-    def classify_zero_shot(self, request: str) -> str:
-        """Classify with no examples — baseline approach."""
+    # --- Zero-Shot ---
+    def classify_sentiment(self, review: str) -> str:
+        """Classify sentiment with no examples — the model already understands this task."""
         system = (
-            f"Classify the following request into exactly one category: {CATEGORIES}\n"
-            "Respond with ONLY the category name, nothing else."
+            "Classify the sentiment of the following product review.\n"
+            "Respond with exactly one word: POSITIVE, NEGATIVE, or NEUTRAL."
         )
-        return self._call(system, request)
+        return self._call(system, review)
 
-    def classify_few_shot(self, request: str) -> str:
-        """Classify with examples provided for in-context learning."""
-        # Build few-shot examples into the prompt
+    # --- Few-Shot ---
+    def classify_ticket_few_shot(self, ticket: str) -> str:
+        """Classify with domain-specific labels the model wouldn't know without examples."""
         examples = "\n".join(
-            f'Request: "{req}"\nCategory: {cat}' for req, cat in CLASSIFICATION_EXAMPLES
+            f'Ticket: "{text}"\nCategory: {label}' for text, label in FEW_SHOT_EXAMPLES
         )
         system = (
-            f"Classify requests into exactly one category: {CATEGORIES}\n\n"
-            "Here are examples:\n\n"
-            f"{examples}\n\n"
-            "Respond with ONLY the category name, nothing else."
-        )
-        return self._call(system, f'Request: "{request}"\nCategory:')
-
-    def classify_cot(self, request: str) -> str:
-        """Classify with chain-of-thought reasoning before the answer."""
-        system = (
-            f"Classify requests into exactly one category: {CATEGORIES}\n\n"
-            "Think step by step:\n"
-            "1. What is the user trying to accomplish?\n"
-            "2. Are they creating, reviewing, fixing, documenting, or asking?\n"
-            "3. Based on your reasoning, state the category.\n\n"
-            "End your response with a line: Category: <CATEGORY_NAME>"
-        )
-        return self._call(system, request)
-
-    def classify_few_shot_cot(self, request: str) -> str:
-        """Classify with both examples and reasoning traces — the strongest approach."""
-        examples = "\n\n".join(
-            f'Request: "{req}"\nReasoning: {reasoning}' for req, reasoning in COT_EXAMPLES
-        )
-        system = (
-            f"Classify requests into exactly one category: {CATEGORIES}\n\n"
-            "For each request, reason step by step about what the user wants, "
-            "then state the category.\n\n"
+            "Classify support tickets into one of these categories: "
+            "BILLING_DISPUTE, ACCOUNT_ACCESS, TECHNICAL_BUG, FEATURE_REQUEST\n\n"
             f"Examples:\n\n{examples}\n\n"
-            "End your response with a line: Category: <CATEGORY_NAME>"
+            "Respond with ONLY the category name."
         )
-        return self._call(system, f'Request: "{request}"')
+        return self._call(system, f'Ticket: "{ticket}"\nCategory:')
 
+    # --- Chain-of-Thought ---
+    def analyze_zero_shot(self, bug_report: str) -> str:
+        """Analyze a bug report without reasoning guidance — baseline."""
+        system = (
+            "You are a senior engineer. Identify the most likely root cause of this bug.\n"
+            "Be concise — one or two sentences."
+        )
+        return self._call(system, bug_report)
 
-def _extract_category(response: str) -> str:
-    """Extract the category label from a response that may contain reasoning."""
-    # Check for "Category: X" pattern first
-    for line in reversed(response.strip().splitlines()):
-        if line.strip().startswith("Category:"):
-            return line.strip().split("Category:")[-1].strip()
-    # Fall back to the full response (zero-shot / few-shot return just the label)
-    return response.strip().split("\n")[-1].strip()
+    def analyze_cot(self, bug_report: str) -> str:
+        """Analyze with chain-of-thought — reason through the problem step by step."""
+        system = (
+            "You are a senior engineer. Analyze this bug report step by step:\n"
+            "1. What patterns do you observe? (timing, scope, triggers)\n"
+            "2. What does each clue rule in or rule out?\n"
+            "3. What is the most likely root cause?\n"
+            "4. What would you check first to confirm?\n\n"
+            "Think through each step before concluding."
+        )
+        return self._call(system, bug_report, max_tokens=512)
 
 
 def main() -> None:
-    """Run all test inputs through four classification methods and compare results."""
+    """Run three demos showing when to use each prompting technique."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    client = FewShotClient("claude-sonnet-4-20250514", token_tracker)
+    client = PromptingClient("claude-sonnet-4-20250514", token_tracker)
 
     console.print(
         Panel(
             "[bold cyan]Few-Shot & Chain-of-Thought Prompting[/bold cyan]\n\n"
-            "Comparing 4 prompting strategies for agent request classification.\n"
-            "Each test input is classified by all methods for side-by-side comparison.",
+            "Three demos, each using the technique where it shines:\n"
+            "  A. Zero-shot — sentiment analysis (task the model already knows)\n"
+            "  B. Few-shot — custom label classification (teaching YOUR taxonomy)\n"
+            "  C. Chain-of-thought — root cause analysis (multi-step reasoning)",
             title="Prompt Engineering — Anthropic",
         )
     )
 
-    methods = {
-        "Zero-Shot": client.classify_zero_shot,
-        "Few-Shot": client.classify_few_shot,
-        "CoT": client.classify_cot,
-        "Few-Shot+CoT": client.classify_few_shot_cot,
-    }
+    # --- Demo A: Zero-Shot Sentiment ---
+    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
+    console.print("[bold magenta]Demo A: Zero-Shot — Sentiment Analysis[/bold magenta]")
+    console.print("[dim]No examples needed — the model already understands sentiment.[/dim]\n")
 
-    # Build comparison table
-    table = Table(title="Classification Results", show_lines=True)
-    table.add_column("Test Input", style="cyan", max_width=45)
-    for method_name in methods:
-        table.add_column(method_name, style="green", max_width=20)
+    sentiment_table = Table(show_lines=True)
+    sentiment_table.add_column("Review", style="cyan", max_width=55)
+    sentiment_table.add_column("Sentiment", style="green", max_width=12)
 
-    for test_input in TEST_INPUTS:
-        logger.info("Classifying: %s", test_input[:60])
-        results = []
-        for method_name, method in methods.items():
-            try:
-                raw = method(test_input)
-                results.append(_extract_category(raw))
-            except Exception as e:
-                logger.error("Error in %s: %s", method_name, e)
-                results.append("ERROR")
-        table.add_row(test_input[:45], *results)
+    for review in REVIEWS:
+        try:
+            result = client.classify_sentiment(review)
+            sentiment_table.add_row(review[:55], result)
+        except Exception as e:
+            logger.error("Sentiment error: %s", e)
+            sentiment_table.add_row(review[:55], "ERROR")
 
-    console.print()
-    console.print(table)
+    console.print(sentiment_table)
+    console.input("\n[dim]Press Enter to continue...[/dim]")
 
-    # Token usage comparison
+    # --- Demo B: Few-Shot Custom Labels ---
+    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
+    console.print("[bold magenta]Demo B: Few-Shot — Custom Label Classification[/bold magenta]")
     console.print(
-        "\n[dim]Note: Few-shot methods use more input tokens due to examples in the prompt. "
-        "CoT methods use more output tokens due to reasoning traces.[/dim]"
+        "[dim]The model doesn't know labels like BILLING_DISPUTE — "
+        "examples teach your taxonomy.[/dim]\n"
     )
+
+    ticket_table = Table(show_lines=True)
+    ticket_table.add_column("Support Ticket", style="cyan", max_width=55)
+    ticket_table.add_column("Category", style="green", max_width=18)
+
+    for ticket in FEW_SHOT_TEST_INPUTS:
+        try:
+            result = client.classify_ticket_few_shot(ticket)
+            ticket_table.add_row(ticket[:55], result)
+        except Exception as e:
+            logger.error("Few-shot error: %s", e)
+            ticket_table.add_row(ticket[:55], "ERROR")
+
+    console.print(ticket_table)
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+
+    # --- Demo C: Chain-of-Thought Root Cause ---
+    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
+    console.print("[bold magenta]Demo C: Chain-of-Thought — Root Cause Analysis[/bold magenta]")
+    console.print("[dim]Comparing zero-shot vs CoT on a bug that requires reasoning.[/dim]\n")
+    console.print(Panel(BUG_REPORT, title="Bug Report", border_style="dim"))
+
+    try:
+        zero_shot = client.analyze_zero_shot(BUG_REPORT)
+        console.print(Panel(zero_shot, title="Zero-Shot Analysis", border_style="yellow"))
+    except Exception as e:
+        logger.error("Zero-shot analysis error: %s", e)
+
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+
+    try:
+        cot = client.analyze_cot(BUG_REPORT)
+        console.print(Panel(cot, title="Chain-of-Thought Analysis", border_style="green"))
+    except Exception as e:
+        logger.error("CoT analysis error: %s", e)
+
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+
+    # --- Summary: When to Use What ---
+    console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
+    summary = Table(title="When to Use Each Technique", show_lines=True)
+    summary.add_column("Technique", style="bold", max_width=14)
+    summary.add_column("Best For", style="cyan", max_width=30)
+    summary.add_column("Trade-off", style="dim", max_width=30)
+    summary.add_row(
+        "Zero-Shot",
+        "Well-known tasks (sentiment,\ntranslation, summarization)",
+        "Fast & cheap, but unreliable\nfor custom taxonomies",
+    )
+    summary.add_row(
+        "Few-Shot",
+        "Custom labels, domain-specific\nclassification, style matching",
+        "More input tokens, but teaches\nthe model YOUR categories",
+    )
+    summary.add_row(
+        "CoT",
+        "Reasoning tasks (debugging,\nmath, root cause analysis)",
+        "More output tokens, but better\naccuracy on complex problems",
+    )
+    console.print(summary)
+
     console.print()
     token_tracker.report()
 

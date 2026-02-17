@@ -82,7 +82,7 @@ class PromptEngineer:
         response = self.client.responses.create(
             model=self.model,
             temperature=0.1,
-            max_output_tokens=512,
+            max_output_tokens=200,
             instructions=system_prompt,
             input=user_prompt,
         )
@@ -129,6 +129,8 @@ def main() -> None:
                 console.print(Panel(response, title=config_name, border_style="green"))
             except Exception as e:
                 logger.error("Error with config %s: %s", config_name, e)
+
+            console.input("\n[dim]Press Enter to continue...[/dim]")
 
     console.print()
     token_tracker.report()

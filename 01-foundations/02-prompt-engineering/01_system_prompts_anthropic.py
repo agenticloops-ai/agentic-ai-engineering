@@ -81,7 +81,7 @@ class PromptEngineer:
         response = self.client.messages.create(
             model=self.model,
             temperature=0.1,
-            max_tokens=512,
+            max_tokens=200,
             system=system_prompt,
             messages=[{"role": "user", "content": user_prompt}],
         )
@@ -127,6 +127,8 @@ def main() -> None:
                 console.print(Panel(response, title=config_name, border_style="green"))
             except Exception as e:
                 logger.error("Error with config %s: %s", config_name, e)
+
+            console.input("\n[dim]Press Enter to continue...[/dim]")
 
     # Session summary
     console.print()

@@ -7,7 +7,8 @@ least to most reliable:
 2. XML scaffolding + prefill — Anthropic-specific prompting techniques (more reliable)
 3. Native JSON schema — API-level schema enforcement via output_config (guaranteed)
 
-Structured output is essential for agents that must parse LLM responses programmatically.
+All three methods extract the same product information from one description,
+making it easy to compare reliability across techniques.
 """
 
 import json
@@ -26,43 +27,34 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 # Schema description for prompt-based methods (human-readable)
-TASK_SCHEMA_DESCRIPTION = {
-    "title": "string — concise task title",
-    "priority": "HIGH | MEDIUM | LOW",
-    "complexity": "integer 1-5",
-    "required_tools": "list of tool names needed",
-    "summary": "string — one sentence description",
+PRODUCT_SCHEMA_DESCRIPTION = {
+    "name": "string — product name",
+    "category": "string — product category (e.g., Electronics, Clothing)",
+    "price": "number — price in USD",
+    "features": "list of strings — key product features",
+    "in_stock": "boolean — whether the product is currently available",
 }
 
 
 # Pydantic model for native structured output (machine-enforced)
-class TaskExtraction(BaseModel):
-    """Schema for extracting structured task data from free-form descriptions."""
+class ProductExtraction(BaseModel):
+    """Schema for extracting structured product data from free-form descriptions."""
 
-    title: str
-    priority: str
-    complexity: int
-    required_tools: list[str]
-    summary: str
+    name: str
+    category: str
+    price: float
+    features: list[str]
+    in_stock: bool
 
 
-# Free-form task descriptions to extract structured data from
-SAMPLE_TASKS = [
-    (
-        "We need to refactor the authentication module. The current JWT implementation "
-        "has a token refresh bug that's causing users to get logged out randomly. It's "
-        "affecting about 30% of our users and we need it fixed by Friday."
-    ),
-    (
-        "Add a dark mode toggle to the settings page. It's a nice-to-have feature that "
-        "a few users requested. Should be straightforward CSS changes with a theme context."
-    ),
-    (
-        "The production database is running out of disk space. We need to archive old logs, "
-        "optimize the indexes, and set up automated cleanup. This is urgent — we have "
-        "maybe 48 hours before it starts failing."
-    ),
-]
+# Single product description — all three methods extract from this same input
+PRODUCT_DESCRIPTION = (
+    "The UltraSound Pro X1 wireless noise-cancelling headphones deliver studio-quality "
+    "audio with 40mm custom drivers and adaptive ANC. Features include 30-hour battery "
+    "life, multipoint Bluetooth 5.3 for connecting two devices simultaneously, and a "
+    "foldable design with a premium carrying case. Available now at $249.99. "
+    "Currently in stock and shipping within 24 hours."
+)
 
 
 class StructuredOutputClient:
@@ -86,29 +78,29 @@ class StructuredOutputClient:
         self.token_tracker.track(response.usage)
         return str(response.content[0].text)
 
-    def extract_json_prompted(self, task_description: str) -> str:
+    def extract_json_prompted(self, description: str) -> str:
         """Extract structured data by asking for JSON in the prompt — least reliable."""
-        schema_str = json.dumps(TASK_SCHEMA_DESCRIPTION, indent=2)
+        schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
         system = (
-            "You are a task analysis assistant. Extract structured information from task "
-            "descriptions.\n\n"
+            "You are a product data extraction assistant. Extract structured information "
+            "from product descriptions.\n\n"
             f"Output ONLY valid JSON matching this schema:\n{schema_str}\n\n"
             "No markdown, no explanation — just the JSON object."
         )
-        messages = [{"role": "user", "content": task_description}]
+        messages = [{"role": "user", "content": description}]
         return self._call(system, messages)
 
-    def extract_with_prefill(self, task_description: str) -> str:
+    def extract_with_prefill(self, description: str) -> str:
         """Use XML scaffolding + assistant prefill — Anthropic-specific technique."""
-        schema_str = json.dumps(TASK_SCHEMA_DESCRIPTION, indent=2)
+        schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
         system = (
-            "You are a task analysis assistant. Extract structured information from task "
-            "descriptions as JSON matching the provided schema."
+            "You are a product data extraction assistant. Extract structured information "
+            "from product descriptions as JSON matching the provided schema."
         )
         # XML tags help Claude parse the input structure
         user_content = (
             f"<schema>\n{schema_str}\n</schema>\n\n"
-            f"<task_description>\n{task_description}\n</task_description>"
+            f"<product_description>\n{description}\n</product_description>"
         )
         # Prefill: start the assistant's response with '{' to force JSON output
         messages = [
@@ -119,13 +111,13 @@ class StructuredOutputClient:
         # Reconstruct the full JSON since we prefilled the opening brace
         return "{" + raw
 
-    def extract_with_native_schema(self, task_description: str) -> str:
+    def extract_with_native_schema(self, description: str) -> str:
         """Use native JSON schema enforcement via output_config — guaranteed valid JSON."""
         system = (
-            "You are a task analysis assistant. Extract structured information from task "
-            "descriptions."
+            "You are a product data extraction assistant. Extract structured information "
+            "from product descriptions."
         )
-        messages = [{"role": "user", "content": task_description}]
+        messages = [{"role": "user", "content": description}]
 
         # Native structured output: API guarantees valid JSON matching the Pydantic schema
         response = self.client.beta.messages.parse(
@@ -134,7 +126,7 @@ class StructuredOutputClient:
             max_tokens=512,
             system=system,
             messages=messages,
-            output_format=TaskExtraction,
+            output_format=ProductExtraction,
         )
         self.token_tracker.track(response.usage)
 
@@ -158,7 +150,7 @@ def _try_parse_json(raw: str) -> dict | None:
 
 
 def main() -> None:
-    """Run sample tasks through three structured output methods."""
+    """Run one product description through three structured output methods."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
     client = StructuredOutputClient("claude-sonnet-4-5-20250929", token_tracker)
@@ -169,10 +161,14 @@ def main() -> None:
             "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
             "  A. Prompt-based JSON — ask for JSON in the system prompt\n"
             "  B. XML scaffolding + prefill — Anthropic-specific prompting technique\n"
-            "  C. Native JSON schema — API-level enforcement via output_config (recommended)",
+            "  C. Native JSON schema — API-level enforcement via output_config (recommended)\n\n"
+            "All three extract from the same product description for easy comparison.",
             title="Prompt Engineering — Anthropic",
         )
     )
+
+    console.print("\n[bold yellow]━━━ Product Description ━━━[/bold yellow]")
+    console.print(Panel(PRODUCT_DESCRIPTION, border_style="dim"))
 
     methods = {
         "A: Prompt-Based JSON": client.extract_json_prompted,
@@ -180,24 +176,22 @@ def main() -> None:
         "C: Native Schema": client.extract_with_native_schema,
     }
 
-    for i, task in enumerate(SAMPLE_TASKS, 1):
-        console.print(f"\n[bold yellow]━━━ Task {i} ━━━[/bold yellow]")
-        console.print(f"[dim]{task[:100]}...[/dim]\n")
+    for method_name, method in methods.items():
+        logger.info("Method: %s", method_name)
+        try:
+            raw = method(PRODUCT_DESCRIPTION)
+            parsed = _try_parse_json(raw)
 
-        for method_name, method in methods.items():
-            logger.info("Method: %s, Task: %d", method_name, i)
-            try:
-                raw = method(task)
-                parsed = _try_parse_json(raw)
+            if parsed:
+                formatted = json.dumps(parsed, indent=2)
+                syntax = Syntax(formatted, "json", theme="monokai")
+                console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
+            else:
+                console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
+        except Exception as e:
+            logger.error("Error in %s: %s", method_name, e)
 
-                if parsed:
-                    formatted = json.dumps(parsed, indent=2)
-                    syntax = Syntax(formatted, "json", theme="monokai")
-                    console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
-                else:
-                    console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
-            except Exception as e:
-                logger.error("Error in %s: %s", method_name, e)
+        console.input("\n[dim]Press Enter to continue...[/dim]")
 
     console.print()
     token_tracker.report()
