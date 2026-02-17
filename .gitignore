@@ -62,3 +62,7 @@ dmypy.json
 # Environment variables
 .env
 .env.local
+
+# Outputs
+output/
+tempCodeRunnerFile.py
