@@ -191,7 +191,6 @@ def main() -> None:
     # except Exception as e:
     #     logger.error("Zero-shot analysis error: %s", e)
 
-
     try:
         cot = client.analyze_cot(BUG_REPORT)
         console.input("\n[dim]Press Enter to continue...[/dim]")

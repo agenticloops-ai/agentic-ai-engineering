@@ -131,7 +131,6 @@ def main() -> None:
             except Exception as e:
                 logger.error("Error with config %s: %s", config_name, e)
 
-
     console.print()
     token_tracker.report()
 

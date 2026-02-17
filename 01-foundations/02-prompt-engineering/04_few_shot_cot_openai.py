@@ -156,7 +156,6 @@ def main() -> None:
 
     console.input("\n[dim]Press Enter to continue...[/dim]")
     console.print(sentiment_table)
-    
 
     # --- Demo B: Few-Shot Custom Labels ---
     console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
@@ -180,7 +179,6 @@ def main() -> None:
 
     console.input("\n[dim]Press Enter to continue...[/dim]")
     console.print(ticket_table)
-    
 
     # --- Demo C: Chain-of-Thought Root Cause ---
     console.print(f"\n[bold magenta]{'═' * 60}[/bold magenta]")
@@ -202,7 +200,6 @@ def main() -> None:
         console.print(Panel(cot, title="Chain-of-Thought Analysis", border_style="green"))
     except Exception as e:
         logger.error("CoT analysis error: %s", e)
-
 
     console.input("\n[dim]Press Enter to continue...[/dim]")
     # --- Summary: When to Use What ---

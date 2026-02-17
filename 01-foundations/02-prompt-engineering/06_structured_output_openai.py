@@ -15,6 +15,7 @@ import json
 from dotenv import find_dotenv, load_dotenv
 from openai import OpenAI
 from rich.console import Console
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.syntax import Syntax
 
@@ -149,6 +150,17 @@ def _try_parse_json(raw: str) -> dict | None:
         return None
 
 
+def _display_result(console: Console, method_name: str, raw: str) -> None:
+    """Parse and display the JSON result from a structured output method."""
+    parsed = _try_parse_json(raw)
+    if parsed:
+        formatted = json.dumps(parsed, indent=2)
+        syntax = Syntax(formatted, "json", theme="monokai")
+        console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
+    else:
+        console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
+
+
 def main() -> None:
     """Run one product description through three structured output methods."""
     console = Console()
@@ -167,30 +179,86 @@ def main() -> None:
         )
     )
 
-    console.print("\n[bold yellow]━━━ Product Description ━━━[/bold yellow]")
+    console.print(
+        "\n[bold yellow]━━━ Product Description (input for all methods) ━━━[/bold yellow]"
+    )
     console.print(Panel(PRODUCT_DESCRIPTION, border_style="dim"))
 
-    methods = {
-        "Prompted JSON": client.extract_json_prompted,
-        "Markdown Scaffolding": client.extract_with_scaffolding,
-        "Schema Enforcement": client.extract_with_schema,
-    }
+    schema_str = json.dumps(PRODUCT_SCHEMA, indent=2)
 
-    for method_name, method in methods.items():
-        logger.info("Method: %s", method_name)
-        try:
-            raw = method(PRODUCT_DESCRIPTION)
-            parsed = _try_parse_json(raw)
+    # --- Method 1: Prompted JSON ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ 1: Prompted JSON ━━━[/bold yellow]")
+    console.print("[dim]Embed the schema in the instructions and ask for JSON output.[/dim]\n")
+    prompt_1 = (
+        "**Instructions:**\n"
+        "```\n"
+        "You are a product data extraction assistant...\n"
+        f"Output ONLY valid JSON matching this schema:\n{schema_str}\n"
+        "No markdown, no explanation — just the JSON object.\n"
+        "```\n\n"
+        "**Input:** _(raw product description)_\n"
+    )
+    console.print(Markdown(prompt_1))
 
-            console.input("\n[dim]Press Enter to continue...[/dim]")
-            if parsed:
-                formatted = json.dumps(parsed, indent=2)
-                syntax = Syntax(formatted, "json", theme="monokai")
-                console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
-            else:
-                console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
-        except Exception as e:
-            logger.error("Error in %s: %s", method_name, e)
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_json_prompted(PRODUCT_DESCRIPTION)
+        _display_result(console, "Prompted JSON", raw)
+    except Exception as e:
+        logger.error("Error in method 1: %s", e)
+
+    # --- Method 2: Markdown Scaffolding ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ 2: Markdown Scaffolding ━━━[/bold yellow]")
+    console.print("[dim]Structure the input with markdown sections to guide the output.[/dim]\n")
+    prompt_2 = (
+        "**Instructions:**\n"
+        "```\n"
+        "You are a product data extraction assistant.\n"
+        "Output ONLY valid JSON matching the provided schema.\n"
+        "No markdown fences, no explanation.\n"
+        "```\n\n"
+        "**Input (markdown-structured):**\n"
+        "```markdown\n"
+        f"## Schema\n```json\n{schema_str}\n```\n\n"
+        "## Product Description\n(product description here)\n\n"
+        "## Output\nExtract the product information as JSON:\n"
+        "```\n"
+    )
+    console.print(Markdown(prompt_2))
+
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_with_scaffolding(PRODUCT_DESCRIPTION)
+        _display_result(console, "Markdown Scaffolding", raw)
+    except Exception as e:
+        logger.error("Error in method 2: %s", e)
+
+    # --- Method 3: Schema Enforcement ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ 3: Schema Enforcement ━━━[/bold yellow]")
+    console.print("[dim]API-level enforcement via text.format — guaranteed valid JSON.[/dim]\n")
+    schema_preview = json.dumps(PRODUCT_JSON_SCHEMA, indent=2)
+    prompt_3 = (
+        "**Instructions:**\n"
+        "```\n"
+        "You are a product data extraction assistant...\n"
+        "Populate all fields based on the description.\n"
+        "```\n\n"
+        "**Input:** _(raw product description)_\n\n"
+        "**text.format (JSON schema):**\n"
+        f"```json\n{schema_preview}\n```\n\n"
+        "_The API guarantees the response conforms to this schema — no parsing needed._\n"
+    )
+    console.print(Markdown(prompt_3))
+
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_with_schema(PRODUCT_DESCRIPTION)
+        _display_result(console, "Schema Enforcement", raw)
+    except Exception as e:
+        logger.error("Error in method 3: %s", e)
 
     console.print()
     token_tracker.report()

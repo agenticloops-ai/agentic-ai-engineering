@@ -17,6 +17,7 @@ import anthropic
 from dotenv import find_dotenv, load_dotenv
 from pydantic import BaseModel
 from rich.console import Console
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.syntax import Syntax
 
@@ -149,6 +150,17 @@ def _try_parse_json(raw: str) -> dict | None:
         return None
 
 
+def _display_result(console: Console, method_name: str, raw: str) -> None:
+    """Parse and display the JSON result from a structured output method."""
+    parsed = _try_parse_json(raw)
+    if parsed:
+        formatted = json.dumps(parsed, indent=2)
+        syntax = Syntax(formatted, "json", theme="monokai")
+        console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
+    else:
+        console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
+
+
 def main() -> None:
     """Run one product description through three structured output methods."""
     console = Console()
@@ -167,31 +179,89 @@ def main() -> None:
         )
     )
 
-    console.print("\n[bold yellow]━━━ Product Description ━━━[/bold yellow]")
+    console.print(
+        "\n[bold yellow]━━━ Product Description (input for all methods) ━━━[/bold yellow]"
+    )
     console.print(Panel(PRODUCT_DESCRIPTION, border_style="dim"))
 
-    methods = {
-        "A: Prompt-Based JSON": client.extract_json_prompted,
-        "B: XML + Prefill": client.extract_with_prefill,
-        "C: Native Schema": client.extract_with_native_schema,
-    }
+    schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
 
-    for method_name, method in methods.items():
-        logger.info("Method: %s", method_name)
-        try:
-            raw = method(PRODUCT_DESCRIPTION)
-            parsed = _try_parse_json(raw)
+    # --- Method A: Prompt-Based JSON ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ A: Prompt-Based JSON ━━━[/bold yellow]")
+    console.print("[dim]Embed the schema in the system prompt and ask for JSON output.[/dim]\n")
+    prompt_a = (
+        "**System prompt:**\n"
+        "```\n"
+        "You are a product data extraction assistant...\n"
+        f"Output ONLY valid JSON matching this schema:\n{schema_str}\n"
+        "No markdown, no explanation — just the JSON object.\n"
+        "```\n\n"
+        "**User message:** _(raw product description)_\n"
+    )
+    console.print(Markdown(prompt_a))
 
-            console.input("\n[dim]Press Enter to continue...[/dim]")
-            if parsed:
-                formatted = json.dumps(parsed, indent=2)
-                syntax = Syntax(formatted, "json", theme="monokai")
-                console.print(Panel(syntax, title=f"{method_name} [green]VALID JSON[/green]"))
-            else:
-                console.print(Panel(raw[:300], title=f"{method_name} [red]PARSE FAILED[/red]"))
-        except Exception as e:
-            logger.error("Error in %s: %s", method_name, e)
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_json_prompted(PRODUCT_DESCRIPTION)
+        _display_result(console, "A: Prompt-Based JSON", raw)
+    except Exception as e:
+        logger.error("Error in method A: %s", e)
 
+    # --- Method B: XML Scaffolding + Prefill ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ B: XML + Prefill ━━━[/bold yellow]")
+    console.print("[dim]Wrap input in XML tags, prefill assistant response with '{'.[/dim]\n")
+    prompt_b = (
+        "**System prompt:**\n"
+        "```\n"
+        "You are a product data extraction assistant...\n"
+        "```\n\n"
+        "**User message (XML-structured):**\n"
+        "```xml\n"
+        f"<schema>\n{schema_str}\n</schema>\n\n"
+        "<product_description>\n(product description here)\n</product_description>\n"
+        "```\n\n"
+        "**Assistant prefill:** `{` _(forces the model to start with JSON)_\n"
+    )
+    console.print(Markdown(prompt_b))
+
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_with_prefill(PRODUCT_DESCRIPTION)
+        _display_result(console, "B: XML + Prefill", raw)
+    except Exception as e:
+        logger.error("Error in method B: %s", e)
+
+    # --- Method C: Native Schema ---
+    console.input("\n[dim]Press Enter to continue...[/dim]")
+    console.print("\n[bold yellow]━━━ C: Native Schema ━━━[/bold yellow]")
+    console.print("[dim]API-level enforcement via Pydantic model — guaranteed valid JSON.[/dim]\n")
+    prompt_c = (
+        "**System prompt:**\n"
+        "```\n"
+        "You are a product data extraction assistant...\n"
+        "```\n\n"
+        "**User message:** _(raw product description)_\n\n"
+        "**output_format (Pydantic model):**\n"
+        "```python\n"
+        "class ProductExtraction(BaseModel):\n"
+        "    name: str\n"
+        "    category: str\n"
+        "    price: float\n"
+        "    features: list[str]\n"
+        "    in_stock: bool\n"
+        "```\n\n"
+        "_The API guarantees the response conforms to this schema — no parsing needed._\n"
+    )
+    console.print(Markdown(prompt_c))
+
+    console.input("\n[dim]Press Enter to run...[/dim]")
+    try:
+        raw = client.extract_with_native_schema(PRODUCT_DESCRIPTION)
+        _display_result(console, "C: Native Schema", raw)
+    except Exception as e:
+        logger.error("Error in method C: %s", e)
 
     console.print()
     token_tracker.report()
