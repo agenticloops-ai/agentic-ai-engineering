@@ -179,6 +179,7 @@ class PromptChain:
 
         # Step 2: Write
         self._notify("step_start", {"name": "Write"})
+        logger.info("[Write] Calling %s", self.light_model)
         draft, searches = self._step_write(outline)
         self.token_tracker.report()
         self._notify("step_complete", {"name": "Write", "searches": searches})
