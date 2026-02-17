@@ -9,8 +9,6 @@ status: "coming-soon"
 
 Learn how to shape LLM behavior through prompting techniques. Every AI agent's capabilities start with how its prompts are engineered — this tutorial covers the core techniques you'll use in every agent you build.
 
-> **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
-
 ## 🎯 What You'll Learn
 
 - Use system prompts and role engineering to control LLM behavior
@@ -22,14 +20,27 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 
 ## 📦 Available Examples
 
-| Provider                                                                                                       | File                                                                   | Description                                    |
-| -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering              |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering              |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos   |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos   |
-| ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Structured output with XML tags & prefill      |
-| ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)          | [06_structured_output_openai.py](06_structured_output_openai.py)       | Structured output with JSON schema enforcement |
+| Provider                                        | File                                                                   | Description                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering                             |
+| ![OpenAI](../../common/badges/openai.svg)       | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering                             |
+| ![Anthropic](../../common/badges/anthropic.svg) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![OpenAI](../../common/badges/openai.svg)       | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![Anthropic](../../common/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML prefill & native schema      |
+| ![OpenAI](../../common/badges/openai.svg)       | [06_structured_output_openai.py](06_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
+
+## 🚀 Quick Start
+
+> **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
+
+```bash
+uv run --directory 01-foundations/02-prompt-engineering python {script_name}
+
+# Example
+uv run --directory 01-foundations/02-prompt-engineering python 01_system_prompts_anthropic.py
+```
+
+Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
 
