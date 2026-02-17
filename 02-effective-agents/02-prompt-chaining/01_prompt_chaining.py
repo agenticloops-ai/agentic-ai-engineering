@@ -25,7 +25,7 @@ MODEL = "claude-sonnet-4-20250514"
 LIGHT_MODEL = "claude-haiku-4-5-20251001"
 
 # Anthropic server-side web search tool — Claude decides when to search
-WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 3}
+WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 1}
 
 SUGGESTED_TOPICS = [
     "Practical Async Programming in Python",
@@ -38,9 +38,11 @@ SUGGESTED_TOPICS = [
 # --- Prompts ---
 
 OUTLINER_SYSTEM_PROMPT = (
-    "You are a blog outliner. Given a topic, produce a title and exactly 5 bullet points "
-    "that will serve as section headings for a blog post. Output only the title on the "
-    "first line, then the 5 bullet points. No extra commentary."
+    "You are a research planner. Given a topic, identify 3-5 broad research areas that "
+    "cover distinct dimensions of the subject — market landscape, technical depth, "
+    "adoption patterns, performance analysis, etc. Each area should be independently "
+    "researchable. Output the topic title on the first line, then the research areas "
+    "as bullet points. Keep area names short and high-level. No extra commentary."
 )
 OUTLINER_USER_PROMPT = "Create a blog outline for: {topic}"
 
