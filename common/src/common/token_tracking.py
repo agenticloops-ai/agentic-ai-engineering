@@ -67,24 +67,59 @@ class AnthropicTokenTracker(TokenUsageTracker):
     """
     Token tracker for Anthropic Claude API.
 
-    Handles Anthropic's usage format with input_tokens and output_tokens.
+    Handles Anthropic's usage format including cache token accounting.
     """
 
-    def track(self, usage: Any) -> None:
-        """
-        Track tokens from an Anthropic response.
+    def __init__(self) -> None:
+        super().__init__()
+        self.total_cache_read_tokens = 0
+        self.total_cache_creation_tokens = 0
 
-        Args:
-            usage: Anthropic usage object with input_tokens and output_tokens
-        """
+    def track(self, usage: Any) -> None:
+        """Track tokens from an Anthropic response, including cache tokens."""
         if hasattr(usage, "input_tokens") and hasattr(usage, "output_tokens"):
             self.total_input_tokens += usage.input_tokens
             self.total_output_tokens += usage.output_tokens
+            # Track cache tokens when available (prompt caching)
+            if hasattr(usage, "cache_read_input_tokens") and usage.cache_read_input_tokens:
+                self.total_cache_read_tokens += usage.cache_read_input_tokens
+            if hasattr(usage, "cache_creation_input_tokens") and usage.cache_creation_input_tokens:
+                self.total_cache_creation_tokens += usage.cache_creation_input_tokens
         else:
             logger.warning(
                 "Invalid Anthropic usage format: %s. Expected input_tokens and output_tokens.",
                 type(usage),
             )
+
+    def report(self) -> None:
+        """Log total token usage with cache breakdown."""
+        total = self.total_input_tokens + self.total_output_tokens
+        logger.info(
+            "Token Usage — Input: %d, Output: %d, Total: %d",
+            self.total_input_tokens,
+            self.total_output_tokens,
+            total,
+        )
+        if self.total_cache_read_tokens or self.total_cache_creation_tokens:
+            logger.info(
+                "Cache — Read: %d, Creation: %d",
+                self.total_cache_read_tokens,
+                self.total_cache_creation_tokens,
+            )
+
+    def get_cache_read_tokens(self) -> int:
+        """Get total cache read tokens."""
+        return self.total_cache_read_tokens
+
+    def get_cache_creation_tokens(self) -> int:
+        """Get total cache creation tokens."""
+        return self.total_cache_creation_tokens
+
+    def reset(self) -> None:
+        """Reset all token counts to zero."""
+        super().reset()
+        self.total_cache_read_tokens = 0
+        self.total_cache_creation_tokens = 0
 
 
 class OpenAITokenTracker(TokenUsageTracker):
