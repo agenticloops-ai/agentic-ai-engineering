@@ -25,7 +25,7 @@ MODEL = "claude-sonnet-4-20250514"
 LIGHT_MODEL = "claude-haiku-4-5-20251001"
 
 # Anthropic server-side web search tool — Claude decides when to search
-WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 3}
+WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search", "max_uses": 1}
 
 SUGGESTED_TOPICS = [
     "Practical Async Programming in Python",
@@ -38,9 +38,11 @@ SUGGESTED_TOPICS = [
 # --- Prompts ---
 
 OUTLINER_SYSTEM_PROMPT = (
-    "You are a blog outliner. Given a topic, produce a title and exactly 5 bullet points "
-    "that will serve as section headings for a blog post. Output only the title on the "
-    "first line, then the 5 bullet points. No extra commentary."
+    "You are a research planner. Given a topic, identify 3-5 broad research areas that "
+    "cover distinct dimensions of the subject — market landscape, technical depth, "
+    "adoption patterns, performance analysis, etc. Each area should be independently "
+    "researchable. Output the topic title on the first line, then the research areas "
+    "as bullet points. Keep area names short and high-level. No extra commentary."
 )
 OUTLINER_USER_PROMPT = "Create a blog outline for: {topic}"
 
@@ -88,6 +90,9 @@ class PromptChain:
         kwargs: dict[str, Any] = {}
         if tools:
             kwargs["tools"] = tools
+        tool_names = [t.get("name", t.get("type", "unknown")) for t in tools or []]
+        logger.info("Calling %s, tools=%s", model, tool_names)
+
         response = self.client.messages.create(
             model=model,
             max_tokens=max_tokens,
@@ -166,7 +171,6 @@ class PromptChain:
 
         # Step 1: Outline
         self._notify("step_start", {"name": "Outline"})
-        logger.info("[Outline] Calling %s", self.model)
         outline = self._step_outline(topic)
         if not outline.strip():
             raise ValueError("Outliner produced empty output — aborting chain.")
@@ -182,7 +186,6 @@ class PromptChain:
 
         # Step 3: Edit
         self._notify("step_start", {"name": "Edit"})
-        logger.info("[Edit] Calling %s", self.model)
         final = self._step_edit(draft)
         self.token_tracker.report()
         self._notify("step_complete", {"name": "Edit"})
