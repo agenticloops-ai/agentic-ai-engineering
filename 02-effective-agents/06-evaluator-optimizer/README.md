@@ -19,7 +19,7 @@ One LLM generates a response while another evaluates it in a loop, refining unti
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_evaluator_optimizer.py](01_evaluator_optimizer.py) | Blog post refinement with 3-dimension evaluation loop |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_evaluator_optimizer.py](01_evaluator_optimizer.py) | Blog post refinement with 5-dimension evaluation loop |
 
 ## 🚀 Quick Start
 
@@ -42,8 +42,8 @@ The pipeline separates web search from writing to control token costs:
 
 1. **Research** — web search gathers current data (Haiku + `web_search` tool)
 2. **Write** — synthesizes from research data, no tools (Haiku, text only)
-3. **Evaluate** — 3-dimension scoring via structured output (Haiku, `tool_choice`)
-4. **Refine** — rewrites from feedback + truncated draft, no tools (Sonnet)
+3. **Evaluate** — 5-dimension scoring via structured output (Haiku, `tool_choice`)
+4. **Refine** — rewrites from feedback + full draft, no tools (Sonnet)
 
 Web search injects ~25-35k input tokens per search. By isolating it to the research phase, the write and refine steps stay lean.
 
@@ -58,11 +58,13 @@ Combining these into one prompt creates conflicting incentives. Separating them 
 
 ### Structured Evaluation
 
-Scores on three dimensions (1-10):
+Scores on five dimensions (1-10):
 
-- **Clarity** — can a reader follow without re-reading?
-- **Technical Accuracy** — are facts correct and current?
-- **Engagement** — would someone want to read this?
+- **Clarity** — can engineers follow without re-reading?
+- **Technical Accuracy** — is info correct and current?
+- **Structure** — logical flow, easy to navigate?
+- **Engagement** — would engineers want to read this?
+- **Human Voice** — does it sound like a real person?
 
 Plus: specific issues and actionable suggestions — fed back to the refiner as structured feedback.
 
@@ -80,7 +82,6 @@ MAX_REFINEMENTS = 2
 Each phase uses only the context it needs — no accumulated chat history:
 
 - **Isolate expensive tools** — web search runs once in research; all other phases are text-only
-- **Truncate inputs** — the refiner sees a summary of research and a trimmed draft, not the full context
 - **Right-size models** — Haiku handles research, writing, and evaluation; Sonnet is reserved for refinement where writing quality matters most
 - **Cap output** — structured evaluation returns compact JSON, not prose
 
@@ -89,7 +90,6 @@ Each phase uses only the context it needs — no accumulated chat history:
 - Evaluators can be overly generous or harsh — calibrate your threshold
 - The evaluator uses Haiku (fast, cheap) for scoring; the refiner uses Sonnet for higher writing quality
 - Diminishing returns: most improvement happens in the first refinement
-- Research truncation means the writer sees a summary, not raw search results
 
 ## 👉 Next Steps
 

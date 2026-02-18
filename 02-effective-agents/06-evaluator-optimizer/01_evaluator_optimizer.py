@@ -60,15 +60,24 @@ REFINER_SYSTEM_PROMPT = (
     "quality. Return the complete revised post."
 )
 
-EVALUATOR_SYSTEM_PROMPT = (
-    "You are a strict technical editor. Evaluate the draft blog post on three dimensions: "
-    "clarity (can a reader follow without re-reading?), technical accuracy (are facts correct "
-    "and current?), and engagement (would someone want to read this?). Score each 1-10. "
-    "Be critical — only give high scores (8+) for genuinely excellent content. "
-    "Provide specific, actionable feedback."
-)
+EVALUATOR_SYSTEM_PROMPT = """\
+You are a demanding technical editor. Rate content 1-10 on:
 
-# 3-dimension structured evaluation output
+1. CLARITY: Can engineers follow without re-reading? \
+(9-10: crystal clear, 7-8: minor rough spots, 5-6: requires effort)
+2. TECHNICAL ACCURACY: Is info correct and current? \
+(9-10: production-ready, 7-8: minor imprecisions)
+3. STRUCTURE: Logical flow, easy to navigate? \
+(9-10: perfect progression, scannable)
+4. ENGAGEMENT: Would engineers want to read this? \
+(9-10: compelling, memorable)
+5. HUMAN VOICE: Does it sound like a real person? \
+(9-10: natural, varied rhythm, 5-6: robotic/generic)
+
+Be specific in feedback: "The intro is generic — open with the specific problem" \
+not just "make it more engaging"."""
+
+# 5-dimension structured evaluation output
 EVALUATION_TOOLS = [
     {
         "name": "evaluate_draft",
@@ -76,23 +85,15 @@ EVALUATION_TOOLS = [
         "input_schema": {
             "type": "object",
             "properties": {
-                "clarity": {
+                "clarity": {"type": "integer", "minimum": 1, "maximum": 10},
+                "technical_accuracy": {"type": "integer", "minimum": 1, "maximum": 10},
+                "structure": {"type": "integer", "minimum": 1, "maximum": 10},
+                "engagement": {"type": "integer", "minimum": 1, "maximum": 10},
+                "human_voice": {
                     "type": "integer",
                     "minimum": 1,
                     "maximum": 10,
-                    "description": "Can engineers follow without re-reading? (1-10)",
-                },
-                "technical_accuracy": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 10,
-                    "description": "Is info correct and current? (1-10)",
-                },
-                "engagement": {
-                    "type": "integer",
-                    "minimum": 1,
-                    "maximum": 10,
-                    "description": "Would engineers want to read this? (1-10)",
+                    "description": "Does it sound like a real person?",
                 },
                 "issues": {
                     "type": "array",
@@ -108,7 +109,9 @@ EVALUATION_TOOLS = [
             "required": [
                 "clarity",
                 "technical_accuracy",
+                "structure",
                 "engagement",
+                "human_voice",
                 "issues",
                 "suggestions",
             ],
@@ -119,15 +122,11 @@ EVALUATION_TOOLS = [
 SCORE_THRESHOLD = 7.0
 MAX_REFINEMENTS = 2
 
-# Truncation limits to control token costs
-RESEARCH_CHAR_LIMIT = 600
-DRAFT_CHAR_LIMIT = 1500
-
 # Callback type: agent emits (event_name, event_data) — caller decides how to display
 EvaluatorCallback = Callable[[str, dict[str, Any]], None]
 
-SCORE_DIMENSIONS = ["Clarity", "Technical Accuracy", "Engagement"]
-SCORE_KEYS = ["clarity", "technical_accuracy", "engagement"]
+SCORE_DIMENSIONS = ["Clarity", "Technical Accuracy", "Structure", "Engagement", "Human Voice"]
+SCORE_KEYS = ["clarity", "technical_accuracy", "structure", "engagement", "human_voice"]
 
 
 def _extract_scores(evaluation: dict[str, Any]) -> tuple[dict[str, int], float]:
@@ -198,9 +197,7 @@ class EvaluatorOptimizer:
 
     def _write(self, topic: str, research: str) -> str:
         """Write phase: synthesize from research data — no tools, no web search."""
-        user_msg = (
-            f"Research:\n{research[:RESEARCH_CHAR_LIMIT]}\n\nWrite a blog post about: {topic}"
-        )
+        user_msg = f"Research:\n{research}\n\nWrite a blog post about: {topic}"
         return self._call_llm_text(WRITER_SYSTEM_PROMPT, user_msg, use_light=True)
 
     def _refine(self, topic: str, draft: str, research: str, evaluation: dict[str, Any]) -> str:
@@ -211,9 +208,9 @@ class EvaluatorOptimizer:
         )
         user_msg = (
             f"Topic: {topic}\n\n"
-            f"Research:\n{research[:RESEARCH_CHAR_LIMIT]}\n\n"
+            f"Research:\n{research}\n\n"
             f"Feedback to address:\n{feedback}\n\n"
-            f"Previous draft:\n{draft[:DRAFT_CHAR_LIMIT]}\n\n"
+            f"Previous draft:\n{draft}\n\n"
             "Revise the draft to address all feedback."
         )
         return self._call_llm_text(REFINER_SYSTEM_PROMPT, user_msg)
@@ -316,7 +313,13 @@ def main() -> None:
                 table.add_row(dim, f"[{color}]{score}/10[/{color}]")
             console.print(table)
             if data["issues"]:
-                console.print("[dim]Issues: " + "; ".join(data["issues"]) + "[/dim]")
+                console.print("[bold red]Issues:[/bold red]")
+                for issue in data["issues"]:
+                    console.print(f"  [red]•[/red] {issue}")
+            if data.get("suggestions"):
+                console.print("[bold yellow]Suggestions:[/bold yellow]")
+                for suggestion in data["suggestions"]:
+                    console.print(f"  [yellow]•[/yellow] {suggestion}")
         elif event == "threshold_met":
             console.print(f"\n[green]Score {data['avg']:.1f} >= {SCORE_THRESHOLD} — done![/green]")
         elif event == "refining":
@@ -330,11 +333,11 @@ def main() -> None:
         "[bold cyan]Evaluator-Optimizer — The Editor's Desk[/bold cyan]\n\n"
         "Topic → [Researcher] → data\n"
         "      → [Writer] → draft (from research, no web search)\n"
-        "      → [Evaluator] → 3-dimension score + feedback\n"
+        "      → [Evaluator] → 5-dimension score + feedback\n"
         f"      → Score >= {SCORE_THRESHOLD}? → Done\n"
         "      → Below threshold → [Refiner] → Loop\n\n"
         f"Max {MAX_REFINEMENTS} refinements. "
-        "Scores: clarity, accuracy, engagement (1-10)",
+        "Scores: clarity, accuracy, structure, engagement, human voice (1-10)",
         title="Evaluator-Optimizer",
     )
 

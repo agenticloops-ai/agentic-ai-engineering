@@ -94,18 +94,19 @@ class AnthropicTokenTracker(TokenUsageTracker):
     def report(self) -> None:
         """Log total token usage with cache breakdown."""
         total = self.total_input_tokens + self.total_output_tokens
-        logger.info(
-            "Token Usage — Input: %d, Output: %d, Total: %d",
-            self.total_input_tokens,
-            self.total_output_tokens,
-            total,
-        )
+        cache_info = ""
         if self.total_cache_read_tokens or self.total_cache_creation_tokens:
-            logger.info(
-                "Cache — Read: %d, Creation: %d",
-                self.total_cache_read_tokens,
-                self.total_cache_creation_tokens,
+            cache_info = (
+                f", Cache Read: {self.total_cache_read_tokens:,}"
+                f", Cache Create: {self.total_cache_creation_tokens:,}"
             )
+        logger.info(
+            "Token Usage — Input: %s, Output: %s, Total: %s%s",
+            f"{self.total_input_tokens:,}",
+            f"{self.total_output_tokens:,}",
+            f"{total:,}",
+            cache_info,
+        )
 
     def get_cache_read_tokens(self) -> int:
         """Get total cache read tokens."""
