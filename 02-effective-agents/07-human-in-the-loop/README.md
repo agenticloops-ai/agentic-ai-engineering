@@ -78,6 +78,6 @@ Early checkpoints have the highest leverage. Catching a wrong tone at checkpoint
 
 ## 👉 Next Steps
 
-- [08 - Full Agent](../08-full-agent/) — combine all patterns into an autonomous agent
+- [08 - Content Writer](../08-content-writer/) — combine all patterns into a production content creation agent
 - Experiment: add a confidence score to auto-approve high-confidence drafts
 - Try replacing `human_checkpoint` with a function that logs to a file (simulating async review)
