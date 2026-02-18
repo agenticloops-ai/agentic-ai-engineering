@@ -1,0 +1,30 @@
+[project]
+name = "lesson-augmented-llm"
+version = "0.1.0"
+description = "Augmented LLM - the foundational building block enhanced with retrieval, tools, and memory"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "chromadb>=0.4.0",
+    "common",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+    "sentence-transformers>=2.2.0",
+    "torch>=2.0.0",  # pinned to ensure x86_64 macOS resolves a compatible wheel; remove on ARM64
+    "numpy<2",  # torch 2.2.x (x86_64 macOS) was compiled against NumPy 1.x; remove on ARM64
+]
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'linux'",
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "sys_platform == 'win32'",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
