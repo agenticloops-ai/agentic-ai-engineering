@@ -60,10 +60,20 @@ The key insight: a tutorial needs prerequisites before steps, a news article nee
 
 Routing builds on prompt chaining (each route *is* a chain) but adds a classification step that determines which chain to execute:
 
-```
-                    ┌─→ [Tutorial Chain]
-Topic → [Classify] ─┼─→ [News Chain]
-                    └─→ [Concept Chain]
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart LR
+    A["🗣️ Topic     "] -->|request| B["⚙️ Classify     "]
+    B -->|tutorial| C["🔧 Tutorial Chain     "]
+    B -->|news| D["🔧 News Chain     "]
+    B -->|concept| E["🔧 Concept Chain     "]
+    C --> F["📄 Output     "]
+    D --> F
+    E --> F
 ```
 
 Use routing when inputs require **structurally different** processing, not just different tones or styles.

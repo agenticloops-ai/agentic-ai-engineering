@@ -38,8 +38,17 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### Sequential Pipeline
 
-```
-Topic → [Outliner/Sonnet] → [Writer/Haiku + 🔍] → [Editor/Sonnet] → Final Post
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart LR
+    A["🗣️ Topic     "] -->|request| B["🧠 Outliner / Sonnet     "]
+    B -->|outline| C["🧠 Writer / Haiku + 🔍     "]
+    C -->|draft| D["🧠 Editor / Sonnet     "]
+    D -->|polished| E["📄 Final Post     "]
 ```
 
 Each step has a focused system prompt and a single responsibility. The output of one step becomes the input of the next.

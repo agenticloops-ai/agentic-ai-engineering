@@ -9,6 +9,21 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 
 ## 🗺️ Progression Path
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["1 · ⛓️ Prompt Chaining     "] -->|"+ classification"| B["2 · 🔀 Routing     "]
+    B -->|"+ concurrency"| C["3 · ⚡ Parallelization     "]
+    C -->|"+ dynamic planning"| D["4 · 🎯 Orchestrator-Workers     "]
+    D -->|"+ self-critique"| E["5 · 🔄 Evaluator-Optimizer     "]
+    E -->|"+ human oversight"| F["6 · 👤 Human-in-the-Loop     "]
+    F -->|"combine all"| G["🏆 Content Writer     "]
+```
+
 | Step | Tutorial | What It Adds |
 |:----:|----------|-------------|
 | 1 | [Prompt Chaining](01-prompt-chaining/) | Sequential multi-step pipelines |

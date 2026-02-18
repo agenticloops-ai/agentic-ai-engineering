@@ -36,6 +36,21 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ## 🔑 Key Concepts
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["🗣️ Topic     "] -->|request| B["🔧 Research / Haiku + 🔍     "]
+    B -->|data| C["🧠 Write / Haiku     "]
+    C -->|draft| D["⚙️ Evaluate / Haiku     "]
+    D -->|"avg < 7.0"| E["🧠 Refine / Sonnet     "]
+    E -->|revised| D
+    D -->|"avg >= 7.0"| F["📄 Final Post     "]
+```
+
 ### Pipeline: Research → Write → Evaluate → Refine
 
 The pipeline separates web search from writing to control token costs:

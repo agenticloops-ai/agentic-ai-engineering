@@ -36,6 +36,24 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ## 🔑 Key Concepts
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["🗣️ Request     "] -->|request| B["🧠 Draft     "]
+    B -->|draft| C["👤 Checkpoint 1     "]
+    C -->|approve| D["📄 Final Email     "]
+    C -->|"reject + feedback"| E["🧠 Revise     "]
+    C -->|edit| D
+    E -->|revised| F["👤 Checkpoint 2     "]
+    F -->|approve| D
+    F -->|"reject + feedback"| E
+    F -->|edit| D
+```
+
 ### Checkpoint Placement
 
 Two checkpoints, each at a different leverage level:
