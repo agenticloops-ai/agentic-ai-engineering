@@ -62,7 +62,7 @@ The tutorials are organized into **modules** (`01-foundations`, `02-effective-ag
 - **Python scripts** ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white) - Self-contained, runnable examples demonstrating key concepts
 - **README.md** - Detailed explanations, code walkthroughs, and learning objectives
 
-You can explore individual scripts independently or follow the complete learning path from start to finish.
+You can explore individual scripts independently or follow the complete learning path from start to finish. Each module ends with a ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) project that combines all concepts from the module into a single, production-style agent.
 
 ### 🎓 [01 - Foundations](01-foundations/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
@@ -73,18 +73,19 @@ Your first steps — from a single API call to a fully autonomous agent loop. Bu
 3. **[Chat](01-foundations/03-chat/)** — Interactive chat with message history
 4. **[Tool Use](01-foundations/04-tool-use/)** — Enable function calling
 5. **[Agent Loop](01-foundations/05-agent-loop/)** — Autonomous tool-using agents
+6. **[Codebase Navigator](01-foundations/06-codebase-navigator/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — The Augmented LLM with RAG, tools, and memory
 
-### 🧩 [02 - Effective Agents Patterns](02-effective-agents/README.md)
+### 🧩 [02 - Effective Agents Patterns](02-effective-agents/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Architectural patterns that separate toy demos from real agents. Based on Anthropic's "[Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents)" — learn when to chain, route, parallelize, or delegate.
 
-1. **[Augmented LLM](02-effective-agents/01-augmented-llm/)** ![new](https://img.shields.io/badge/new-brightgreen) — RAG, retrieval, knowledge grounding
-2. **[Prompt Chaining](02-effective-agents/02-prompt-chaining/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Sequential multi-step pipelines
-3. **[Routing](02-effective-agents/03-routing/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Classify input, dispatch to specialized handlers
-4. **[Parallelization](02-effective-agents/04-parallelization/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Fan-out/fan-in, parallel tool calls
-5. **[Orchestrator-Workers](02-effective-agents/05-orchestrator-workers/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Dynamic task decomposition
-6. **[Evaluator-Optimizer](02-effective-agents/06-evaluator-optimizer/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange) — Self-critique, iterative refinement
-7. **[Human in the Loop](02-effective-agents/07-human-in-the-loop/)** ![coming soon](https://img.shields.io/badge/coming%20soon-orange)— Approval gates, escalation, feedback
+1. **[Prompt Chaining](02-effective-agents/01-prompt-chaining/)** — Sequential multi-step pipelines
+2. **[Routing](02-effective-agents/02-routing/)** — Classify input, dispatch to specialized handlers
+3. **[Parallelization](02-effective-agents/03-parallelization/)** — Fan-out/fan-in, parallel tool calls
+4. **[Orchestrator-Workers](02-effective-agents/04-orchestrator-workers/)** — Dynamic task decomposition
+5. **[Evaluator-Optimizer](02-effective-agents/05-evaluator-optimizer/)** — Self-critique, iterative refinement
+6. **[Human in the Loop](02-effective-agents/06-human-in-the-loop/)** — Approval gates, escalation, feedback
+7. **[Content Writer](02-effective-agents/07-content-writer/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Full agent composing all agentic workflow patterns
 
 ### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 

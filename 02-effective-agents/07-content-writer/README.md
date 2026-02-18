@@ -13,7 +13,7 @@ A production-ready content creation pipeline that composes **all six patterns** 
 - Compose routing, orchestration, parallelization, evaluation, and human checkpoints into a single pipeline
 - Use **Pydantic models** for validated structured output and typed event streaming
 - Use **async generators** to decouple agent logic from UI rendering
-- Apply the **fan-out** pattern (social media) and **voting** pattern (SEO titles) from tutorial 04
+- Apply the **fan-out** pattern (social media) and **voting** pattern (SEO titles) from tutorial 03
 - Write production-quality prompts: writing voice, anti-AI patterns, type-specific instructions
 - Balance token efficiency with output quality (dual models, focused research, selective truncation)
 
@@ -32,13 +32,13 @@ A production-ready content creation pipeline that composes **all six patterns** 
 > **Prerequisites**: See [SETUP.md](../../SETUP.md) for environment setup.
 
 ```bash
-uv run --directory 02-effective-agents/08-content-writer python 01_content_writer.py
+uv run --directory 02-effective-agents/07-content-writer python 01_content_writer.py
 ```
 
 ## 🏗️ Architecture
 
 ```
-08-content-writer/
+07-content-writer/
 ├── 01_content_writer.py             # Entry point: async event consumer + Rich UI
 └── content_writer/                  # Agent package
     ├── __init__.py
@@ -81,14 +81,14 @@ Each pipeline phase maps to a pattern from the module:
 
 | Phase | Pattern | Tutorial | Model |
 |-------|---------|----------|-------|
-| Classify content type | Routing | 03 | Sonnet |
-| Plan research subtopics | Orchestrator | 05 | Sonnet |
-| Research in parallel | Workers | 05 | Haiku |
-| Write with type-specific voice | Prompt Chaining | 02 | Sonnet |
-| Evaluate + refine loop | Evaluator-Optimizer | 06 | Sonnet |
-| Human checkpoints | Human-in-the-Loop | 07 | — |
-| Social media fan-out | Parallelization (fan-out) | 04 | Haiku |
-| SEO title voting | Parallelization (voting) | 04 | Haiku + Sonnet |
+| Classify content type | Routing | 02 | Sonnet |
+| Plan research subtopics | Orchestrator | 04 | Sonnet |
+| Research in parallel | Workers | 04 | Haiku |
+| Write with type-specific voice | Prompt Chaining | 01 | Sonnet |
+| Evaluate + refine loop | Evaluator-Optimizer | 05 | Sonnet |
+| Human checkpoints | Human-in-the-Loop | 06 | — |
+| Social media fan-out | Parallelization (fan-out) | 03 | Haiku |
+| SEO title voting | Parallelization (voting) | 03 | Haiku + Sonnet |
 
 ### Typed Event System
 
@@ -155,7 +155,7 @@ Three checkpoints: classification (override type), research plan (adjust subtopi
 
 ### Social Media Fan-Out + SEO Voting
 
-After the article is approved, two parallelization sub-patterns from tutorial 04:
+After the article is approved, two parallelization sub-patterns from tutorial 03:
 
 **Fan-out**: LinkedIn, Twitter, and Newsletter writers run concurrently via `ThreadPoolExecutor`:
 

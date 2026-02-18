@@ -15,5 +15,6 @@
     "python": "uv run --directory $dirWithoutTrailingSlash python \"$fileName\""
   },
   "code-runner.runInTerminal": true,
-  "code-runner.clearPreviousOutput": true
+  "code-runner.clearPreviousOutput": true,
+  "makefile.configureOnOpen": false
 }

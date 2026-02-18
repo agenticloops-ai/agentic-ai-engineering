@@ -26,10 +26,10 @@ Decompose a task into a sequence of fixed steps, where each LLM call processes t
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/02-prompt-chaining python {script_name}
+uv run --directory 02-effective-agents/01-prompt-chaining python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/02-prompt-chaining python 01_prompt_chaining.py
+uv run --directory 02-effective-agents/01-prompt-chaining python 01_prompt_chaining.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -38,8 +38,17 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### Sequential Pipeline
 
-```
-Topic → [Outliner/Sonnet] → [Writer/Haiku + 🔍] → [Editor/Sonnet] → Final Post
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart LR
+    A["🗣️ Topic     "] -->|request| B["🧠 Outliner / Sonnet     "]
+    B -->|outline| C["🧠 Writer / Haiku + 🔍     "]
+    C -->|draft| D["🧠 Editor / Sonnet     "]
+    D -->|polished| E["📄 Final Post     "]
 ```
 
 Each step has a focused system prompt and a single responsibility. The output of one step becomes the input of the next.
@@ -93,5 +102,5 @@ In this tutorial, chaining wins because each step genuinely benefits from a diff
 
 ## 👉 Next Steps
 
-- [03 - Routing](../03-routing/) — add input classification to route to specialized chains
+- [02 - Routing](../02-routing/) — add input classification to route to specialized chains
 - Experiment: add a 4th step (e.g., SEO optimizer or fact-checker)

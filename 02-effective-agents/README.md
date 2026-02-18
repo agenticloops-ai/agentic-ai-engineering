@@ -9,37 +9,30 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 
 ## 🗺️ Progression Path
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["1 · ⛓️ Prompt Chaining     "] -->|"+ classification"| B["2 · 🔀 Routing     "]
+    B -->|"+ concurrency"| C["3 · ⚡ Parallelization     "]
+    C -->|"+ dynamic planning"| D["4 · 🎯 Orchestrator-Workers     "]
+    D -->|"+ self-critique"| E["5 · 🔄 Evaluator-Optimizer     "]
+    E -->|"+ human oversight"| F["6 · 👤 Human-in-the-Loop     "]
+    F -->|"combine all"| G["🏆 Content Writer     "]
 ```
-Augmented LLM
-    ↓
-  (adds sequential steps)
-    ↓
-Prompt Chaining
-    ↓
-  (adds input classification)
-    ↓
-Routing
-    ↓
-  (adds concurrent execution)
-    ↓
-Parallelization
-    ↓
-  (adds dynamic decomposition)
-    ↓
-Orchestrator-Workers
-    ↓
-  (adds self-critique)
-    ↓
-Evaluator-Optimizer
-    ↓
-  (adds human oversight)
-    ↓
-Human in the Loop
-    ↓
-  (combines all patterns)
-    ↓
-Full Agent
-```
+
+| Step | Tutorial | What It Adds |
+|:----:|----------|-------------|
+| 1 | [Prompt Chaining](01-prompt-chaining/) | Sequential multi-step pipelines |
+| 2 | [Routing](02-routing/) | + input classification |
+| 3 | [Parallelization](03-parallelization/) | + concurrent execution |
+| 4 | [Orchestrator-Workers](04-orchestrator-workers/) | + dynamic decomposition |
+| 5 | [Evaluator-Optimizer](05-evaluator-optimizer/) | + self-critique |
+| 6 | [Human in the Loop](06-human-in-the-loop/) | + human oversight |
+| 🏆 | [Content Writer](07-content-writer/) | Combines all patterns |
 
 ## 💡 Tips for Success
 
@@ -50,13 +43,7 @@ Full Agent
 
 ## 📚 Tutorials
 
-### [01 - Augmented LLM](01-augmented-llm/)
-
-Give your LLM access to external knowledge through retrieval-augmented generation. Ground responses in real data instead of relying on training knowledge alone.
-
----
-
-### [02 - Prompt Chaining](02-prompt-chaining/)
+### [01 - Prompt Chaining](01-prompt-chaining/)
 
 Break complex tasks into sequential steps where each LLM call builds on the previous output. Simple, debuggable, and surprisingly powerful.
 
@@ -66,7 +53,7 @@ Break complex tasks into sequential steps where each LLM call builds on the prev
 
 ---
 
-### [03 - Routing](03-routing/)
+### [02 - Routing](02-routing/)
 
 Classify incoming requests and dispatch them to specialized handlers. One agent decides, others execute — the foundation of scalable systems.
 
@@ -76,7 +63,7 @@ Classify incoming requests and dispatch them to specialized handlers. One agent 
 
 ---
 
-### [04 - Parallelization](04-parallelization/)
+### [03 - Parallelization](03-parallelization/)
 
 Fan-out work across multiple LLM calls simultaneously, then aggregate results. Trade latency for throughput when tasks are independent.
 
@@ -86,7 +73,7 @@ Fan-out work across multiple LLM calls simultaneously, then aggregate results. T
 
 ---
 
-### [05 - Orchestrator-Workers](05-orchestrator-workers/)
+### [04 - Orchestrator-Workers](04-orchestrator-workers/)
 
 A central agent dynamically breaks down tasks and delegates to specialized workers. The pattern behind most "AI agent" products you see today.
 
@@ -96,7 +83,7 @@ A central agent dynamically breaks down tasks and delegates to specialized worke
 
 ---
 
-### [06 - Evaluator-Optimizer](06-evaluator-optimizer/)
+### [05 - Evaluator-Optimizer](05-evaluator-optimizer/)
 
 One LLM generates, another critiques, and the cycle repeats until quality thresholds are met. Self-improving output without human intervention.
 
@@ -106,13 +93,23 @@ One LLM generates, another critiques, and the cycle repeats until quality thresh
 
 ---
 
-### [07 - Human in the Loop](07-human-in-the-loop/)
+### [06 - Human in the Loop](06-human-in-the-loop/)
 
 Build approval gates, escalation paths, and feedback mechanisms. Every production agent needs a strategy for when to ask a human.
 
 **What you'll learn:** Strategic checkpoint placement, approval/reject/edit patterns, the leverage principle (early checkpoints matter most).
 
 **Evolution:** Adds *human oversight* — instead of fully autonomous operation, pause at critical decision points.
+
+---
+
+### 🏆 [07 - Content Writer](07-content-writer/)
+
+A production-ready content creation pipeline that composes **all six patterns** from this module into one agent with social media parallelization, SEO title voting, Pydantic data models, and a typed async event system.
+
+**What you'll learn:** Pattern composition (routing + chaining + parallelization + orchestration + evaluation + human oversight), Pydantic models for validated structured output, async generators for UI/agent separation.
+
+**Evolution:** Combines *all patterns* — routing, chaining, parallelization, orchestration, evaluation, and human oversight — into a single production pipeline.
 
 ---
 

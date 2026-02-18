@@ -26,15 +26,30 @@ One LLM generates a response while another evaluates it in a loop, refining unti
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/06-evaluator-optimizer python {script_name}
+uv run --directory 02-effective-agents/05-evaluator-optimizer python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/06-evaluator-optimizer python 01_evaluator_optimizer.py
+uv run --directory 02-effective-agents/05-evaluator-optimizer python 01_evaluator_optimizer.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 
 ## 🔑 Key Concepts
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["🗣️ Topic     "] -->|request| B["🔧 Research / Haiku + 🔍     "]
+    B -->|data| C["🧠 Write / Haiku     "]
+    C -->|draft| D["⚙️ Evaluate / Haiku     "]
+    D -->|"avg < 7.0"| E["🧠 Refine / Sonnet     "]
+    E -->|revised| D
+    D -->|"avg >= 7.0"| F["📄 Final Post     "]
+```
 
 ### Pipeline: Research → Write → Evaluate → Refine
 
@@ -93,6 +108,6 @@ Each phase uses only the context it needs — no accumulated chat history:
 
 ## 👉 Next Steps
 
-- [07 - Human-in-the-Loop](../07-human-in-the-loop/) — add human checkpoints to the workflow
+- [06 - Human-in-the-Loop](../06-human-in-the-loop/) — add human checkpoints to the workflow
 - Experiment: adjust `SCORE_THRESHOLD` and `MAX_REFINEMENTS` to find the quality/cost balance
 - Compare output quality with and without the research phase

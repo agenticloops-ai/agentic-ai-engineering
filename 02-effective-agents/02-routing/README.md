@@ -26,10 +26,10 @@ Route to specialized handlers based on content analysis. The router picks the ri
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/03-routing python {script_name}
+uv run --directory 02-effective-agents/02-routing python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/03-routing python 01_routing.py
+uv run --directory 02-effective-agents/02-routing python 01_routing.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -60,10 +60,20 @@ The key insight: a tutorial needs prerequisites before steps, a news article nee
 
 Routing builds on prompt chaining (each route *is* a chain) but adds a classification step that determines which chain to execute:
 
-```
-                    ┌─→ [Tutorial Chain]
-Topic → [Classify] ─┼─→ [News Chain]
-                    └─→ [Concept Chain]
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart LR
+    A["🗣️ Topic     "] -->|request| B["⚙️ Classify     "]
+    B -->|tutorial| C["🔧 Tutorial Chain     "]
+    B -->|news| D["🔧 News Chain     "]
+    B -->|concept| E["🔧 Concept Chain     "]
+    C --> F["📄 Output     "]
+    D --> F
+    E --> F
 ```
 
 Use routing when inputs require **structurally different** processing, not just different tones or styles.
@@ -87,5 +97,5 @@ Events: `classify_start`, `classify_complete`, `chain_start`, `chain_complete`.
 
 ## 👉 Next Steps
 
-- [04 - Parallelization](../04-parallelization/) — fan-out work across independent LLM calls
+- [03 - Parallelization](../03-parallelization/) — fan-out work across independent LLM calls
 - Experiment: add a 4th route (e.g., "Opinion/Editorial" with a different structure)

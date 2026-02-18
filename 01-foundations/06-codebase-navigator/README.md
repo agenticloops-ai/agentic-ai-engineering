@@ -1,17 +1,14 @@
 <!-- ---
-title: "Augmented LLM"
-description: "The basic building block of agentic systems — an LLM enhanced with retrieval, tools, and memory"
+title: "Codebase Navigator"
+description: "An augmented LLM agent that explores codebases using retrieval, tools, and memory"
 icon: "layers"
-status: "coming-soon"
 --- -->
 
-# Augmented LLM
+# Codebase Navigator
 
-The basic building block of agentic systems is an LLM enhanced with augmentations such as retrieval, tools, and memory. Modern models can actively use these capabilities — generating their own search queries, selecting appropriate tools, and determining what information to retain.
+An agent that helps engineers explore and understand unfamiliar codebases. Point it at any GitHub repo, and it will clone, index, and answer questions using semantic search while maintaining memory across sessions.
 
-> Based on the [Augmented LLM](https://www.anthropic.com/engineering/building-effective-agents) pattern from Anthropic's "Building Effective Agents" guide.
-
-This tutorial implements a **Codebase Navigator** — an agent that helps engineers explore and understand unfamiliar codebases. Point it at any GitHub repo, and it will clone, index, and answer questions using semantic search while maintaining memory across sessions.
+> Implements the [Augmented LLM](https://www.anthropic.com/engineering/building-effective-agents) pattern from Anthropic's "Building Effective Agents" — an LLM enhanced with retrieval, tools, and memory.
 
 
 > **📚 Setup & Running:** See [SETUP.md](../../SETUP.md) for prerequisites, setup instructions, and how to run tutorials.
@@ -28,7 +25,7 @@ This tutorial implements a **Codebase Navigator** — an agent that helps engine
 
 | # | Script | Provider | What it demonstrates |
 |---|--------|----------|---------------------|
-| 01 | `01_augmented_llm.py` | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | Full augmented LLM with RAG, tools, and memory |
+| 01 | `01_codebase_navigator.py` | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | Full augmented LLM with RAG, tools, and memory |
 
 > **Contributions welcome!** We're looking for help porting this tutorial to additional providers. See [#13 — Port to OpenAI API](https://github.com/agenticloops-ai/ai-agents-engineering/issues/13) if you'd like to contribute.
 
@@ -64,7 +61,7 @@ Enables context-aware follow-ups like:
 
 ### The Agentic Loop
 
-The core pattern that makes this work (same as the [Agent Loop](../../01-foundations/05-agent-loop/README.md) tutorial).
+The core pattern that makes this work (same as the [Agent Loop](../05-agent-loop/README.md) tutorial).
 
 The loop continues until the LLM responds with just text (no tool calls), indicating it has enough information to answer.
 
@@ -97,8 +94,8 @@ flowchart TB
 ## 🏗️ Code Structure
 
 ```
-01-augmented-llm/
-├── 01_augmented_llm.py             # Main entry point — agent + CLI
+06-codebase-navigator/
+├── 01_codebase_navigator.py             # Main entry point — agent + CLI
 ├── store/
 │   ├── memory.py                   # JSON-based persistent memory
 │   └── vector.py                   # ChromaDB wrapper for embeddings
@@ -161,7 +158,7 @@ Found 3 TODO comments in the Flask codebase:
 
 ## 👉 Next Steps
 
-- **[Prompt Chaining](../02-prompt-chaining/README.md)** — decompose tasks into sequential LLM calls
+- **[Prompt Chaining](../../02-effective-agents/01-prompt-chaining/README.md)** — decompose tasks into sequential LLM calls
 - Try indexing multiple repos and asking cross-repo questions
 - Experiment with different embedding models
 - Add new tools (e.g., `run_tests`, `explain_function`)
