@@ -2,7 +2,6 @@
 title: "Prompt Engineering"
 description: "Learn prompt engineering techniques including system messages, few-shot examples, and structured output"
 icon: "wand"
-status: "coming-soon"
 --- -->
 
 # Prompt Engineering
@@ -95,11 +94,11 @@ response = client.responses.create(
 
 The scripts demonstrate three techniques, each on a task where it shines — showing *why* you'd choose one over another:
 
-| Technique      | Demo Task                  | Why This Technique                                    |
-| -------------- | -------------------------- | ----------------------------------------------------- |
-| **Zero-shot**  | Sentiment analysis         | Model already knows POSITIVE/NEGATIVE/NEUTRAL         |
-| **Few-shot**   | Custom label classification | Teaches domain labels like `BILLING_DISPUTE`          |
-| **CoT**        | Root cause analysis        | Multi-step reasoning produces better diagnosis        |
+| Technique     | Demo Task                   | Why This Technique                             |
+| ------------- | --------------------------- | ---------------------------------------------- |
+| **Zero-shot** | Sentiment analysis          | Model already knows POSITIVE/NEGATIVE/NEUTRAL  |
+| **Few-shot**  | Custom label classification | Teaches domain labels like `BILLING_DISPUTE`   |
+| **CoT**       | Root cause analysis         | Multi-step reasoning produces better diagnosis |
 
 **Zero-shot** — no examples needed when the task is well-understood:
 ```python
