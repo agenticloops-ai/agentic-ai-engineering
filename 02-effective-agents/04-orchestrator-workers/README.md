@@ -26,10 +26,10 @@ A central LLM dynamically breaks down a task, delegates subtasks to worker LLMs,
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/05-orchestrator-workers python {script_name}
+uv run --directory 02-effective-agents/04-orchestrator-workers python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/05-orchestrator-workers python 01_orchestrator_workers.py
+uv run --directory 02-effective-agents/04-orchestrator-workers python 01_orchestrator_workers.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -38,7 +38,7 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### Dynamic Decomposition
 
-Unlike [04 - Parallelization](../04-parallelization/) (where you hardcode the fan-out), the orchestrator uses an LLM to decide *what* subtopics to research based on the input:
+Unlike [03 - Parallelization](../03-parallelization/) (where you hardcode the fan-out), the orchestrator uses an LLM to decide *what* subtopics to research based on the input:
 
 ```python
 tool_choice={"type": "tool", "name": "create_research_plan"}
@@ -62,5 +62,5 @@ After all workers complete, a synthesizer combines their independent research in
 
 ## 👉 Next Steps
 
-- [06 - Evaluator-Optimizer](../06-evaluator-optimizer/) — add a quality feedback loop
+- [05 - Evaluator-Optimizer](../05-evaluator-optimizer/) — add a quality feedback loop
 - Experiment: give workers different models (fast model for simple topics, powerful for complex)

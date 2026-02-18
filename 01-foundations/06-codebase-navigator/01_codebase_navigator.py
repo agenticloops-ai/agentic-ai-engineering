@@ -21,11 +21,19 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 
 from common import AnthropicTokenTracker, setup_logging
+from common.menu import interactive_menu
 
 # Load environment variables
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
+
+SUGGESTED_REPOS = [
+    "openai/swarm",
+    "strands-agents/sdk-python",
+    "anthropics/anthropic-sdk-python",
+    "pallets/flask",
+]
 
 
 SYSTEM_PROMPT = """You are a Codebase Navigator — an AI assistant that helps software engineers \
@@ -244,20 +252,32 @@ def main() -> None:
 
     console = Console()
 
-    console.print(
-        Panel(
-            "An LLM enhanced with [green]Retrieval (RAG)[/green], "
-            "[yellow]Tools[/yellow], and [magenta]Memory[/magenta].\n\n"
-            "Try:\n"
-            "  • index the flask repo from pallets/flask\n"
-            "  • how does routing work?\n"
-            "  • find all TODO comments\n"
-            "  • list the directory structure\n\n"
-            "[dim]Repos use GitHub format: owner/repo (e.g., pallets/flask)[/dim]\n"
-            "Type 'quit' to exit.",
-            title="[bold cyan]Codebase Navigator[/bold cyan]",
-        )
+    header = Panel(
+        "[bold cyan]Codebase Navigator[/bold cyan]\n\n"
+        "An LLM enhanced with [green]Retrieval (RAG)[/green], "
+        "[yellow]Tools[/yellow], and [magenta]Memory[/magenta].\n\n"
+        "Select a repo to index, then ask questions about the codebase.",
+        title="Codebase Navigator",
     )
+
+    repo = interactive_menu(
+        console,
+        SUGGESTED_REPOS,
+        title="Select a Repo to Explore",
+        header=header,
+        allow_custom=True,
+        custom_prompt="Enter owner/repo (e.g., pallets/flask)",
+    )
+    if not repo:
+        return
+
+    console.print(f"\n[bold green]Indexing:[/bold green] {repo}")
+    response = agent.chat(f"index the repo {repo}", console)
+    if response:
+        console.print("\n[bold blue]Navigator:[/bold blue]")
+        console.print(Markdown(response))
+
+    console.print("\n[dim]Ask questions about the codebase. Type 'quit' to exit.[/dim]")
 
     try:
         while True:

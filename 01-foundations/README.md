@@ -11,27 +11,14 @@ Master the core building blocks of AI agents through progressive, hands-on tutor
 
 ## 🗺️ Progression Path
 
-Each tutorial builds on the previous one:
-
-```
-Simple LLM Call
-    ↓
-  (adds behavior control)
-    ↓
-Prompt Engineering
-    ↓
-  (adds conversation history)
-    ↓
-Interactive Chat
-    ↓
-  (adds function calling)
-    ↓
-Tool Use
-    ↓
-  (adds autonomy)
-    ↓
-Agent Loop
-```
+| Step | Tutorial | What It Adds |
+|:----:|----------|-------------|
+| 1 | [Simple LLM Call](01-simple-llm-call/) | API basics, token tracking |
+| 2 | [Prompt Engineering](02-prompt-engineering/) | + behavior control, structured output |
+| 3 | [Interactive Chat](03-chat/) | + conversation history, interactivity |
+| 4 | [Tool Use](04-tool-use/) | + function calling, tool execution |
+| 5 | [Agent Loop](05-agent-loop/) | + autonomy, multi-step reasoning |
+| 🏆 | [Codebase Navigator](06-codebase-navigator/) | + retrieval, tools & memory |
 
 ## 💡 Tips for Success
 
@@ -104,6 +91,18 @@ Agent Loop
 - Detect task completion automatically
 
 **Evolution:** Combines everything into a fully autonomous agent that chains tool calls
+
+---
+
+### 🏆 [06 - Codebase Navigator](06-codebase-navigator/)
+
+**What you'll learn:**
+- Implement retrieval augmentation (RAG) with ChromaDB
+- Connect LLMs to tools they can invoke autonomously
+- Add persistent memory to maintain context across sessions
+- Build a practical agent that explores real codebases
+
+**Evolution:** Builds the [Augmented LLM](https://www.anthropic.com/engineering/building-effective-agents) — the foundational building block of all agentic systems, enhanced with retrieval, tools, and memory
 
 ---
 

@@ -27,10 +27,10 @@ Fan-out for independent work, fan-in to combine. Independent tasks run concurren
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/04-parallelization python {script_name}
+uv run --directory 02-effective-agents/03-parallelization python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/04-parallelization python 01_parallelization.py
+uv run --directory 02-effective-agents/03-parallelization python 01_parallelization.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -71,7 +71,7 @@ The `ParallelContentGenerator` class emits events (`fanout_start`, `writer_compl
 def run(self, blog_post: str, on_event: GeneratorCallback | None = None) -> dict[str, str]:
 ```
 
-This is the same pattern used in [02 - Prompt Chaining](../02-prompt-chaining/) for step progress.
+This is the same pattern used in [01 - Prompt Chaining](../01-prompt-chaining/) for step progress.
 
 ## ⚠️ Important Considerations
 
@@ -82,5 +82,5 @@ This is the same pattern used in [02 - Prompt Chaining](../02-prompt-chaining/) 
 
 ## 👉 Next Steps
 
-- [05 - Orchestrator-Workers](../05-orchestrator-workers/) — let the LLM dynamically decide what to parallelize
+- [04 - Orchestrator-Workers](../04-orchestrator-workers/) — let the LLM dynamically decide what to parallelize
 - Experiment: add `asyncio` with `anthropic.AsyncAnthropic` for async parallelization

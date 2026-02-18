@@ -26,10 +26,10 @@ Pause the workflow at strategic checkpoints for human review. The LLM drafts an 
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 02-effective-agents/07-human-in-the-loop python {script_name}
+uv run --directory 02-effective-agents/06-human-in-the-loop python {script_name}
 
 # Example
-uv run --directory 02-effective-agents/07-human-in-the-loop python 01_human_in_the_loop.py
+uv run --directory 02-effective-agents/06-human-in-the-loop python 01_human_in_the_loop.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -78,6 +78,6 @@ Early checkpoints have the highest leverage. Catching a wrong tone at checkpoint
 
 ## 👉 Next Steps
 
-- [08 - Content Writer](../08-content-writer/) — combine all patterns into a production content creation agent
+- [07 - Content Writer](../07-content-writer/) — combine all patterns into a production content creation agent
 - Experiment: add a confidence score to auto-approve high-confidence drafts
 - Try replacing `human_checkpoint` with a function that logs to a file (simulating async review)

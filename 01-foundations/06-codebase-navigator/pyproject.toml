@@ -1,7 +1,7 @@
 [project]
-name = "lesson-augmented-llm"
+name = "lesson-codebase-navigator"
 version = "0.1.0"
-description = "Augmented LLM - the foundational building block enhanced with retrieval, tools, and memory"
+description = "Codebase Navigator — an augmented LLM with retrieval, tools, and memory"
 requires-python = ">=3.11"
 dependencies = [
     "anthropic>=0.40.0",
