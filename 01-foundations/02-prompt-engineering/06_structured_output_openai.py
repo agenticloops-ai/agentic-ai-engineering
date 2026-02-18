@@ -144,7 +144,8 @@ def _try_parse_json(raw: str) -> dict | None:
         lines = text.splitlines()
         text = "\n".join(lines[1:-1] if lines[-1].strip() == "```" else lines[1:])
     try:
-        return json.loads(text)
+        parsed: dict[str, object] = json.loads(text)
+        return parsed
     except json.JSONDecodeError as e:
         logger.warning("JSON parse failed: %s", e)
         return None
