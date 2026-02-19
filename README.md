@@ -4,18 +4,15 @@
 
 ![AI Agents Engineering](common/images/banner.png)
 
-<!-- TODO: Uncomment when repo is public — readme-i18n.com requires a public repo to generate translations
-<p align="center">
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=de">Deutsch</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=es">Español</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=fr">Français</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=ja">日本語</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=ko">한국어</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=pt">Português</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=uk">Українська</a> |
-  <a href="https://www.readme-i18n.com/agenticloops-ai/agentic-ai-engineering?lang=zh">中文</a>
-</p>
--->
+<!-- Keep these links. Translations will automatically update with the README. -->
+[English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) | 
+[Deutsch](https://zdoc.app/de/agenticloops-ai/agentic-ai-engineering) | 
+[Español](https://zdoc.app/es/agenticloops-ai/agentic-ai-engineering) | 
+[français](https://zdoc.app/fr/agenticloops-ai/agentic-ai-engineering) | 
+[日本語](https://zdoc.app/ja/agenticloops-ai/agentic-ai-engineering) | 
+[한국어](https://zdoc.app/ko/agenticloops-ai/agentic-ai-engineering) | 
+[Português](https://zdoc.app/pt/agenticloops-ai/agentic-ai-engineering) | 
+[中文](https://zdoc.app/zh/agenticloops-ai/agentic-ai-engineering)
 
 [![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
 [![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
