@@ -24,7 +24,7 @@
 
 </div>
 
-# AI Agents Engineering
+# Agentic AI Engineering
 *by [AgenticLoops.ai](https://agenticloops.ai) - for Engineers, from Engineers*
 
 **A practical, hands-on guide to AI agent development**. Learn by building real agents - from basic LLM interactions to autonomous tool-using systems. Master agentic patterns, explore popular frameworks, and discover deployment strategies through interactive tutorials.
