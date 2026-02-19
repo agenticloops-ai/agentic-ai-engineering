@@ -29,8 +29,6 @@
 
 **A practical, hands-on guide to AI agent development**. Learn by building real agents - from basic LLM interactions to autonomous tool-using systems. Master agentic patterns, explore popular frameworks, and discover deployment strategies through interactive tutorials.
 
-**We're starting small but adding new tutorials continuously.** If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) - your input directly shapes what we build next.
-
 📝 **[Subscribe to our Substack](https://agenticloopsai.substack.com)** to get deep-dive engineering posts on AI agents. No hype, just engineering insights.
 
 ## 🎯 Who Is This For?
@@ -39,6 +37,8 @@
 - **Anyone** who prefers **learning by running real code** over watching videos or reading theory
 
 No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
+
+**We're starting small but adding new tutorials continuously.** If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) - your input directly shapes what we build next.
 
 ## 🚀 Quick Start
 
