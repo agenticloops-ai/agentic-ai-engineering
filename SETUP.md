@@ -27,7 +27,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ## 2. Clone the Repository
 
 ```bash
-git clone agentic-ai-engineering
+git clone https://github.com/agenticloops-ai/agentic-ai-engineering.git
 cd agentic-ai-engineering
 ```
 
@@ -49,7 +49,7 @@ You only need to set keys for the provider(s) you want to use.
 ```bash
 cd 01-foundations/01-simple-llm-call
 uv sync
-uv run python 01_llm_call_anthropic.py   # or 02_llm_call_openai.py
+uv run 01_llm_call_anthropic.py   # or 02_llm_call_openai.py
 ```
 
 ## Running Lessons
@@ -68,7 +68,7 @@ Navigate with arrow keys, press Enter to run scripts.
 # From lesson directory
 cd 01-foundations/01-simple-llm-call
 uv sync
-uv run python 01_llm_call_anthropic.py
+uv run 01_llm_call_anthropic.py
 
 # From root directory
 uv run --directory 01-foundations/01-simple-llm-call python 01_llm_call_anthropic.py
@@ -98,7 +98,7 @@ uv sync
 Always use `uv run` to execute scripts:
 
 ```bash
-uv run python script.py    # Correct
+uv run script.py           # Correct
 python script.py           # Wrong (unless venv is activated)
 ```
 
