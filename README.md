@@ -144,7 +144,7 @@ If you find this project useful, consider supporting us:
 
 **Module not found?** Run `uv sync` in the lesson directory.
 
-**API errors or authentication failures?** You need API keys from [Anthropic](https://console.anthropic.com/), [OpenAI](https://platform.openai.com/), or both, depending on which examples you run. See [SETUP.md](SETUP.md) for details.
+**API errors or authentication failures?** You need API keys from [Anthropic](https://console.anthropic.com/), [OpenAI](https://platform.openai.com/),[Google Gemini](https://aistudio.google.com/api-keys) or all of them, depending on which examples you run. See [SETUP.md](SETUP.md) for details.
 
 
 ## ⚖️ License

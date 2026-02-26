@@ -18,10 +18,11 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 ## 📦 Available Examples
 
 | Provider                                        | File                                                 | Description                        |
-| ----------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
+|-------------------------------------------------|------------------------------------------------------|------------------------------------|
 | ![Anthropic](../../common/badges/anthropic.svg) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
 | ![OpenAI](../../common/badges/openai.svg)       | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
 | ![LiteLLM](../../common/badges/litellm.svg)     | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
+| ![Gemini](../../common/badges/gemini.svg)       | [04_llm_call_gemini.py](03_llm_call_gemini.py)       | Basicc Google Gemini API calls |
 
 ## 🚀 Quick Start
 
@@ -79,6 +80,14 @@ from litellm import completion
 # Uses appropriate API key based on model name
 ```
 
+**Google Gemini:**
+```python
+from google import genai
+
+client = genai.Client()  # Uses GEMINI_API_KEY or VertexAI vars from env
+model="gemini-3-flash-preview"
+```
+
 ### 3. Making API Calls
 
 **Anthropic (Messages API):**
@@ -121,6 +130,20 @@ response = completion(
 text = response.choices[0].message.content
 ```
 
+**Google Gemini (text output):**
+
+See for more details: https://ai.google.dev/gemini-api/docs/text-generation
+```python
+response = self.client.models.generate_content(
+    model="gemini-3-flash-preview", # or any other supported model, f.e. 3.1-pro
+    contents="Hello there",
+    config=types.GenerateContentConfig(
+        system_instruction="You are a cat. Your name is Neko.",
+    ),
+)
+text = response.output_text
+```
+
 > These examples show basic (non-streaming) API calls. For streaming responses, see the [Anthropic Streaming docs](https://docs.anthropic.com/en/api/messages-streaming), [OpenAI Streaming docs](https://platform.openai.com/docs/api-reference/streaming), and [LiteLLM Streaming docs](https://docs.litellm.ai/docs/completion/stream).
 
 ### 4. Key Configuration Parameters
@@ -134,11 +157,13 @@ text = response.choices[0].message.content
 **Max Tokens**: Limits the response length
 - Anthropic/LiteLLM: `max_tokens`
 - OpenAI Responses API: `max_output_tokens`
+- Google Gemini: `max_output_tokens`
 
 **System Prompt**: Defines the assistant's behavior and context
 - Anthropic: `system` parameter
 - OpenAI: `instructions` parameter
 - LiteLLM: System message in `messages` array
+- Google Gemini: `system_instruction` in the `config` type 
 
 > Other advanced parameters like `top_p`, `top_k`, `stop_sequences`, `presence_penalty`, `frequency_penalty`, and `seed` will be covered in future tutorials.
 
