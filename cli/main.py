@@ -31,7 +31,7 @@ def readkey_with_esc_support() -> str:
         term[3] &= ~(termios.ICANON | termios.ECHO | termios.IGNBRK | termios.BRKINT)
         termios.tcsetattr(fd, termios.TCSAFLUSH, term)
 
-        c1 = sys.stdin.read(1)
+        c1 = os.read(fd, 1).decode()
         if c1 != "\x1b":
             return c1
 
@@ -39,19 +39,19 @@ def readkey_with_esc_support() -> str:
         if not select.select([fd], [], [], 0.05)[0]:
             return "\x1b"  # standalone ESC
 
-        c2 = sys.stdin.read(1)
+        c2 = os.read(fd, 1).decode()
         if c2 not in ("\x4f", "\x5b"):
             return c1 + c2
 
-        c3 = sys.stdin.read(1)
+        c3 = os.read(fd, 1).decode()
         if c3 not in ("\x31", "\x32", "\x33", "\x35", "\x36"):
             return c1 + c2 + c3
 
-        c4 = sys.stdin.read(1)
+        c4 = os.read(fd, 1).decode()
         if c4 not in ("\x30", "\x31", "\x33", "\x34", "\x35", "\x37", "\x38", "\x39"):
             return c1 + c2 + c3 + c4
 
-        c5 = sys.stdin.read(1)
+        c5 = os.read(fd, 1).decode()
         return c1 + c2 + c3 + c4 + c5
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
