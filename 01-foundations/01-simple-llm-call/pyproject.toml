@@ -10,6 +10,7 @@ dependencies = [
     "openai>=1.0.0",  # OpenAI API client
     "python-dotenv>=1.0.0",  # Environment variable management
     "rich>=14.2.0",
+    "google-genai>=1.65.0",
 ]
 
 [tool.uv.sources]

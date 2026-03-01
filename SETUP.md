@@ -8,6 +8,7 @@ Complete setup instructions for the AI Agents tutorials.
 - **API Keys** from one or both providers:
   - **Anthropic**: [console.anthropic.com](https://console.anthropic.com/)
   - **OpenAI**: [platform.openai.com](https://platform.openai.com/api-keys)
+  - **Google Gemini**: [aistudio.google.com](https://aistudio.google.com/api-keys)
 
 ## 1. Install UV
 
@@ -40,6 +41,7 @@ cp .env.example .env
 # Edit .env and add your API keys
 # ANTHROPIC_API_KEY=your_anthropic_key_here
 # OPENAI_API_KEY=your_openai_key_here
+# GEMINI_API_KEY=your_openai_api_key_here
 ```
 
 You only need to set keys for the provider(s) you want to use.
