@@ -16,7 +16,7 @@ Structured Output
     ↓
   (adds window strategies)
     ↓
-Context Management
+Context Engineering
     ↓
   (adds persistence)
     ↓
@@ -24,7 +24,7 @@ Memory
     ↓
   (adds cost reduction)
     ↓
-Prompt Caching
+Cost Optimization
     ↓
   (adds non-text input)
     ↓
@@ -55,9 +55,9 @@ Force LLM responses into exact schemas — JSON mode, Pydantic models, constrain
 
 ---
 
-### [02 - Context Management](02-context-management/)
+### [03 - Context Engineering](03-context-engineering/)
 
-Handle the reality of finite context windows. Sliding windows, summarization, chunking strategies, and knowing what to keep vs. what to drop.
+Manage finite context windows with token counting, budget allocation, and automatic compression. Measure tokens precisely, allocate budgets across system prompt, history, and response reserve, and compress automatically when you're running out of room.
 
 ---
 
@@ -67,9 +67,9 @@ Give agents memory that persists across sessions. Short-term conversation buffer
 
 ---
 
-### [04 - Prompt Caching](04-prompt-caching/)
+### [04 - Cost Optimization](04-cost-optimization/)
 
-Cache static prompt prefixes to cut latency and cost. Understand when caching helps, when it doesn't, and how to structure prompts for maximum reuse.
+Two strategies for reducing API costs. **Prompt caching** marks static system prompt content with cache breakpoints so repeated calls read from cache at 90% savings. **Model routing** classifies task difficulty with a cheap model (Haiku) and routes easy tasks there instead of always using Sonnet — saving ~73% on input for simple queries.
 
 ---
 
