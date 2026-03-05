@@ -31,10 +31,10 @@ All examples are educational and defensive. The purpose is to teach defense thro
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 05-testing-evaluation/04-red-teaming-safety python 01_prompt_injection.py
+uv run --directory 04-testing-evaluation/04-red-teaming-safety python 01_prompt_injection.py
 
 # Guardrail testing runs entirely without API calls
-uv run --directory 05-testing-evaluation/04-red-teaming-safety python 02_guardrail_testing.py
+uv run --directory 04-testing-evaluation/04-red-teaming-safety python 02_guardrail_testing.py
 ```
 
 Scripts 01 and 03 include **simulated mode** for demo without API keys. Script 02 runs entirely deterministically.

@@ -30,10 +30,10 @@ Move beyond deterministic assertions to **statistical evaluation** of agent qual
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 05-testing-evaluation/02-evals python 01_code_based_graders.py
+uv run --directory 04-testing-evaluation/02-evals python 01_code_based_graders.py
 
 # Example
-uv run --directory 05-testing-evaluation/02-evals python 03_eval_pipeline.py
+uv run --directory 04-testing-evaluation/02-evals python 03_eval_pipeline.py
 ```
 
 All scripts work in **simulated mode** without API keys (using pre-defined responses) and in **live mode** with an `ANTHROPIC_API_KEY`.

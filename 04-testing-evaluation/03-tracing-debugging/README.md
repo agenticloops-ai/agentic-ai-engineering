@@ -32,10 +32,10 @@ This tutorial teaches **observability as a first-class concern** using pure Pyth
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 05-testing-evaluation/03-tracing-debugging python 01_trace_collector.py
+uv run --directory 04-testing-evaluation/03-tracing-debugging python 01_trace_collector.py
 
 # Example
-uv run --directory 05-testing-evaluation/03-tracing-debugging python 02_trace_analysis.py
+uv run --directory 04-testing-evaluation/03-tracing-debugging python 02_trace_analysis.py
 ```
 
 All scripts include **sample trace data** and work without API keys. Live mode activates automatically when `ANTHROPIC_API_KEY` is set.

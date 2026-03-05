@@ -29,10 +29,10 @@ When you need to decide between Claude Sonnet vs. GPT-4o-mini, or between two pr
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 05-testing-evaluation/05-benchmarking python 01_model_comparison.py
+uv run --directory 04-testing-evaluation/05-benchmarking python 01_model_comparison.py
 
 # Example
-uv run --directory 05-testing-evaluation/05-benchmarking python 03_benchmark_suite.py
+uv run --directory 04-testing-evaluation/05-benchmarking python 03_benchmark_suite.py
 ```
 
 All scripts include **simulated results** and work without API keys. Live mode activates when `ANTHROPIC_API_KEY` (and optionally `OPENAI_API_KEY`) is set.

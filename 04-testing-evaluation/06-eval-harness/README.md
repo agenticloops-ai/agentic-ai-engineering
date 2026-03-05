@@ -39,7 +39,7 @@ The capstone project that **combines all five techniques** from this module into
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 05-testing-evaluation/06-eval-harness python 01_eval_harness.py
+uv run --directory 04-testing-evaluation/06-eval-harness python 01_eval_harness.py
 ```
 
 The harness runs in **simulated mode** without API keys (using `SimulatedResearchAgent`) and in **live mode** with an `ANTHROPIC_API_KEY`.

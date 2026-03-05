@@ -33,16 +33,16 @@ Learn how to test AI agents without making API calls. By mocking LLM responses a
 
 ```bash
 # Run all tests (42 tests across all scripts)
-uv run --directory 05-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py 02_tool_testing.py 03_behavioral_contracts.py 04_integration_testing.py -v
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py 02_tool_testing.py 03_behavioral_contracts.py 04_integration_testing.py -v
 
 # Run a single script's tests
-uv run --directory 05-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py -v
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py -v
 
 # Run a specific test class
-uv run --directory 05-testing-evaluation/01-unit-testing-agents pytest 03_behavioral_contracts.py::TestSafetyContracts -v
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 03_behavioral_contracts.py::TestSafetyContracts -v
 
 # Run individual scripts for Rich-formatted demo output
-uv run --directory 05-testing-evaluation/01-unit-testing-agents python 01_mock_llm_testing.py
+uv run --directory 04-testing-evaluation/01-unit-testing-agents python 01_mock_llm_testing.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
