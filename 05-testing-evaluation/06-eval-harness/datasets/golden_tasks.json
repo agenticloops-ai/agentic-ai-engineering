@@ -1,0 +1,126 @@
+{
+    "version": "1.0",
+    "description": "Golden dataset for eval harness capstone",
+    "tasks": [
+        {
+            "id": "task_001",
+            "question": "What are the key benefits of microservices architecture?",
+            "expected_keywords": ["scalability", "fault isolation", "independent"],
+            "expected_source_ids": ["doc_001"],
+            "difficulty": "easy",
+            "category": "architecture"
+        },
+        {
+            "id": "task_002",
+            "question": "What are the best practices for REST API design?",
+            "expected_keywords": ["nouns", "endpoints", "HTTP methods", "status codes"],
+            "expected_source_ids": ["doc_002"],
+            "difficulty": "easy",
+            "category": "api"
+        },
+        {
+            "id": "task_003",
+            "question": "How do database indexes improve query performance?",
+            "expected_keywords": ["B-tree", "lookup", "query"],
+            "expected_source_ids": ["doc_003"],
+            "difficulty": "easy",
+            "category": "database"
+        },
+        {
+            "id": "task_004",
+            "question": "What is the difference between authentication and authorization?",
+            "expected_keywords": ["identity", "access", "authentication", "authorization"],
+            "expected_source_ids": ["doc_004"],
+            "difficulty": "easy",
+            "category": "security"
+        },
+        {
+            "id": "task_005",
+            "question": "What are the key practices in CI/CD pipelines?",
+            "expected_keywords": ["continuous", "build", "test", "deploy"],
+            "expected_source_ids": ["doc_005"],
+            "difficulty": "easy",
+            "category": "devops"
+        },
+        {
+            "id": "task_006",
+            "question": "What are the core concepts of Kubernetes?",
+            "expected_keywords": ["pods", "services", "deployments"],
+            "expected_source_ids": ["doc_006"],
+            "difficulty": "easy",
+            "category": "devops"
+        },
+        {
+            "id": "task_007",
+            "question": "What caching strategies are available and when should you use Redis?",
+            "expected_keywords": ["cache-aside", "write-through", "Redis"],
+            "expected_source_ids": ["doc_008"],
+            "difficulty": "easy",
+            "category": "performance"
+        },
+        {
+            "id": "task_008",
+            "question": "Compare event-driven architecture patterns like event sourcing and CQRS.",
+            "expected_keywords": ["event sourcing", "CQRS", "pub/sub"],
+            "expected_source_ids": ["doc_007"],
+            "difficulty": "medium",
+            "category": "architecture"
+        },
+        {
+            "id": "task_009",
+            "question": "How should I secure my API with authentication? Include best practices for passwords and tokens.",
+            "expected_keywords": ["JWT", "OAuth", "hash", "bcrypt"],
+            "expected_source_ids": ["doc_004"],
+            "difficulty": "medium",
+            "category": "security"
+        },
+        {
+            "id": "task_010",
+            "question": "What are the challenges of microservices and how does event-driven architecture help with loose coupling?",
+            "expected_keywords": ["distributed", "complexity", "loose coupling", "events"],
+            "expected_source_ids": ["doc_001", "doc_007"],
+            "difficulty": "hard",
+            "category": "architecture"
+        },
+        {
+            "id": "task_011",
+            "question": "How can I improve my application performance using both caching and database indexing?",
+            "expected_keywords": ["cache", "index", "latency", "performance"],
+            "expected_source_ids": ["doc_003", "doc_008"],
+            "difficulty": "hard",
+            "category": "performance"
+        },
+        {
+            "id": "task_012",
+            "question": "Describe a complete DevOps pipeline from CI/CD to container orchestration with Kubernetes.",
+            "expected_keywords": ["CI", "CD", "Kubernetes", "containers", "deploy"],
+            "expected_source_ids": ["doc_005", "doc_006"],
+            "difficulty": "hard",
+            "category": "devops"
+        },
+        {
+            "id": "task_013",
+            "question": "What is the best programming language to use for machine learning?",
+            "expected_keywords": ["no relevant", "not found", "no information"],
+            "expected_source_ids": [],
+            "difficulty": "easy",
+            "category": "out-of-scope"
+        },
+        {
+            "id": "task_014",
+            "question": "How do I set up a React frontend with TypeScript?",
+            "expected_keywords": ["no relevant", "not found", "no information"],
+            "expected_source_ids": [],
+            "difficulty": "easy",
+            "category": "out-of-scope"
+        },
+        {
+            "id": "task_015",
+            "question": "What are the risks of over-indexing a database and how does composite index column order matter?",
+            "expected_keywords": ["over-indexing", "writes", "column order", "composite"],
+            "expected_source_ids": ["doc_003"],
+            "difficulty": "medium",
+            "category": "database"
+        }
+    ]
+}
