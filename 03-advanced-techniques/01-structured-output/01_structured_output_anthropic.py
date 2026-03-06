@@ -183,8 +183,9 @@ class StructuredExtractor:
             )
             self.token_tracker.track(response.usage)
 
-            if response.parsed_output:
-                return response.parsed_output
+            result: TicketClassification | None = response.parsed_output
+            if result:
+                return result
         except Exception as e:
             logger.error("Native schema extraction failed: %s", e)
         return None
