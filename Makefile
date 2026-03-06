@@ -20,7 +20,12 @@ help: ## Show commands
 check: ## Lint, format check, and type check
 	uv run ruff check $(MODULES) $(RUFF_EXCLUDES)
 	uv run ruff format --check $(MODULES) $(RUFF_EXCLUDES)
-	@find $(MODULES) -name "*.py" $(FIND_EXCLUDES) | xargs uv run mypy --show-error-codes
+	@for lesson in $(LESSONS); do \
+		py_files=$$(find $$lesson -name "*.py" $(FIND_EXCLUDES)); \
+		if [ -n "$$py_files" ]; then \
+			echo $$py_files | xargs uv run mypy --show-error-codes || exit 1; \
+		fi \
+	done
 fix: ## Auto-fix lint and format issues
 	@uv run ruff check --fix $(MODULES)
 	@uv run ruff format $(MODULES)
