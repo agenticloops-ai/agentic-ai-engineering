@@ -176,3 +176,15 @@ class LiteLLMTokenTracker(TokenUsageTracker):
                 "Invalid LiteLLM usage format: %s. Expected prompt_tokens and completion_tokens.",
                 type(usage),
             )
+
+
+class GeminiTokenTracker(TokenUsageTracker):
+    """Token tracker for Google Gemini API."""
+
+    def track(self, usage: Any) -> None:
+        """Track tokens from Gemini's usage_metadata."""
+        if hasattr(usage, "prompt_token_count"):
+            self.total_input_tokens += usage.prompt_token_count or 0
+            self.total_output_tokens += getattr(usage, "candidates_token_count", 0) or 0
+        else:
+            logger.warning("Invalid Gemini usage format: %s.", type(usage))
