@@ -1,0 +1,18 @@
+[project]
+name = "lesson-prompt-caching"
+version = "0.1.0"
+description = "Prompt caching and cost optimization with model routing"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.76.0",
+    "python-dotenv>=1.0.0",
+    "common",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
