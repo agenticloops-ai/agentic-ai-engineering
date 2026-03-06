@@ -1,0 +1,19 @@
+[project]
+name = "lesson-memory-systems"
+version = "0.1.0"
+description = "Three-tier agent memory — working, episodic, and semantic persistence"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.76.0",
+    "chromadb>=0.5.0",
+    "common",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
