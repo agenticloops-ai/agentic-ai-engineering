@@ -122,13 +122,15 @@ class MockDatabaseService:
         name_lower = name.lower()
         for customer in self.data["customers"].values():
             if name_lower in customer["name"].lower():
-                return customer
+                match: dict = customer
+                return match
         return {"error": f"Customer '{name}' not found"}
 
     def get_orders(self, customer_id: str) -> dict:
         """Get order history for a customer ID."""
         if customer_id in self.data["orders"]:
-            return self.data["orders"][customer_id]
+            orders: dict = self.data["orders"][customer_id]
+            return orders
         return {"error": f"No orders found for customer '{customer_id}'"}
 
     def search_products(self, query: str) -> dict:
@@ -335,7 +337,8 @@ class ToolContextAgent:
             tools=TOOLS,
             messages=msgs,
         )
-        return result.input_tokens
+        token_count: int = result.input_tokens
+        return token_count
 
     def _compress_if_needed(self) -> None:
         """If history exceeds budget, summarize oldest messages."""

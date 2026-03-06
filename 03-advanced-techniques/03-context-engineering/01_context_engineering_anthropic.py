@@ -121,7 +121,8 @@ class ContextManager:
             system=SYSTEM_PROMPT,
             messages=msgs,
         )
-        return result.input_tokens
+        token_count: int = result.input_tokens
+        return token_count
 
     def _compress_if_needed(self) -> None:
         """If history exceeds budget, summarize oldest messages."""
