@@ -166,7 +166,7 @@ class MemoryManager:
             if raw.startswith("```"):
                 raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
                 if raw.endswith("```"):
-                    raw = raw[: -3].strip()
+                    raw = raw[:-3].strip()
 
             # Parse JSON array from response
             items = json.loads(raw)
