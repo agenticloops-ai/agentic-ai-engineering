@@ -250,7 +250,7 @@ def main() -> None:
     """Run one product description through three structured output methods."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    client = StructuredOutputClient("claude-sonnet-4-5-20250929", token_tracker)
+    client = StructuredOutputClient("claude-sonnet-4-6", token_tracker)
 
     header = Panel(
         "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"

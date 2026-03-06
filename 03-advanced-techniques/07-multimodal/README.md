@@ -21,11 +21,11 @@ Move beyond text-only agents. This tutorial teaches three core multimodal skills
 
 ## 📦 Available Examples
 
-| Provider                                        | File                                                                     | Description                                |
-| ----------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------ |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_vision_anthropic.py](01_vision_anthropic.py)                         | Image analysis with Claude vision          |
-| ![Gemini](../../common/badges/gemini.svg)       | [02_image_generation_gemini.py](02_image_generation_gemini.py)           | Native image generation with Gemini        |
-| ![OpenAI](../../common/badges/openai.svg)       | [03_audio_openai.py](03_audio_openai.py)                                | Text-to-speech and speech-to-text          |
+| Provider                                        | File                                                           | Description                         |
+| ----------------------------------------------- | -------------------------------------------------------------- | ----------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_vision_anthropic.py](01_vision_anthropic.py)               | Image analysis with Claude vision   |
+| ![Gemini](../../common/badges/gemini.svg)       | [02_image_generation_gemini.py](02_image_generation_gemini.py) | Native image generation with Gemini |
+| ![OpenAI](../../common/badges/openai.svg)       | [03_audio_openai.py](03_audio_openai.py)                       | Text-to-speech and speech-to-text   |
 
 ## 🚀 Quick Start
 
@@ -66,7 +66,7 @@ Images are sent as content blocks alongside text in the messages array:
 
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-sonnet-4-6",
     max_tokens=2048,
     messages=[{
         "role": "user",
@@ -141,33 +141,33 @@ print(result.text)
 
 ### 5. Multimodal Token Costs
 
-| Content Type | Approximate Cost |
-|---|---|
-| 1568×1568 image (max size) | ~1,600 tokens |
-| 768×768 image | ~400 tokens |
-| Text (1 word) | ~1.3 tokens |
-| Audio TTS (1K chars) | $0.015 |
-| Audio STT (1 min) | $0.006 |
+| Content Type               | Approximate Cost |
+| -------------------------- | ---------------- |
+| 1568×1568 image (max size) | ~1,600 tokens    |
+| 768×768 image              | ~400 tokens      |
+| Text (1 word)              | ~1.3 tokens      |
+| Audio TTS (1K chars)       | $0.015           |
+| Audio STT (1 min)          | $0.006           |
 
 ### 6. Provider Selection Guide
 
-| Task | Best Provider | Why |
-|---|---|---|
-| Image analysis / OCR | **Anthropic** (Claude) | Best-in-class vision, clean content block API |
-| Image generation | **Gemini** | Native generation — single model, no separate endpoint |
-| Text-to-speech | **OpenAI** | 6 distinct voices, mature TTS API |
-| Speech-to-text | **OpenAI** (Whisper) | Industry-standard transcription accuracy |
-| Video understanding | **Gemini** | Native video input support (up to 1 hour) |
+| Task                 | Best Provider          | Why                                                    |
+| -------------------- | ---------------------- | ------------------------------------------------------ |
+| Image analysis / OCR | **Anthropic** (Claude) | Best-in-class vision, clean content block API          |
+| Image generation     | **Gemini**             | Native generation — single model, no separate endpoint |
+| Text-to-speech       | **OpenAI**             | 6 distinct voices, mature TTS API                      |
+| Speech-to-text       | **OpenAI** (Whisper)   | Industry-standard transcription accuracy               |
+| Video understanding  | **Gemini**             | Native video input support (up to 1 hour)              |
 
 ## 🏗️ Code Structure
 
 Each script follows the standard pattern: class encapsulating the LLM/API logic, interactive menu-driven `main()`.
 
-| Script | Class | Key Methods |
-|---|---|---|
-| `01_vision_anthropic.py` | `VisionAnalyst` | `analyze_url()`, `analyze_file()`, `compare_images()` |
-| `02_image_generation_gemini.py` | `ImageGenerator` | `generate()`, `save_image()` |
-| `03_audio_openai.py` | `VoiceAssistant` | `speak()`, `transcribe()`, `round_trip()`, `voice_comparison()` |
+| Script                          | Class            | Key Methods                                                     |
+| ------------------------------- | ---------------- | --------------------------------------------------------------- |
+| `01_vision_anthropic.py`        | `VisionAnalyst`  | `analyze_url()`, `analyze_file()`, `compare_images()`           |
+| `02_image_generation_gemini.py` | `ImageGenerator` | `generate()`, `save_image()`                                    |
+| `03_audio_openai.py`            | `VoiceAssistant` | `speak()`, `transcribe()`, `round_trip()`, `voice_comparison()` |
 
 ## ⚠️ Important Considerations
 

@@ -27,7 +27,7 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 # Model configuration
-MODEL = "claude-sonnet-4-5-20250929"
+MODEL = "claude-sonnet-4-6"
 
 # Anthropic pricing ($ per million tokens) — as of 2025
 PRICING = {

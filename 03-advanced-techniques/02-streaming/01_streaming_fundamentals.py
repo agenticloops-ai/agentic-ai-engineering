@@ -21,7 +21,7 @@ load_dotenv(find_dotenv())
 # Configure logging
 logger = setup_logging(__name__)
 
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 
 SYSTEM_PROMPT = (
     "You are a helpful assistant. Keep responses concise and well-structured. "

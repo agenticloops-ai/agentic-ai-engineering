@@ -106,7 +106,7 @@ class CodeNavigatorAgent:
     until the LLM responds with just text.
     """
 
-    def __init__(self, model: str = "claude-sonnet-4-20250514") -> None:
+    def __init__(self, model: str = "claude-sonnet-4-6") -> None:
         self.client = anthropic.Anthropic()
         self.model = model
         self.token_tracker = AnthropicTokenTracker()

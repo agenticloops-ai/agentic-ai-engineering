@@ -53,7 +53,7 @@ from content_writer import (
 load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 RESEARCH_MODEL = "claude-haiku-4-5-20251001"
 OUTPUT_DIR = Path("output")
 SCORE_THRESHOLD = 7.0

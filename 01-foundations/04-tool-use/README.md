@@ -105,7 +105,7 @@ LLM Response (final answer)
 **Anthropic:**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-sonnet-4-6",
     tools=TOOLS,
     messages=messages,
 )

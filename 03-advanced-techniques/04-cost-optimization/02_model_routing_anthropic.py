@@ -27,7 +27,7 @@ logger = setup_logging(__name__)
 # Model configuration
 MODEL_CLASSIFIER = "claude-haiku-4-5-20251001"
 MODEL_EASY = "claude-haiku-4-5-20251001"
-MODEL_HARD = "claude-sonnet-4-5-20250929"
+MODEL_HARD = "claude-sonnet-4-6"
 
 # Pricing ($ per million tokens)
 PRICING = {

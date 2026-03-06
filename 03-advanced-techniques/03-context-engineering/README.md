@@ -20,10 +20,10 @@ The key insight: context engineering isn't about cramming more in — it's about
 
 ## 📦 Available Examples
 
-| Provider                                        | File                                                                             | Description                                     |
-| ----------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_context_engineering_anthropic.py](01_context_engineering_anthropic.py)        | Interactive chat with budget management          |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_tool_context_anthropic.py](02_tool_context_anthropic.py)                      | Tool output context strategies (naive/truncate/summarize) |
+| Provider                                        | File                                                                       | Description                                               |
+| ----------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_context_engineering_anthropic.py](01_context_engineering_anthropic.py) | Interactive chat with budget management                   |
+| ![Anthropic](../../common/badges/anthropic.svg) | [02_tool_context_anthropic.py](02_tool_context_anthropic.py)               | Tool output context strategies (naive/truncate/summarize) |
 
 ## 🚀 Quick Start
 
@@ -45,7 +45,7 @@ Before you can manage a budget, you need to measure. Anthropic provides an exact
 
 ```python
 result = client.messages.count_tokens(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-sonnet-4-6",
     system="You are a research assistant.",
     messages=messages,
 )
@@ -137,11 +137,11 @@ flowchart TD
 
 ### 5. Why Summarize Instead of Drop?
 
-| Strategy | Pros | Cons |
-| --- | --- | --- |
-| **Drop oldest** | Simple, predictable | Loses context permanently |
-| **Truncate** | No API call needed | Cuts mid-thought, loses meaning |
-| **Summarize** | Preserves key facts | Costs an extra API call |
+| Strategy        | Pros                | Cons                            |
+| --------------- | ------------------- | ------------------------------- |
+| **Drop oldest** | Simple, predictable | Loses context permanently       |
+| **Truncate**    | No API call needed  | Cuts mid-thought, loses meaning |
+| **Summarize**   | Preserves key facts | Costs an extra API call         |
 
 Summarization is the best default — the model retains awareness of earlier topics while using a fraction of the tokens. The cost is one extra API call per compression, which is usually worthwhile for maintaining conversation quality.
 
@@ -149,11 +149,11 @@ Summarization is the best default — the model retains awareness of earlier top
 
 For reference, here are context windows across Claude models:
 
-| Model | Context Window | Notes |
-| --- | --- | --- |
-| Claude Opus 4 | 200K tokens | Most capable, largest context |
-| Claude Sonnet 4.5 | 200K tokens | Balanced performance and cost |
-| Claude Haiku 3.5 | 200K tokens | Fastest, most cost-effective |
+| Model             | Context Window | Notes                         |
+| ----------------- | -------------- | ----------------------------- |
+| Claude Opus 4     | 200K tokens    | Most capable, largest context |
+| Claude Sonnet 4.5 | 200K tokens    | Balanced performance and cost |
+| Claude Haiku 3.5  | 200K tokens    | Fastest, most cost-effective  |
 
 In production, you'd set your budget close to the actual model limit. This tutorial uses 4K to make compression visible quickly.
 
@@ -177,11 +177,11 @@ Raw tool output (~1500 tokens):
  1500 tok       ~150 tok       ~200 tok
 ```
 
-| Strategy | How it works | Cost | Risk |
-| --- | --- | --- | --- |
-| **Naive** | Inject raw JSON directly | Zero | Fills context in 2-3 calls |
-| **Truncate** | Cap at N characters, append `[TRUNCATED]` | Zero | Loses data from the end — may cut key info |
-| **Summarize** | LLM extracts key facts into bullet points | One extra API call per tool use | Costs tokens but preserves meaning |
+| Strategy      | How it works                              | Cost                            | Risk                                       |
+| ------------- | ----------------------------------------- | ------------------------------- | ------------------------------------------ |
+| **Naive**     | Inject raw JSON directly                  | Zero                            | Fills context in 2-3 calls                 |
+| **Truncate**  | Cap at N characters, append `[TRUNCATED]` | Zero                            | Loses data from the end — may cut key info |
+| **Summarize** | LLM extracts key facts into bullet points | One extra API call per tool use | Costs tokens but preserves meaning         |
 
 ```python
 def _process_tool_result(self, tool_name: str, raw_result: str) -> str:

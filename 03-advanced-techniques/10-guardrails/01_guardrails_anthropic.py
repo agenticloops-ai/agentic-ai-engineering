@@ -26,7 +26,7 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 # Model configuration
-MODEL_AGENT = "claude-sonnet-4-5-20250929"
+MODEL_AGENT = "claude-sonnet-4-6"
 MODEL_CLASSIFIER = "claude-haiku-4-5-20251001"
 
 SYSTEM_PROMPT = (

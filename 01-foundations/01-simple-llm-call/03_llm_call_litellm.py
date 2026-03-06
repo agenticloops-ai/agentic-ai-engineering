@@ -72,7 +72,7 @@ def main() -> None:
 
     # You can easily switch between providers by changing the model string:
     # - "gpt-4.1" for OpenAI
-    # - "claude-sonnet-4-5-20250929" for Anthropic
+    # - "claude-sonnet-4-6" for Anthropic
     # - "gemini/gemini-pro" for Google
     agent = LLMClient("gpt-4.1")
 

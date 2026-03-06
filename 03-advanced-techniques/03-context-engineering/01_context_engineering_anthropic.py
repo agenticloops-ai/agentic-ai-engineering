@@ -24,7 +24,7 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 # Model configuration
-MODEL = "claude-sonnet-4-5-20250929"
+MODEL = "claude-sonnet-4-6"
 
 SYSTEM_PROMPT = (
     "You are a knowledgeable research assistant. You help users explore topics in depth, "

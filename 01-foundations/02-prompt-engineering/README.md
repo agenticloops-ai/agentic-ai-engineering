@@ -73,7 +73,7 @@ System prompts are the primary lever for controlling agent behavior. The scripts
 **Anthropic** — system prompt as a top-level parameter:
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     system="You are a senior support engineer at a SaaS company...",  # System prompt
     messages=[{"role": "user", "content": "Analyze this support ticket..."}],
 )
@@ -151,7 +151,7 @@ class ProductExtraction(BaseModel):
 ```python
 # API-level schema enforcement — guaranteed valid JSON
 response = client.messages.parse(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     messages=[{"role": "user", "content": product_description}],
     output_format=ProductExtraction,
 )

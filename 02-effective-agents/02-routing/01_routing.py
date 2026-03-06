@@ -22,7 +22,7 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 OUTPUT_DIR = Path("output")
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 LIGHT_MODEL = "claude-haiku-4-5-20251001"
 
 SUGGESTED_TOPICS = [

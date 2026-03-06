@@ -29,7 +29,7 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 # Model configuration
-MODEL = "claude-sonnet-4-5-20250929"
+MODEL = "claude-sonnet-4-6"
 SAMPLE_DOCS_DIR = Path(__file__).parent / "sample_docs"
 CHROMA_PERSIST_DIR = str(Path(__file__).parent / ".chroma_db")
 

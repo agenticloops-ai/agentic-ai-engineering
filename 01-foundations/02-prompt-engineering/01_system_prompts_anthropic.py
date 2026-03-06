@@ -113,7 +113,7 @@ def main() -> None:
     """Run support ticket triage with three different system prompts."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    engineer = PromptEngineer("claude-sonnet-4-5-20250929", token_tracker)
+    engineer = PromptEngineer("claude-sonnet-4-6", token_tracker)
 
     header = Panel(
         "[bold cyan]System Prompts & Role Engineering[/bold cyan]\n\n"

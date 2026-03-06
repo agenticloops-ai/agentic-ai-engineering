@@ -60,7 +60,7 @@ Each provider has its own client initialization:
 import anthropic
 
 client = anthropic.Anthropic()  # Uses ANTHROPIC_API_KEY from env
-model = "claude-sonnet-4-5-20250929"
+model = "claude-sonnet-4-6"
 ```
 
 **OpenAI:**
@@ -84,7 +84,7 @@ from litellm import completion
 **Anthropic (Messages API):**
 ```python
 response = client.messages.create(
-    model="claude-sonnet-4-5-20250929",
+    model="claude-sonnet-4-6",
     temperature=0.1,
     max_tokens=1024,
     system="You are a helpful AI assistant.",
@@ -110,7 +110,7 @@ text = response.output_text
 **LiteLLM (Unified API):**
 ```python
 response = completion(
-    model="gpt-4.1",  # Or "claude-sonnet-4-5-20250929"
+    model="gpt-4.1",  # Or "claude-sonnet-4-6"
     temperature=0.1,
     max_tokens=1024,
     messages=[
@@ -125,7 +125,7 @@ text = response.choices[0].message.content
 
 ### 4. Key Configuration Parameters
 
-**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-5-20250929`, `gpt-4.1`)
+**Model**: Specifies which LLM to use (e.g., `claude-sonnet-4-6`, `gpt-4.1`)
 
 **Temperature**: Controls randomness (0.0 = deterministic, 1.0 = creative)
 - Lower values (0.0-0.3) for factual, consistent responses

@@ -24,7 +24,7 @@ load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
 
-MODEL = "claude-sonnet-4-5-20250929"
+MODEL = "claude-sonnet-4-6"
 
 # Publicly accessible sample images from Wikimedia Commons
 SAMPLE_IMAGES = {

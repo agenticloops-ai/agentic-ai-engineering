@@ -22,7 +22,7 @@ from common import AnthropicTokenTracker, interactive_menu, setup_logging
 load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
-MODEL = "claude-sonnet-4-20250514"
+MODEL = "claude-sonnet-4-6"
 INPUT_DIR = Path("input")
 OUTPUT_DIR = Path("output")
 

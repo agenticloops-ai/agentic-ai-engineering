@@ -212,7 +212,7 @@ def main() -> None:
     """Run three demos showing when to use each prompting technique."""
     console = Console()
     token_tracker = AnthropicTokenTracker()
-    client = PromptingClient("claude-sonnet-4-5-20250929", token_tracker)
+    client = PromptingClient("claude-sonnet-4-6", token_tracker)
 
     header = Panel(
         "[bold cyan]Few-Shot & Chain-of-Thought Prompting[/bold cyan]\n\n"

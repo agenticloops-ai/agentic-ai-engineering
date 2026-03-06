@@ -21,10 +21,10 @@ The real challenge isn't basic streaming — it's streaming with tool calls. Whe
 
 ## 📦 Available Examples
 
-| Provider                                           | File                                                                        | Description                            |
-| -------------------------------------------------- | --------------------------------------------------------------------------- | -------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg)    | [01_streaming_fundamentals.py](01_streaming_fundamentals.py)                | Text streaming + multi-turn chat       |
-| ![Anthropic](../../common/badges/anthropic.svg)    | [02_streaming_agent.py](02_streaming_agent.py)                              | Streaming agent with tool calls        |
+| Provider                                        | File                                                         | Description                      |
+| ----------------------------------------------- | ------------------------------------------------------------ | -------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_streaming_fundamentals.py](01_streaming_fundamentals.py) | Text streaming + multi-turn chat |
+| ![Anthropic](../../common/badges/anthropic.svg) | [02_streaming_agent.py](02_streaming_agent.py)               | Streaming agent with tool calls  |
 
 ## 🚀 Quick Start
 
@@ -52,7 +52,7 @@ Anthropic provides two streaming approaches. Start with the simple one, graduate
 
 ```python
 with client.messages.stream(
-    model="claude-sonnet-4-20250514",
+    model="claude-sonnet-4-6",
     max_tokens=2048,
     messages=messages,
 ) as stream:

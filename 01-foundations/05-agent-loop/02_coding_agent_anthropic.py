@@ -129,7 +129,7 @@ class CodingAgent:
     Executes tools in a loop until the task is complete.
     """
 
-    def __init__(self, model: str = "claude-sonnet-4-5-20250929"):
+    def __init__(self, model: str = "claude-sonnet-4-6"):
         self.client = anthropic.Anthropic()
         self.model = model
         self.max_iterations = 10
