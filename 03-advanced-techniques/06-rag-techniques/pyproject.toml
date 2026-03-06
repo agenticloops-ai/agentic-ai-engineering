@@ -1,0 +1,22 @@
+[project]
+name = "lesson-rag-techniques"
+version = "0.1.0"
+description = "RAG pipeline with hybrid search, reranking, and agentic retrieval"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.76.0",
+    "sentence-transformers>=3.0.0",
+    "chromadb>=1.0.0",
+    "bm25s>=0.2.0",
+    "flashrank>=0.2.0",
+    "python-dotenv>=1.0.0",
+    "common",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
