@@ -72,7 +72,7 @@ repos:
 
 # Global configuration
 default_language_version:
-  python: python3.11
+  python: python3
 
 # Only run on specific file types
 files: \.(py|pyi|toml|yaml|yml|json|md)$

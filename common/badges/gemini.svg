@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="28" role="img" aria-label="Gemini">
+  <rect rx="3" width="120" height="28" fill="#191919"/>
+  <g transform="translate(8,6) scale(0.65)">
+    <path fill="#fff" d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12Z"/>
+  </g>
+  <text x="28" y="17" fill="#fff" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="10" font-weight="bold" letter-spacing="1.5">GEMINI</text>
+</svg>
