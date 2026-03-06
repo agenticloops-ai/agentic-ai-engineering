@@ -1,0 +1,297 @@
+{
+  "customers": {
+    "CUST-1001": {
+      "customer_id": "CUST-1001",
+      "name": "Alice Johnson",
+      "email": "alice.johnson@example.com",
+      "phone": "+1-555-0142",
+      "company": "Acme Industries",
+      "title": "VP of Operations",
+      "address": {
+        "street": "742 Evergreen Terrace",
+        "city": "Springfield",
+        "state": "IL",
+        "zip": "62704",
+        "country": "US"
+      },
+      "account": {
+        "status": "active",
+        "tier": "enterprise",
+        "created": "2021-03-15",
+        "annual_revenue": "$2.4M",
+        "lifetime_value": "$847,000",
+        "payment_terms": "Net 30",
+        "credit_limit": "$100,000"
+      },
+      "preferences": {
+        "contact_method": "email",
+        "newsletter": true,
+        "product_updates": true,
+        "preferred_shipping": "FedEx Priority",
+        "language": "en-US",
+        "timezone": "America/Chicago"
+      },
+      "tags": ["enterprise", "early-adopter", "beta-tester", "annual-contract"],
+      "assigned_rep": "Sarah Mitchell",
+      "last_contact": "2025-01-08",
+      "notes": "Key decision maker for all procurement. Prefers quarterly business reviews. Interested in expanding to the Pro tier. Has referred 3 other enterprise accounts. Recently expressed interest in the new analytics dashboard. Budget cycle starts in Q2. Previous pain points included slow onboarding and limited API rate limits, both resolved in v3.2 release.",
+      "support_tickets": [
+        {
+          "id": "TK-4521",
+          "date": "2024-12-10",
+          "subject": "API rate limit exceeded during batch import",
+          "status": "resolved",
+          "priority": "high",
+          "resolution": "Increased rate limit to 10K req/min for enterprise tier"
+        },
+        {
+          "id": "TK-4398",
+          "date": "2024-11-22",
+          "subject": "SSO integration failing with Okta",
+          "status": "resolved",
+          "priority": "medium",
+          "resolution": "Updated SAML configuration, added custom attribute mapping"
+        },
+        {
+          "id": "TK-4102",
+          "date": "2024-09-15",
+          "subject": "Dashboard loading slowly with large datasets",
+          "status": "resolved",
+          "priority": "low",
+          "resolution": "Optimized query pagination, added client-side caching"
+        },
+        {
+          "id": "TK-4650",
+          "date": "2025-01-05",
+          "subject": "Request for bulk export feature in analytics module",
+          "status": "open",
+          "priority": "medium",
+          "resolution": null
+        }
+      ]
+    }
+  },
+  "orders": {
+    "CUST-1001": {
+      "customer_id": "CUST-1001",
+      "total_orders": 8,
+      "total_spent": "$124,750.00",
+      "orders": [
+        {
+          "order_id": "ORD-9001",
+          "date": "2025-01-02",
+          "status": "processing",
+          "shipping_method": "FedEx Priority",
+          "items": [
+            {"sku": "PRD-301", "name": "Enterprise Analytics Suite", "qty": 1, "unit_price": "$15,000", "total": "$15,000"},
+            {"sku": "PRD-302", "name": "Data Connector Pack (10-pack)", "qty": 2, "unit_price": "$2,500", "total": "$5,000"}
+          ],
+          "subtotal": "$20,000",
+          "tax": "$1,650",
+          "total": "$21,650"
+        },
+        {
+          "order_id": "ORD-8744",
+          "date": "2024-10-15",
+          "status": "delivered",
+          "shipping_method": "FedEx Priority",
+          "items": [
+            {"sku": "PRD-205", "name": "Cloud Storage Expansion (500GB)", "qty": 5, "unit_price": "$1,200", "total": "$6,000"},
+            {"sku": "PRD-118", "name": "Premium Support (Annual)", "qty": 1, "unit_price": "$8,000", "total": "$8,000"}
+          ],
+          "subtotal": "$14,000",
+          "tax": "$1,155",
+          "total": "$15,155"
+        },
+        {
+          "order_id": "ORD-8501",
+          "date": "2024-07-22",
+          "status": "delivered",
+          "shipping_method": "FedEx Ground",
+          "items": [
+            {"sku": "PRD-401", "name": "Security Compliance Module", "qty": 1, "unit_price": "$12,000", "total": "$12,000"},
+            {"sku": "PRD-402", "name": "Audit Trail Add-on", "qty": 1, "unit_price": "$3,500", "total": "$3,500"},
+            {"sku": "PRD-110", "name": "API Gateway License", "qty": 3, "unit_price": "$2,000", "total": "$6,000"}
+          ],
+          "subtotal": "$21,500",
+          "tax": "$1,773.75",
+          "total": "$23,273.75"
+        },
+        {
+          "order_id": "ORD-8203",
+          "date": "2024-04-10",
+          "status": "delivered",
+          "shipping_method": "FedEx Priority",
+          "items": [
+            {"sku": "PRD-501", "name": "Team Collaboration Platform (50 seats)", "qty": 1, "unit_price": "$18,000", "total": "$18,000"}
+          ],
+          "subtotal": "$18,000",
+          "tax": "$1,485",
+          "total": "$19,485"
+        },
+        {
+          "order_id": "ORD-7990",
+          "date": "2024-01-18",
+          "status": "delivered",
+          "shipping_method": "FedEx Ground",
+          "items": [
+            {"sku": "PRD-205", "name": "Cloud Storage Expansion (500GB)", "qty": 3, "unit_price": "$1,200", "total": "$3,600"},
+            {"sku": "PRD-601", "name": "Backup & Recovery Service (Annual)", "qty": 1, "unit_price": "$5,000", "total": "$5,000"},
+            {"sku": "PRD-115", "name": "Custom Integration Setup", "qty": 1, "unit_price": "$4,500", "total": "$4,500"}
+          ],
+          "subtotal": "$13,100",
+          "tax": "$1,080.75",
+          "total": "$14,180.75"
+        },
+        {
+          "order_id": "ORD-7650",
+          "date": "2023-09-05",
+          "status": "delivered",
+          "shipping_method": "FedEx Priority",
+          "items": [
+            {"sku": "PRD-301", "name": "Enterprise Analytics Suite", "qty": 1, "unit_price": "$12,000", "total": "$12,000"}
+          ],
+          "subtotal": "$12,000",
+          "tax": "$990",
+          "total": "$12,990"
+        },
+        {
+          "order_id": "ORD-7201",
+          "date": "2023-05-12",
+          "status": "delivered",
+          "shipping_method": "FedEx Ground",
+          "items": [
+            {"sku": "PRD-101", "name": "Platform Base License (Enterprise)", "qty": 1, "unit_price": "$10,000", "total": "$10,000"},
+            {"sku": "PRD-110", "name": "API Gateway License", "qty": 2, "unit_price": "$2,000", "total": "$4,000"}
+          ],
+          "subtotal": "$14,000",
+          "tax": "$1,155",
+          "total": "$15,155"
+        },
+        {
+          "order_id": "ORD-6880",
+          "date": "2023-01-20",
+          "status": "delivered",
+          "shipping_method": "FedEx Ground",
+          "items": [
+            {"sku": "PRD-100", "name": "Platform Base License (Standard)", "qty": 1, "unit_price": "$5,000", "total": "$5,000"},
+            {"sku": "PRD-118", "name": "Premium Support (Annual)", "qty": 1, "unit_price": "$3,000", "total": "$3,000"}
+          ],
+          "subtotal": "$8,000",
+          "tax": "$660",
+          "total": "$8,660"
+        }
+      ]
+    }
+  },
+  "products": [
+    {
+      "sku": "PRD-101",
+      "name": "Platform Base License (Enterprise)",
+      "category": "Licenses",
+      "price": "$10,000/year",
+      "description": "Full-featured enterprise platform license with unlimited users, custom branding, SSO integration, and dedicated infrastructure.",
+      "specs": {"users": "unlimited", "storage": "100GB", "api_calls": "50K/day", "sla": "99.99%", "support": "24/7"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-205",
+      "name": "Cloud Storage Expansion (500GB)",
+      "category": "Add-ons",
+      "price": "$1,200/year",
+      "description": "Expand your cloud storage capacity by 500GB. Includes automatic replication across 3 availability zones and 30-day version history.",
+      "specs": {"capacity": "500GB", "replication": "3x", "encryption": "AES-256", "backup": "daily"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-301",
+      "name": "Enterprise Analytics Suite",
+      "category": "Analytics",
+      "price": "$15,000/year",
+      "description": "Advanced analytics with real-time dashboards, custom report builder, predictive modeling, and data export capabilities. Includes 50 pre-built report templates and scheduled report delivery.",
+      "specs": {"dashboards": "unlimited", "data_retention": "3 years", "export_formats": ["CSV", "PDF", "JSON", "Excel"], "refresh_rate": "real-time"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-302",
+      "name": "Data Connector Pack (10-pack)",
+      "category": "Integrations",
+      "price": "$2,500/year",
+      "description": "Bundle of 10 pre-built data connectors for popular platforms including Salesforce, HubSpot, Snowflake, BigQuery, and more.",
+      "specs": {"connectors": 10, "sync_frequency": "15 min", "supported": ["Salesforce", "HubSpot", "Snowflake", "BigQuery", "PostgreSQL", "MySQL", "MongoDB", "S3", "Azure Blob", "Google Sheets"]},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-401",
+      "name": "Security Compliance Module",
+      "category": "Security",
+      "price": "$12,000/year",
+      "description": "SOC 2 Type II and HIPAA compliance module with automated evidence collection, policy management, and continuous monitoring.",
+      "specs": {"frameworks": ["SOC 2", "HIPAA", "ISO 27001", "GDPR"], "scans": "continuous", "alerts": "real-time"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-402",
+      "name": "Audit Trail Add-on",
+      "category": "Security",
+      "price": "$3,500/year",
+      "description": "Comprehensive audit logging for all user actions, API calls, and data modifications. Immutable log storage with search and export.",
+      "specs": {"retention": "7 years", "search": "full-text", "export": true, "tamper_proof": true},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-501",
+      "name": "Team Collaboration Platform (50 seats)",
+      "category": "Collaboration",
+      "price": "$18,000/year",
+      "description": "Real-time collaboration suite with shared workspaces, document co-editing, video conferencing, and project management tools.",
+      "specs": {"seats": 50, "workspaces": "unlimited", "video": "HD", "file_sharing": "unlimited", "integrations": 25},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-601",
+      "name": "Backup & Recovery Service",
+      "category": "Infrastructure",
+      "price": "$5,000/year",
+      "description": "Automated backup service with point-in-time recovery, cross-region replication, and disaster recovery failover in under 15 minutes.",
+      "specs": {"rpo": "1 hour", "rto": "15 min", "retention": "90 days", "regions": 3, "encryption": "AES-256"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-110",
+      "name": "API Gateway License",
+      "category": "Developer Tools",
+      "price": "$2,000/year",
+      "description": "Managed API gateway with rate limiting, authentication, request transformation, and detailed usage analytics per endpoint.",
+      "specs": {"rate_limit": "10K req/min", "auth": ["API Key", "OAuth 2.0", "JWT"], "protocols": ["REST", "GraphQL"], "monitoring": true},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-115",
+      "name": "Custom Integration Setup",
+      "category": "Services",
+      "price": "$4,500 one-time",
+      "description": "Professional services engagement for custom integration development. Includes requirements gathering, implementation, testing, and documentation.",
+      "specs": {"duration": "2-4 weeks", "includes": ["requirements", "development", "testing", "documentation", "30-day support"]},
+      "availability": "available"
+    },
+    {
+      "sku": "PRD-118",
+      "name": "Premium Support (Annual)",
+      "category": "Support",
+      "price": "$8,000/year",
+      "description": "Dedicated support with 15-minute response SLA, named account manager, quarterly business reviews, and priority escalation path.",
+      "specs": {"response_sla": "15 min", "availability": "24/7", "channels": ["phone", "email", "chat", "video"], "account_manager": "dedicated"},
+      "availability": "in_stock"
+    },
+    {
+      "sku": "PRD-700",
+      "name": "AI Assistant Add-on",
+      "category": "AI & ML",
+      "price": "$6,000/year",
+      "description": "AI-powered assistant for natural language queries, automated insights, anomaly detection, and predictive forecasting across your data.",
+      "specs": {"models": ["NLP", "anomaly detection", "forecasting"], "languages": 12, "accuracy": "95%+", "training": "custom"},
+      "availability": "pre_order"
+    }
+  ]
+}
