@@ -12,19 +12,7 @@ conversation context, and the agent chooses its own search queries.
 Requires ANTHROPIC_API_KEY environment variable.
 """
 
-import logging
-import os
 from pathlib import Path
-
-# Suppress noisy third-party logs and progress bars before they initialize
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
-os.environ["SAFETENSORS_LOG_LEVEL"] = "error"
-for _lib in (
-    "sentence_transformers", "transformers", "torch", "huggingface_hub",
-    "chromadb", "bm25s", "safetensors",
-):
-    logging.getLogger(_lib).setLevel(logging.ERROR)
 
 import anthropic
 from dotenv import find_dotenv, load_dotenv
