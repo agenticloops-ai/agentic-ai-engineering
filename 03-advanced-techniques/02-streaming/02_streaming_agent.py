@@ -109,7 +109,7 @@ def get_weather(city: str) -> dict[str, Any]:
 
 
 # Safe operators for math evaluation
-SAFE_OPERATORS = {
+SAFE_OPERATORS: dict[type, Any] = {
     ast.Add: operator.add,
     ast.Sub: operator.sub,
     ast.Mult: operator.mul,
