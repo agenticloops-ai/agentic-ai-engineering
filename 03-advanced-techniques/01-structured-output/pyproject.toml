@@ -1,0 +1,20 @@
+[project]
+name = "lesson-structured-output"
+version = "0.1.0"
+description = "Advanced structured output techniques with validation and retry"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.76.0",  # Anthropic API client (structured outputs, tool_use)
+    "openai>=1.0.0",  # OpenAI API client (response_format strict schemas)
+    "pydantic>=2.0.0",  # Schema definitions and validation
+    "python-dotenv>=1.0.0",  # Environment variable management
+    "common",
+    "rich>=13.7.0",  # Beautiful terminal output
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
