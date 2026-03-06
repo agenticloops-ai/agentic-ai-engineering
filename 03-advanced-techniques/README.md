@@ -107,9 +107,9 @@ Five coordination patterns for multi-agent systems — pipeline, router, orchest
 
 ---
 
-### [10 - Guardrails, Safety & Evaluation](10-guardrails-eval/)
+### [10 - Guardrails](10-guardrails/)
 
-The safety layer that separates prototypes from production. **Input guardrails** catch prompt injection, PII, and harmful intent before they reach the agent. **Output guardrails** verify responses for policy violations and hallucination. **LLM-as-judge** scores agent quality with rubric-based evaluation and pairwise comparison. **Red teaming** stress-tests your defenses across six attack categories.
+The safety layer that separates prototypes from production. **Input guardrails** catch prompt injection, PII, and harmful intent before they reach the agent. **Output guardrails** verify responses for policy violations and hallucination. Defense in depth with cheap heuristics first, LLM classifier last.
 
 ---
 
