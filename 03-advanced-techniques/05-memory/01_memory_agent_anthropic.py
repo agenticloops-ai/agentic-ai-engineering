@@ -239,7 +239,8 @@ class MemoryAgent:
     def loaded_memory_count(self) -> int:
         """Count of persisted memories loaded from previous sessions."""
         stats = self.memory.get_stats()
-        return stats["episodic"]["count"] + stats["semantic"]["count"]
+        total: int = stats["episodic"]["count"] + stats["semantic"]["count"]
+        return total
 
 
 def main() -> None:
