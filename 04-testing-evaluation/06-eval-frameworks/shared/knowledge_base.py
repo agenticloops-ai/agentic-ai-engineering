@@ -58,7 +58,7 @@ KNOWLEDGE_BASE = [
 ]
 
 # Eval dataset: questions with expected answers and metadata
-EVAL_TASKS = [
+EVAL_TASKS: list[dict[str, Any]] = [
     {
         "id": "task_001",
         "question": "What are the key benefits of microservices architecture?",
