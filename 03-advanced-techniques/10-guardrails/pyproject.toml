@@ -1,0 +1,18 @@
+[project]
+name = "lesson-guardrails"
+version = "0.1.0"
+description = "Input and output guardrails for production agents"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.76.0",
+    "python-dotenv>=1.0.0",
+    "common",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
