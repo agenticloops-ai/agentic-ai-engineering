@@ -8,8 +8,13 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
 os.environ["SAFETENSORS_LOG_LEVEL"] = "error"
 for _lib in (
-    "sentence_transformers", "transformers", "torch", "huggingface_hub",
-    "chromadb", "bm25s", "safetensors",
+    "sentence_transformers",
+    "transformers",
+    "torch",
+    "huggingface_hub",
+    "chromadb",
+    "bm25s",
+    "safetensors",
 ):
     logging.getLogger(_lib).setLevel(logging.ERROR)
 

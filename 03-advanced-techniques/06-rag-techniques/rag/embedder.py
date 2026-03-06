@@ -16,7 +16,9 @@ class LocalEmbedder:
     def __init__(self, model_name: str = DEFAULT_MODEL):
         logger.info("Loading embedding model: %s", model_name)
         self.model = SentenceTransformer(model_name)
-        logger.info("Embedding model loaded (dimension=%d)", self.model.get_sentence_embedding_dimension())
+        logger.info(
+            "Embedding model loaded (dimension=%d)", self.model.get_sentence_embedding_dimension()
+        )
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
         """Embed documents for indexing."""
@@ -30,4 +32,5 @@ class LocalEmbedder:
     def embed_query(self, query: str) -> list[float]:
         """Embed a search query."""
         embedding = self.model.encode(query)
-        return embedding.tolist()
+        result: list[float] = embedding.tolist()
+        return result
