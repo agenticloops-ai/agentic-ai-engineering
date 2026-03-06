@@ -130,9 +130,11 @@ def _safe_eval(node: ast.AST) -> float:
     elif isinstance(node, ast.BinOp) and type(node.op) in SAFE_OPERATORS:
         left = _safe_eval(node.left)
         right = _safe_eval(node.right)
-        return SAFE_OPERATORS[type(node.op)](left, right)
+        result: float = SAFE_OPERATORS[type(node.op)](left, right)
+        return result
     elif isinstance(node, ast.UnaryOp) and type(node.op) in SAFE_OPERATORS:
-        return SAFE_OPERATORS[type(node.op)](_safe_eval(node.operand))
+        result_u: float = SAFE_OPERATORS[type(node.op)](_safe_eval(node.operand))
+        return result_u
     raise ValueError(f"Unsupported expression: {ast.dump(node)}")
 
 
