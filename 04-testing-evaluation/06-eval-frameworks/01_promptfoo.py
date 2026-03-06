@@ -103,7 +103,7 @@ def generate_promptfoo_config(tasks: list[dict], output_dir: Path) -> str:
     }
 
     # Write YAML config
-    import yaml
+    import yaml  # type: ignore[import-untyped]
 
     config_path = output_dir / "promptfooconfig.yaml"
     with config_path.open("w", encoding="utf-8") as f:
@@ -208,7 +208,7 @@ def main() -> None:
 
     output_dir = Path(__file__).parent
     try:
-        import yaml  # noqa: F401
+        import yaml  # noqa: F401  # type: ignore[import-untyped]
     except ImportError:
         console.print(
             "[yellow]PyYAML not installed — showing JSON config instead.[/yellow]\n"
