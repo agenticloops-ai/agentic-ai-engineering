@@ -294,12 +294,7 @@ def _handle_round_trip(console: Console, assistant: VoiceAssistant) -> None:
                 f"**Original:** {text}\n\n"
                 f"**Transcribed:** {transcription}\n\n"
                 f"**Audio file:** {audio_path}\n\n"
-                f"**Match:** {
-                    'Exact match'
-                    if match
-                    else 'Differences detected (this is normal — '
-                    'Whisper may adjust punctuation or capitalization)'
-                }"
+                f"**Match:** {'Exact match' if match else 'Differences detected (normal — Whisper may adjust punctuation)'}"
             ),
             title="[bold blue]Round-Trip Results[/bold blue]",
             border_style="green" if match else "yellow",
