@@ -8,6 +8,17 @@ from typing import Any
 
 logger = logging.getLogger(__name__)
 
+
+def _strip_code_fences(text: str) -> str:
+    """Strip markdown code fences (```json ... ```) that LLMs sometimes wrap around JSON."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+        if text.endswith("```"):
+            text = text[:-3].strip()
+    return text
+
+
 # Reuse PII patterns from input guard
 PII_PATTERNS = {
     "ssn": r"\b\d{3}-\d{2}-\d{4}\b",
@@ -134,11 +145,11 @@ class OutputGuard:
 
         raw = str(response.content[0].text).strip()
         try:
-            result = json.loads(raw)
+            result = json.loads(_strip_code_fences(raw))
             passed = bool(result.get("passed", True))
             issue = result.get("issue", "")
             return passed, issue
-        except (json.JSONDecodeError, ValueError):
+        except (json.JSONDecodeError, ValueError, AttributeError):
             logger.warning("Failed to parse content policy response: %s", raw[:100])
             return True, ""
 
@@ -158,10 +169,10 @@ class OutputGuard:
 
         raw = str(response.content[0].text).strip()
         try:
-            result = json.loads(raw)
+            result = json.loads(_strip_code_fences(raw))
             score = float(result.get("score", 1.0))
             unsupported = result.get("unsupported_claims", [])
             return score, unsupported
-        except (json.JSONDecodeError, ValueError):
+        except (json.JSONDecodeError, ValueError, AttributeError):
             logger.warning("Failed to parse groundedness response: %s", raw[:100])
             return 1.0, []
