@@ -8,7 +8,9 @@
             "expected_keywords": ["scalability", "fault isolation", "independent"],
             "expected_source_ids": ["doc_001"],
             "difficulty": "easy",
-            "category": "architecture"
+            "category": "architecture",
+            "eval_type": "regression",
+            "reference_answer": "Key benefits include scalability, fault isolation, and independent deployment of services (doc_001)."
         },
         {
             "id": "task_002",
@@ -16,7 +18,9 @@
             "expected_keywords": ["nouns", "endpoints", "HTTP methods", "status codes"],
             "expected_source_ids": ["doc_002"],
             "difficulty": "easy",
-            "category": "api"
+            "category": "api",
+            "eval_type": "regression",
+            "reference_answer": "Use nouns for endpoints, HTTP methods for actions, proper status codes, versioning, and pagination (doc_002)."
         },
         {
             "id": "task_003",
@@ -24,7 +28,9 @@
             "expected_keywords": ["B-tree", "lookup", "query"],
             "expected_source_ids": ["doc_003"],
             "difficulty": "easy",
-            "category": "database"
+            "category": "database",
+            "eval_type": "regression",
+            "reference_answer": "Indexes use B-tree structures for efficient lookup, reducing full table scans and speeding up queries (doc_003)."
         },
         {
             "id": "task_004",
@@ -32,7 +38,9 @@
             "expected_keywords": ["identity", "access", "authentication", "authorization"],
             "expected_source_ids": ["doc_004"],
             "difficulty": "easy",
-            "category": "security"
+            "category": "security",
+            "eval_type": "regression",
+            "reference_answer": "Authentication verifies identity; authorization controls access permissions. Use JWT and hash passwords with bcrypt (doc_004)."
         },
         {
             "id": "task_005",
@@ -40,7 +48,9 @@
             "expected_keywords": ["continuous", "build", "test", "deploy"],
             "expected_source_ids": ["doc_005"],
             "difficulty": "easy",
-            "category": "devops"
+            "category": "devops",
+            "eval_type": "regression",
+            "reference_answer": "CI automatically builds and tests on every commit; CD deploys passing builds. Use fast feedback loops (doc_005)."
         },
         {
             "id": "task_006",
@@ -48,7 +58,8 @@
             "expected_keywords": ["pods", "services", "deployments"],
             "expected_source_ids": ["doc_006"],
             "difficulty": "easy",
-            "category": "devops"
+            "category": "devops",
+            "reference_answer": "Core concepts are pods (smallest unit), services (networking), and deployments (declarative updates) (doc_006)."
         },
         {
             "id": "task_007",
@@ -56,7 +67,8 @@
             "expected_keywords": ["cache-aside", "write-through", "Redis"],
             "expected_source_ids": ["doc_008"],
             "difficulty": "easy",
-            "category": "performance"
+            "category": "performance",
+            "reference_answer": "Strategies include cache-aside and write-through. Redis suits high-throughput, low-latency scenarios (doc_008)."
         },
         {
             "id": "task_008",
@@ -64,7 +76,8 @@
             "expected_keywords": ["event sourcing", "CQRS", "pub/sub"],
             "expected_source_ids": ["doc_007"],
             "difficulty": "medium",
-            "category": "architecture"
+            "category": "architecture",
+            "reference_answer": "Event sourcing stores state as events; CQRS separates reads and writes. Pub/sub enables loose coupling (doc_007)."
         },
         {
             "id": "task_009",
@@ -72,7 +85,8 @@
             "expected_keywords": ["JWT", "OAuth", "hash", "bcrypt"],
             "expected_source_ids": ["doc_004"],
             "difficulty": "medium",
-            "category": "security"
+            "category": "security",
+            "reference_answer": "Use JWT or OAuth for tokens, hash passwords with bcrypt or argon2, and enforce HTTPS (doc_004)."
         },
         {
             "id": "task_010",
@@ -80,7 +94,8 @@
             "expected_keywords": ["distributed", "complexity", "loose coupling", "events"],
             "expected_source_ids": ["doc_001", "doc_007"],
             "difficulty": "hard",
-            "category": "architecture"
+            "category": "architecture",
+            "reference_answer": "Microservices add distributed complexity; event-driven patterns like pub/sub enable loose coupling between services (doc_001, doc_007)."
         },
         {
             "id": "task_011",
@@ -88,7 +103,8 @@
             "expected_keywords": ["cache", "index", "latency", "performance"],
             "expected_source_ids": ["doc_003", "doc_008"],
             "difficulty": "hard",
-            "category": "performance"
+            "category": "performance",
+            "reference_answer": "Combine database indexes for query optimization with caching (cache-aside/Redis) to reduce latency (doc_003, doc_008)."
         },
         {
             "id": "task_012",
@@ -96,7 +112,8 @@
             "expected_keywords": ["CI", "CD", "Kubernetes", "containers", "deploy"],
             "expected_source_ids": ["doc_005", "doc_006"],
             "difficulty": "hard",
-            "category": "devops"
+            "category": "devops",
+            "reference_answer": "CI/CD builds, tests, and deploys automatically; Kubernetes orchestrates containers via pods and deployments (doc_005, doc_006)."
         },
         {
             "id": "task_013",
@@ -104,7 +121,8 @@
             "expected_keywords": ["no relevant", "not found", "no information"],
             "expected_source_ids": [],
             "difficulty": "easy",
-            "category": "out-of-scope"
+            "category": "out-of-scope",
+            "reference_answer": "The knowledge base does not contain information about machine learning programming languages."
         },
         {
             "id": "task_014",
@@ -112,7 +130,8 @@
             "expected_keywords": ["no relevant", "not found", "no information"],
             "expected_source_ids": [],
             "difficulty": "easy",
-            "category": "out-of-scope"
+            "category": "out-of-scope",
+            "reference_answer": "The knowledge base does not cover React or TypeScript frontend setup."
         },
         {
             "id": "task_015",
@@ -120,7 +139,8 @@
             "expected_keywords": ["over-indexing", "writes", "column order", "composite"],
             "expected_source_ids": ["doc_003"],
             "difficulty": "medium",
-            "category": "database"
+            "category": "database",
+            "reference_answer": "Over-indexing slows writes and wastes storage. Composite index column order must match query patterns (doc_003)."
         }
     ]
 }

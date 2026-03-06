@@ -24,40 +24,11 @@ from dotenv import find_dotenv, load_dotenv
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from shared.agent import BLOCKED_COMMANDS, SENSITIVE_PATHS
 
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-
-# ---------------------------------------------------------------------------
-# Constants — blocked commands and sensitive paths (shared with the agent)
-# ---------------------------------------------------------------------------
-
-BLOCKED_COMMANDS = [
-    "rm",
-    "sudo",
-    "chmod",
-    "chown",
-    "mkfs",
-    "dd",
-    "shutdown",
-    "reboot",
-    ">",
-    ">>",
-    "curl",
-    "wget",
-]
-
-SENSITIVE_PATHS = [
-    ".env",
-    "credentials",
-    "secret",
-    "private_key",
-    "id_rsa",
-    ".ssh",
-    "password",
-]
 
 # PII and credential patterns for output filtering
 PII_PATTERNS = [

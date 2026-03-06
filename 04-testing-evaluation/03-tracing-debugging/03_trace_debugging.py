@@ -25,6 +25,8 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
 
+from shared.tracer import collect_all_spans
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
@@ -294,21 +296,12 @@ ALL_FAILING_TRACES = {
 # ---------------------------------------------------------------------------
 
 
-def _collect_all_spans(spans: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Flatten a span tree into a list (depth-first)."""
-    result: list[dict[str, Any]] = []
-    for span in spans:
-        result.append(span)
-        result.extend(_collect_all_spans(span.get("children", [])))
-    return result
-
-
 class TraceDebugger:
     """Debug agent failures using execution traces."""
 
     def find_failure_point(self, trace: dict[str, Any]) -> dict[str, Any] | None:
         """Walk the trace to find the first span with an error."""
-        all_spans = _collect_all_spans(trace.get("spans", []))
+        all_spans = collect_all_spans(trace.get("spans", []))
         for span in all_spans:
             if span.get("error"):
                 return {
@@ -323,7 +316,7 @@ class TraceDebugger:
 
     def get_decision_path(self, trace: dict[str, Any]) -> list[dict[str, Any]]:
         """Extract the sequence of decisions the agent made."""
-        all_spans = _collect_all_spans(trace.get("spans", []))
+        all_spans = collect_all_spans(trace.get("spans", []))
         decisions: list[dict[str, Any]] = []
 
         for span in all_spans:
@@ -409,7 +402,7 @@ class TraceReplay:
 
     def list_checkpoints(self, trace: dict[str, Any]) -> list[dict[str, Any]]:
         """List available checkpoints (decision points) in the trace."""
-        all_spans = _collect_all_spans(trace.get("spans", []))
+        all_spans = collect_all_spans(trace.get("spans", []))
         checkpoints: list[dict[str, Any]] = []
 
         for i, span in enumerate(all_spans):

@@ -3,320 +3,31 @@ End-to-End Evaluation Pipeline
 
 Demonstrates a complete eval pipeline: load golden dataset, run agent trials,
 score with multiple graders, aggregate results, and detect regressions.
-Reports pass@k metrics and per-grader breakdowns.
+Reports pass@k (at least one success) and pass^k (all succeed) metrics,
+and breaks down results by eval type (capability vs regression).
 """
 
 import json
 import os
-import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import anthropic
-from common import AnthropicTokenTracker, setup_logging
+from common import setup_logging
 from dotenv import find_dotenv, load_dotenv
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from shared.agent import ResearchAssistant
+from shared.graders import GraderResult, KeywordGrader, SourceCitationGrader, ToolCallGrader
+from shared.knowledge_base import KNOWLEDGE_BASE
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-# ---------------------------------------------------------------------------
-# Knowledge base and research assistant
-# ---------------------------------------------------------------------------
-
-KNOWLEDGE_BASE = [
-    {
-        "id": "doc_001",
-        "title": "Microservices Architecture",
-        "content": (
-            "Microservices architecture decomposes applications into "
-            "small, independent services. Each service runs in its own "
-            "process, communicates via APIs, and can be deployed "
-            "independently. Benefits include scalability, fault "
-            "isolation, and technology flexibility. Challenges include "
-            "distributed system complexity, data consistency, and "
-            "operational overhead."
-        ),
-        "tags": ["architecture", "microservices", "distributed-systems"],
-    },
-    {
-        "id": "doc_002",
-        "title": "REST API Design",
-        "content": (
-            "REST APIs follow resource-oriented design principles. "
-            "Use nouns for endpoints (e.g., /users, /orders), HTTP "
-            "methods for actions (GET, POST, PUT, DELETE), and status "
-            "codes for results. Best practices include versioning "
-            "(e.g., /v1/), pagination for collections, and consistent "
-            "error response formats."
-        ),
-        "tags": ["api", "rest", "design"],
-    },
-    {
-        "id": "doc_003",
-        "title": "Database Indexing",
-        "content": (
-            "Database indexes improve query performance by creating "
-            "efficient lookup structures. B-tree indexes handle "
-            "equality and range queries. Composite indexes support "
-            "multi-column queries but column order matters. "
-            "Over-indexing slows writes and wastes storage. Use "
-            "EXPLAIN to analyze query plans and identify missing "
-            "indexes."
-        ),
-        "tags": ["database", "performance", "indexing"],
-    },
-    {
-        "id": "doc_004",
-        "title": "Authentication and Authorization",
-        "content": (
-            "Authentication verifies identity (who you are), "
-            "authorization controls access (what you can do). JWT "
-            "tokens enable stateless authentication with claims-based "
-            "authorization. OAuth 2.0 provides delegated access. "
-            "Always hash passwords with bcrypt or argon2. Implement "
-            "rate limiting and account lockout to prevent brute force "
-            "attacks."
-        ),
-        "tags": ["security", "authentication", "authorization"],
-    },
-    {
-        "id": "doc_005",
-        "title": "CI/CD Pipelines",
-        "content": (
-            "Continuous Integration (CI) automatically builds and "
-            "tests code on every commit. Continuous Deployment (CD) "
-            "automatically deploys passing builds to production. Key "
-            "practices: fast feedback loops, trunk-based development, "
-            "feature flags for gradual rollouts, and automated "
-            "rollback on failure. Tools include GitHub Actions, "
-            "GitLab CI, and Jenkins."
-        ),
-        "tags": ["devops", "ci-cd", "automation"],
-    },
-    {
-        "id": "doc_006",
-        "title": "Container Orchestration with Kubernetes",
-        "content": (
-            "Kubernetes manages containerized workloads across "
-            "clusters. Core concepts: Pods (smallest deployable "
-            "units), Services (network abstraction), Deployments "
-            "(declarative updates), and ConfigMaps/Secrets "
-            "(configuration). Key features include auto-scaling, "
-            "self-healing, rolling updates, and service discovery."
-        ),
-        "tags": ["devops", "kubernetes", "containers"],
-    },
-    {
-        "id": "doc_007",
-        "title": "Event-Driven Architecture",
-        "content": (
-            "Event-driven architecture uses events to trigger and "
-            "communicate between services. Patterns include event "
-            "sourcing (storing state as events), CQRS (separating "
-            "reads and writes), and pub/sub messaging. Benefits: "
-            "loose coupling, scalability, audit trails. Challenges: "
-            "eventual consistency, event ordering, and debugging "
-            "distributed flows."
-        ),
-        "tags": ["architecture", "events", "messaging"],
-    },
-    {
-        "id": "doc_008",
-        "title": "Caching Strategies",
-        "content": (
-            "Caching reduces latency and database load by storing "
-            "frequently accessed data in memory. Strategies include "
-            "cache-aside (application manages cache), write-through "
-            "(cache updated on writes), and write-behind (async cache "
-            "writes). Use Redis or Memcached for distributed caching. "
-            "Set appropriate TTLs and implement cache invalidation "
-            "carefully."
-        ),
-        "tags": ["performance", "caching", "redis"],
-    },
-]
-
-SYSTEM_PROMPT = (
-    "You are a research assistant. Answer questions using ONLY the information from the "
-    "search results provided via tools. Always cite your sources by document ID. "
-    "If no relevant information is found, say so clearly. Do not make up information."
-)
-
-TOOLS = [
-    {
-        "name": "search_knowledge_base",
-        "description": (
-            "Search the knowledge base for documents matching a "
-            "query. Returns relevant documents with their content."
-        ),
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": "Search query to find relevant documents",
-                },
-                "max_results": {
-                    "type": "integer",
-                    "description": "Maximum number of documents to return (default: 3)",
-                    "default": 3,
-                },
-            },
-            "required": ["query"],
-        },
-    },
-]
-
-
-class ResearchAssistant:
-    """Research assistant that searches a knowledge base and synthesizes answers."""
-
-    def __init__(
-        self,
-        client: anthropic.Anthropic,
-        knowledge_base: list[dict[str, Any]],
-        model: str = "claude-sonnet-4-5-20250929",
-    ) -> None:
-        self.client = client
-        self.knowledge_base = knowledge_base
-        self.model = model
-        self.token_tracker = AnthropicTokenTracker()
-
-    def search_knowledge_base(self, query: str, max_results: int = 3) -> list[dict[str, Any]]:
-        """Search knowledge base using keyword matching."""
-        query_words = set(query.lower().split())
-        scored: list[tuple[int, dict[str, Any]]] = []
-        for doc in self.knowledge_base:
-            text = f"{doc['title']} {doc['content']} {' '.join(doc['tags'])}".lower()
-            score = sum(1 for word in query_words if word in text)
-            if score > 0:
-                scored.append((score, doc))
-        scored.sort(key=lambda x: x[0], reverse=True)
-        return [doc for _, doc in scored[:max_results]]
-
-    def answer(self, question: str) -> dict[str, Any]:
-        """Answer a question using the knowledge base."""
-        messages: list[dict[str, Any]] = [{"role": "user", "content": question}]
-        tool_calls_made: list[dict[str, Any]] = []
-
-        while True:
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=1024,
-                system=SYSTEM_PROMPT,
-                tools=TOOLS,
-                messages=messages,
-            )
-            self.token_tracker.track(response.usage)
-
-            if response.stop_reason != "tool_use":
-                answer_text = ""
-                for block in response.content:
-                    if hasattr(block, "text"):
-                        answer_text += block.text
-                return {
-                    "answer": answer_text,
-                    "tool_calls": tool_calls_made,
-                    "sources": [tc["results"] for tc in tool_calls_made],
-                }
-
-            messages.append({"role": "assistant", "content": response.content})
-            tool_results: list[dict[str, Any]] = []
-            for block in response.content:
-                if block.type == "tool_use":
-                    result = self.search_knowledge_base(**block.input)
-                    tool_calls_made.append(
-                        {"name": block.name, "input": block.input, "results": result}
-                    )
-                    tool_results.append(
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": json.dumps(result),
-                        }
-                    )
-            messages.append({"role": "user", "content": tool_results})
-
-
-# ---------------------------------------------------------------------------
-# Graders (reused from 01_code_based_graders)
-# ---------------------------------------------------------------------------
-
-
-@dataclass
-class GraderResult:
-    """Result from a grader evaluation."""
-
-    passed: bool
-    score: float
-    reason: str
-
-
-class KeywordGrader:
-    """Grades based on required keywords in the answer."""
-
-    def grade(self, answer: str, expected_keywords: list[str]) -> GraderResult:
-        """Check whether the answer contains the expected keywords."""
-        answer_lower = answer.lower()
-        found = [kw for kw in expected_keywords if kw.lower() in answer_lower]
-        score = len(found) / len(expected_keywords) if expected_keywords else 1.0
-        passed = score >= 0.5
-        missing = [kw for kw in expected_keywords if kw.lower() not in answer_lower]
-        reason = f"Found {len(found)}/{len(expected_keywords)} keywords"
-        if missing:
-            reason += f" (missing: {', '.join(missing)})"
-        return GraderResult(passed=passed, score=score, reason=reason)
-
-
-class SourceCitationGrader:
-    """Grades whether the answer cites its sources."""
-
-    def grade(self, answer: str, expected_source_ids: list[str]) -> GraderResult:
-        """Check whether expected document IDs are cited in the answer."""
-        if not expected_source_ids:
-            has_refusal = bool(
-                re.search(
-                    r"no relevant|not found|no information|cannot find", answer, re.IGNORECASE
-                )
-            )
-            return GraderResult(
-                passed=has_refusal,
-                score=1.0 if has_refusal else 0.0,
-                reason="Out-of-scope: " + ("correctly refused" if has_refusal else "should refuse"),
-            )
-
-        cited = [sid for sid in expected_source_ids if sid in answer]
-        score = len(cited) / len(expected_source_ids)
-        passed = score >= 0.5
-        missing = [sid for sid in expected_source_ids if sid not in answer]
-        reason = f"Cited {len(cited)}/{len(expected_source_ids)} sources"
-        if missing:
-            reason += f" (missing: {', '.join(missing)})"
-        return GraderResult(passed=passed, score=score, reason=reason)
-
-
-class ToolCallGrader:
-    """Grades whether the agent made expected tool calls."""
-
-    def grade(
-        self, tool_calls: list[dict[str, Any]], expected_tool: str = "search_knowledge_base"
-    ) -> GraderResult:
-        """Verify the agent called the expected tool at least once."""
-        tool_names = [tc.get("name", "") for tc in tool_calls]
-        called = expected_tool in tool_names
-        score = 1.0 if called else 0.0
-        reason = (
-            f"Tool '{expected_tool}' was called ({len(tool_calls)} total calls)"
-            if called
-            else f"Tool '{expected_tool}' was NOT called"
-        )
-        return GraderResult(passed=called, score=score, reason=reason)
 
 
 # ---------------------------------------------------------------------------
@@ -334,6 +45,7 @@ class EvalTask:
     expected_source_ids: list[str]
     difficulty: str
     category: str
+    eval_type: str = "capability"  # "capability" (new feature) or "regression" (must not break)
 
 
 @dataclass
@@ -357,12 +69,18 @@ class EvalResult:
     grader_results: dict[str, list[GraderResult]]
     pass_rate: float
     avg_score: float
+    # pass@k: probability of at least one success in k trials (optimistic — measures capability)
+    pass_at_k: float = 0.0
+    # pass^k: probability that ALL k trials succeed (strict — measures consistency)
+    pass_pow_k: float = 0.0
 
 
 # ---------------------------------------------------------------------------
 # Simulated responses for demo mode
 # ---------------------------------------------------------------------------
 
+# Each task maps to a list of trial responses; run_trial cycles through them.
+# Variation across trials demonstrates the difference between pass@k and pass^k.
 SIMULATED_RESPONSES: dict[str, dict[str, Any]] = {
     "task_001": {
         "answer": (
@@ -467,6 +185,46 @@ SIMULATED_RESPONSES: dict[str, dict[str, Any]] = {
     },
 }
 
+# Trial-specific overrides to simulate non-deterministic LLM behavior.
+# Missing trial numbers fall back to the default SIMULATED_RESPONSES entry.
+SIMULATED_TRIAL_OVERRIDES: dict[str, dict[int, dict[str, Any]]] = {
+    "task_001": {
+        # Trial 2: weaker answer missing expected keywords — shows inconsistency
+        2: {
+            "answer": (
+                "Microservices let you break an application into smaller "
+                "services that communicate over the network."
+            ),
+            "tool_calls": [
+                {
+                    "name": "search_knowledge_base",
+                    "input": {"query": "microservices benefits"},
+                    "results": [KNOWLEDGE_BASE[0]],
+                }
+            ],
+            "sources": [[KNOWLEDGE_BASE[0]]],
+        },
+    },
+    "task_003": {
+        # Trial 3: answer omits source citation — fails citation grader
+        3: {
+            "answer": (
+                "Database indexes improve performance via efficient "
+                "B-tree lookup structures. Use EXPLAIN to analyze "
+                "query plans."
+            ),
+            "tool_calls": [
+                {
+                    "name": "search_knowledge_base",
+                    "input": {"query": "database indexes"},
+                    "results": [KNOWLEDGE_BASE[2]],
+                }
+            ],
+            "sources": [[]],  # No sources cited
+        },
+    },
+}
+
 
 # ---------------------------------------------------------------------------
 # Eval pipeline
@@ -494,13 +252,14 @@ class EvalPipeline:
                 expected_source_ids=t["expected_source_ids"],
                 difficulty=t["difficulty"],
                 category=t["category"],
+                eval_type=t.get("eval_type", "capability"),
             )
             for t in data["tasks"]
         ]
         logger.info("Loaded %d eval tasks from %s", len(tasks), path)
         return tasks
 
-    def run_trial(self, task: EvalTask) -> EvalTrial:
+    def run_trial(self, task: EvalTask, trial_number: int = 1) -> EvalTrial:
         """Execute a single trial — run the agent and measure latency."""
         start = time.perf_counter()
 
@@ -511,9 +270,14 @@ class EvalPipeline:
                 logger.error("Agent error on %s: %s", task.id, e)
                 response = {"answer": f"Error: {e}", "tool_calls": [], "sources": []}
         else:
-            response = SIMULATED_RESPONSES.get(
-                task.id,
-                {"answer": "No simulated response.", "tool_calls": [], "sources": []},
+            # Check for trial-specific overrides first, then fall back to default
+            overrides = SIMULATED_TRIAL_OVERRIDES.get(task.id, {})
+            response = overrides.get(
+                trial_number,
+                SIMULATED_RESPONSES.get(
+                    task.id,
+                    {"answer": "No simulated response.", "tool_calls": [], "sources": []},
+                ),
             )
 
         elapsed_ms = (time.perf_counter() - start) * 1000
@@ -549,7 +313,7 @@ class EvalPipeline:
             }
 
             for trial_num in range(num_trials):
-                trial = self.run_trial(task)
+                trial = self.run_trial(task, trial_number=trial_num + 1)
                 trial.trial_number = trial_num + 1
                 trials.append(trial)
 
@@ -557,13 +321,18 @@ class EvalPipeline:
                 for name, result in grader_results.items():
                     all_grader_results[name].append(result)
 
-            # Aggregate: pass@k = fraction of trials where ALL graders passed
+            # Determine which trials passed (all graders must pass)
             pass_count = 0
             for i in range(num_trials):
                 all_passed = all(all_grader_results[g][i].passed for g in all_grader_results)
                 if all_passed:
                     pass_count += 1
             pass_rate = pass_count / num_trials
+
+            # pass@k: at least one trial succeeded (optimistic — measures capability)
+            pass_at_k = 1.0 if pass_count > 0 else 0.0
+            # pass^k: ALL trials succeeded (strict — measures consistency/reliability)
+            pass_pow_k = 1.0 if pass_count == num_trials else 0.0
 
             # Average score across all graders and trials
             all_scores = [
@@ -578,6 +347,8 @@ class EvalPipeline:
                     grader_results=all_grader_results,
                     pass_rate=pass_rate,
                     avg_score=avg_score,
+                    pass_at_k=pass_at_k,
+                    pass_pow_k=pass_pow_k,
                 )
             )
 
@@ -622,7 +393,8 @@ def main() -> None:
         Panel(
             "[bold cyan]Evaluation Pipeline[/bold cyan]\n\n"
             "End-to-end pipeline: load golden dataset, run agent trials,\n"
-            "score with multiple graders, aggregate pass@k, detect regressions.",
+            "score with multiple graders, aggregate pass@k and pass^k,\n"
+            "break down by eval type (capability vs regression), detect regressions.",
             title="Eval Tutorial 3",
         )
     )
@@ -650,19 +422,20 @@ def main() -> None:
         eval_tasks = all_tasks
         console.print(f"Running {len(eval_tasks)} tasks...\n")
 
-    # Run evaluation
-    num_trials = 1
+    # Run evaluation — use 3 trials in simulated mode to demonstrate pass@k vs pass^k
+    num_trials = 3 if agent is None else 1
     results = pipeline.run_evaluation(eval_tasks, num_trials=num_trials)
 
     # Per-task results table
     table = Table(title="Per-Task Results", show_lines=True)
     table.add_column("Task", style="cyan", width=12)
-    table.add_column("Category", width=14)
+    table.add_column("Type", width=12)
     table.add_column("Difficulty", width=10)
-    table.add_column("Keywords", width=12, justify="center")
-    table.add_column("Citations", width=12, justify="center")
-    table.add_column("Tool Calls", width=12, justify="center")
-    table.add_column("Pass Rate", width=10, justify="center")
+    table.add_column("Keywords", width=10, justify="center")
+    table.add_column("Citations", width=10, justify="center")
+    table.add_column("Tools", width=10, justify="center")
+    table.add_column("pass@k", width=8, justify="center")
+    table.add_column("pass^k", width=8, justify="center")
     table.add_column("Latency", width=10, justify="right")
 
     def grader_cell(grader_name: str, eval_result: "EvalResult") -> str:
@@ -675,27 +448,51 @@ def main() -> None:
     for result in results:
         task = next(t for t in eval_tasks if t.id == result.task_id)
 
-        pass_color = (
-            "green" if result.pass_rate >= 0.8 else ("yellow" if result.pass_rate >= 0.5 else "red")
-        )
         avg_latency = sum(t.latency_ms for t in result.trials) / len(result.trials)
+        at_k_color = "green" if result.pass_at_k == 1.0 else "red"
+        pow_k_color = "green" if result.pass_pow_k == 1.0 else "red"
 
         table.add_row(
             result.task_id,
-            task.category,
+            task.eval_type,
             task.difficulty,
             grader_cell("keywords", result),
             grader_cell("citations", result),
             grader_cell("tool_calls", result),
-            f"[{pass_color}]{result.pass_rate:.0%}[/{pass_color}]",
+            f"[{at_k_color}]{result.pass_at_k:.0%}[/{at_k_color}]",
+            f"[{pow_k_color}]{result.pass_pow_k:.0%}[/{pow_k_color}]",
             f"{avg_latency:.0f}ms",
         )
 
     console.print(table)
 
     # Aggregate metrics
-    total_pass = sum(r.pass_rate for r in results) / len(results) if results else 0.0
+    total_at_k = sum(r.pass_at_k for r in results) / len(results) if results else 0.0
+    total_pow_k = sum(r.pass_pow_k for r in results) / len(results) if results else 0.0
     total_score = sum(r.avg_score for r in results) / len(results) if results else 0.0
+
+    # Per eval-type breakdown (capability vs regression)
+    eval_types: dict[str, list[EvalResult]] = {}
+    for result in results:
+        task = next(t for t in eval_tasks if t.id == result.task_id)
+        eval_types.setdefault(task.eval_type, []).append(result)
+
+    type_table = Table(title="Per Eval-Type Breakdown")
+    type_table.add_column("Eval Type", style="bold")
+    type_table.add_column("Tasks", justify="center")
+    type_table.add_column("pass@k", justify="center")
+    type_table.add_column("pass^k", justify="center")
+    type_table.add_column("Avg Score", justify="center")
+
+    for etype, etype_results in sorted(eval_types.items()):
+        e_at_k = sum(r.pass_at_k for r in etype_results) / len(etype_results)
+        e_pow_k = sum(r.pass_pow_k for r in etype_results) / len(etype_results)
+        e_score = sum(r.avg_score for r in etype_results) / len(etype_results)
+        type_table.add_row(
+            etype, str(len(etype_results)), f"{e_at_k:.0%}", f"{e_pow_k:.0%}", f"{e_score:.2f}"
+        )
+
+    console.print(type_table)
 
     # Per-category breakdown
     categories: dict[str, list[EvalResult]] = {}
@@ -706,17 +503,22 @@ def main() -> None:
     cat_table = Table(title="Per-Category Breakdown")
     cat_table.add_column("Category", style="bold")
     cat_table.add_column("Tasks", justify="center")
-    cat_table.add_column("Avg Pass Rate", justify="center")
+    cat_table.add_column("pass@k", justify="center")
+    cat_table.add_column("pass^k", justify="center")
     cat_table.add_column("Avg Score", justify="center")
 
     for cat, cat_results in sorted(categories.items()):
-        cat_pass = sum(r.pass_rate for r in cat_results) / len(cat_results)
+        cat_at_k = sum(r.pass_at_k for r in cat_results) / len(cat_results)
+        cat_pow_k = sum(r.pass_pow_k for r in cat_results) / len(cat_results)
         cat_score = sum(r.avg_score for r in cat_results) / len(cat_results)
-        cat_table.add_row(cat, str(len(cat_results)), f"{cat_pass:.0%}", f"{cat_score:.2f}")
+        cat_table.add_row(
+            cat, str(len(cat_results)), f"{cat_at_k:.0%}", f"{cat_pow_k:.0%}", f"{cat_score:.2f}"
+        )
 
     console.print(cat_table)
 
-    console.print(f"\n[bold]Overall pass@{num_trials}:[/bold] {total_pass:.0%}")
+    console.print(f"\n[bold]Overall pass@{num_trials}:[/bold] {total_at_k:.0%}")
+    console.print(f"[bold]Overall pass^{num_trials}:[/bold] {total_pow_k:.0%}")
     console.print(f"[bold]Overall avg score:[/bold] {total_score:.2f}")
 
     # Regression detection demo
@@ -729,6 +531,8 @@ def main() -> None:
             grader_results=r.grader_results,
             pass_rate=min(r.pass_rate + 0.1, 1.0),
             avg_score=min(r.avg_score + 0.15, 1.0),
+            pass_at_k=min(r.pass_at_k + 0.1, 1.0),
+            pass_pow_k=min(r.pass_pow_k + 0.1, 1.0),
         )
         for r in results
     ]

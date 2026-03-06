@@ -9,7 +9,6 @@ Supports both live API calls and a simulated mode for demo without API keys.
 import json
 import os
 import time
-from dataclasses import dataclass
 from typing import Any
 
 import anthropic
@@ -20,230 +19,19 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from shared.knowledge_base import (
+    BENCHMARK_TASKS,
+    SYSTEM_PROMPT,
+    TOOLS_ANTHROPIC,
+    TOOLS_OPENAI,
+    score_answer,
+    search_knowledge_base,
+)
+from shared.models import MODEL_CONFIGS, BenchmarkResult, ModelConfig
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-# ---------------------------------------------------------------------------
-# Knowledge base (shared research assistant corpus)
-# ---------------------------------------------------------------------------
-
-KNOWLEDGE_BASE = [
-    {
-        "id": "doc_001",
-        "title": "Microservices Architecture",
-        "content": (
-            "Microservices architecture decomposes applications into small, "
-            "independent services. Each service runs in its own process, "
-            "communicates via APIs, and can be deployed independently. "
-            "Benefits include scalability, fault isolation, and technology "
-            "flexibility. Challenges include distributed system complexity, "
-            "data consistency, and operational overhead."
-        ),
-        "tags": ["architecture", "microservices", "distributed-systems"],
-    },
-    {
-        "id": "doc_002",
-        "title": "REST API Design",
-        "content": (
-            "REST APIs follow resource-oriented design principles. "
-            "Use nouns for endpoints, HTTP methods for actions, and "
-            "status codes for results. Best practices include versioning, "
-            "pagination for collections, and consistent error response "
-            "formats."
-        ),
-        "tags": ["api", "rest", "design"],
-    },
-    {
-        "id": "doc_003",
-        "title": "Database Indexing",
-        "content": (
-            "Database indexes improve query performance by creating "
-            "efficient lookup structures. B-tree indexes handle equality "
-            "and range queries. Composite indexes support multi-column "
-            "queries but column order matters. Over-indexing slows writes "
-            "and wastes storage."
-        ),
-        "tags": ["database", "performance", "indexing"],
-    },
-    {
-        "id": "doc_004",
-        "title": "Authentication and Authorization",
-        "content": (
-            "Authentication verifies identity, authorization controls "
-            "access. JWT tokens enable stateless authentication. "
-            "OAuth 2.0 provides delegated access. Always hash passwords "
-            "with bcrypt or argon2."
-        ),
-        "tags": ["security", "authentication", "authorization"],
-    },
-    {
-        "id": "doc_005",
-        "title": "CI/CD Pipelines",
-        "content": (
-            "CI automatically builds and tests code on every commit. "
-            "CD automatically deploys passing builds. Key practices: "
-            "fast feedback loops, trunk-based development, feature "
-            "flags, and automated rollback."
-        ),
-        "tags": ["devops", "ci-cd", "automation"],
-    },
-    {
-        "id": "doc_006",
-        "title": "Container Orchestration with Kubernetes",
-        "content": (
-            "Kubernetes manages containerized workloads. Core concepts: "
-            "Pods, Services, Deployments, ConfigMaps/Secrets. Key "
-            "features: auto-scaling, self-healing, rolling updates, "
-            "service discovery."
-        ),
-        "tags": ["devops", "kubernetes", "containers"],
-    },
-    {
-        "id": "doc_007",
-        "title": "Event-Driven Architecture",
-        "content": (
-            "Event-driven architecture uses events to trigger "
-            "communication between services. Patterns: event sourcing, "
-            "CQRS, pub/sub. Benefits: loose coupling, scalability, "
-            "audit trails."
-        ),
-        "tags": ["architecture", "events", "messaging"],
-    },
-    {
-        "id": "doc_008",
-        "title": "Caching Strategies",
-        "content": (
-            "Caching reduces latency by storing frequently accessed "
-            "data in memory. Strategies: cache-aside, write-through, "
-            "write-behind. Use Redis or Memcached for distributed "
-            "caching."
-        ),
-        "tags": ["performance", "caching", "redis"],
-    },
-]
-
-SYSTEM_PROMPT = (
-    "You are a research assistant. Answer questions using ONLY the information from the "
-    "search results provided via tools. Always cite your sources by document ID. "
-    "If no relevant information is found, say so clearly. Do not make up information."
-)
-
-# Anthropic tool format
-TOOLS_ANTHROPIC = [
-    {
-        "name": "search_knowledge_base",
-        "description": "Search the knowledge base for documents matching a query.",
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "query": {"type": "string", "description": "Search query"},
-                "max_results": {
-                    "type": "integer",
-                    "description": "Max documents to return",
-                    "default": 3,
-                },
-            },
-            "required": ["query"],
-        },
-    },
-]
-
-# OpenAI tool format
-TOOLS_OPENAI = [
-    {
-        "type": "function",
-        "name": "search_knowledge_base",
-        "description": "Search the knowledge base for documents matching a query.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {"type": "string", "description": "Search query"},
-                "max_results": {
-                    "type": "integer",
-                    "description": "Max documents to return",
-                    "default": 3,
-                },
-            },
-            "required": ["query"],
-        },
-    },
-]
-
-# ---------------------------------------------------------------------------
-# Benchmark tasks (subset of golden dataset)
-# ---------------------------------------------------------------------------
-
-BENCHMARK_TASKS = [
-    {
-        "id": "bench_001",
-        "question": "What are the key benefits of microservices architecture?",
-        "expected_keywords": ["scalability", "fault isolation", "independent"],
-        "category": "architecture",
-    },
-    {
-        "id": "bench_002",
-        "question": "How should REST API endpoints be designed?",
-        "expected_keywords": ["nouns", "http methods", "status codes"],
-        "category": "api",
-    },
-    {
-        "id": "bench_003",
-        "question": "What strategies exist for database indexing?",
-        "expected_keywords": ["b-tree", "composite", "query performance"],
-        "category": "database",
-    },
-    {
-        "id": "bench_004",
-        "question": "Explain the difference between authentication and authorization.",
-        "expected_keywords": ["identity", "access", "jwt", "oauth"],
-        "category": "security",
-    },
-    {
-        "id": "bench_005",
-        "question": "What are the key practices in CI/CD?",
-        "expected_keywords": ["continuous", "automated", "feedback"],
-        "category": "devops",
-    },
-]
-
-# ---------------------------------------------------------------------------
-# Data classes
-# ---------------------------------------------------------------------------
-
-
-@dataclass
-class ModelConfig:
-    """Configuration for a model to benchmark."""
-
-    name: str
-    provider: str  # "anthropic" or "openai"
-    model_id: str
-    cost_per_input_token: float  # dollars per 1M tokens
-    cost_per_output_token: float  # dollars per 1M tokens
-
-
-@dataclass
-class BenchmarkResult:
-    """Result from running one task on one model."""
-
-    task_id: str
-    model_name: str
-    answer: str
-    keyword_score: float  # 0.0-1.0 based on expected keywords found
-    latency_ms: float
-    input_tokens: int
-    output_tokens: int
-    cost_usd: float
-    tool_calls: int
-
-
-# Default model configurations
-MODEL_CONFIGS = [
-    ModelConfig("Claude Sonnet", "anthropic", "claude-sonnet-4-5-20250929", 3.0, 15.0),
-    ModelConfig("Claude Haiku", "anthropic", "claude-haiku-4-5-20251001", 0.80, 4.0),
-    ModelConfig("GPT-4.1 mini", "openai", "gpt-4.1-mini", 0.40, 1.60),
-]
 
 # ---------------------------------------------------------------------------
 # Simulated results for demo mode
@@ -439,24 +227,6 @@ SIMULATED_RESULTS = [
 ]
 
 # ---------------------------------------------------------------------------
-# Knowledge base search utility
-# ---------------------------------------------------------------------------
-
-
-def search_knowledge_base(query: str, max_results: int = 3) -> list[dict[str, Any]]:
-    """Search knowledge base using keyword matching."""
-    query_words = set(query.lower().split())
-    scored: list[tuple[int, dict[str, Any]]] = []
-    for doc in KNOWLEDGE_BASE:
-        text = f"{doc['title']} {doc['content']} {' '.join(doc['tags'])}".lower()
-        score = sum(1 for word in query_words if word in text)
-        if score > 0:
-            scored.append((score, doc))
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return [doc for _, doc in scored[:max_results]]
-
-
-# ---------------------------------------------------------------------------
 # Model benchmark class
 # ---------------------------------------------------------------------------
 
@@ -467,12 +237,6 @@ class ModelBenchmark:
     def __init__(self) -> None:
         self.anthropic_tracker = AnthropicTokenTracker()
         self.openai_tracker = OpenAITokenTracker()
-
-    def score_answer(self, answer: str, expected_keywords: list[str]) -> float:
-        """Score an answer based on expected keyword coverage."""
-        answer_lower = answer.lower()
-        found = sum(1 for kw in expected_keywords if kw.lower() in answer_lower)
-        return found / len(expected_keywords) if expected_keywords else 1.0
 
     def run_task_anthropic(self, task: dict, config: ModelConfig) -> BenchmarkResult:
         """Run a single benchmark task using the Anthropic API."""
@@ -522,9 +286,9 @@ class ModelBenchmark:
 
         return BenchmarkResult(
             task_id=task["id"],
-            model_name=config.name,
+            config_name=config.name,
             answer=answer,
-            keyword_score=self.score_answer(answer, task["expected_keywords"]),
+            keyword_score=score_answer(answer, task["expected_keywords"]),
             latency_ms=latency_ms,
             input_tokens=input_tok,
             output_tokens=output_tok,
@@ -582,9 +346,9 @@ class ModelBenchmark:
 
         return BenchmarkResult(
             task_id=task["id"],
-            model_name=config.name,
+            config_name=config.name,
             answer=answer,
-            keyword_score=self.score_answer(answer, task["expected_keywords"]),
+            keyword_score=score_answer(answer, task["expected_keywords"]),
             latency_ms=latency_ms,
             input_tokens=input_tok,
             output_tokens=output_tok,
@@ -628,7 +392,7 @@ def aggregate_by_model(results: list[BenchmarkResult]) -> dict[str, dict[str, fl
     """Compute per-model averages across all tasks."""
     model_results: dict[str, list[BenchmarkResult]] = {}
     for r in results:
-        model_results.setdefault(r.model_name, []).append(r)
+        model_results.setdefault(r.config_name, []).append(r)
 
     summaries: dict[str, dict[str, float]] = {}
     for model, mrs in model_results.items():
@@ -689,7 +453,7 @@ def main() -> None:
         )
         detail_table.add_row(
             r.task_id,
-            r.model_name,
+            r.config_name,
             f"[{score_color}]{r.keyword_score:.0%}[/{score_color}]",
             f"{r.latency_ms:.0f}ms",
             str(r.input_tokens + r.output_tokens),

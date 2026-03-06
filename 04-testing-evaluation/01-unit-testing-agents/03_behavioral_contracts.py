@@ -12,221 +12,21 @@ Key testing concepts:
 """
 
 import json
-import subprocess
 from pathlib import Path
-from typing import Any
-from unittest.mock import MagicMock, Mock
+from unittest.mock import MagicMock
 
 import pytest
-from common import AnthropicTokenTracker, setup_logging
+from common import setup_logging
 from dotenv import find_dotenv, load_dotenv
 from rich.console import Console
 from rich.panel import Panel
 
+from shared.agent import ToolUseAgent
+from shared.mock_helpers import create_mock_response, make_text_block, make_tool_use_block
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-
-# ---------------------------------------------------------------------------
-# Tool definitions and functions (shared with other scripts in this tutorial)
-# ---------------------------------------------------------------------------
-
-TOOLS = [
-    {
-        "name": "calculator",
-        "description": "Performs basic arithmetic operations.",
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "operation": {
-                    "type": "string",
-                    "enum": ["add", "subtract", "multiply", "divide"],
-                },
-                "a": {"type": "number"},
-                "b": {"type": "number"},
-            },
-            "required": ["operation", "a", "b"],
-        },
-    },
-    {
-        "name": "run_bash",
-        "description": "Executes a bash command and returns the output.",
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "command": {"type": "string"},
-                "timeout": {"type": "integer", "default": 30},
-            },
-            "required": ["command"],
-        },
-    },
-]
-
-BLOCKED_COMMANDS = ["rm", "sudo", "chmod", "chown", "mkfs", "dd", "shutdown", "reboot", ">", ">>"]
-
-
-def calculator(operation: str, a: float, b: float) -> dict[str, Any]:
-    """Execute calculator tool."""
-    operations = {
-        "add": lambda x, y: x + y,
-        "subtract": lambda x, y: x - y,
-        "multiply": lambda x, y: x * y,
-        "divide": lambda x, y: x / y if y != 0 else "Error: Division by zero",
-    }
-    if operation not in operations:
-        return {"error": f"Unknown operation: {operation}"}
-    return {"result": operations[operation](a, b), "operation": operation, "operands": [a, b]}
-
-
-def run_bash(command: str, timeout: int = 30) -> dict[str, Any]:
-    """Execute a bash command and return the output."""
-    cmd_lower = command.lower().strip()
-    for blocked in BLOCKED_COMMANDS:
-        if blocked in cmd_lower:
-            logger.warning("Blocked dangerous command: %s", command)
-            return {"error": f"Command blocked for safety: contains '{blocked}'"}
-    try:
-        result = subprocess.run(
-            command, shell=True, capture_output=True, text=True, timeout=timeout
-        )
-        return {"stdout": result.stdout, "stderr": result.stderr, "exit_code": result.returncode}
-    except subprocess.TimeoutExpired:
-        return {"error": f"Command timed out after {timeout} seconds"}
-
-
-TOOL_FUNCTIONS: dict[str, Any] = {
-    "calculator": calculator,
-    "run_bash": run_bash,
-}
-
-
-def execute_tool(tool_name: str, tool_input: dict[str, Any]) -> Any:
-    """Execute a tool and return its result."""
-    if tool_name not in TOOL_FUNCTIONS:
-        return {"error": f"Unknown tool: {tool_name}"}
-    try:
-        return TOOL_FUNCTIONS[tool_name](**tool_input)
-    except TypeError as e:
-        return {"error": f"Invalid arguments: {e}"}
-    except Exception as e:
-        logger.error("Tool execution error: %s", e)
-        return {"error": str(e)}
-
-
-# ---------------------------------------------------------------------------
-# Agent under test — with max_iterations safety limit
-# ---------------------------------------------------------------------------
-
-
-class SafeToolUseAgent:
-    """Tool-use agent with behavioral contracts and safety limits."""
-
-    def __init__(
-        self, client: Any, model: str = "claude-sonnet-4-5-20250929", max_iterations: int = 10
-    ) -> None:
-        self.client = client
-        self.model = model
-        self.max_iterations = max_iterations
-        self.messages: list[dict[str, Any]] = []
-        self.token_tracker = AnthropicTokenTracker()
-
-    def send_message(self, user_message: str) -> str:
-        """Send a message and process the agent loop with iteration limits."""
-        self.messages.append({"role": "user", "content": user_message})
-        iterations = 0
-
-        while iterations < self.max_iterations:
-            iterations += 1
-            logger.info(
-                "Iteration %d/%d (messages: %d)",
-                iterations,
-                self.max_iterations,
-                len(self.messages),
-            )
-
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=4096,
-                tools=TOOLS,
-                messages=self.messages,
-            )
-
-            self.token_tracker.track(response.usage)
-
-            tool_uses = []
-            text_content = []
-
-            for block in response.content:
-                if hasattr(block, "text"):
-                    text_content.append(block.text)
-                elif hasattr(block, "name") and hasattr(block, "input"):
-                    tool_uses.append(block)
-
-            self.messages.append({"role": "assistant", "content": response.content})
-
-            if response.stop_reason != "tool_use" or not tool_uses:
-                return "\n".join(text_content) if text_content else ""
-
-            # Execute tools and collect results
-            tool_results = []
-            for tool_use in tool_uses:
-                result = execute_tool(tool_use.name, tool_use.input)
-                tool_results.append(
-                    {
-                        "type": "tool_result",
-                        "tool_use_id": tool_use.id,
-                        "content": json.dumps(result),
-                    }
-                )
-
-            self.messages.append({"role": "user", "content": tool_results})
-
-        # CONTRACT: max_iterations reached — agent must stop
-        logger.warning("Max iterations (%d) reached, stopping agent", self.max_iterations)
-        return "[Agent stopped: maximum iterations reached]"
-
-
-# ---------------------------------------------------------------------------
-# Test helpers
-# ---------------------------------------------------------------------------
-
-
-def create_mock_response(
-    content: list[Any],
-    stop_reason: str = "end_turn",
-    input_tokens: int = 100,
-    output_tokens: int = 50,
-) -> MagicMock:
-    """Create a mock Anthropic API response."""
-    response = MagicMock()
-    response.content = content
-    response.stop_reason = stop_reason
-    response.usage = MagicMock()
-    response.usage.input_tokens = input_tokens
-    response.usage.output_tokens = output_tokens
-    response.usage.cache_read_input_tokens = None
-    response.usage.cache_creation_input_tokens = None
-    return response
-
-
-def make_text_block(text: str) -> Mock:
-    """Create a mock TextBlock."""
-    block = Mock()
-    block.text = text
-    del block.name
-    del block.input
-    return block
-
-
-def make_tool_use_block(tool_id: str, name: str, tool_input: dict[str, Any]) -> Mock:
-    """Create a mock ToolUseBlock."""
-    block = Mock()
-    block.id = tool_id
-    block.name = name
-    block.input = tool_input
-    del block.text
-    return block
 
 
 # ---------------------------------------------------------------------------
@@ -240,7 +40,7 @@ class TestSafetyContracts:
     def setup_method(self) -> None:
         """Create a fresh agent with a mock client for each test."""
         self.mock_client = MagicMock()
-        self.agent = SafeToolUseAgent(client=self.mock_client, max_iterations=5)
+        self.agent = ToolUseAgent(client=self.mock_client, max_iterations=5)
 
     def test_agent_never_executes_blocked_commands(self) -> None:
         """Even when the LLM requests rm -rf /, the tool returns an error."""
@@ -285,7 +85,7 @@ class TestTerminationContracts:
     def setup_method(self) -> None:
         """Create agent with a low iteration limit for testing."""
         self.mock_client = MagicMock()
-        self.agent = SafeToolUseAgent(client=self.mock_client, max_iterations=3)
+        self.agent = ToolUseAgent(client=self.mock_client, max_iterations=3)
 
     def test_agent_stops_after_max_iterations(self) -> None:
         """If the LLM keeps requesting tools, the agent stops at max_iterations."""
@@ -316,7 +116,7 @@ class TestHistoryContracts:
     def setup_method(self) -> None:
         """Create a fresh agent with a mock client."""
         self.mock_client = MagicMock()
-        self.agent = SafeToolUseAgent(client=self.mock_client)
+        self.agent = ToolUseAgent(client=self.mock_client)
 
     def test_agent_always_includes_tool_results(self) -> None:
         """After tool execution, the result must be in the conversation history."""
@@ -374,7 +174,7 @@ class TestRobustnessContracts:
     def setup_method(self) -> None:
         """Create a fresh agent with a mock client."""
         self.mock_client = MagicMock()
-        self.agent = SafeToolUseAgent(client=self.mock_client)
+        self.agent = ToolUseAgent(client=self.mock_client)
 
     def test_agent_handles_empty_response(self) -> None:
         """Empty content from the LLM should return an empty string, not crash."""

@@ -9,7 +9,6 @@ Supports both live API calls and a simulated mode for demo without API keys.
 import json
 import os
 import time
-from dataclasses import dataclass
 from typing import Any
 
 import anthropic
@@ -19,164 +18,17 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from shared.knowledge_base import (
+    BENCHMARK_TASKS,
+    TOOLS_ANTHROPIC,
+    score_answer,
+    search_knowledge_base,
+)
+from shared.models import BenchmarkResult
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-# ---------------------------------------------------------------------------
-# Knowledge base (shared research assistant corpus)
-# ---------------------------------------------------------------------------
-
-KNOWLEDGE_BASE = [
-    {
-        "id": "doc_001",
-        "title": "Microservices Architecture",
-        "content": (
-            "Microservices architecture decomposes applications into small, "
-            "independent services. Each service runs in its own process, "
-            "communicates via APIs, and can be deployed independently. "
-            "Benefits include scalability, fault isolation, and technology "
-            "flexibility. Challenges include distributed system complexity, "
-            "data consistency, and operational overhead."
-        ),
-        "tags": ["architecture", "microservices", "distributed-systems"],
-    },
-    {
-        "id": "doc_002",
-        "title": "REST API Design",
-        "content": (
-            "REST APIs follow resource-oriented design principles. "
-            "Use nouns for endpoints, HTTP methods for actions, and "
-            "status codes for results. Best practices include versioning, "
-            "pagination for collections, and consistent error response "
-            "formats."
-        ),
-        "tags": ["api", "rest", "design"],
-    },
-    {
-        "id": "doc_003",
-        "title": "Database Indexing",
-        "content": (
-            "Database indexes improve query performance by creating "
-            "efficient lookup structures. B-tree indexes handle equality "
-            "and range queries. Composite indexes support multi-column "
-            "queries but column order matters. Over-indexing slows writes "
-            "and wastes storage."
-        ),
-        "tags": ["database", "performance", "indexing"],
-    },
-    {
-        "id": "doc_004",
-        "title": "Authentication and Authorization",
-        "content": (
-            "Authentication verifies identity, authorization controls "
-            "access. JWT tokens enable stateless authentication. "
-            "OAuth 2.0 provides delegated access. Always hash passwords "
-            "with bcrypt or argon2."
-        ),
-        "tags": ["security", "authentication", "authorization"],
-    },
-    {
-        "id": "doc_005",
-        "title": "CI/CD Pipelines",
-        "content": (
-            "CI automatically builds and tests code on every commit. "
-            "CD automatically deploys passing builds. Key practices: "
-            "fast feedback loops, trunk-based development, feature "
-            "flags, and automated rollback."
-        ),
-        "tags": ["devops", "ci-cd", "automation"],
-    },
-    {
-        "id": "doc_006",
-        "title": "Container Orchestration with Kubernetes",
-        "content": (
-            "Kubernetes manages containerized workloads. Core concepts: "
-            "Pods, Services, Deployments, ConfigMaps/Secrets. Key "
-            "features: auto-scaling, self-healing, rolling updates, "
-            "service discovery."
-        ),
-        "tags": ["devops", "kubernetes", "containers"],
-    },
-    {
-        "id": "doc_007",
-        "title": "Event-Driven Architecture",
-        "content": (
-            "Event-driven architecture uses events to trigger "
-            "communication between services. Patterns: event sourcing, "
-            "CQRS, pub/sub. Benefits: loose coupling, scalability, "
-            "audit trails."
-        ),
-        "tags": ["architecture", "events", "messaging"],
-    },
-    {
-        "id": "doc_008",
-        "title": "Caching Strategies",
-        "content": (
-            "Caching reduces latency by storing frequently accessed "
-            "data in memory. Strategies: cache-aside, write-through, "
-            "write-behind. Use Redis or Memcached for distributed "
-            "caching."
-        ),
-        "tags": ["performance", "caching", "redis"],
-    },
-]
-
-TOOLS_ANTHROPIC = [
-    {
-        "name": "search_knowledge_base",
-        "description": "Search the knowledge base for documents matching a query.",
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "query": {"type": "string", "description": "Search query"},
-                "max_results": {
-                    "type": "integer",
-                    "description": "Max documents to return",
-                    "default": 3,
-                },
-            },
-            "required": ["query"],
-        },
-    },
-]
-
-# ---------------------------------------------------------------------------
-# Benchmark tasks
-# ---------------------------------------------------------------------------
-
-BENCHMARK_TASKS = [
-    {
-        "id": "bench_001",
-        "question": "What are the key benefits of microservices architecture?",
-        "expected_keywords": ["scalability", "fault isolation", "independent"],
-        "category": "architecture",
-    },
-    {
-        "id": "bench_002",
-        "question": "How should REST API endpoints be designed?",
-        "expected_keywords": ["nouns", "http methods", "status codes"],
-        "category": "api",
-    },
-    {
-        "id": "bench_003",
-        "question": "What strategies exist for database indexing?",
-        "expected_keywords": ["b-tree", "composite", "query performance"],
-        "category": "database",
-    },
-    {
-        "id": "bench_004",
-        "question": "Explain the difference between authentication and authorization.",
-        "expected_keywords": ["identity", "access", "jwt", "oauth"],
-        "category": "security",
-    },
-    {
-        "id": "bench_005",
-        "question": "What are the key practices in CI/CD?",
-        "expected_keywords": ["continuous", "automated", "feedback"],
-        "category": "devops",
-    },
-]
 
 # ---------------------------------------------------------------------------
 # Prompt strategies — the core variable under test
@@ -206,22 +58,6 @@ PROMPT_STRATEGIES = {
         "4. Cite all sources used"
     ),
 }
-
-
-@dataclass
-class BenchmarkResult:
-    """Result from running one task with one prompt strategy."""
-
-    task_id: str
-    prompt_name: str
-    answer: str
-    keyword_score: float
-    latency_ms: float
-    input_tokens: int
-    output_tokens: int
-    cost_usd: float
-    tool_calls: int
-
 
 # Default model for prompt comparison — isolate the prompt variable
 DEFAULT_MODEL = "claude-sonnet-4-5-20250929"
@@ -445,24 +281,6 @@ SIMULATED_RESULTS: dict[str, list[BenchmarkResult]] = {
 }
 
 # ---------------------------------------------------------------------------
-# Knowledge base search utility
-# ---------------------------------------------------------------------------
-
-
-def search_knowledge_base(query: str, max_results: int = 3) -> list[dict[str, Any]]:
-    """Search knowledge base using keyword matching."""
-    query_words = set(query.lower().split())
-    scored: list[tuple[int, dict[str, Any]]] = []
-    for doc in KNOWLEDGE_BASE:
-        text = f"{doc['title']} {doc['content']} {' '.join(doc['tags'])}".lower()
-        score = sum(1 for word in query_words if word in text)
-        if score > 0:
-            scored.append((score, doc))
-    scored.sort(key=lambda x: x[0], reverse=True)
-    return [doc for _, doc in scored[:max_results]]
-
-
-# ---------------------------------------------------------------------------
 # Prompt benchmark class
 # ---------------------------------------------------------------------------
 
@@ -473,12 +291,6 @@ class PromptBenchmark:
     def __init__(self, model: str = DEFAULT_MODEL) -> None:
         self.model = model
         self.token_tracker = AnthropicTokenTracker()
-
-    def score_answer(self, answer: str, expected_keywords: list[str]) -> float:
-        """Score an answer based on expected keyword coverage."""
-        answer_lower = answer.lower()
-        found = sum(1 for kw in expected_keywords if kw.lower() in answer_lower)
-        return found / len(expected_keywords) if expected_keywords else 1.0
 
     def run_with_prompt(self, task: dict, prompt_name: str, system_prompt: str) -> BenchmarkResult:
         """Run a single task with a specific prompt strategy."""
@@ -524,9 +336,9 @@ class PromptBenchmark:
 
         return BenchmarkResult(
             task_id=task["id"],
-            prompt_name=prompt_name,
+            config_name=prompt_name,
             answer=answer,
-            keyword_score=self.score_answer(answer, task["expected_keywords"]),
+            keyword_score=score_answer(answer, task["expected_keywords"]),
             latency_ms=latency_ms,
             input_tokens=input_tok,
             output_tokens=output_tok,

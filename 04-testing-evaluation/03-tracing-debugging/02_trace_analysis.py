@@ -20,6 +20,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from shared.tracer import collect_all_spans
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
@@ -339,15 +341,6 @@ ALL_SAMPLE_TRACES = {
 # ---------------------------------------------------------------------------
 
 
-def _collect_all_spans(spans: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Flatten a span tree into a list (depth-first)."""
-    result: list[dict[str, Any]] = []
-    for span in spans:
-        result.append(span)
-        result.extend(_collect_all_spans(span.get("children", [])))
-    return result
-
-
 class TraceAnalyzer:
     """Analyzes execution traces to detect patterns and compute metrics."""
 
@@ -365,7 +358,7 @@ class TraceAnalyzer:
 
     def compute_metrics(self, trace: dict[str, Any]) -> dict[str, Any]:
         """Compute aggregate metrics: total tokens, cost, step count, latency breakdown."""
-        all_spans = _collect_all_spans(trace.get("spans", []))
+        all_spans = collect_all_spans(trace.get("spans", []))
 
         total_input_tokens = 0
         total_output_tokens = 0
@@ -418,7 +411,7 @@ class TraceAnalyzer:
     def detect_anti_patterns(self, trace: dict[str, Any]) -> list[dict[str, str]]:
         """Detect anti-patterns like excessive tool calls, loops, failed tools."""
         issues: list[dict[str, str]] = []
-        all_spans = _collect_all_spans(trace.get("spans", []))
+        all_spans = collect_all_spans(trace.get("spans", []))
 
         # Check 1: Excessive LLM calls (>5 for a single question)
         llm_calls = [s for s in all_spans if s.get("span_type") == "llm_call"]

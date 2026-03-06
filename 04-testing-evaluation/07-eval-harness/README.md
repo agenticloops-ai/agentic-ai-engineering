@@ -39,7 +39,7 @@ The capstone project that **combines all five techniques** from this module into
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 04-testing-evaluation/06-eval-harness python 01_eval_harness.py
+uv run --directory 04-testing-evaluation/07-eval-harness python 01_eval_harness.py
 ```
 
 The harness runs in **simulated mode** without API keys (using `SimulatedResearchAgent`) and in **live mode** with an `ANTHROPIC_API_KEY`.
@@ -132,4 +132,5 @@ This is the capstone — you've completed the Testing & Evaluation module! From 
 - **Apply** — Build an eval harness for your own agents
 - **Extend** — Add LLM-as-judge grading from [Tutorial 02](../02-evals/) to the composite grader
 - **Integrate** — Run the harness in CI/CD to catch regressions automatically
+- **Frameworks** — Plug in [eval frameworks](../06-eval-frameworks/) (Promptfoo, Braintrust, Langfuse) for production use
 - **Explore** — Check out [Module 02: Advanced Patterns](../../02-advanced/) for more complex agents to test

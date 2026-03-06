@@ -19,227 +19,12 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
+from shared.agent import ResearchAssistant
+from shared.knowledge_base import KNOWLEDGE_BASE
+
 load_dotenv(find_dotenv())
 
 logger = setup_logging(__name__)
-
-# ---------------------------------------------------------------------------
-# Knowledge base and research assistant
-# ---------------------------------------------------------------------------
-
-KNOWLEDGE_BASE = [
-    {
-        "id": "doc_001",
-        "title": "Microservices Architecture",
-        "content": (
-            "Microservices architecture decomposes applications into "
-            "small, independent services. Each service runs in its own "
-            "process, communicates via APIs, and can be deployed "
-            "independently. Benefits include scalability, fault "
-            "isolation, and technology flexibility. Challenges include "
-            "distributed system complexity, data consistency, and "
-            "operational overhead."
-        ),
-        "tags": ["architecture", "microservices", "distributed-systems"],
-    },
-    {
-        "id": "doc_002",
-        "title": "REST API Design",
-        "content": (
-            "REST APIs follow resource-oriented design principles. "
-            "Use nouns for endpoints (e.g., /users, /orders), HTTP "
-            "methods for actions (GET, POST, PUT, DELETE), and status "
-            "codes for results. Best practices include versioning "
-            "(e.g., /v1/), pagination for collections, and consistent "
-            "error response formats."
-        ),
-        "tags": ["api", "rest", "design"],
-    },
-    {
-        "id": "doc_003",
-        "title": "Database Indexing",
-        "content": (
-            "Database indexes improve query performance by creating "
-            "efficient lookup structures. B-tree indexes handle "
-            "equality and range queries. Composite indexes support "
-            "multi-column queries but column order matters. "
-            "Over-indexing slows writes and wastes storage. Use "
-            "EXPLAIN to analyze query plans and identify missing "
-            "indexes."
-        ),
-        "tags": ["database", "performance", "indexing"],
-    },
-    {
-        "id": "doc_004",
-        "title": "Authentication and Authorization",
-        "content": (
-            "Authentication verifies identity (who you are), "
-            "authorization controls access (what you can do). JWT "
-            "tokens enable stateless authentication with claims-based "
-            "authorization. OAuth 2.0 provides delegated access. "
-            "Always hash passwords with bcrypt or argon2. Implement "
-            "rate limiting and account lockout to prevent brute force "
-            "attacks."
-        ),
-        "tags": ["security", "authentication", "authorization"],
-    },
-    {
-        "id": "doc_005",
-        "title": "CI/CD Pipelines",
-        "content": (
-            "Continuous Integration (CI) automatically builds and "
-            "tests code on every commit. Continuous Deployment (CD) "
-            "automatically deploys passing builds to production. Key "
-            "practices: fast feedback loops, trunk-based development, "
-            "feature flags for gradual rollouts, and automated "
-            "rollback on failure. Tools include GitHub Actions, "
-            "GitLab CI, and Jenkins."
-        ),
-        "tags": ["devops", "ci-cd", "automation"],
-    },
-    {
-        "id": "doc_006",
-        "title": "Container Orchestration with Kubernetes",
-        "content": (
-            "Kubernetes manages containerized workloads across "
-            "clusters. Core concepts: Pods (smallest deployable "
-            "units), Services (network abstraction), Deployments "
-            "(declarative updates), and ConfigMaps/Secrets "
-            "(configuration). Key features include auto-scaling, "
-            "self-healing, rolling updates, and service discovery."
-        ),
-        "tags": ["devops", "kubernetes", "containers"],
-    },
-    {
-        "id": "doc_007",
-        "title": "Event-Driven Architecture",
-        "content": (
-            "Event-driven architecture uses events to trigger and "
-            "communicate between services. Patterns include event "
-            "sourcing (storing state as events), CQRS (separating "
-            "reads and writes), and pub/sub messaging. Benefits: "
-            "loose coupling, scalability, audit trails. Challenges: "
-            "eventual consistency, event ordering, and debugging "
-            "distributed flows."
-        ),
-        "tags": ["architecture", "events", "messaging"],
-    },
-    {
-        "id": "doc_008",
-        "title": "Caching Strategies",
-        "content": (
-            "Caching reduces latency and database load by storing "
-            "frequently accessed data in memory. Strategies include "
-            "cache-aside (application manages cache), write-through "
-            "(cache updated on writes), and write-behind (async cache "
-            "writes). Use Redis or Memcached for distributed caching. "
-            "Set appropriate TTLs and implement cache invalidation "
-            "carefully."
-        ),
-        "tags": ["performance", "caching", "redis"],
-    },
-]
-
-SYSTEM_PROMPT = (
-    "You are a research assistant. Answer questions using ONLY the information from the "
-    "search results provided via tools. Always cite your sources by document ID. "
-    "If no relevant information is found, say so clearly. Do not make up information."
-)
-
-TOOLS = [
-    {
-        "name": "search_knowledge_base",
-        "description": (
-            "Search the knowledge base for documents matching a "
-            "query. Returns relevant documents with their content."
-        ),
-        "input_schema": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": "Search query to find relevant documents",
-                },
-                "max_results": {
-                    "type": "integer",
-                    "description": "Maximum number of documents to return (default: 3)",
-                    "default": 3,
-                },
-            },
-            "required": ["query"],
-        },
-    },
-]
-
-
-class ResearchAssistant:
-    """Research assistant that searches a knowledge base and synthesizes answers."""
-
-    def __init__(
-        self,
-        client: anthropic.Anthropic,
-        knowledge_base: list[dict[str, Any]],
-        model: str = "claude-sonnet-4-5-20250929",
-    ) -> None:
-        self.client = client
-        self.knowledge_base = knowledge_base
-        self.model = model
-        self.token_tracker = AnthropicTokenTracker()
-
-    def search_knowledge_base(self, query: str, max_results: int = 3) -> list[dict[str, Any]]:
-        """Search knowledge base using keyword matching."""
-        query_words = set(query.lower().split())
-        scored: list[tuple[int, dict[str, Any]]] = []
-        for doc in self.knowledge_base:
-            text = f"{doc['title']} {doc['content']} {' '.join(doc['tags'])}".lower()
-            score = sum(1 for word in query_words if word in text)
-            if score > 0:
-                scored.append((score, doc))
-        scored.sort(key=lambda x: x[0], reverse=True)
-        return [doc for _, doc in scored[:max_results]]
-
-    def answer(self, question: str) -> dict[str, Any]:
-        """Answer a question using the knowledge base."""
-        messages: list[dict[str, Any]] = [{"role": "user", "content": question}]
-        tool_calls_made: list[dict[str, Any]] = []
-
-        while True:
-            response = self.client.messages.create(
-                model=self.model,
-                max_tokens=1024,
-                system=SYSTEM_PROMPT,
-                tools=TOOLS,
-                messages=messages,
-            )
-            self.token_tracker.track(response.usage)
-
-            if response.stop_reason != "tool_use":
-                answer_text = ""
-                for block in response.content:
-                    if hasattr(block, "text"):
-                        answer_text += block.text
-                return {
-                    "answer": answer_text,
-                    "tool_calls": tool_calls_made,
-                    "sources": [tc["results"] for tc in tool_calls_made],
-                }
-
-            messages.append({"role": "assistant", "content": response.content})
-            tool_results: list[dict[str, Any]] = []
-            for block in response.content:
-                if block.type == "tool_use":
-                    result = self.search_knowledge_base(**block.input)
-                    tool_calls_made.append(
-                        {"name": block.name, "input": block.input, "results": result}
-                    )
-                    tool_results.append(
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": block.id,
-                            "content": json.dumps(result),
-                        }
-                    )
-            messages.append({"role": "user", "content": tool_results})
 
 
 # ---------------------------------------------------------------------------
@@ -407,7 +192,10 @@ class LLMJudge:
         )
 
 
+# ---------------------------------------------------------------------------
 # Simulated judge results for demo mode
+# ---------------------------------------------------------------------------
+
 SIMULATED_JUDGE_RESULTS: dict[str, JudgeResult] = {
     "task_001": JudgeResult(
         reasoning=(
@@ -579,6 +367,54 @@ def main() -> None:
         console.print(f"  Completeness:  {avg_completeness:.2f}/5")
         console.print(f"  Grounding:     {avg_grounding:.2f}/5")
         console.print(f"  Overall:       {overall:.2f}/5")
+
+    # ---------------------------------------------------------------------------
+    # Grader calibration: compare LLM judge scores against a human baseline
+    # Best practice: calibrate LLM-as-judge graders closely with human experts
+    # ---------------------------------------------------------------------------
+    console.print("\n[bold]Grader Calibration (LLM Judge vs Human Baseline)[/bold]")
+    console.print(
+        "[dim]Simulated human scores for the first 3 tasks — in practice, "
+        "collect these from domain experts.[/dim]\n"
+    )
+
+    # Simulated human expert scores (would come from a labeling session in production)
+    human_baselines: list[dict[str, int]] = [
+        {"accuracy": 5, "completeness": 4, "grounding": 5},
+        {"accuracy": 5, "completeness": 5, "grounding": 5},
+        {"accuracy": 4, "completeness": 3, "grounding": 4},
+    ]
+
+    cal_table = Table(title="Calibration: LLM Judge vs Human Expert", show_lines=True)
+    cal_table.add_column("Task", style="cyan", width=12)
+    cal_table.add_column("Dimension", width=14)
+    cal_table.add_column("Human", width=8, justify="center")
+    cal_table.add_column("LLM Judge", width=10, justify="center")
+    cal_table.add_column("Delta", width=8, justify="center")
+
+    num_calibration = min(3, len(all_results))
+    for i in range(num_calibration):
+        task_id = eval_tasks[i]["id"] if isinstance(eval_tasks[i], dict) else eval_tasks[i]
+        judge_r = all_results[i]
+        human = human_baselines[i]
+
+        for dim, human_score, judge_score in [
+            ("Accuracy", human["accuracy"], judge_r.accuracy_score),
+            ("Completeness", human["completeness"], judge_r.completeness_score),
+            ("Grounding", human["grounding"], judge_r.grounding_score),
+        ]:
+            delta = judge_score - human_score
+            delta_str = f"{delta:+d}"
+            delta_color = "green" if delta == 0 else ("yellow" if abs(delta) == 1 else "red")
+            cal_table.add_row(
+                task_id if dim == "Accuracy" else "",
+                dim,
+                str(human_score),
+                str(judge_score),
+                f"[{delta_color}]{delta_str}[/{delta_color}]",
+            )
+
+    console.print(cal_table)
 
     # Token usage
     if agent is not None:
