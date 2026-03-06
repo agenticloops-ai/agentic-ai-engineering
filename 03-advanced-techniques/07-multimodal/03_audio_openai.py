@@ -94,7 +94,8 @@ class VoiceAssistant:
 
         self.api_call_count += 1
         logger.info("Transcription: %s", transcription.text[:80])
-        return transcription.text
+        result: str = transcription.text
+        return result
 
     def round_trip(self, text: str, voice: str = "alloy") -> tuple[str, str]:
         """Text → speech → transcribe. Returns (audio_path, transcription)."""

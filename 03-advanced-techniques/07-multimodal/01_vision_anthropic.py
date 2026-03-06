@@ -91,7 +91,8 @@ class VisionAnalyst:
             response.usage.input_tokens,
             response.usage.output_tokens,
         )
-        return response.content[0].text
+        result: str = response.content[0].text
+        return result
 
     def analyze_file(self, image_path: str, prompt: str) -> str:
         """Analyze a local image file using base64 encoding."""
@@ -127,7 +128,8 @@ class VisionAnalyst:
             response.usage.input_tokens,
             response.usage.output_tokens,
         )
-        return response.content[0].text
+        result: str = response.content[0].text
+        return result
 
     def compare_images(self, image_urls: list[str], prompt: str) -> str:
         """Compare multiple images in a single request."""
@@ -158,7 +160,8 @@ class VisionAnalyst:
             response.usage.input_tokens,
             response.usage.output_tokens,
         )
-        return response.content[0].text
+        result: str = response.content[0].text
+        return result
 
     def _encode_image(self, image_path: str) -> tuple[str, str]:
         """Read a local image file, return (base64_data, media_type)."""
