@@ -7,24 +7,32 @@ description: "Practical engineering problems you'll hit the moment agents leave 
 
 Practical engineering problems you'll hit the moment agents leave the prototype stage. Context limits, cost, memory, multimodal input — solved one tutorial at a time.
 
-> 🚧 **Coming soon** — this module is under active development. [Subscribe to our Substack](https://agenticloopsai.substack.com) or ⭐️ star the repo to get notified when tutorials drop.
+> **Coming soon** — this module is under active development. [Subscribe to our Substack](https://agenticloopsai.substack.com) or star the repo to get notified when tutorials drop.
 
-## 🗺️ Progression Path
+## Progression Path
 
 ```
 Structured Output
+    ↓
+  (adds real-time output)
+    ↓
+Streaming
     ↓
   (adds window strategies)
     ↓
 Context Engineering
     ↓
-  (adds persistence)
-    ↓
-Memory
-    ↓
   (adds cost reduction)
     ↓
 Cost Optimization
+    ↓
+  (adds persistence)
+    ↓
+Memory Systems
+    ↓
+  (adds advanced retrieval)
+    ↓
+RAG Techniques
     ↓
   (adds non-text input)
     ↓
@@ -38,20 +46,22 @@ MCP
     ↓
 Multi-Agent Systems
     ↓
-  (adds advanced retrieval)
+  (adds safety & quality)
     ↓
-RAG Techniques
-    ↓
-  (adds real-time output)
-    ↓
-Streaming
+Guardrails & Evaluation
 ```
 
-## 📚 Tutorials
+## Tutorials
 
 ### [01 - Structured Output](01-structured-output/)
 
 Force LLM responses into exact schemas — JSON mode, Pydantic models, constrained generation. The bridge between natural language and your application code.
+
+---
+
+### [02 - Streaming](02-streaming/)
+
+SSE, token-by-token output, and streaming tool calls. Every production UI needs this and it's surprisingly tricky to get right with agents.
 
 ---
 
@@ -61,50 +71,59 @@ Manage finite context windows with token counting, budget allocation, and automa
 
 ---
 
-### [03 - Memory](03-memory/)
-
-Give agents memory that persists across sessions. Short-term conversation buffers, long-term vector stores, and hybrid approaches.
-
----
-
 ### [04 - Cost Optimization](04-cost-optimization/)
 
 Two strategies for reducing API costs. **Prompt caching** marks static system prompt content with cache breakpoints so repeated calls read from cache at 90% savings. **Model routing** classifies task difficulty with a cheap model (Haiku) and routes easy tasks there instead of always using Sonnet — saving ~73% on input for simple queries.
 
 ---
 
-### [05 - Multimodal](05-multimodal/)
+### [05 - Memory Systems](05-memory/)
 
-Process images, audio, and files alongside text. Build agents that can see screenshots, read documents, and work with the real-world data your users have.
-
----
-
-### [06 - MCP (Model Context Protocol)](06-mcp/)
-
-Connect agents to external tools through a standardized protocol. Build and consume MCP servers for databases, APIs, file systems, and more.
+Three-tier agent memory that persists across sessions. Working memory (session buffer), episodic memory (timestamped events in JSON), and semantic memory (facts in ChromaDB vector store) — with agent-driven tools and session consolidation.
 
 ---
 
-### [07 - Multi-Agent Systems](07-multi-agent-systems/)
+### [06 - RAG Techniques](06-rag-techniques/)
 
-Multiple agents collaborating on shared tasks. Communication patterns, delegation, conflict resolution, and when multi-agent is (and isn't) the right call.
-
----
-
-### [08 - RAG Techniques](08-rag-techniques/)
-
-Move beyond basic vector similarity search. Hybrid retrieval, knowledge graphs, contextual chunking, and agentic RAG patterns for complex queries.
+Retrieval-Augmented Generation for answering questions from external documents. **Pipeline RAG** builds a full ingest → chunk → embed → hybrid retrieve → rerank → generate pipeline. **Agentic RAG** gives the agent a search tool so it decides when to retrieve, what query to use, and whether to search again.
 
 ---
 
-### [09 - Streaming](09-streaming/)
+### [07 - Multimodal](07-multimodal/)
 
-SSE, token-by-token output, and streaming tool calls. Every production UI needs this and it's surprisingly tricky to get right with agents.
+Move beyond text-only agents. Send images to Claude for vision analysis, generate images with Gemini's native generation, and build voice capabilities with OpenAI's TTS and Whisper. Three scripts, three providers, three modalities.
 
 ---
 
-## 🔗 Resources
+### [08 - MCP (Model Context Protocol)](08-mcp/)
+
+Standardize tool access with the Model Context Protocol. Build an MCP server with FastMCP decorators, connect a Claude-powered agent that discovers tools dynamically, and learn when MCP is worth the overhead vs custom tools — with an honest side-by-side comparison.
+
+---
+
+### [09 - Multi-Agent Systems](09-multi-agent-systems/)
+
+Five coordination patterns for multi-agent systems — pipeline, router, orchestrator-workers, evaluator-optimizer, and debate. Learn when multiple agents outperform a single agent with many tools, and how to manage the cost tradeoffs.
+
+---
+
+### [10 - Guardrails, Safety & Evaluation](10-guardrails-eval/)
+
+The safety layer that separates prototypes from production. **Input guardrails** catch prompt injection, PII, and harmful intent before they reach the agent. **Output guardrails** verify responses for policy violations and hallucination. **LLM-as-judge** scores agent quality with rubric-based evaluation and pairwise comparison. **Red teaming** stress-tests your defenses across six attack categories.
+
+---
+
+## Resources
 
 - [Anthropic Prompt Caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)
+- [Anthropic Vision](https://docs.anthropic.com/en/docs/build-with-claude/vision)
+- [Anthropic Guardrails Guide](https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks)
+- [Google Gemini Image Generation](https://ai.google.dev/gemini-api/docs/image-generation)
+- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+- [MCP Specification](https://modelcontextprotocol.io/specification/2025-11-25)
 - [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Pre-built MCP Servers](https://github.com/modelcontextprotocol/servers)
+- [OpenAI Speech-to-Text](https://platform.openai.com/docs/guides/speech-to-text)
 - [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+- [OpenAI Text-to-Speech](https://platform.openai.com/docs/guides/text-to-speech)
+- [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/)
