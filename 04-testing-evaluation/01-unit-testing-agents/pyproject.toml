@@ -1,0 +1,23 @@
+[project]
+name = "lesson-unit-testing-agents"
+version = "0.1.0"
+description = "Lesson: Unit Testing Agents - Mock LLM responses and test agent behavior deterministically"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "common",
+    "pytest>=8.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
