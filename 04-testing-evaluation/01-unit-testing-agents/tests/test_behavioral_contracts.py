@@ -1,7 +1,7 @@
 """
 Behavioral Contracts
 
-Demonstrates how to define and verify behavioral invariants — things an agent
+Defines and verifies behavioral invariants — things an agent
 must ALWAYS or NEVER do — regardless of what the LLM returns.
 
 Key testing concepts:
@@ -12,21 +12,10 @@ Key testing concepts:
 """
 
 import json
-from pathlib import Path
 from unittest.mock import MagicMock
-
-import pytest
-from common import setup_logging
-from dotenv import find_dotenv, load_dotenv
-from rich.console import Console
-from rich.panel import Panel
 
 from shared.agent import ToolUseAgent
 from shared.mock_helpers import create_mock_response, make_text_block, make_tool_use_block
-
-load_dotenv(find_dotenv())
-
-logger = setup_logging(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -252,54 +241,3 @@ class TestRobustnessContracts:
             # Content must be valid JSON
             parsed = json.loads(item["content"])
             assert isinstance(parsed, dict)
-
-
-# ---------------------------------------------------------------------------
-# main() — run tests with Rich output for standalone execution
-# ---------------------------------------------------------------------------
-
-
-def main() -> None:
-    """Run tests programmatically and display results with Rich."""
-    console = Console()
-
-    console.print(
-        Panel(
-            "[bold cyan]Behavioral Contracts[/bold cyan]\n\n"
-            "Verifies invariants the agent must ALWAYS or NEVER violate:\n\n"
-            "  NEVER execute blocked commands (rm, sudo, etc.)\n"
-            "  ALWAYS stop within max_iterations\n"
-            "  ALWAYS include tool results in conversation history\n"
-            "  ALWAYS handle edge cases without crashing\n\n"
-            "Concepts: safety contracts, termination guarantees, history invariants",
-            title="03 — Behavioral Contracts",
-        )
-    )
-
-    console.print("\n[bold]Running tests...[/bold]\n")
-
-    # Save test results to output/
-    output_dir = Path(__file__).parent / "output"
-    output_dir.mkdir(exist_ok=True)
-    report_path = output_dir / "03_behavioral_contracts.xml"
-
-    exit_code = pytest.main(
-        [
-            __file__,
-            "-v",
-            "--tb=short",
-            "--no-header",
-            f"--junitxml={report_path}",
-        ]
-    )
-
-    if exit_code == 0:
-        console.print("\n[bold green]All behavioral contracts verified![/bold green]")
-    else:
-        console.print(f"\n[bold red]Some contracts violated (exit code: {exit_code})[/bold red]")
-
-    console.print(f"[dim]Test report saved to {report_path}[/dim]")
-
-
-if __name__ == "__main__":
-    main()

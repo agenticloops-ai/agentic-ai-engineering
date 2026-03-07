@@ -133,4 +133,4 @@ This is the capstone — you've completed the Testing & Evaluation module! From 
 - **Extend** — Add LLM-as-judge grading from [Tutorial 02](../02-evals/) to the composite grader
 - **Integrate** — Run the harness in CI/CD to catch regressions automatically
 - **Frameworks** — Plug in [eval frameworks](../06-eval-frameworks/) (Promptfoo, Braintrust, Langfuse) for production use
-- **Explore** — Check out [Module 02: Advanced Patterns](../../02-advanced/) for more complex agents to test
+- **Explore** — Check out [Module 02: Effective Agents](../../02-effective-agents/) for more complex agents to test

@@ -1,7 +1,7 @@
 """
 Tool Testing
 
-Demonstrates how to test tool functions in isolation — verifying input validation,
+Tests tool functions in isolation — verifying input validation,
 output format, error handling, and edge cases without involving the LLM at all.
 
 Key testing concepts:
@@ -13,16 +13,8 @@ Key testing concepts:
 from pathlib import Path
 
 import pytest
-from common import setup_logging
-from dotenv import find_dotenv, load_dotenv
-from rich.console import Console
-from rich.panel import Panel
 
 from shared.tools import BLOCKED_COMMANDS, calculator, execute_tool, read_file, run_bash
-
-load_dotenv(find_dotenv())
-
-logger = setup_logging(__name__)
 
 
 # ---------------------------------------------------------------------------
@@ -188,51 +180,3 @@ class TestExecuteTool:
         result = execute_tool("read_file", {"path": str(sample_file)})
         assert "content" in result
         assert "line 1" in result["content"]
-
-
-# ---------------------------------------------------------------------------
-# main() — run tests with Rich output for standalone execution
-# ---------------------------------------------------------------------------
-
-
-def main() -> None:
-    """Run tests programmatically and display results with Rich."""
-    console = Console()
-
-    console.print(
-        Panel(
-            "[bold cyan]Tool Testing[/bold cyan]\n\n"
-            "Tests tool functions in isolation — no LLM, no mocks needed.\n"
-            "Covers: input validation, output format, error handling, edge cases.\n\n"
-            "Concepts: pure function testing, fixtures, edge case coverage",
-            title="02 — Tool Testing",
-        )
-    )
-
-    console.print("\n[bold]Running tests...[/bold]\n")
-
-    # Save test results to output/
-    output_dir = Path(__file__).parent / "output"
-    output_dir.mkdir(exist_ok=True)
-    report_path = output_dir / "02_tool_testing.xml"
-
-    exit_code = pytest.main(
-        [
-            __file__,
-            "-v",
-            "--tb=short",
-            "--no-header",
-            f"--junitxml={report_path}",
-        ]
-    )
-
-    if exit_code == 0:
-        console.print("\n[bold green]All tests passed![/bold green]")
-    else:
-        console.print(f"\n[bold red]Some tests failed (exit code: {exit_code})[/bold red]")
-
-    console.print(f"[dim]Test report saved to {report_path}[/dim]")
-
-
-if __name__ == "__main__":
-    main()

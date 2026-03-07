@@ -17,3 +17,7 @@ common = { path = "../../common", editable = true }
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

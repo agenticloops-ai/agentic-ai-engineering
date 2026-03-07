@@ -1,32 +1,18 @@
 """
 Mock LLM Testing
 
-Demonstrates how to test an agent's tool-use loop without making real API calls.
+Tests the agent's tool-use loop without making real API calls.
 Uses unittest.mock to simulate Anthropic responses, verifying that the agent correctly
 parses tool calls, executes tools, sends results back, and handles errors.
 """
 
 import json
-from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
-from common import setup_logging
-from dotenv import find_dotenv, load_dotenv
-from rich.console import Console
-from rich.panel import Panel
 
 from shared.agent import ToolUseAgent
 from shared.mock_helpers import create_mock_response, make_text_block, make_tool_use_block
-
-load_dotenv(find_dotenv())
-
-logger = setup_logging(__name__)
-
-
-# ---------------------------------------------------------------------------
-# Tests
-# ---------------------------------------------------------------------------
 
 
 class TestToolUseAgent:
@@ -151,51 +137,3 @@ class TestToolUseAgent:
 
         with pytest.raises(Exception, match="API rate limit exceeded"):
             self.agent.send_message("Hello")
-
-
-# ---------------------------------------------------------------------------
-# main() — run tests with Rich output for standalone execution
-# ---------------------------------------------------------------------------
-
-
-def main() -> None:
-    """Run tests programmatically and display results with Rich."""
-    console = Console()
-
-    console.print(
-        Panel(
-            "[bold cyan]Mock LLM Testing[/bold cyan]\n\n"
-            "Tests the tool-use agent loop using mocked Anthropic responses.\n"
-            "No API keys required — everything is simulated.\n\n"
-            "Concepts: dependency injection, mock responses, assertion strategies",
-            title="01 — Mock LLM Testing",
-        )
-    )
-
-    console.print("\n[bold]Running tests...[/bold]\n")
-
-    # Save test results to output/
-    output_dir = Path(__file__).parent / "output"
-    output_dir.mkdir(exist_ok=True)
-    report_path = output_dir / "01_mock_llm_testing.xml"
-
-    exit_code = pytest.main(
-        [
-            __file__,
-            "-v",
-            "--tb=short",
-            "--no-header",
-            f"--junitxml={report_path}",
-        ]
-    )
-
-    if exit_code == 0:
-        console.print("\n[bold green]All tests passed![/bold green]")
-    else:
-        console.print(f"\n[bold red]Some tests failed (exit code: {exit_code})[/bold red]")
-
-    console.print(f"[dim]Test report saved to {report_path}[/dim]")
-
-
-if __name__ == "__main__":
-    main()

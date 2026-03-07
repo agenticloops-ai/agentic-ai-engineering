@@ -22,27 +22,33 @@ Learn how to test AI agents without making API calls. By mocking LLM responses a
 
 | Script | File | Description |
 | ------ | ---- | ----------- |
-| Mock LLM Testing | [01_mock_llm_testing.py](01_mock_llm_testing.py) | Mock `client.messages.create()`, test agent loop logic |
-| Tool Testing | [02_tool_testing.py](02_tool_testing.py) | Test tool functions in isolation with edge cases |
-| Behavioral Contracts | [03_behavioral_contracts.py](03_behavioral_contracts.py) | Define and verify agent invariants |
-| Integration Testing | [04_integration_testing.py](04_integration_testing.py) | Record/replay API responses, snapshot regression |
+| Run Tests | [01_run_tests.py](01_run_tests.py) | Run the full test suite with Rich UI and confirmation |
+
+### Test Modules
+
+| Test | File | Description |
+| ---- | ---- | ----------- |
+| Mock LLM | [tests/test_mock_llm.py](tests/test_mock_llm.py) | Mock `client.messages.create()`, test agent loop logic |
+| Tools | [tests/test_tools.py](tests/test_tools.py) | Test tool functions in isolation with edge cases |
+| Contracts | [tests/test_behavioral_contracts.py](tests/test_behavioral_contracts.py) | Define and verify agent invariants |
+| Integration | [tests/test_integration.py](tests/test_integration.py) | Record/replay API responses, snapshot regression |
 
 ## 🚀 Quick Start
 
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-# Run all tests (42 tests across all scripts)
-uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py 02_tool_testing.py 03_behavioral_contracts.py 04_integration_testing.py -v
+# Run test suite with Rich UI (shows overview, asks for confirmation)
+uv run --directory 04-testing-evaluation/01-unit-testing-agents python 01_run_tests.py
 
-# Run a single script's tests
-uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 01_mock_llm_testing.py -v
+# Run all tests directly via pytest (42 tests)
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest tests/ -v
+
+# Run a single test module
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest tests/test_mock_llm.py -v
 
 # Run a specific test class
-uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest 03_behavioral_contracts.py::TestSafetyContracts -v
-
-# Run individual scripts for Rich-formatted demo output
-uv run --directory 04-testing-evaluation/01-unit-testing-agents python 01_mock_llm_testing.py
+uv run --directory 04-testing-evaluation/01-unit-testing-agents pytest tests/test_behavioral_contracts.py::TestSafetyContracts -v
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -55,8 +61,9 @@ Traditional testing pyramids apply to agents too, but with an AI twist — the h
 
 | Layer | Speed | Cost | What it tests |
 |-------|-------|------|---------------|
-| **Unit (mock)** ← scripts 01–03 | Fast | Free | Tool execution, routing, message construction, error handling |
-| **Integration** ← script 04 | Medium | Free | End-to-end flows with recorded/cached LLM responses |
+| **Unit (mock)** ← test_mock_llm, test_tools | Fast | Free | Tool execution, routing, message construction, error handling |
+| **Contracts** ← test_behavioral_contracts | Fast | Free | Safety, termination, history invariants |
+| **Integration** ← test_integration | Medium | Free | End-to-end flows with recorded/cached LLM responses |
 | **Eval** | Slow | $$ | LLM reasoning quality with live calls and statistical assertions |
 
 ### 2. Dependency Injection for Testability
