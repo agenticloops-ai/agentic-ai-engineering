@@ -84,7 +84,7 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 6. **[Human in the Loop](02-effective-agents/06-human-in-the-loop/)** — Approval gates, escalation, feedback
 7. **[Content Writer](02-effective-agents/07-content-writer/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Full agent composing all agentic workflow patterns
 
-### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Practical engineering problems you'll hit the moment agents leave the prototype stage. Context limits, cost, memory, multimodal input — solved one tutorial at a time.
 
