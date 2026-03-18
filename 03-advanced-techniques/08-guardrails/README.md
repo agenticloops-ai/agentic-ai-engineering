@@ -17,16 +17,16 @@ Every previous tutorial taught you to build capable agents. This one teaches you
 
 ## Available Examples
 
-| Provider                                        | File                                                                             | Description                                 |
-| ----------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_guardrails_anthropic.py](01_guardrails_anthropic.py)                         | Customer support agent with full guardrails |
+| Provider                                        | File                                                     | Description                                 |
+| ----------------------------------------------- | -------------------------------------------------------- | ------------------------------------------- |
+| ![Anthropic](../../common/badges/anthropic.svg) | [01_guardrails_anthropic.py](01_guardrails_anthropic.py) | Customer support agent with full guardrails |
 
 ## Quick Start
 
 > **Prerequisites:** Python 3.11+, API keys, and uv. See [SETUP.md](../../SETUP.md) for full setup instructions.
 
 ```bash
-uv run --directory 03-advanced-techniques/10-guardrails-eval python 01_guardrails_anthropic.py
+uv run --directory 03-advanced-techniques/08-guardrails python 01_guardrails_anthropic.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -59,14 +59,14 @@ The input guard catches attacks *before* they reach the agent. The output guard 
 
 No single check catches everything. Use multiple layers, cheapest first:
 
-| Layer | What it catches | Latency | Cost |
-| --- | --- | --- | --- |
-| **Length limits** | Many-shot injection, token exhaustion | <1ms | $0 |
-| **Regex patterns** | Known injection phrases ("ignore previous instructions") | <1ms | $0 |
-| **PII scan** | Social security numbers, credit cards, emails | <1ms | $0 |
-| **LLM screen (Haiku)** | Novel attacks, subtle manipulation, harmful intent | 200-500ms | ~$0.01/1K msgs |
-| **Output content check** | Policy violations, leaked internals | 200-500ms | ~$0.02/1K msgs |
-| **Groundedness check** | Hallucination, unsupported claims | 200-500ms | ~$0.02/1K msgs |
+| Layer                    | What it catches                                          | Latency   | Cost           |
+| ------------------------ | -------------------------------------------------------- | --------- | -------------- |
+| **Length limits**        | Many-shot injection, token exhaustion                    | <1ms      | $0             |
+| **Regex patterns**       | Known injection phrases ("ignore previous instructions") | <1ms      | $0             |
+| **PII scan**             | Social security numbers, credit cards, emails            | <1ms      | $0             |
+| **LLM screen (Haiku)**   | Novel attacks, subtle manipulation, harmful intent       | 200-500ms | ~$0.01/1K msgs |
+| **Output content check** | Policy violations, leaked internals                      | 200-500ms | ~$0.02/1K msgs |
+| **Groundedness check**   | Hallucination, unsupported claims                        | 200-500ms | ~$0.02/1K msgs |
 
 Fast, free checks run first and catch the obvious attacks. The LLM screen only runs on inputs that pass the heuristic layer, keeping costs low.
 
