@@ -37,10 +37,10 @@ Embeddings run locally using `sentence-transformers` (all-MiniLM-L6-v2, ~80MB do
 
 ```bash
 # RAG pipeline demo
-uv run --directory 03-advanced-techniques/08-rag-techniques python 01_rag_pipeline_anthropic.py
+uv run --directory 03-advanced-techniques/06-rag-techniques python 01_rag_pipeline_anthropic.py
 
 # Agentic RAG demo
-uv run --directory 03-advanced-techniques/08-rag-techniques python 02_agentic_rag_anthropic.py
+uv run --directory 03-advanced-techniques/06-rag-techniques python 02_agentic_rag_anthropic.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -250,7 +250,7 @@ class AgenticRAG:
 ## 👉 Next Steps
 
 Once you've built RAG pipelines, continue to:
-- **[Streaming](../09-streaming/)** — Stream RAG responses token-by-token for responsive UIs
+- **[Multimodal](../07-multimodal/)** — Process images, generate visuals, and handle audio alongside text
 - **Experiment** — Try different chunk sizes (256 vs 512 vs 1024) and compare retrieval quality
 - **Explore** — Add your own documents to `sample_docs/` and see how the pipeline handles them
 - **Advanced** — Read about [Anthropic's Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) for a technique that enriches chunks with document-level context before embedding

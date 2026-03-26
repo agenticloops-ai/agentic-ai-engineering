@@ -33,13 +33,13 @@ Move beyond text-only agents. This tutorial teaches three core multimodal skills
 
 ```bash
 # Vision — analyze images with Claude
-uv run --directory 03-advanced-techniques/05-multimodal python 01_vision_anthropic.py
+uv run --directory 03-advanced-techniques/07-multimodal python 01_vision_anthropic.py
 
 # Image Generation — create images with Gemini
-uv run --directory 03-advanced-techniques/05-multimodal python 02_image_generation_gemini.py
+uv run --directory 03-advanced-techniques/07-multimodal python 02_image_generation_gemini.py
 
 # Audio — text-to-speech and transcription with OpenAI
-uv run --directory 03-advanced-techniques/05-multimodal python 03_audio_openai.py
+uv run --directory 03-advanced-techniques/07-multimodal python 03_audio_openai.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -179,7 +179,7 @@ Each script follows the standard pattern: class encapsulating the LLM/API logic,
 
 ## 👉 Next Steps
 
-- **[MCP (Model Context Protocol)](../06-mcp/)** — Connect agents to external tools through a standardized protocol
+- **[Guardrails](../08-guardrails/)** — Add input and output safety layers for production agents
 - **Experiments to try:**
   - Add image editing: send Gemini an image + text prompt to modify it
   - Build a visual Q&A loop: upload images, ask follow-up questions about them

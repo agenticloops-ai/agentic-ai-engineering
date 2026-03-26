@@ -30,10 +30,10 @@ The [context engineering tutorial](../03-context-engineering/) taught you to man
 
 ```bash
 # Prompt caching demo
-uv run --directory 03-advanced-techniques/04-prompt-caching python 01_prompt_caching_anthropic.py
+uv run --directory 03-advanced-techniques/04-cost-optimization python 01_prompt_caching_anthropic.py
 
 # Model routing demo
-uv run --directory 03-advanced-techniques/04-prompt-caching python 02_model_routing_anthropic.py
+uv run --directory 03-advanced-techniques/04-cost-optimization python 02_model_routing_anthropic.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -195,6 +195,6 @@ class ModelRouter:
 ## 👉 Next Steps
 
 Once you've explored cost optimization, continue to:
-- **[Multimodal](../05-multimodal/)** — Process images, audio, and files alongside text
+- **[Memory Systems](../05-memory/)** — Give agents persistent memory across sessions
 - **Experiment** — Try combining both strategies: cache the system prompt *and* route tasks to different models
 - **Explore** — Add a third routing tier (e.g., Opus for the hardest tasks) or implement confidence-based fallback

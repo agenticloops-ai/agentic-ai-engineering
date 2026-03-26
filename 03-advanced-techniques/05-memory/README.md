@@ -185,7 +185,7 @@ This catches information the agent didn't explicitly `remember` during the conve
 
 ## 👉 Next Steps
 
-- **[Multimodal](../05-multimodal/)** — Process images, audio, and files alongside text
+- **[RAG Techniques](../06-rag-techniques/)** — Build retrieval-augmented generation pipelines with hybrid search and agentic retrieval
 - **Experiments to try:**
   - Add a retention policy that auto-deletes episodic memories older than 30 days
   - Implement memory summarization — compress old episodic entries into semantic facts

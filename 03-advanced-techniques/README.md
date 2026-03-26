@@ -48,7 +48,7 @@ Multi-Agent Systems
     ↓
   (adds safety & quality)
     ↓
-Guardrails & Evaluation
+Guardrails
 ```
 
 ## Tutorials
@@ -95,19 +95,7 @@ Move beyond text-only agents. Send images to Claude for vision analysis, generat
 
 ---
 
-### [08 - MCP (Model Context Protocol)](08-mcp/)
-
-Standardize tool access with the Model Context Protocol. Build an MCP server with FastMCP decorators, connect a Claude-powered agent that discovers tools dynamically, and learn when MCP is worth the overhead vs custom tools — with an honest side-by-side comparison.
-
----
-
-### [09 - Multi-Agent Systems](09-multi-agent-systems/)
-
-Five coordination patterns for multi-agent systems — pipeline, router, orchestrator-workers, evaluator-optimizer, and debate. Learn when multiple agents outperform a single agent with many tools, and how to manage the cost tradeoffs.
-
----
-
-### [10 - Guardrails](10-guardrails/)
+### [08 - Guardrails](08-guardrails/)
 
 The safety layer that separates prototypes from production. **Input guardrails** catch prompt injection, PII, and harmful intent before they reach the agent. **Output guardrails** verify responses for policy violations and hallucination. Defense in depth with cheap heuristics first, LLM classifier last.
 

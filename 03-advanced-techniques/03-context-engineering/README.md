@@ -271,6 +271,6 @@ class ToolContextAgent:
 ## 👉 Next Steps
 
 Once you've mastered context engineering, continue to:
-- **[Memory](../03-memory/)** — Persist context across sessions with long-term storage
+- **[Cost Optimization](../04-cost-optimization/)** — Reduce API costs with prompt caching and intelligent model routing
 - **Experiment** — Try changing `RECENT_MESSAGES_TO_KEEP` and `MAX_CONTEXT_TOKENS` to see how they affect compression behavior
 - **Explore** — Add a "recall" command that shows the current summary, or try different summarization prompts
