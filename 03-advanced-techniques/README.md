@@ -9,47 +9,34 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 
 > **Coming soon** — this module is under active development. [Subscribe to our Substack](https://agenticloopsai.substack.com) or star the repo to get notified when tutorials drop.
 
-## Progression Path
+## 🗺️ Progression Path
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: neutral
+---
+flowchart TD
+    A["1 · 📋 Structured Output     "] -->|"+ real-time output"| B["2 · 🌊 Streaming     "]
+    B -->|"+ window strategies"| C["3 · 🧠 Context Engineering     "]
+    C -->|"+ cost reduction"| D["4 · 💰 Cost Optimization     "]
+    D -->|"+ persistence"| E["5 · 📝 Memory Systems     "]
+    E -->|"+ retrieval"| F["6 · 🔍 RAG Techniques     "]
+    F -->|"+ non-text input"| G["7 · 🖼️ Multimodal     "]
+    G -->|"+ safety & quality"| H["8 · 🛡️ Guardrails     "]
 ```
-Structured Output
-    ↓
-  (adds real-time output)
-    ↓
-Streaming
-    ↓
-  (adds window strategies)
-    ↓
-Context Engineering
-    ↓
-  (adds cost reduction)
-    ↓
-Cost Optimization
-    ↓
-  (adds persistence)
-    ↓
-Memory Systems
-    ↓
-  (adds advanced retrieval)
-    ↓
-RAG Techniques
-    ↓
-  (adds non-text input)
-    ↓
-Multimodal
-    ↓
-  (adds standardized tools)
-    ↓
-MCP
-    ↓
-  (adds agent collaboration)
-    ↓
-Multi-Agent Systems
-    ↓
-  (adds safety & quality)
-    ↓
-Guardrails
-```
+
+| Step | Tutorial | What It Adds |
+|:----:|----------|-------------|
+| 1 | [Structured Output](01-structured-output/) | JSON schemas, Pydantic validation |
+| 2 | [Streaming](02-streaming/) | + token-by-token output, streaming tool calls |
+| 3 | [Context Engineering](03-context-engineering/) | + token counting, budget allocation, compression |
+| 4 | [Cost Optimization](04-cost-optimization/) | + prompt caching, model routing |
+| 5 | [Memory Systems](05-memory/) | + working, episodic & semantic memory |
+| 6 | [RAG Techniques](06-rag-techniques/) | + hybrid search, reranking, agentic retrieval |
+| 7 | [Multimodal](07-multimodal/) | + vision, image generation, audio |
+| 8 | [Guardrails](08-guardrails/) | + input/output safety, defense in depth |
 
 ## Tutorials
 
