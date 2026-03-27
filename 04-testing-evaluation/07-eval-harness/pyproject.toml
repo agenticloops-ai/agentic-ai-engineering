@@ -1,0 +1,20 @@
+[project]
+name = "lesson-eval-harness"
+version = "0.1.0"
+description = "Lesson: Eval Harness - Capstone evaluation pipeline combining all testing techniques"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "common",
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

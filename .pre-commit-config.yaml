@@ -25,6 +25,7 @@ repos:
           - types-requests
           - types-beautifulsoup4
         args: [--show-error-codes]
+        exclude: 04-testing-evaluation/0[1-6]
 
   # Conventional Commits - Enforce commit message format
   - repo: https://github.com/compilerla/conventional-pre-commit

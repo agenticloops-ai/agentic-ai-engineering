@@ -1,0 +1,23 @@
+[project]
+name = "lesson-eval-frameworks"
+version = "0.1.0"
+description = "Lesson: Eval Frameworks - Promptfoo, Braintrust AutoEvals, Langfuse"
+requires-python = ">=3.11"
+dependencies = [
+    "common",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[project.optional-dependencies]
+promptfoo = ["pyyaml>=6.0"]
+braintrust = ["autoevals>=0.0.80"]
+langfuse = ["langfuse>=2.0.0"]
+all = ["pyyaml>=6.0", "autoevals>=0.0.80", "langfuse>=2.0.0"]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
