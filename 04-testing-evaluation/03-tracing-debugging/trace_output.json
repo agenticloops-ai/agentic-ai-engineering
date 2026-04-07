@@ -1,0 +1,243 @@
+{
+  "trace_id": "e2247a63",
+  "spans": [
+    {
+      "name": "answer_question",
+      "span_type": "agent_step",
+      "start_time": 1772771706.309427,
+      "end_time": 1772771715.711722,
+      "duration_ms": 9402.29,
+      "inputs": {
+        "question": "What are the benefits of microservices?"
+      },
+      "outputs": {
+        "answer": "Based on the knowledge base, here are the **benefits of microservices architecture**:\n\n1. **Scalability** - Microservices can be scaled independently, allowing you to scale only the specific services ",
+        "llm_calls": 3
+      },
+      "metadata": {},
+      "tokens": {},
+      "error": null,
+      "children": [
+        {
+          "name": "llm_call_1",
+          "span_type": "llm_call",
+          "start_time": 1772771706.309437,
+          "end_time": 1772771708.0584562,
+          "duration_ms": 1749.02,
+          "inputs": {
+            "message_count": 1
+          },
+          "outputs": {
+            "stop_reason": "tool_use"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 715,
+            "output": 73
+          },
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "tool_search_knowledge_base",
+          "span_type": "tool_call",
+          "start_time": 1772771708.058495,
+          "end_time": 1772771708.058559,
+          "duration_ms": 0.06,
+          "inputs": {
+            "tool": "search_knowledge_base",
+            "input": {
+              "query": "benefits of microservices"
+            }
+          },
+          "outputs": {
+            "result": "[{'id': 'doc_001', 'title': 'Microservices Architecture', 'score': 2}, {'id': 'doc_007', 'title': 'Event-Driven Architecture', 'score': 1}]"
+          },
+          "metadata": {},
+          "tokens": {},
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "llm_call_2",
+          "span_type": "llm_call",
+          "start_time": 1772771708.058593,
+          "end_time": 1772771709.8966131,
+          "duration_ms": 1838.02,
+          "inputs": {
+            "message_count": 3
+          },
+          "outputs": {
+            "stop_reason": "tool_use"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 849,
+            "output": 57
+          },
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "tool_get_document",
+          "span_type": "tool_call",
+          "start_time": 1772771709.8966389,
+          "end_time": 1772771709.8966599,
+          "duration_ms": 0.02,
+          "inputs": {
+            "tool": "get_document",
+            "input": {
+              "doc_id": "doc_001"
+            }
+          },
+          "outputs": {
+            "result": "{'id': 'doc_001', 'title': 'Microservices Architecture', 'content': 'Microservices architecture decomposes applications into small, independent services. Each service runs in its own process, communic"
+          },
+          "metadata": {},
+          "tokens": {},
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "llm_call_3",
+          "span_type": "llm_call",
+          "start_time": 1772771709.896696,
+          "end_time": 1772771715.7116768,
+          "duration_ms": 5814.98,
+          "inputs": {
+            "message_count": 5
+          },
+          "outputs": {
+            "stop_reason": "end_turn"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 1016,
+            "output": 245
+          },
+          "error": null,
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "answer_question",
+      "span_type": "agent_step",
+      "start_time": 1772771715.7137501,
+      "end_time": 1772771725.633127,
+      "duration_ms": 9919.38,
+      "inputs": {
+        "question": "How should I design a REST API?"
+      },
+      "outputs": {
+        "answer": "Based on the documentation, here are the key principles for designing a REST API:\n\n## Core Design Principles\n\n**Resource-Oriented Design:**\n- Structure your API around resources (nouns) rather than ac",
+        "llm_calls": 3
+      },
+      "metadata": {},
+      "tokens": {},
+      "error": null,
+      "children": [
+        {
+          "name": "llm_call_1",
+          "span_type": "llm_call",
+          "start_time": 1772771715.713759,
+          "end_time": 1772771717.441584,
+          "duration_ms": 1727.83,
+          "inputs": {
+            "message_count": 1
+          },
+          "outputs": {
+            "stop_reason": "tool_use"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 714,
+            "output": 75
+          },
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "tool_search_knowledge_base",
+          "span_type": "tool_call",
+          "start_time": 1772771717.441605,
+          "end_time": 1772771717.441652,
+          "duration_ms": 0.05,
+          "inputs": {
+            "tool": "search_knowledge_base",
+            "input": {
+              "query": "REST API design principles best practices"
+            }
+          },
+          "outputs": {
+            "result": "[{'id': 'doc_002', 'title': 'REST API Design', 'score': 6}, {'id': 'doc_001', 'title': 'Microservices Architecture', 'score': 1}, {'id': 'doc_005', 'title': 'CI/CD Pipelines', 'score': 1}]"
+          },
+          "metadata": {},
+          "tokens": {},
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "llm_call_2",
+          "span_type": "llm_call",
+          "start_time": 1772771717.441683,
+          "end_time": 1772771719.392132,
+          "duration_ms": 1950.45,
+          "inputs": {
+            "message_count": 3
+          },
+          "outputs": {
+            "stop_reason": "tool_use"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 873,
+            "output": 57
+          },
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "tool_get_document",
+          "span_type": "tool_call",
+          "start_time": 1772771719.392149,
+          "end_time": 1772771719.392162,
+          "duration_ms": 0.01,
+          "inputs": {
+            "tool": "get_document",
+            "input": {
+              "doc_id": "doc_002"
+            }
+          },
+          "outputs": {
+            "result": "{'id': 'doc_002', 'title': 'REST API Design', 'content': 'REST APIs follow resource-oriented design principles. Use nouns for endpoints, HTTP methods for actions, and status codes for results. Best pr"
+          },
+          "metadata": {},
+          "tokens": {},
+          "error": null,
+          "children": []
+        },
+        {
+          "name": "llm_call_3",
+          "span_type": "llm_call",
+          "start_time": 1772771719.3921862,
+          "end_time": 1772771725.633085,
+          "duration_ms": 6240.9,
+          "inputs": {
+            "message_count": 5
+          },
+          "outputs": {
+            "stop_reason": "end_turn"
+          },
+          "metadata": {},
+          "tokens": {
+            "input": 1016,
+            "output": 287
+          },
+          "error": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -5,13 +5,13 @@
 ![AI Agents Engineering](common/images/banner.png)
 
 <!-- Keep these links. Translations will automatically update with the README. -->
-[English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) | 
-[Deutsch](https://zdoc.app/de/agenticloops-ai/agentic-ai-engineering) | 
-[Español](https://zdoc.app/es/agenticloops-ai/agentic-ai-engineering) | 
-[français](https://zdoc.app/fr/agenticloops-ai/agentic-ai-engineering) | 
-[日本語](https://zdoc.app/ja/agenticloops-ai/agentic-ai-engineering) | 
-[한국어](https://zdoc.app/ko/agenticloops-ai/agentic-ai-engineering) | 
-[Português](https://zdoc.app/pt/agenticloops-ai/agentic-ai-engineering) | 
+[English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) |
+[Deutsch](https://zdoc.app/de/agenticloops-ai/agentic-ai-engineering) |
+[Español](https://zdoc.app/es/agenticloops-ai/agentic-ai-engineering) |
+[français](https://zdoc.app/fr/agenticloops-ai/agentic-ai-engineering) |
+[日本語](https://zdoc.app/ja/agenticloops-ai/agentic-ai-engineering) |
+[한국어](https://zdoc.app/ko/agenticloops-ai/agentic-ai-engineering) |
+[Português](https://zdoc.app/pt/agenticloops-ai/agentic-ai-engineering) |
 [中文](https://zdoc.app/zh/agenticloops-ai/agentic-ai-engineering)
 
 [![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
@@ -98,29 +98,29 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 8. **[RAG Techniques](03-advanced-techniques/08-rag-techniques/)** — Hybrid search, GraphRAG, agentic retrieval
 9. **[Streaming](03-advanced-techniques/09-streaming/)** — SSE, token-by-token output, streaming tool calls
 
-### 🏗️ [04 - Frameworks](04-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
-
-One agent, nine implementations. Build the same system with each framework and compare trade-offs with your own hands.
-
-1. **[No Framework](04-frameworks/01-no-framework/)** — Raw SDK baseline
-2. **[LangGraph](04-frameworks/02-langgraph/)** — Graph-based orchestration
-3. **[Pydantic AI](04-frameworks/03-pydantic-ai/)** — Type-safe agents
-4. **[Google ADK](04-frameworks/04-google-adk/)** — Google's Agent Development Kit
-5. **[AWS Strands](04-frameworks/05-aws-strands/)** — AWS agent SDK
-6. **[CrewAI](04-frameworks/06-crewai/)** — Role-based multi-agent collaboration
-7. **[AutoGen](04-frameworks/07-autogen/)** — Multi-agent conversations
-8. **[LlamaIndex](04-frameworks/08-llamaindex/)** — Data-centric agents
-9. **[Semantic Kernel](04-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
-
-### 🧪 [05 - Testing & Evaluation](05-testing-evaluation/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🧪 [04 - Testing & Evaluation](04-testing-evaluation/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 Agents are non-deterministic — testing them requires different thinking. Measure quality, catch regressions, and build confidence before shipping.
 
-1. **[Unit Testing Agents](05-testing-evaluation/01-unit-testing-agents/)** — Mocking LLMs, deterministic tests
-2. **[Evals](05-testing-evaluation/02-evals/)** — Accuracy, quality, regression benchmarks
-3. **[Tracing & Debugging](05-testing-evaluation/03-tracing-debugging/)** — Observability during development
-4. **[Red Teaming & Safety](05-testing-evaluation/04-red-teaming-safety/)** — Adversarial testing, guardrails
-5. **[Benchmarking](05-testing-evaluation/05-benchmarking/)** — Comparing models, prompts, architectures head-to-head
+1. **[Unit Testing Agents](04-testing-evaluation/01-unit-testing-agents/)** — Mocking LLMs, deterministic tests
+2. **[Evals](04-testing-evaluation/02-evals/)** — Accuracy, quality, regression benchmarks
+3. **[Tracing & Debugging](04-testing-evaluation/03-tracing-debugging/)** — Observability during development
+4. **[Red Teaming & Safety](04-testing-evaluation/04-red-teaming-safety/)** — Adversarial testing, guardrails
+5. **[Benchmarking](04-testing-evaluation/05-benchmarking/)** — Comparing models, prompts, architectures head-to-head
+
+### 🏗️ [05 - Frameworks](05-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+
+One agent, nine implementations. Build the same system with each framework and compare trade-offs with your own hands.
+
+1. **[No Framework](05-frameworks/01-no-framework/)** — Raw SDK baseline
+2. **[LangGraph](05-frameworks/02-langgraph/)** — Graph-based orchestration
+3. **[Pydantic AI](05-frameworks/03-pydantic-ai/)** — Type-safe agents
+4. **[Google ADK](05-frameworks/04-google-adk/)** — Google's Agent Development Kit
+5. **[AWS Strands](05-frameworks/05-aws-strands/)** — AWS agent SDK
+6. **[CrewAI](05-frameworks/06-crewai/)** — Role-based multi-agent collaboration
+7. **[AutoGen](05-frameworks/07-autogen/)** — Multi-agent conversations
+8. **[LlamaIndex](05-frameworks/08-llamaindex/)** — Data-centric agents
+9. **[Semantic Kernel](05-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
 
 ### 🏭 [06 - Production](06-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
