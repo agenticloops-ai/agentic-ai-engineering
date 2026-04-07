@@ -10,7 +10,7 @@ Promptfoo calls call_api() for each test case. The function receives:
 
 def call_api(prompt, options, context):
     """Promptfoo provider entry point."""
-    from knowledge_base import get_agent_response, EVAL_TASKS
+    from shared.knowledge_base import get_agent_response, EVAL_TASKS
 
     question = context.get("vars", {}).get("question", prompt)
 

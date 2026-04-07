@@ -42,7 +42,10 @@ The capstone project that **combines all five techniques** from this module into
 uv run --directory 04-testing-evaluation/07-eval-harness python 01_eval_harness.py
 ```
 
-The harness runs in **simulated mode** without API keys (using `SimulatedResearchAgent`) and in **live mode** with an `ANTHROPIC_API_KEY`.
+On launch, an interactive menu lets you choose:
+
+- **Simulated** (default) — pre-defined responses, no API calls, instant results
+- **Live** — real Anthropic API calls with tool-use agent loop (requires `ANTHROPIC_API_KEY`). In live mode you also select which model to use. Eval trials and safety tests hit the API; benchmarks remain simulated since they compare across multiple model configurations.
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
 

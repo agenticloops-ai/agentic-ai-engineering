@@ -164,7 +164,7 @@ class ResearchAgent:
         scored.sort(key=lambda x: x[0], reverse=True)
         return [doc for _, doc in scored[:max_results]]
 
-    def answer(self, question: str) -> dict[str, Any]:
+    def answer(self, question: str, task_id: str = "") -> dict[str, Any]:
         """Answer a question using the knowledge base via tool-use loop."""
         messages: list[dict[str, Any]] = [{"role": "user", "content": question}]
         tool_calls_made: list[dict[str, Any]] = []
@@ -368,6 +368,33 @@ _SIMULATED_RESPONSES: dict[str, dict[str, Any]] = {
         ),
         "tool_calls": [
             {"name": "search_knowledge_base", "input": {"query": "over-indexing composite order"}}
+        ],
+    },
+    # Cross-cutting synthesis — intentionally surface-level, misses REST/CQRS/OAuth detail
+    "task_016": {
+        "answer": (
+            "Based on doc_001, a secure microservices system should have independent "
+            "services communicating via APIs. For authentication (doc_004), JWT tokens "
+            "provide stateless auth between services. Event-driven messaging patterns "
+            "can help with loose coupling between components."
+        ),
+        "tool_calls": [
+            {"name": "search_knowledge_base", "input": {"query": "microservices security events"}}
+        ],
+    },
+    # Tradeoff analysis — covers strategies but misses TTL/invalidation specifics
+    "task_017": {
+        "answer": (
+            "Per doc_008, write-through caching updates the cache on every write, ensuring "
+            "consistency but adding write latency. Write-behind caching performs async cache "
+            "writes for better write performance but risks data loss. Redis and Memcached "
+            "are common tools for distributed caching."
+        ),
+        "tool_calls": [
+            {
+                "name": "search_knowledge_base",
+                "input": {"query": "caching write-through write-behind"},
+            }
         ],
     },
 }

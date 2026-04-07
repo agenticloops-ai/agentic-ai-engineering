@@ -110,6 +110,6 @@ Different prompt strategies trade quality for cost:
 ## 👉 Next Steps
 
 Once you've mastered benchmarking, continue to:
-- **[Eval Harness](../06-eval-harness/)** — The capstone that combines all 5 techniques into a unified pipeline
+- **[Eval Harness](../07-eval-harness/)** — The capstone that combines all 5 techniques into a unified pipeline
 - **Experiment** — Add your own models and prompt strategies to the benchmark
 - **Explore** — Combine benchmark results with eval scores from [Tutorial 02](../02-evals/)

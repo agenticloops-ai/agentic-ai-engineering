@@ -77,7 +77,7 @@
         {
             "id": "task_010",
             "question": "What are the challenges of microservices and how does event-driven architecture help with loose coupling?",
-            "expected_keywords": ["distributed", "complexity", "loose coupling", "events"],
+            "expected_keywords": ["distributed", "complexity", "loose coupling", "events", "pub/sub"],
             "expected_source_ids": ["doc_001", "doc_007"],
             "difficulty": "hard",
             "category": "architecture"
@@ -93,7 +93,7 @@
         {
             "id": "task_012",
             "question": "Describe a complete DevOps pipeline from CI/CD to container orchestration with Kubernetes.",
-            "expected_keywords": ["CI", "CD", "Kubernetes", "containers", "deploy"],
+            "expected_keywords": ["CI", "CD", "Kubernetes", "containers", "deploy", "feature flags"],
             "expected_source_ids": ["doc_005", "doc_006"],
             "difficulty": "hard",
             "category": "devops"
@@ -121,6 +121,22 @@
             "expected_source_ids": ["doc_003"],
             "difficulty": "medium",
             "category": "database"
+        },
+        {
+            "id": "task_016",
+            "question": "Design a secure microservices system with event-driven communication. What authentication, API structure, and messaging patterns should you use?",
+            "expected_keywords": ["JWT", "microservices", "REST", "event sourcing", "CQRS", "OAuth", "endpoints"],
+            "expected_source_ids": ["doc_001", "doc_002", "doc_004", "doc_007"],
+            "difficulty": "hard",
+            "category": "cross-cutting"
+        },
+        {
+            "id": "task_017",
+            "question": "Compare write-through and write-behind caching strategies. What are the tradeoffs, and how do TTL and cache invalidation factor in?",
+            "expected_keywords": ["write-through", "write-behind", "TTL", "invalidation", "latency"],
+            "expected_source_ids": ["doc_008"],
+            "difficulty": "medium",
+            "category": "performance"
         }
     ]
 }

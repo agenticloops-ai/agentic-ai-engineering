@@ -10,13 +10,18 @@ This capstone integrates all five techniques from Module 05:
 3. Execution tracing linked to eval results
 4. Adversarial safety testing suite
 5. Model benchmarking with Pareto analysis
+
+Supports two modes:
+- Simulated (default): pre-defined responses, no API calls, instant results
+- Live: real Anthropic API calls with tool-use agent loop
 """
 
 import json
 import os
 from pathlib import Path
+from typing import Any
 
-from common import AnthropicTokenTracker, setup_logging
+from common import AnthropicTokenTracker, interactive_menu, setup_logging
 from dotenv import find_dotenv, load_dotenv
 from rich.console import Console
 from rich.panel import Panel
@@ -28,6 +33,7 @@ from eval_harness import (
     EvalResult,
     EvalTask,
     EvalTrial,
+    ResearchAgent,
     SafetyTester,
     SimulatedResearchAgent,
 )
@@ -40,6 +46,48 @@ load_dotenv(find_dotenv())
 logger = setup_logging(__name__)
 
 
+MODE_OPTIONS = [
+    "Simulated — pre-defined responses, no API calls",
+    "Live — real Anthropic API calls",
+]
+
+AVAILABLE_MODELS = [
+    "claude-sonnet-4-5-20250929",
+    "claude-haiku-4-5-20251001",
+    "claude-opus-4-0-20250514",
+]
+
+
+def select_mode_and_create_agent(console: Console, header: Panel) -> Any:
+    """Interactive mode and model selection, returns the configured agent."""
+    mode = interactive_menu(console, MODE_OPTIONS, title="Select Run Mode", header=header)
+    if mode is None:
+        raise SystemExit(0)
+
+    if mode.startswith("Live"):
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            console.print("[red bold]Live mode requires ANTHROPIC_API_KEY to be set[/red bold]")
+            raise SystemExit(1)
+
+        model = interactive_menu(console, AVAILABLE_MODELS, title="Select Model", header=header)
+        if model is None:
+            raise SystemExit(0)
+
+        import anthropic
+
+        client = anthropic.Anthropic()
+        console.print(
+            f"\n[green bold]Running in LIVE mode[/green bold] — real API calls to {model}\n"
+            "[dim]Eval trials and safety tests use the live agent. "
+            "Benchmarks remain simulated (multi-model comparison).[/dim]\n"
+        )
+        return ResearchAgent(client=client, model=model)
+
+    console.print("\n[dim]Running in SIMULATED mode — pre-defined responses, no API calls.[/dim]\n")
+    return SimulatedResearchAgent()
+
+
 def load_golden_tasks(path: Path) -> list[EvalTask]:
     """Load evaluation tasks from a golden dataset JSON file."""
     with Path.open(path, encoding="utf-8") as f:
@@ -50,7 +98,7 @@ def load_golden_tasks(path: Path) -> list[EvalTask]:
 
 
 def run_eval_trials(
-    agent: SimulatedResearchAgent,
+    agent: ResearchAgent | SimulatedResearchAgent,
     tasks: list[EvalTask],
     tracer: SimpleTracer,
 ) -> list[EvalTrial]:
@@ -58,7 +106,8 @@ def run_eval_trials(
     trials: list[EvalTrial] = []
 
     for task in tasks:
-        logger.info("Evaluating task %s: %s", task.id, task.question[:60])
+        question_preview = task.question[:50] + "…" if len(task.question) > 50 else task.question
+        logger.info("Evaluating task %s: %s", task.id, question_preview)
 
         # Trace the eval execution
         span = tracer.start_span(f"eval_{task.id}", "eval_trial")
@@ -116,27 +165,19 @@ def main() -> None:
     console = Console()
     token_tracker = AnthropicTokenTracker()
 
-    console.print(
-        Panel(
-            "[bold cyan]Eval Harness — Capstone[/bold cyan]\n\n"
-            "Complete evaluation pipeline combining:\n"
-            "  1. Testable agent design (dependency injection)\n"
-            "  2. Golden dataset evals (keyword + citation grading)\n"
-            "  3. Execution tracing (spans linked to results)\n"
-            "  4. Adversarial safety testing (red team suite)\n"
-            "  5. Model benchmarking (Pareto analysis)",
-            title="Tutorial 06",
-        )
+    header = Panel(
+        "[bold cyan]Eval Harness — Capstone[/bold cyan]\n\n"
+        "Complete evaluation pipeline combining:\n"
+        "  1. Testable agent design (dependency injection)\n"
+        "  2. Golden dataset evals (keyword + citation grading)\n"
+        "  3. Execution tracing (spans linked to results)\n"
+        "  4. Adversarial safety testing (red team suite)\n"
+        "  5. Model benchmarking (Pareto analysis)",
+        title="Tutorial 06",
     )
 
-    # Determine run mode
-    has_api_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
-    if has_api_key:
-        console.print("\n[green]API key found — using simulated mode for capstone demo[/green]")
-    else:
-        console.print("\n[yellow]No API key — running in simulated mode[/yellow]")
-
-    console.print("[dim]The capstone uses SimulatedResearchAgent for reproducible results.[/dim]\n")
+    # Interactive mode and model selection
+    agent = select_mode_and_create_agent(console, header)
 
     # Step 1: Load datasets
     base_dir = Path(__file__).parent
@@ -146,11 +187,10 @@ def main() -> None:
         f"[bold]Step 1:[/bold] Loaded {len(tasks)} tasks, {len(adversarial_attacks)} attacks\n"
     )
 
-    # Step 2: Initialize agent and components
-    agent = SimulatedResearchAgent()
+    # Step 2: Initialize components
     tracer = SimpleTracer()
     grader = CompositeGrader(keyword_weight=0.5, citation_weight=0.5)
-    console.print("[bold]Step 2:[/bold] Initialized agent, tracer, and graders\n")
+    console.print("[bold]Step 2:[/bold] Initialized tracer and graders\n")
 
     # Step 3: Run eval trials with tracing
     console.print("[bold]Step 3:[/bold] Running eval trials...\n")

@@ -128,6 +128,7 @@ flowchart TD
 - Build a reusable evaluation harness with Pydantic data models
 - Generate comprehensive quality, safety, and benchmark reports
 - Practice eval-driven development end-to-end
+- Run in simulated mode (instant, no API keys) or live mode (`--live` with real API calls)
 
 **Evolution:** The capstone — wires unit testing patterns, evals, tracing, red teaming, and benchmarking into a single eval harness
 
