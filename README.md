@@ -98,7 +98,7 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 8. **[RAG Techniques](03-advanced-techniques/08-rag-techniques/)** — Hybrid search, GraphRAG, agentic retrieval
 9. **[Streaming](03-advanced-techniques/09-streaming/)** — SSE, token-by-token output, streaming tool calls
 
-### 🧪 [04 - Testing & Evaluation](04-testing-evaluation/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🧪 [04 - Testing & Evaluation](04-testing-evaluation/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Agents are non-deterministic — testing them requires different thinking. Measure quality, catch regressions, and build confidence before shipping.
 
@@ -107,6 +107,8 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 3. **[Tracing & Debugging](04-testing-evaluation/03-tracing-debugging/)** — Observability during development
 4. **[Red Teaming & Safety](04-testing-evaluation/04-red-teaming-safety/)** — Adversarial testing, guardrails
 5. **[Benchmarking](04-testing-evaluation/05-benchmarking/)** — Comparing models, prompts, architectures head-to-head
+6. **[Eval Frameworks](04-testing-evaluation/06-eval-frameworks/)** — Promptfoo, Braintrust, Langfuse integration
+7. **[Eval Harness](04-testing-evaluation/07-eval-harness/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Complete eval pipeline combining all techniques
 
 ### 🏗️ [05 - Frameworks](05-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
