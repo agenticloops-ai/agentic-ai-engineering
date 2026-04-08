@@ -5,6 +5,7 @@ description = "Codebase Navigator — an augmented LLM with retrieval, tools, an
 requires-python = ">=3.11"
 dependencies = [
     "anthropic>=0.40.0",
+    "openai>=1.0.0",
     "chromadb>=0.4.0",
     "common",
     "python-dotenv>=1.0.0",
