@@ -4,8 +4,13 @@ Structured Output & Prompt Scaffolding (Anthropic)
 Demonstrates three approaches for getting structured JSON from Claude, progressing from
 least to most reliable:
 1. Prompt-based JSON — asking for JSON in the system prompt (can fail)
-2. XML scaffolding + prefill — Anthropic-specific prompting techniques (more reliable)
+2. XML scaffolding — Anthropic-specific prompting technique (more reliable)
 3. Native JSON schema — API-level schema enforcement via output_config (guaranteed)
+
+Note: earlier versions of this tutorial also demonstrated assistant-message *prefill*
+(seeding the assistant turn with `{` to force JSON). Claude 4.6 removed support for
+assistant prefill — the conversation must end with a user message — so that step has
+been dropped. See https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-6
 
 All three methods extract the same product information from one description,
 making it easy to compare reliability across techniques.
@@ -91,26 +96,24 @@ class StructuredOutputClient:
         messages = [{"role": "user", "content": description}]
         return self._call(system, messages)
 
-    def extract_with_prefill(self, description: str) -> str:
-        """Use XML scaffolding + assistant prefill — Anthropic-specific technique."""
+    def extract_with_xml_scaffolding(self, description: str) -> str:
+        """Use XML scaffolding — Anthropic-specific prompting technique."""
         schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
         system = (
             "You are a product data extraction assistant. Extract structured information "
-            "from product descriptions as JSON matching the provided schema."
+            "from product descriptions as JSON matching the provided schema.\n\n"
+            "Respond with ONLY the JSON object — no markdown fences, no commentary."
         )
         # XML tags help Claude parse the input structure
         user_content = (
             f"<schema>\n{schema_str}\n</schema>\n\n"
             f"<product_description>\n{description}\n</product_description>"
         )
-        # Prefill: start the assistant's response with '{' to force JSON output
-        messages = [
-            {"role": "user", "content": user_content},
-            {"role": "assistant", "content": "{"},
-        ]
-        raw = self._call(system, messages)
-        # Reconstruct the full JSON since we prefilled the opening brace
-        return "{" + raw
+        # Note: Claude 4.6 removed assistant-message prefill, so the previous
+        # {"role": "assistant", "content": "{"} trick no longer works. XML tags
+        # alone still significantly improve structural adherence.
+        messages = [{"role": "user", "content": user_content}]
+        return self._call(system, messages)
 
     def extract_with_native_schema(self, description: str) -> str:
         """Use native JSON schema enforcement via output_config — guaranteed valid JSON."""
@@ -165,7 +168,7 @@ def _display_result(console: Console, method_name: str, raw: str) -> None:
 
 METHOD_LABELS = [
     "A: Prompt-Based JSON",
-    "B: XML Scaffolding + Prefill",
+    "B: XML Scaffolding",
     "C: Native JSON Schema",
 ]
 
@@ -193,26 +196,30 @@ def _run_method_a(console: Console, client: StructuredOutputClient) -> None:
 
 
 def _run_method_b(console: Console, client: StructuredOutputClient) -> None:
-    """Run the XML scaffolding + prefill extraction method."""
+    """Run the XML scaffolding extraction method."""
     schema_str = json.dumps(PRODUCT_SCHEMA_DESCRIPTION, indent=2)
-    console.print("[dim]Wrap input in XML tags, prefill assistant response with '{'.[/dim]\n")
+    console.print(
+        "[dim]Wrap input in XML tags so Claude clearly separates schema from data.[/dim]\n"
+        "[dim]Assistant prefill used to pair with this technique, but Claude 4.6 "
+        "removed support.[/dim]\n"
+    )
     prompt_b = (
         "**System prompt:**\n"
         "```\n"
         "You are a product data extraction assistant...\n"
+        "Respond with ONLY the JSON object.\n"
         "```\n\n"
         "**User message (XML-structured):**\n"
         "```xml\n"
         f"<schema>\n{schema_str}\n</schema>\n\n"
         "<product_description>\n(product description here)\n</product_description>\n"
-        "```\n\n"
-        "**Assistant prefill:** `{` _(forces the model to start with JSON)_\n"
+        "```\n"
     )
     console.print(Markdown(prompt_b))
 
     try:
-        raw = client.extract_with_prefill(PRODUCT_DESCRIPTION)
-        _display_result(console, "B: XML + Prefill", raw)
+        raw = client.extract_with_xml_scaffolding(PRODUCT_DESCRIPTION)
+        _display_result(console, "B: XML Scaffolding", raw)
     except Exception as e:
         logger.error("Error in method B: %s", e)
 
@@ -256,7 +263,7 @@ def main() -> None:
         "[bold cyan]Structured Output & Prompt Scaffolding[/bold cyan]\n\n"
         "Comparing 3 techniques for extracting structured JSON from free-form text:\n"
         "  A. Prompt-based JSON — ask for JSON in the system prompt\n"
-        "  B. XML scaffolding + prefill — Anthropic-specific prompting technique\n"
+        "  B. XML scaffolding — Anthropic-specific prompting technique\n"
         "  C. Native JSON schema — API-level enforcement via output_config (recommended)\n\n"
         f"[bold]Product Description:[/bold]\n{PRODUCT_DESCRIPTION}",
         title="Prompt Engineering — Anthropic",

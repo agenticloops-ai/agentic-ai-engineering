@@ -14,7 +14,7 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 - Apply few-shot prompting for in-context learning
 - Guide reasoning with chain-of-thought (CoT) prompting
 - Extract structured JSON output via prompt instructions
-- Use provider-specific techniques: Anthropic XML scaffolding + prefill, OpenAI JSON schema enforcement
+- Use provider-specific techniques: Anthropic XML scaffolding, OpenAI JSON schema enforcement
 - Compare prompting strategies side-by-side to understand their trade-offs
 
 ## 📦 Available Examples
@@ -25,7 +25,7 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 | ![OpenAI](../../common/badges/openai.svg)       | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering                             |
 | ![Anthropic](../../common/badges/anthropic.svg) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
 | ![OpenAI](../../common/badges/openai.svg)       | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
-| ![Anthropic](../../common/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML prefill & native schema      |
+| ![Anthropic](../../common/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML scaffolding & native schema  |
 | ![OpenAI](../../common/badges/openai.svg)       | [06_structured_output_openai.py](06_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
 
 ## 🚀 Quick Start
@@ -158,14 +158,15 @@ response = client.messages.parse(
 product = response.parsed_output  # Validated Pydantic model instance
 ```
 
-**Anthropic — XML scaffolding + assistant prefill (prompting technique):**
+**Anthropic — XML scaffolding (prompting technique):**
 ```python
-# XML tags structure the input, prefill forces JSON start
+# XML tags structure the input — clearly separate schema from data
 messages = [
     {"role": "user", "content": "<schema>...</schema>\n<product_description>...</product_description>"},
-    {"role": "assistant", "content": "{"},  # Prefill technique
 ]
 ```
+
+> **Note:** Earlier Claude models supported *assistant-message prefill* — seeding the assistant turn with `{` to force JSON output. Claude 4.6 [removed support](https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-6#breaking-changes) for this: the conversation must end with a user message. If you need prefill-style guarantees today, prefer native schema enforcement (below).
 
 **OpenAI — native JSON schema enforcement:**
 ```python
@@ -182,7 +183,7 @@ response = client.responses.create(
 )
 ```
 
-> **Both providers now offer schema enforcement.** Anthropic's `output_config` and OpenAI's `text.format` both guarantee valid JSON via constrained decoding. Prompt-based techniques (prefill, XML scaffolding) remain useful for older models or when you need more control over the prompting strategy.
+> **Both providers now offer schema enforcement.** Anthropic's `output_config` and OpenAI's `text.format` both guarantee valid JSON via constrained decoding. Prompt-based techniques (XML scaffolding) remain useful when you need more control over the prompting strategy.
 
 ### 5. Output Validation
 
