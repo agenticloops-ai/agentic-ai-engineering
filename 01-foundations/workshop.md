@@ -497,37 +497,6 @@ my-skill/
 
 ---
 
-# ⚔️ MCP vs Skills — When to Use Which
-
-<div class="columns">
-<div>
-
-### 🔧 <span class="accent">MCP</span> fits when…
-- You need **live data** (GitHub, Slack, DB)
-- You need **real-world side-effects**
-- Action = clean function signature
-- Many agents need the same capability
-
-</div>
-<div>
-
-### 📦 <span class="accent">Skills</span> fit when…
-- Encoding **how to do something**
-- Long process, conditional steps, examples
-- Want a **catalog of 50+** without tool bloat
-- Versioned know-how shipped with code
-
-</div>
-</div>
-
-<div class="callout ok">🎯 <strong>They compose.</strong> A skill's playbook can instruct the agent to call MCP tools.</div>
-
-<br>
-
-### <span class="hand">MCP adds hands. Skills add instincts.</span>
-
----
-
 # 🧹 Context Pollution — Reiteration
 
 ```mermaid
