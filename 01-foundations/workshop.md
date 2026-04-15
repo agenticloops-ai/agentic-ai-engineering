@@ -391,6 +391,14 @@ flowchart LR
 
 > Connect 3–4 servers → **15k+ tokens consumed before the user even types a prompt.**
 
+```python
+# pseudo-code — every MCP server's tools join the prompt
+agent.connect_mcp("github")      # +35 tools
+agent.connect_mcp("playwright")  # +25 tools
+agent.connect_mcp("aws")         # +100 tools
+# → sent on EVERY LLM call, whether you use them or not
+```
+
 ---
 
 # 📦 Skills — Progressive Disclosure
@@ -423,6 +431,13 @@ flowchart LR
 </div>
 </div>
 
+```python
+# pseudo-code — skills stay on disk until needed
+if agent.needs("work with PDFs"):
+    load_skill("pdf-toolkit")   # adds instructions + tools just now
+# base context stays small
+```
+
 ---
 
 # ⚠️ The Context Pollution Problem
@@ -443,6 +458,16 @@ flowchart LR
 | More skills (eager) | Instructions duplicated | Confused priorities |
 
 > **Rule of thumb:** every token in context is a token the model must reason over. Curate ruthlessly.
+
+```python
+# pseudo-code — what actually gets sent on every call
+prompt = (
+    system_prompt           # ~500 tokens
+    + tool_schemas          # ~6k × N servers
+    + chat_history          # grows O(turns)
+    + user_message          # tiny
+)
+```
 
 ---
 
