@@ -206,38 +206,6 @@ One of those posts —
 
 ---
 
-# 🤔 Why Understand the Internals?
-
-AI is moving fast — hard to separate **hype** from **substance**.
-This technology isn't going anywhere. As engineers, we need to adapt.
-
-<div class="columns">
-<div>
-
-### <span class="accent">Mid-90s → Early 2000s</span>
-The web was new and confusing — then it changed everything.
-
-Engineers who adapted (HTML → JS → frameworks) realized the web didn't *replace* software engineering — it *became part of it*.
-
-</div>
-<div>
-
-### <span class="accent">AI Today</span>
-Same arc. It won't replace software engineering — it'll **become part of it**.
-
-Engineers who understand how agents work will build better systems, debug them more effectively, and design for AI's strengths *and* limits.
-
-</div>
-</div>
-
-> Just as **HTTP and statelessness** made you a better web developer — **prompts, tools, memory, and failure modes** make you a better engineer in an AI-augmented world.
-
-### 🎯 The goal isn't to become an AI specialist.
-
-<span class="hand">It's to be fluent enough that when an agentic workflow is the right solution, you recognize it — and when it isn't, you recognize that too.</span>
-
----
-
 # 🧠 First Principle — LLM Is a *Pure Function*
 
 <span class="eyebrow">stateless · non-deterministic · token-bounded</span>
@@ -258,12 +226,7 @@ response = llm(messages, tools, params)
 
 # 🗺️ What We'll Build
 
-```mermaid
-flowchart LR
-    A[📞 LLM Call] --> B[💬 Chat]
-    B --> C[🔧 Tool Use]
-    C --> D[🔁 Agent Loop]
-```
+![center](diagrams/diagram-01.svg)
 
 | <span class="step-pill">1</span> | **LLM Call** | stateless request/response |
 |:-:|---|---|
@@ -277,11 +240,7 @@ flowchart LR
 
 # <span class="step-pill">Step 1</span> Simple LLM Call
 
-```mermaid
-flowchart LR
-    U([🗣️ Prompt]) -->|send| L[🧠 LLM]
-    L -->|return| O([📄 Response])
-```
+![center](diagrams/diagram-02.svg)
 
 <div class="columns">
 <div>
@@ -308,13 +267,7 @@ flowchart LR
 
 # <span class="step-pill">Step 2</span> Chat — History Is State
 
-```mermaid
-flowchart LR
-    U([🗣️ User]) -->|append| H[(📝 History)]
-    H -->|send| L[🧠 LLM]
-    L -->|append| H
-    L -->|reply| U
-```
+![center](diagrams/diagram-03.svg)
 
 <div class="columns">
 <div>
@@ -341,12 +294,7 @@ flowchart LR
 
 # <span class="step-pill">Step 3</span> Tool Use — Give It Hands
 
-```mermaid
-flowchart LR
-    L[🧠 LLM] -->|request| T[🔧 Tool]
-    T -->|return| L
-    L -->|respond| O([📄 Response])
-```
+![center](diagrams/diagram-04.svg)
 
 <div class="columns">
 <div>
@@ -373,14 +321,7 @@ flowchart LR
 
 # <span class="step-pill">Step 4</span> Agent Loop — Autonomy
 
-```mermaid
-flowchart TD
-    A([🗣️ Goal]) -->|send| B[🧠 LLM]
-    B -->|evaluate| C{⚙️ Tool Calls?}
-    C -->|yes| E[🔧 Tools]
-    E -->|append| B
-    C -->|no| D([📄 Response])
-```
+![center](diagrams/diagram-05.svg)
 
 <div class="columns">
 <div>
@@ -407,12 +348,7 @@ flowchart TD
 
 # 🌐 MCP — Model Context Protocol
 
-```mermaid
-flowchart LR
-    A[🧠 Agent] <-->|invoke| S1[🔌 GitHub Server]
-    A <-->|invoke| S2[🔌 Slack Server]
-    A <-->|invoke| S3[🔌 Postgres Server]
-```
+![center](diagrams/diagram-06.svg)
 
 > **"USB for agent tools"** — one plug shape, any device.
 
@@ -442,12 +378,7 @@ flowchart LR
 
 # 📦 Skills — Lazy-Loaded Playbooks
 
-```mermaid
-flowchart LR
-    U["🗣️ make a pptx"] -->|match| R["📚 Skill Registry<br/>~100 tok"]
-    R -->|load| S["📦 SKILL.md<br/>~2–5k tok"]
-    S -->|inject| A["🧠 Agent Loop"]
-```
+![center](diagrams/diagram-07.svg)
 
 **Anatomy:**
 
@@ -466,13 +397,7 @@ my-skill/
 
 # 🧹 Context Pollution — Reiteration
 
-```mermaid
-flowchart LR
-    T1[🔧 Tools] -->|inflate| P[(📈 Context)]
-    T2[🔌 MCP Servers] -->|inflate| P
-    T3[💬 Chat History] -->|inflate| P
-    P -->|degrade| L[🧠 LLM]
-```
+![center](diagrams/diagram-08.svg)
 
 ```python
 prompt = (
@@ -485,6 +410,38 @@ prompt = (
 
 > **Every token in context is a token the model must reason over.**
 > Curate ruthlessly.
+
+---
+
+# 🤔 Why Learn This?
+
+AI is moving fast — hard to separate **hype** from **substance**.
+This technology isn't going anywhere. As engineers, we need to adapt.
+
+<div class="columns">
+<div>
+
+### <span class="accent">Mid-90s → Early 2000s</span>
+The web was new and confusing — then it changed everything.
+
+Engineers who adapted (HTML → JS → frameworks) realized the web didn't *replace* software engineering — it *became part of it*.
+
+</div>
+<div>
+
+### <span class="accent">AI Today</span>
+Same arc. It won't replace software engineering — it'll **become part of it**.
+
+Engineers who understand how agents work will build better systems, debug them more effectively, and design for AI's strengths *and* limits.
+
+</div>
+</div>
+
+> Just as **HTTP and statelessness** made you a better web developer — **prompts, tools, memory, and failure modes** make you a better engineer in an AI-augmented world.
+
+### 🎯 The goal isn't to become an AI specialist.
+
+<span class="hand">It's to be fluent enough that when an agentic workflow is the right solution, you recognize it — and when it isn't, you recognize that too.</span>
 
 ---
 

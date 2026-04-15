@@ -1,0 +1,5 @@
+flowchart LR
+    U([🗣️ User]) -->|append| H[(📝 History)]
+    H -->|send| L[🧠 LLM]
+    L -->|append| H
+    L -->|reply| U
