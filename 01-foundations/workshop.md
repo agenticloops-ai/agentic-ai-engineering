@@ -557,14 +557,28 @@ flowchart LR
 ```
 
 > **"USB for agent tools"** — one plug shape, any device.
-> `tools=[...]` is the soldered-together version.
 
-**MCP server exposes 3 primitives:**
-- 🔧 **Tools** — callable functions
-- 📄 **Resources** — readable context (files, DB rows)
-- 📝 **Prompts** — parameterized templates
+<div class="columns">
+<div>
 
-<span class="chip">standard</span> <span class="chip">pluggable</span> <span class="chip">agent-agnostic</span>
+### <span class="pros">✅ Pros</span>
+- Plug-and-play integrations
+- Decouples agent ↔ tools
+- Reusable across clients (Cursor, Claude Code, ChatGPT…)
+
+</div>
+<div>
+
+### <span class="cons">⚠️ Trade-offs</span>
+- **Schema tax** — every tool loaded on every call
+- **Choice paralysis** — more tools → worse selection
+- **Security surface** — each server reads creds
+- **Name collisions** — two `search` tools → mispicks
+
+</div>
+</div>
+
+<span class="chip">standard</span> <span class="chip">pluggable</span> <span class="chip danger">schema tax</span>
 
 ---
 
