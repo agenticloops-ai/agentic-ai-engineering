@@ -224,20 +224,6 @@ response = llm(messages, tools, params)
 
 ---
 
-# 🗺️ What We'll Build
-
-![center](diagrams/diagram-01.svg)
-
-| <span class="step-pill">1</span> | **LLM Call** | stateless request/response |
-|:-:|---|---|
-| <span class="step-pill">2</span> | **Chat** | conversation history |
-| <span class="step-pill">3</span> | **Tool Use** | function calling |
-| <span class="step-pill">4</span> | **Agent Loop** | autonomy + multi-step |
-
-> Once you see the loop, you stop being a *consumer* and start being a *producer* of AI.
-
----
-
 # <span class="step-pill">Step 1</span> Simple LLM Call
 
 ![center](diagrams/diagram-02.svg)
@@ -410,6 +396,21 @@ prompt = (
 
 > **Every token in context is a token the model must reason over.**
 > Curate ruthlessly.
+
+---
+
+# 🗺️ What We've Built
+
+![center](diagrams/diagram-01.svg)
+
+| <span class="step-pill">1</span> | **LLM Call** | stateless request/response |
+|:-:|---|---|
+| <span class="step-pill">2</span> | **Chat** | conversation history |
+| <span class="step-pill">3</span> | **Tool Use** | function calling |
+| <span class="step-pill">4</span> | **Agent Loop** | autonomy + multi-step |
+
+> You just went from a single LLM call to an autonomous agent.
+> You're no longer a *consumer* — you're a *producer* of AI.
 
 ---
 
