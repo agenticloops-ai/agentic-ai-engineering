@@ -226,7 +226,11 @@ response = llm(messages, tools, params)
 
 # <span class="step-pill">Step 1</span> Simple LLM Call
 
-![center](diagrams/diagram-02.svg)
+```mermaid
+flowchart LR
+    U([🗣️ Prompt]) -->|send| L[🧠 LLM]
+    L -->|return| O([📄 Response])
+```
 
 <div class="columns">
 <div>
@@ -253,7 +257,13 @@ response = llm(messages, tools, params)
 
 # <span class="step-pill">Step 2</span> Chat — History Is State
 
-![center](diagrams/diagram-03.svg)
+```mermaid
+flowchart LR
+    U([🗣️ User]) -->|append| H[(📝 History)]
+    H -->|send| L[🧠 LLM]
+    L -->|append| H
+    L -->|reply| U
+```
 
 <div class="columns">
 <div>
@@ -280,7 +290,12 @@ response = llm(messages, tools, params)
 
 # <span class="step-pill">Step 3</span> Tool Use — Give It Hands
 
-![center](diagrams/diagram-04.svg)
+```mermaid
+flowchart LR
+    L[🧠 LLM] -->|request| T[🔧 Tool]
+    T -->|return| L
+    L -->|respond| O([📄 Response])
+```
 
 <div class="columns">
 <div>
@@ -307,7 +322,14 @@ response = llm(messages, tools, params)
 
 # <span class="step-pill">Step 4</span> Agent Loop — Autonomy
 
-![center](diagrams/diagram-05.svg)
+```mermaid
+flowchart TD
+    A([🗣️ Goal]) -->|send| B[🧠 LLM]
+    B -->|evaluate| C{⚙️ Tool Calls?}
+    C -->|yes| E[🔧 Tools]
+    E -->|append| B
+    C -->|no| D([📄 Response])
+```
 
 <div class="columns">
 <div>
@@ -334,7 +356,12 @@ response = llm(messages, tools, params)
 
 # 🌐 MCP — Model Context Protocol
 
-![center](diagrams/diagram-06.svg)
+```mermaid
+flowchart LR
+    A[🧠 Agent] <-->|invoke| S1[🔌 GitHub Server]
+    A <-->|invoke| S2[🔌 Slack Server]
+    A <-->|invoke| S3[🔌 Postgres Server]
+```
 
 > **"USB for agent tools"** — one plug shape, any device.
 
@@ -364,7 +391,12 @@ response = llm(messages, tools, params)
 
 # 📦 Skills — Lazy-Loaded Playbooks
 
-![center](diagrams/diagram-07.svg)
+```mermaid
+flowchart LR
+    U["🗣️ make a pptx"] -->|match| R["📚 Skill Registry<br/>~100 tok"]
+    R -->|load| S["📦 SKILL.md<br/>~2–5k tok"]
+    S -->|inject| A["🧠 Agent Loop"]
+```
 
 **Anatomy:**
 
@@ -383,7 +415,13 @@ my-skill/
 
 # 🧹 Context Pollution — Reiteration
 
-![center](diagrams/diagram-08.svg)
+```mermaid
+flowchart LR
+    T1[🔧 Tools] -->|inflate| P[(📈 Context)]
+    T2[🔌 MCP Servers] -->|inflate| P
+    T3[💬 Chat History] -->|inflate| P
+    P -->|degrade| L[🧠 LLM]
+```
 
 ```python
 prompt = (
@@ -401,7 +439,12 @@ prompt = (
 
 # 🗺️ What We've Built
 
-![center](diagrams/diagram-01.svg)
+```mermaid
+flowchart LR
+    A[📞 LLM Call] --> B[💬 Chat]
+    B --> C[🔧 Tool Use]
+    C --> D[🔁 Agent Loop]
+```
 
 | <span class="step-pill">1</span> | **LLM Call** | stateless request/response |
 |:-:|---|---|

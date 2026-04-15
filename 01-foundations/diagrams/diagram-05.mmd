@@ -1,6 +1,0 @@
-flowchart TD
-    A([🗣️ Goal]) -->|send| B[🧠 LLM]
-    B -->|evaluate| C{⚙️ Tool Calls?}
-    C -->|yes| E[🔧 Tools]
-    E -->|append| B
-    C -->|no| D([📄 Response])
