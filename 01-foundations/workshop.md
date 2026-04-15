@@ -198,11 +198,11 @@ Four steps. Real code. Built live.
 
 # 👋 How I Got Here
 
-I started exploring agents a while ago and decided to share what I was learning — *I should have started earlier.*
+I started exploring agents a while ago and decided to share what I was learning along the way.
 
 One of those posts —
 **[How Agents Work: The Patterns Behind the Magic](https://agenticloopsai.substack.com/p/how-agents-work-the-patterns-behind)**
-— caught <span class="accent">Yuriy's</span> eye, and here we are.
+— is what led to this workshop.
 
 ---
 
