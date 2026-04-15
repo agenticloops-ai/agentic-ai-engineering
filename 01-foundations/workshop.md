@@ -100,6 +100,75 @@ From a single LLM call → an autonomous agent loop
 
 ---
 
+# 👋 How I Got Here
+
+I started exploring agents a while ago and decided to share what I was learning — I should have started earlier.
+
+One of those posts —
+*[How Agents Work: The Patterns Behind the Magic](https://agenticloopsai.substack.com/p/how-agents-work-the-patterns-behind)*
+— caught <span class="accent">Yuriy's</span> eye, and here we are.
+
+---
+
+# 🤔 Why Understand the Internals?
+
+AI is moving fast. Like any fast-growing technology, it's hard to separate **hype** from **substance**.
+
+I look at it pragmatically:
+
+> This technology isn't going anywhere.
+> As engineers, we need to adapt and learn.
+
+Understanding the patterns matters — just like it does for any other technology we use.
+
+---
+
+# 🌐 The Early Web Analogy
+
+In the **mid-90s**, the internet was new and confusing.
+By the **early 2000s**, it had changed everything.
+
+> Not overnight. Not without mistakes. But **permanently**.
+
+Some engineers adapted — HTML → JavaScript → frameworks — and realized the web didn't *replace* software engineering, it *became part of it*.
+
+Others struggled.
+
+---
+
+# 🧭 AI Is the Same Story
+
+It won't replace software engineering — it'll become **part of it**.
+
+Engineers who understand how agents actually work will:
+
+- 🏗️ build better systems
+- 🐛 debug them more effectively
+- 🎯 design for AI's strengths and its limits
+
+Just as understanding HTTP and statelessness made you a better web developer — understanding **prompts, tools, memory, and failure modes** will make you a better engineer in an AI-augmented world.
+
+---
+
+<!-- _class: lead invert -->
+
+# 🎯 The Goal
+
+The goal isn't to become an **AI specialist**.
+
+<br>
+
+It's to be **fluent enough** that
+when an agentic workflow is the right solution,
+you recognize it —
+
+<br>
+
+and when it isn't,
+**you recognize that too.**
+
+---
+
 # 🗺️ The Progression
 
 ```mermaid
