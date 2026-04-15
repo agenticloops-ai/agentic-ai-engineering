@@ -615,9 +615,9 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    U([🗣️ "make a pptx"]) -->|match| R[📚 Skill Registry<br/>~100 tok]
-    R -->|on-demand| S[📦 SKILL.md<br/>~2-5k tok]
-    S -->|inject| A[🧠 Agent Loop]
+    U["🗣️ make a pptx"] -->|match| R["📚 Skill Registry<br/>~100 tok"]
+    R -->|load| S["📦 SKILL.md<br/>~2–5k tok"]
+    S -->|inject| A["🧠 Agent Loop"]
 ```
 
 **Anatomy:**
