@@ -401,7 +401,7 @@ flowchart TD
 </div>
 </div>
 
-<span class="eyebrow">think → act → observe → repeat · the entire agent is ~30 lines</span>
+<span class="eyebrow">think → act → observe → repeat</span>
 
 ---
 
@@ -533,7 +533,6 @@ It's a **control flow** —
 
 🧱 Start simple → add primitives only when needed
 🔧 Tools give power — schemas cost tokens
-🔁 The loop is ~30 lines of code
 🌐 MCP adds hands · 📦 Skills add instincts
 🧹 **Context is the new RAM — manage it**
 
