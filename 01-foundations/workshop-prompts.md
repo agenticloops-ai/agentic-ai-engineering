@@ -5,62 +5,54 @@ Companion to [`workshop.md`](workshop.md).
 A minimal-prompt sequence for building an agent **live** during the workshop using Claude Code. Each stage is a short prompt that evolves a single `agent.py` file in place — small enough for Claude Code to fill in the gaps, which is itself part of the lesson.
 
 > **Narrative arc:** every stage has a failure that the next stage fixes.
-> LLM → no memory → Chat → no world access → Tools → single-turn → Agent Loop → expensive → Context Engineering.
+> Stateless loop → no memory → Chat → no world access → Tools → one tool isn't enough → More tools → manual orchestration → Agent loop + HITL.
 
 ---
 
 ## 🎬 Setup (run once)
 
 ```
-Create pyproject.toml (anthropic, python-dotenv, rich, requests) and a .env with ANTHROPIC_API_KEY placeholder.
+Create pyproject.toml (anthropic, python-dotenv, rich) and a .env with ANTHROPIC_API_KEY placeholder.
 ```
+
+> 💡 If you have a preferred LLM logging / token-tracking lib, drop it in now and ask Claude Code to wire it into every LLM call.
 
 ---
 
-## 1️⃣ Simple LLM Call
+## 1️⃣ Stateless Loop — No Memory
 
 **Prompt to Claude Code:**
 
 ```
-Create agent.py — read one prompt from input(), send it to claude-sonnet-4-6, print the response, then exit. No loop.
+Create agent.py — loop: read user input, call claude-sonnet-4-6, print response. Do not keep any history between turns.
 ```
+
+**Goal:** show that the model has no memory.
 
 **Live demo:**
-- Run it → *"My name is Alex"*
-- Run it again → *"What's my name?"*
-- ❌ **No memory.** → motivates Chat.
+- *"What is an AI agent?"* → gets a fine answer.
+- *"My name is Alex"* → acknowledges.
+- *"What's my name?"* → ❌ **has no idea.** → motivates Chat.
 
 ---
 
-## 2️⃣ Add Chat
+## 2️⃣ Add Chat — Pass Context
 
 **Prompt to Claude Code:**
 
 ```
-Make it a chat — keep history across turns, loop until 'quit'.
+Add chat history — keep all turns and send them on every call.
 ```
 
-**Live demo (two parts):**
-- *"My name is Alex"* → *"What's my name?"* → ✅ memory works
-- *"What's the weather in Warsaw right now?"* → ❌ hallucinates or refuses → motivates Tools.
-
----
-
-## 3️⃣ Add Tool Use — Weather
-
-**Prompt to Claude Code:**
-
-```
-Add a get_weather(city) tool using open-meteo's free API (no key needed).
-```
+**Goal:** show how context is passed to the LLM.
 
 **Live demo:**
-- *"What's the weather in Warsaw?"* → real data now.
-- *"And in Paris?"* → chat + tools compose nicely.
+- *"My name is Alex"* → *"What's my name?"* → ✅ memory works.
+- *"Summarize dependencies in pyproject.toml"* → ❌ **can't read files.** → motivates Tools.
 
 ---
 
-## 4️⃣ Add read_file
+## 3️⃣ Add read_file Tool — Interact With the Environment
 
 **Prompt to Claude Code:**
 
@@ -68,37 +60,40 @@ Add a get_weather(city) tool using open-meteo's free API (no key needed).
 Add a read_file(path) tool.
 ```
 
+**Goal:** show how the agent can interact with the environment.
+
 **Live demo:**
-- *"Summarize pyproject.toml"* — grounded in local files. Still single-turn.
+- *"Summarize dependencies in pyproject.toml"* → ✅ reads and summarizes.
+- *"List project files"* → ❌ **read_file can't list directories.** → motivates more tools.
 
 ---
 
-## 5️⃣ Agent Loop + bash
+## 4️⃣ Add bash + write_file Tools
 
 **Prompt to Claude Code:**
 
 ```
-Turn it into an agent: loop tool calls until done. Add a bash tool, with a confirm prompt before running.
+Add two tools: bash (run shell command) and write_file (path, content).
 ```
 
+**Goal:** show how multiple tools compose into real work.
+
 **Live demo:**
-- *"Find all Python files and tell me which uses the most imports"*
-- Watch it chain `bash` + `read_file` autonomously, with human-in-the-loop approval for each bash call.
+- *"List project files"* → uses `bash`.
+- *"Create a README with a one-line description of this project"* → uses `read_file` + `write_file`.
 
----
-
-## 6️⃣ (Bonus) Context Pollution
+### 4.1 Human-in-the-Loop
 
 **Prompt to Claude Code:**
 
 ```
-Print input tokens after every call.
+Before running bash, ask the user to confirm with y/n.
 ```
 
+**Goal:** safety guardrail for destructive actions.
+
 **Live demo:**
-- Run the stage-5 prompt twice.
-- Watch input tokens balloon as history + tool schemas accumulate.
-- Land the MCP / Skills punchline: **every tool you add costs tokens on every turn.**
+- *"Delete all .pyc files"* → agent proposes `find ... -delete`, waits for approval.
 
 ---
 
@@ -106,11 +101,10 @@ Print input tokens after every call.
 
 | Stage | What breaks | What fixes it next |
 |---|---|---|
-| 1 LLM Call | No memory | → Chat |
-| 2 Chat | Can't see the world | → Tools |
-| 3 Weather tool | One tool, one question | → More tools |
-| 4 read_file | Still single-turn | → Agent loop |
-| 5 Agent loop | Works… but expensive | → Context engineering (MCP / Skills) |
+| 1 Stateless loop | No memory | → Chat |
+| 2 Chat | Can't see the world | → read_file |
+| 3 read_file | One tool isn't enough | → bash + write_file |
+| 4 Multi-tool agent | No safety on destructive actions | → Human-in-the-loop |
 
 Every stage earns its existence by solving the pain of the previous one.
 
@@ -121,6 +115,5 @@ Every stage earns its existence by solving the pain of the previous one.
 - **Keep files visible** — editor next to terminal, so attendees watch `agent.py` grow from ~15 → ~60 lines.
 - **If Claude Code over-engineers**, say *"make it simpler, single file, minimal abstractions"*.
 - **Run `git diff` between stages** — the delta is the lesson.
-- **Break it on purpose** — drop the `max_iterations` bound and ask it to "list every file recursively forever" to show why bounds matter.
-- **Compare to the repo** — after stage 5, open [`01-foundations/05-agent-loop/01_minimal_agent.py`](05-agent-loop/01_minimal_agent.py) to show a production-shaped ~55-line version.
+- **Compare to the repo** — after stage 4, open [`05-agent-loop/01_minimal_agent.py`](05-agent-loop/01_minimal_agent.py) to show a production-shaped ~55-line version.
 - **Short prompts are the point** — Claude Code fills in idioms, error handling, schema shapes. That's the same thing an *agent* does: act on intent, not specs.
