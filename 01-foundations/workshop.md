@@ -17,7 +17,16 @@ style: |
     padding: 50px 60px;
     font-size: 22px;
     line-height: 1.5;
+    text-align: left;
+    justify-content: flex-start;
+    align-items: stretch;
   }
+  section > * {
+    text-align: left;
+  }
+  section h1 { text-align: left; }
+  section h2 { text-align: left; }
+  section h3 { text-align: left; }
   h1 {
     color: #ffb454;
     font-weight: 700;
@@ -149,13 +158,23 @@ style: |
     color: #6e7681;
     font-size: 0.55em;
   }
+  section.lead {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  section.lead > *,
+  section.lead h1,
+  section.lead h2,
+  section.lead h3 {
+    text-align: center;
+  }
   section.lead h1 {
     font-size: 2.6em;
     border: none;
-    text-align: center;
   }
-  section.lead {
-    text-align: center;
+  table {
+    margin: 0;
   }
 footer: 'Agents Under the Hood · 01-foundations'
 ---
