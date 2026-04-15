@@ -283,12 +283,6 @@ flowchart LR
     L -->|return| O([📄 Response])
 ```
 
-<span class="eyebrow">one prompt in, one answer out · no memory · no tools</span>
-
----
-
-# <span class="step-pill">Step 1</span> Pros & Cons
-
 <div class="columns">
 <div>
 
@@ -296,7 +290,6 @@ flowchart LR
 - Stateless & predictable
 - Easy to cache
 - Cheapest possible call
-- Great for one-shot tasks
 
 </div>
 <div>
@@ -304,26 +297,12 @@ flowchart LR
 ### <span class="cons">⚠️ Cons</span>
 - No memory
 - No actions
-- No iteration
 - No grounding in reality
 
 </div>
 </div>
 
----
-
-# <span class="step-pill">Step 1</span> Code
-
-```python
-def ask(prompt: str) -> str:
-    r = client.messages.create(
-        model="claude-sonnet-4-6",
-        messages=[{"role":"user","content":prompt}],
-    )
-    return r.content[0].text
-```
-
-<div class="callout">🎤 <strong>Say out loud:</strong> "Every LLM product on earth starts here. Everything we add next is scaffolding around this call."</div>
+<span class="eyebrow">one prompt in, one answer out — every LLM product on earth starts here</span>
 
 ---
 
@@ -336,12 +315,6 @@ flowchart LR
     L -->|append| H
     L -->|reply| U
 ```
-
-<span class="eyebrow">the client keeps the state · the LLM never remembers</span>
-
----
-
-# <span class="step-pill">Step 2</span> Pros & Cons
 
 <div class="columns">
 <div>
@@ -362,19 +335,7 @@ flowchart LR
 </div>
 </div>
 
----
-
-# <span class="step-pill">Step 2</span> Code
-
-```python
-history.append({"role":"user", "content": msg})
-
-r = client.messages.create(messages=history)   # ← replay ALL of it
-
-history.append({"role":"assistant", "content": r.content[0].text})
-```
-
-<div class="callout danger">⚠️ <strong>First failure mode:</strong> history grows unbounded → context window fills → older info drifts out. <em>Context pollution</em> incoming.</div>
+<span class="eyebrow">the client keeps the state · the LLM never remembers</span>
 
 ---
 
@@ -386,12 +347,6 @@ flowchart LR
     T -->|return| L
     L -->|respond| O([📄 Response])
 ```
-
-<span class="eyebrow">the LLM doesn't call functions · it requests them · YOU run them</span>
-
----
-
-# <span class="step-pill">Step 3</span> Pros & Cons
 
 <div class="columns">
 <div>
@@ -412,23 +367,7 @@ flowchart LR
 </div>
 </div>
 
----
-
-# <span class="step-pill">Step 3</span> Code
-
-```python
-tools = [{
-  "name": "get_weather",
-  "description": "Current weather for a city",
-  "input_schema": {"type":"object",
-    "properties": {"city": {"type":"string"}},
-    "required": ["city"]}
-}]
-
-# LLM emits tool_use → YOUR code runs it → return tool_result
-```
-
-<div class="callout">💡 <strong>Key insight:</strong> the LLM does not <em>call</em> your function. It <em>requests</em> it. <strong>You are the runtime.</strong></div>
+<span class="eyebrow">the LLM doesn't call functions · it requests them · YOU run them</span>
 
 ---
 
@@ -442,12 +381,6 @@ flowchart TD
     E -->|append| B
     C -->|no| D([📄 Response])
 ```
-
-<span class="eyebrow">think → act → observe → repeat</span>
-
----
-
-# <span class="step-pill">Step 4</span> Pros & Cons
 
 <div class="columns">
 <div>
@@ -468,22 +401,7 @@ flowchart TD
 </div>
 </div>
 
----
-
-# <span class="step-pill">Step 4</span> Code
-
-```python
-for step in range(MAX_STEPS):
-    r = client.messages.create(tools=tools, messages=messages)
-    messages.append({"role":"assistant", "content": r.content})
-
-    if r.stop_reason != "tool_use":
-        break                                   # ← natural-language answer
-
-    messages.append({"role":"user", "content": run_tools(r)})
-```
-
-<div class="callout ok">✨ <strong>That's the entire agent.</strong> Cursor, Claude Code, Copilot Agent — all variants of this loop with better tools, prompts, and guardrails.</div>
+<span class="eyebrow">think → act → observe → repeat · the entire agent is ~30 lines</span>
 
 ---
 
