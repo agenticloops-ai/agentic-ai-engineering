@@ -66,3 +66,12 @@ dmypy.json
 # Outputs
 output/
 tempCodeRunnerFile.py
+
+# Node
+node_modules/
+package-lock.json
+
+# Build artifacts
+workshop.zip
+workshop.html
+*.pdf

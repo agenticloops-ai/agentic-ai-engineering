@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@marp-team/marp-cli": "^4.0.0",
-    "markdown-it-mermaid-plugin": "^1.0.0"
+    "@marp-team/marp-core": "^4.0.0",
+    "markdown-it-mermaid-plugin": "^0.1.0"
   }
 }
