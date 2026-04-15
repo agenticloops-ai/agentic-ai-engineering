@@ -126,8 +126,8 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    U([🗣️ Prompt]) -->|request| L[🧠 LLM]
-    L -->|response| O([📄 Text])
+    U([🗣️ Prompt]) -->|send| L[🧠 LLM]
+    L -->|return| O([📄 Response])
 ```
 
 <div class="columns">
@@ -167,8 +167,8 @@ return response.content[0].text
 ```mermaid
 flowchart LR
     U([🗣️ User]) -->|append| H[(📝 History)]
-    H -->|messages| L[🧠 LLM]
-    L -->|response| H
+    H -->|send| L[🧠 LLM]
+    L -->|append| H
     L -->|reply| U
 ```
 
@@ -205,9 +205,9 @@ self.messages.append({"role": "assistant", "content": response.content[0].text})
 
 ```mermaid
 flowchart LR
-    L[🧠 LLM] -->|tool_use| T[🔧 Tool]
-    T -->|tool_result| L
-    L -->|text| O([📄 Answer])
+    L[🧠 LLM] -->|invoke| T[🔧 Tool]
+    T -->|return| L
+    L -->|respond| O([📄 Response])
 ```
 
 <div class="columns">
@@ -243,11 +243,11 @@ for block in response.content:
 
 ```mermaid
 flowchart TD
-    A([🗣️ Goal]) --> B[🧠 LLM]
-    B -->|tool_use?| C{⚙️ Decide}
-    C -->|yes| E[🔧 Execute]
+    A([🗣️ Goal]) -->|send| B[🧠 LLM]
+    B -->|evaluate| C{⚙️ Tool Calls?}
+    C -->|yes| E[🔧 Tools]
     E -->|append| B
-    C -->|end_turn| D([📄 Done])
+    C -->|no| D([📄 Response])
 ```
 
 <div class="columns">
@@ -284,9 +284,9 @@ while iteration < max_iterations:
 
 ```mermaid
 flowchart LR
-    A[🧠 Agent] <-->|MCP| S1[🔌 GitHub Server]
-    A <-->|MCP| S2[🔌 DB Server]
-    A <-->|MCP| S3[🔌 Filesystem]
+    A[🧠 Agent] <-->|invoke| S1[🔌 GitHub Server]
+    A <-->|invoke| S2[🔌 DB Server]
+    A <-->|invoke| S3[🔌 Filesystem Server]
 ```
 
 > **"USB-C for LLM tools"** — one protocol, many integrations.
@@ -322,9 +322,9 @@ client.add_mcp_server("github")  # +20 tools, +4k tokens... per turn
 
 ```mermaid
 flowchart LR
-    A[🧠 Agent] -->|needs PDFs| L[📚 Skill Index]
-    L -->|load on demand| S[📦 PDF Skill]
-    S -->|instructions + scripts| A
+    A[🧠 Agent] -->|query| L[📚 Skill Index]
+    L -->|load| S[📦 PDF Skill]
+    S -->|inject| A
 ```
 
 > Skills = **lazy-loaded capability bundles** (instructions + code + resources).
@@ -354,10 +354,10 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    T1[🔧 +10 tools] --> P[(📈 Prompt)]
-    T2[🔧 +20 MCP tools] --> P
-    T3[💬 long history] --> P
-    P -->|drift / cost / latency| L[🧠 LLM]
+    T1[🔧 Tools] -->|inflate| P[(📈 Context)]
+    T2[🔌 MCP Servers] -->|inflate| P
+    T3[💬 Chat History] -->|inflate| P
+    P -->|degrade| L[🧠 LLM]
 ```
 
 | Scaling Lever | Cost in Context | Symptom |
