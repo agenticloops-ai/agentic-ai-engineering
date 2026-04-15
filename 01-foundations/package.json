@@ -1,0 +1,15 @@
+{
+  "name": "workshop-deck",
+  "private": true,
+  "description": "Marp deck with Mermaid support for the foundations workshop",
+  "scripts": {
+    "preview": "marp --config ./marp.config.mjs --watch --html workshop.md",
+    "serve":   "marp --config ./marp.config.mjs --server .",
+    "build":   "marp --config ./marp.config.mjs --html workshop.md -o workshop.html",
+    "pdf":     "marp --config ./marp.config.mjs --pdf --allow-local-files workshop.md -o workshop.pdf"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.0.0",
+    "markdown-it-mermaid-plugin": "^1.0.0"
+  }
+}
