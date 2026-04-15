@@ -507,4 +507,8 @@ It's a **control flow** —
 
 ### <span class="hand">Once you see the loop, you can build one tonight.</span>
 
-`github.com/agenticloops-ai/agentic-ai-engineering`
+<br>
+
+### 📚 [agenticloops-ai / agentic-ai-engineering](https://github.com/agenticloops-ai/agentic-ai-engineering)
+
+A hands-on guide to AI agent development — from basic LLM calls to autonomous tool-using systems. Progressive lessons, runnable code, both Anthropic & OpenAI.
