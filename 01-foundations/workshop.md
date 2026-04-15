@@ -219,30 +219,33 @@ Understanding the patterns matters — just like any other technology.
 
 ---
 
-# 🌐 The Early Web Analogy
+# 🌐 Same Story as the Early Web
 
-In the **mid-90s**, the internet was new and confusing.
-By the **early 2000s**, it had changed everything.
+<div class="columns">
+<div>
 
-> Not overnight. Not without mistakes. But *permanently*.
+### <span class="accent">Mid-90s → Early 2000s</span>
+The internet was new and confusing — then it changed everything.
 
-Some engineers adapted — HTML → JavaScript → frameworks — and realized the web didn't *replace* software engineering, it *became part of it*.
+Some engineers adapted: HTML → JS → frameworks. They realized the web didn't *replace* software engineering — it *became part of it*.
 
 Others struggled.
 
----
+</div>
+<div>
 
-# 🧭 AI Is the Same Story
+### <span class="accent">AI Today</span>
+It won't replace software engineering — it'll **become part of it**.
 
-It won't replace software engineering — it'll become **part of it**.
-
-Engineers who understand how agents actually work will:
-
+Engineers who understand how agents work will:
 - 🏗️ build better systems
 - 🐛 debug them more effectively
-- 🎯 design for AI's strengths *and* its limits
+- 🎯 design for AI's strengths *and* limits
 
-Just as understanding HTTP and statelessness made you a better web developer — understanding **prompts, tools, memory, and failure modes** makes you a better engineer in an AI-augmented world.
+</div>
+</div>
+
+> Just as understanding **HTTP and statelessness** made you a better web developer — understanding **prompts, tools, memory, and failure modes** makes you a better engineer in an AI-augmented world.
 
 ---
 
