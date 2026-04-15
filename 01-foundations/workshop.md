@@ -247,24 +247,9 @@ Engineers who understand how agents work will:
 
 > Just as understanding **HTTP and statelessness** made you a better web developer — understanding **prompts, tools, memory, and failure modes** makes you a better engineer in an AI-augmented world.
 
----
+### 🎯 The goal isn't to become an AI specialist.
 
-<!-- _class: lead invert -->
-
-# 🎯 The Goal
-
-Not to become an **AI specialist**.
-
-<br>
-
-To be **fluent enough** that
-when an agentic workflow is the right solution,
-you recognize it —
-
-<br>
-
-and when it isn't,
-**you recognize that too.**
+<span class="hand">It's to be fluent enough that when an agentic workflow is the right solution, you recognize it — and when it isn't, you recognize that too.</span>
 
 ---
 
