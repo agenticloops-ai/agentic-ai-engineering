@@ -22,12 +22,12 @@ Create pyproject.toml (anthropic, python-dotenv, rich, requests) and a .env with
 **Prompt to Claude Code:**
 
 ```
-Create agent.py — read user input, send to claude-sonnet-4-6, print response.
+Create agent.py — read one prompt from input(), send it to claude-sonnet-4-6, print the response, then exit. No loop.
 ```
 
 **Live demo:**
-- *"My name is Alex"*
-- Restart the script → *"What's my name?"*
+- Run it → *"My name is Alex"*
+- Run it again → *"What's my name?"*
 - ❌ **No memory.** → motivates Chat.
 
 ---
