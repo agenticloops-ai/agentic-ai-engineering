@@ -3,109 +3,186 @@ marp: true
 theme: uncover
 class: invert
 paginate: true
-backgroundColor: #0d1117
-color: #e6edf3
+backgroundColor: #0f1115
+color: #e7e9ee
 style: |
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Kalam:wght@400;700&display=swap');
   section {
-    font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-    color: #e6edf3;
-    padding: 50px;
-    font-size: 24px;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background:
+      radial-gradient(circle at 10% 0%, rgba(255,180,84,0.08), transparent 40%),
+      radial-gradient(circle at 90% 40%, rgba(124,209,255,0.06), transparent 45%),
+      #0f1115;
+    color: #e7e9ee;
+    padding: 50px 60px;
+    font-size: 22px;
+    line-height: 1.5;
   }
   h1 {
-    color: #58a6ff;
+    color: #ffb454;
     font-weight: 700;
-    border-bottom: 2px solid #30363d;
+    letter-spacing: -0.01em;
+    border-bottom: 1px dashed #2a2f3a;
     padding-bottom: 10px;
   }
   h2 {
-    color: #79c0ff;
+    color: #7cd1ff;
     font-weight: 600;
   }
   h3 {
-    color: #d2a8ff;
+    color: #7cd1ff;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
   }
+  strong { color: #ffd27a; }
+  em { color: #b4f078; font-style: normal; }
   code {
-    background: #161b22;
-    color: #ff7b72;
+    background: #0b0d12;
+    color: #ffd27a;
     padding: 2px 6px;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
     font-size: 0.85em;
+    border: 1px solid #2a2f3a;
   }
   pre {
-    background: #161b22 !important;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    font-size: 0.7em;
+    background: #0b0d12 !important;
+    border: 1px solid #2a2f3a;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 0.68em;
+    padding: 14px 16px;
   }
   pre code {
     background: transparent;
-    color: #e6edf3;
+    color: #e7e9ee;
+    border: none;
+    padding: 0;
   }
   table {
     border-collapse: collapse;
     margin: 0 auto;
-    font-size: 0.85em;
+    font-size: 0.8em;
   }
   th {
-    background: #21262d;
-    color: #58a6ff;
+    background: #151821;
+    color: #ffb454;
     padding: 8px 14px;
-    border: 1px solid #30363d;
+    border: 1px solid #2a2f3a;
   }
   td {
     padding: 8px 14px;
-    border: 1px solid #30363d;
+    border: 1px solid #2a2f3a;
   }
   .columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.2rem;
   }
-  .pros { color: #7ee787; }
-  .cons { color: #ff7b72; }
-  .accent { color: #d2a8ff; }
+  .pros { color: #b4f078; }
+  .cons { color: #ff7a7a; }
+  .accent { color: #ffb454; }
+  .hand {
+    font-family: 'Kalam', 'Caveat', cursive;
+    color: #ffb454;
+  }
+  .eyebrow {
+    font-family: 'Kalam', 'Caveat', cursive;
+    color: #ffb454;
+    font-size: 0.7em;
+    letter-spacing: 0.5px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 0.65em;
+    background: #151821;
+    color: #e7e9ee;
+    border: 1px solid #2a2f3a;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-right: 4px;
+  }
+  .chip.warn { border-color: #5a3a1d; color: #ffb454; }
+  .chip.danger { border-color: #5a2525; color: #ff7a7a; }
+  .chip.ok { border-color: #2c4a25; color: #b4f078; }
+  .step-pill {
+    display: inline-block;
+    background: #ffb454;
+    color: #1a1204;
+    font-weight: 700;
+    font-size: 0.55em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .callout {
+    border-left: 3px solid #ffb454;
+    background: rgba(255,180,84,0.06);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 12px 0;
+    color: #efe6d6;
+    font-size: 0.85em;
+  }
+  .callout.danger {
+    border-left-color: #ff7a7a;
+    background: rgba(255,122,122,0.06);
+    color: #f7dcdc;
+  }
+  .callout.ok {
+    border-left-color: #b4f078;
+    background: rgba(180,240,120,0.05);
+    color: #e3f3d3;
+  }
   blockquote {
-    border-left: 4px solid #58a6ff;
-    padding-left: 1rem;
-    color: #8b949e;
+    border-left: 3px solid #ffb454;
+    background: rgba(255,180,84,0.06);
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: #efe6d6;
     font-style: italic;
   }
   footer {
     color: #6e7681;
-    font-size: 0.6em;
+    font-size: 0.55em;
   }
   section.lead h1 {
-    font-size: 2.4em;
+    font-size: 2.6em;
     border: none;
     text-align: center;
   }
   section.lead {
     text-align: center;
   }
-footer: 'How Agents Work · Under the Hood'
+footer: 'Agents Under the Hood · 01-foundations'
 ---
 
 <!-- _class: lead invert -->
 
-# 🤖 How Agents Work
-## Building Agents from Scratch — Under the Hood
+<span class="eyebrow">live demo companion · 30–45 min</span>
 
-From a single LLM call → an autonomous agent loop
+# 🤖 Agents Under the Hood
+## from *stateless LLM calls* → an *agentic loop*
 
 <br>
 
-`workshop · 01-foundations`
+Four steps. Real code. Built live.
+
+<br>
+
+<span class="chip">loop</span> <span class="chip">tools</span> <span class="chip">context</span>
 
 ---
 
 # 👋 How I Got Here
 
-I started exploring agents a while ago and decided to share what I was learning — I should have started earlier.
+I started exploring agents a while ago and decided to share what I was learning — *I should have started earlier.*
 
 One of those posts —
-*[How Agents Work: The Patterns Behind the Magic](https://agenticloopsai.substack.com/p/how-agents-work-the-patterns-behind)*
+**[How Agents Work: The Patterns Behind the Magic](https://agenticloopsai.substack.com/p/how-agents-work-the-patterns-behind)**
 — caught <span class="accent">Yuriy's</span> eye, and here we are.
 
 ---
@@ -119,7 +196,7 @@ I look at it pragmatically:
 > This technology isn't going anywhere.
 > As engineers, we need to adapt and learn.
 
-Understanding the patterns matters — just like it does for any other technology we use.
+Understanding the patterns matters — just like any other technology.
 
 ---
 
@@ -128,7 +205,7 @@ Understanding the patterns matters — just like it does for any other technolog
 In the **mid-90s**, the internet was new and confusing.
 By the **early 2000s**, it had changed everything.
 
-> Not overnight. Not without mistakes. But **permanently**.
+> Not overnight. Not without mistakes. But *permanently*.
 
 Some engineers adapted — HTML → JavaScript → frameworks — and realized the web didn't *replace* software engineering, it *became part of it*.
 
@@ -144,9 +221,9 @@ Engineers who understand how agents actually work will:
 
 - 🏗️ build better systems
 - 🐛 debug them more effectively
-- 🎯 design for AI's strengths and its limits
+- 🎯 design for AI's strengths *and* its limits
 
-Just as understanding HTTP and statelessness made you a better web developer — understanding **prompts, tools, memory, and failure modes** will make you a better engineer in an AI-augmented world.
+Just as understanding HTTP and statelessness made you a better web developer — understanding **prompts, tools, memory, and failure modes** makes you a better engineer in an AI-augmented world.
 
 ---
 
@@ -154,11 +231,11 @@ Just as understanding HTTP and statelessness made you a better web developer —
 
 # 🎯 The Goal
 
-The goal isn't to become an **AI specialist**.
+Not to become an **AI specialist**.
 
 <br>
 
-It's to be **fluent enough** that
+To be **fluent enough** that
 when an agentic workflow is the right solution,
 you recognize it —
 
@@ -169,29 +246,44 @@ and when it isn't,
 
 ---
 
-# 🗺️ The Progression
+# 🧠 First Principle — LLM Is a *Pure Function*
+
+<span class="eyebrow">stateless · non-deterministic · token-bounded</span>
+
+```python
+response = llm(messages, tools, params)
+```
+
+- **No memory** between calls
+- **You** keep the state, you replay it every turn
+- Same input → *distribution* of outputs, not one answer
+
+> Every "conversation" is the client stuffing history back into the prompt.
+
+<span class="chip">stateless</span> <span class="chip">non-deterministic</span> <span class="chip">token-bounded</span>
+
+---
+
+# 🗺️ What We'll Build
 
 ```mermaid
 flowchart LR
     A[📞 LLM Call] --> B[💬 Chat]
     B --> C[🔧 Tool Use]
     C --> D[🔁 Agent Loop]
-    D --> E[🌐 MCP & Skills]
 ```
 
-| # | Pattern | Adds |
-|:-:|---------|------|
-| 1 | **Simple LLM Call** | Stateless request/response |
-| 2 | **Chat** | Conversation history |
-| 3 | **Tool Use** | Function calling |
-| 4 | **Agent Loop** | Autonomy + multi-step reasoning |
-| ➕ | **MCP / Skills** | Scalable context engineering |
+| <span class="step-pill">1</span> | **LLM Call** | stateless request/response |
+|:-:|---|---|
+| <span class="step-pill">2</span> | **Chat** | conversation history |
+| <span class="step-pill">3</span> | **Tool Use** | function calling |
+| <span class="step-pill">4</span> | **Agent Loop** | autonomy + multi-step |
 
-> Every "agent" is a composition of these primitives.
+> Once you see the loop, you stop being a *consumer* and start being a *producer* of AI.
 
 ---
 
-# 1️⃣ Simple LLM Call
+# <span class="step-pill">Step 1</span> Simple LLM Call
 
 ```mermaid
 flowchart LR
@@ -206,7 +298,6 @@ flowchart LR
 - Stateless & predictable
 - Easy to cache
 - Cheapest possible call
-- Great for one-shot tasks
 
 </div>
 <div>
@@ -214,24 +305,24 @@ flowchart LR
 ### <span class="cons">⚠️ Cons</span>
 - No memory
 - No actions
-- No iteration
 - No grounding in reality
 
 </div>
 </div>
 
 ```python
-response = client.messages.create(
-    model="claude-sonnet-4-6",
-    system="You are a helpful assistant.",
-    messages=[{"role": "user", "content": prompt}],
-)
-return response.content[0].text
+def ask(prompt: str) -> str:
+    r = client.messages.create(
+        model="claude-sonnet-4-6",
+        messages=[{"role":"user","content":prompt}])
+    return r.content[0].text
 ```
+
+<div class="callout">🎤 <strong>Say out loud:</strong> "Every LLM product on earth starts here. Everything we add next is scaffolding around this call."</div>
 
 ---
 
-# 2️⃣ Chat — Add Memory
+# <span class="step-pill">Step 2</span> Chat — History Is State
 
 ```mermaid
 flowchart LR
@@ -246,7 +337,6 @@ flowchart LR
 
 ### <span class="pros">✅ Pros</span>
 - Natural multi-turn UX
-- Context across messages
 - Foundation for everything
 
 </div>
@@ -255,26 +345,26 @@ flowchart LR
 ### <span class="cons">⚠️ Cons</span>
 - Context grows linearly → 💸
 - Still **passive** — no actions
-- Token bloat → drift & latency
+- Token bloat → drift
 
 </div>
 </div>
 
 ```python
-self.messages.append({"role": "user", "content": user_message})
-response = self.client.messages.create(
-    model=self.model, messages=self.messages,
-)
-self.messages.append({"role": "assistant", "content": response.content[0].text})
+history.append({"role":"user","content":msg})
+r = client.messages.create(messages=history)   # ← replay ALL of it
+history.append({"role":"assistant","content":r.content[0].text})
 ```
+
+<div class="callout danger">⚠️ <strong>First failure mode:</strong> history grows unbounded → context window fills → older info drifts out. <em>Context pollution</em> incoming.</div>
 
 ---
 
-# 3️⃣ Tool Use — Add Actions
+# <span class="step-pill">Step 3</span> Tool Use — Give It Hands
 
 ```mermaid
 flowchart LR
-    L[🧠 LLM] -->|invoke| T[🔧 Tool]
+    L[🧠 LLM] -->|request| T[🔧 Tool]
     T -->|return| L
     L -->|respond| O([📄 Response])
 ```
@@ -284,14 +374,14 @@ flowchart LR
 
 ### <span class="pros">✅ Pros</span>
 - LLM can **act** on the world
-- Grounded answers (real data)
+- Grounded in real data
 - Structured I/O via JSON Schema
 
 </div>
 <div>
 
 ### <span class="cons">⚠️ Cons</span>
-- Tool schemas eat tokens
+- Schemas eat tokens
 - Selection errors at scale
 - Needs **safety guardrails**
 
@@ -299,16 +389,17 @@ flowchart LR
 </div>
 
 ```python
-TOOLS = [{"name": "calculator", "input_schema": {...}}]
-response = client.messages.create(model=model, tools=TOOLS, messages=messages)
-for block in response.content:
-    if isinstance(block, ToolUseBlock):
-        result = execute_tool(block.name, block.input)
+tools = [{"name":"get_weather",
+          "input_schema":{"type":"object",
+            "properties":{"city":{"type":"string"}}}}]
+# LLM emits tool_use → YOUR code runs it → return tool_result
 ```
+
+<div class="callout">💡 <strong>Key insight:</strong> the LLM does not *call* your function. It <em>requests</em> it. <strong>You are the runtime.</strong></div>
 
 ---
 
-# 4️⃣ Agent Loop — Add Autonomy
+# <span class="step-pill">Step 4</span> Agent Loop — Autonomy
 
 ```mermaid
 flowchart TD
@@ -333,19 +424,53 @@ flowchart TD
 ### <span class="cons">⚠️ Cons</span>
 - Unbounded cost / loops
 - Hard to debug
-- **Context pollution** grows fast
+- Context pollution grows fast
 
 </div>
 </div>
 
 ```python
-while iteration < max_iterations:
-    response = client.messages.create(model=model, tools=TOOLS, messages=messages)
-    if response.stop_reason == "end_turn":
-        return response.content[0].text
-    messages.append({"role": "assistant", "content": response.content})
-    messages.append({"role": "user", "content": run_tools(response)})
+for step in range(MAX_STEPS):
+    r = client.messages.create(tools=tools, messages=messages)
+    messages.append({"role":"assistant","content":r.content})
+    if r.stop_reason != "tool_use": break   # ← natural-language answer
+    messages.append({"role":"user","content":run_tools(r)})
 ```
+
+<div class="callout ok">✨ <strong>That's the entire agent.</strong> Cursor, Claude Code, Copilot Agent — all variants of this loop with better tools, prompts, and guardrails.</div>
+
+---
+
+# 🧾 The 3 Truths Nobody Tells Consumers
+
+<div class="columns">
+<div>
+
+### ① <span class="cons">Statelessness</span>
+The LLM has no memory. Every "it remembered me" is code replaying history.
+
+<span class="chip">you control it</span>
+
+### ② <span class="cons">Non-determinism</span>
+Same input → different outputs. Great for creativity, catastrophic for reliability.
+
+<span class="chip warn">need evals, not unit tests</span>
+
+</div>
+<div>
+
+### ③ <span class="cons">Context pollution</span>
+Every tool result, retry, error gets appended. After 20 steps the agent is swimming in its own exhaust.
+
+<span class="chip danger">summarize · compact · fork</span>
+
+### ➕ Cost compounds
+Turn N resends turns 1..N-1. Cost is ~O(N²) over a session.
+
+<span class="chip warn">cap steps, cap tokens</span>
+
+</div>
+</div>
 
 ---
 
@@ -354,93 +479,121 @@ while iteration < max_iterations:
 ```mermaid
 flowchart LR
     A[🧠 Agent] <-->|invoke| S1[🔌 GitHub Server]
-    A <-->|invoke| S2[🔌 DB Server]
-    A <-->|invoke| S3[🔌 Filesystem Server]
+    A <-->|invoke| S2[🔌 Slack Server]
+    A <-->|invoke| S3[🔌 Postgres Server]
 ```
 
-> **"USB-C for LLM tools"** — one protocol, many integrations.
+> **"USB for agent tools"** — one plug shape, any device.
+> `tools=[...]` is the soldered-together version.
 
-<div class="columns">
-<div>
+**MCP server exposes 3 primitives:**
+- 🔧 **Tools** — callable functions
+- 📄 **Resources** — readable context (files, DB rows)
+- 📝 **Prompts** — parameterized templates
 
-### <span class="pros">✅ Pros</span>
-- Plug-and-play tool ecosystems
-- Decouples agent ↔ tools
-- Reusable across clients
-
-</div>
-<div>
-
-### <span class="cons">⚠️ Cons</span>
-- **Every MCP loads its full tool list** into context
-- Selection accuracy ↓ as N tools ↑
-- Auth, sandboxing, trust boundaries
-
-</div>
-</div>
-
-### 📊 Real MCP servers — tool counts add up fast
-
-| MCP Server | Tools | ~Schema tokens |
-|---|:-:|:-:|
-| **GitHub** (issues, PRs, commits, branches, releases…) | ~35 | ~6k |
-| **Playwright** (browser automation) | ~25 | ~5k |
-| **Atlassian** (Jira + Confluence) | ~30 | ~5k |
-| **AWS** (S3, EC2, Lambda…) | 100+ | 20k+ |
-| **Filesystem + Slack + Postgres** (typical combo) | ~30 | ~5k |
-
-> Connect 3–4 servers → **15k+ tokens consumed before the user even types a prompt.**
-
-```python
-# pseudo-code — every MCP server's tools join the prompt
-agent.connect_mcp("github")      # +35 tools
-agent.connect_mcp("playwright")  # +25 tools
-agent.connect_mcp("aws")         # +100 tools
-# → sent on EVERY LLM call, whether you use them or not
-```
+<span class="chip">standard</span> <span class="chip">pluggable</span> <span class="chip">agent-agnostic</span>
 
 ---
 
-# 📦 Skills — Progressive Disclosure
+# ⚙️ MCP in Practice
+
+```json
+// .mcp.json
+{
+  "mcpServers": {
+    "github":   { "command": "npx", "args": ["@modelcontextprotocol/server-github"] },
+    "postgres": { "command": "uvx", "args": ["mcp-server-postgres", "$DB_URL"] }
+  }
+}
+```
+
+**On launch:** agent connects → `list_tools` → merges ~20 schemas into every LLM call.
+
+> User: *"find open PRs that touch the users table"*
+> → agent routes across both MCPs automatically.
+
+<div class="callout danger">💸 <strong>The tax nobody shows you:</strong> every MCP tool's name, description, and JSON schema sits in the context on every single call. 5 MCPs × 15 tools ≈ <strong>10–20k tokens gone before the user types.</strong></div>
+
+---
+
+# ⚠️ Trade-offs of Stacking MCPs
+
+| Trade-off | Symptom |
+|---|---|
+| ① **Context bloat** | Schemas crowd out the task |
+| ② **Choice paralysis** | LLMs degrade with lookalike tools |
+| ③ **Security surface** | Each server reads creds, can exfiltrate |
+| ④ **Latency & startup** | RPC hops + cold-start npx/uvx |
+| ⑤ **Name collisions** | Two `search` tools → mispicks |
+| ⑥ **Version drift** | Schema changes silently break evals |
+
+### 📊 Real servers — tool counts add up fast
+
+| GitHub | Playwright | Atlassian | AWS |
+|:-:|:-:|:-:|:-:|
+| ~35 | ~25 | ~30 | 100+ |
+| 6k tok | 5k tok | 5k tok | 20k+ tok |
+
+<div class="callout ok">👍 <strong>Rule of thumb:</strong> keep active tools to ~5–10. Use profiles or dynamic loading.</div>
+
+---
+
+# 📦 Skills — Lazy-Loaded Playbooks
 
 ```mermaid
 flowchart LR
-    A[🧠 Agent] -->|query| L[📚 Skill Index]
-    L -->|load| S[📦 PDF Skill]
-    S -->|inject| A
+    U([🗣️ "make a pptx"]) -->|match| R[📚 Skill Registry<br/>~100 tok]
+    R -->|on-demand| S[📦 SKILL.md<br/>~2-5k tok]
+    S -->|inject| A[🧠 Agent Loop]
 ```
 
-> Skills = **lazy-loaded capability bundles** (instructions + code + resources).
+**Anatomy:**
+
+```
+my-skill/
+├── SKILL.md        # playbook + frontmatter (when to invoke)
+├── scripts/helper.py
+└── assets/template.docx
+```
+
+<div class="callout">💡 Unused skills <strong>never hit the context</strong> → ship 50 skills with ~zero baseline cost.</div>
+
+<span class="chip ok">lazy-loaded</span> <span class="chip">prompt + code + assets</span> <span class="chip">convention > protocol</span>
+
+---
+
+# ⚔️ MCP vs Skills — When to Use Which
 
 <div class="columns">
 <div>
 
-### <span class="pros">✅ Pros</span>
-- Loaded **only when relevant**
-- Keeps base context lean
-- Versioned, shareable, composable
+### 🔧 <span class="accent">MCP</span> fits when…
+- You need **live data** (GitHub, Slack, DB)
+- You need **real-world side-effects**
+- Action = clean function signature
+- Many agents need the same capability
 
 </div>
 <div>
 
-### <span class="cons">⚠️ Cons</span>
-- Discovery overhead
-- Skill quality = agent quality
-- Still trades context for capability
+### 📦 <span class="accent">Skills</span> fit when…
+- Encoding **how to do something**
+- Long process, conditional steps, examples
+- Want a **catalog of 50+** without tool bloat
+- Versioned know-how shipped with code
 
 </div>
 </div>
 
-```python
-# pseudo-code — skills stay on disk until needed
-if agent.needs("work with PDFs"):
-    load_skill("pdf-toolkit")   # adds instructions + tools just now
-# base context stays small
-```
+<div class="callout ok">🎯 <strong>They compose.</strong> A skill's playbook can instruct the agent to call MCP tools.</div>
+
+<br>
+
+### <span class="hand">MCP adds hands. Skills add instincts.</span>
 
 ---
 
-# ⚠️ The Context Pollution Problem
+# 🧹 Context Pollution — Reiteration
 
 ```mermaid
 flowchart LR
@@ -450,42 +603,38 @@ flowchart LR
     P -->|degrade| L[🧠 LLM]
 ```
 
-| Scaling Lever | Cost in Context | Symptom |
-|---------------|-----------------|---------|
-| More tools | Schemas in every call | Wrong tool selected |
-| More MCP servers | Full toolset always loaded | Token bloat, latency |
-| Longer history | O(n) growth | Forgetfulness, drift |
-| More skills (eager) | Instructions duplicated | Confused priorities |
-
-> **Rule of thumb:** every token in context is a token the model must reason over. Curate ruthlessly.
-
 ```python
-# pseudo-code — what actually gets sent on every call
 prompt = (
-    system_prompt           # ~500 tokens
-    + tool_schemas          # ~6k × N servers
-    + chat_history          # grows O(turns)
-    + user_message          # tiny
+    system_prompt         # ~500 tokens
+    + tool_schemas        # ~6k × N servers
+    + chat_history        # grows O(turns)
+    + user_message        # tiny
 )
 ```
+
+> **Every token in context is a token the model must reason over.**
+> Curate ruthlessly.
 
 ---
 
 <!-- _class: lead invert -->
 
-# 🎯 Takeaways
+# 🎯 From Consumer to Producer
 
-**Agents = LLM + Loop + Tools + Context Engineering**
+An agent isn't a new kind of intelligence.
+It's a **control flow** —
+`while` loop + tools + history — around a stateless function.
+
+<br>
 
 🧱 Start simple → add primitives only when needed
 🔧 Tools give power — schemas cost tokens
 🔁 The loop is ~30 lines of code
-🌐 MCP scales integrations, not context
-📦 Skills load capabilities on demand
+🌐 MCP adds hands · 📦 Skills add instincts
 🧹 **Context is the new RAM — manage it**
 
 <br>
 
-### 🚀 Build one. Break it. Then scale it.
+### <span class="hand">Once you see the loop, you can build one tonight.</span>
 
 `github.com/agenticloops-ai/agentic-ai-engineering`
