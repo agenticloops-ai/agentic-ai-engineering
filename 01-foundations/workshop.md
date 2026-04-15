@@ -304,17 +304,23 @@ flowchart LR
 
 ### <span class="cons">⚠️ Cons</span>
 - **Every MCP loads its full tool list** into context
-- 5 servers → 100+ tools → 🤯
 - Selection accuracy ↓ as N tools ↑
 - Auth, sandboxing, trust boundaries
 
 </div>
 </div>
 
-```python
-# Connect once → tools auto-injected into every LLM call
-client.add_mcp_server("github")  # +20 tools, +4k tokens... per turn
-```
+### 📊 Real MCP servers — tool counts add up fast
+
+| MCP Server | Tools | ~Schema tokens |
+|---|:-:|:-:|
+| **GitHub** (issues, PRs, commits, branches, releases…) | ~35 | ~6k |
+| **Playwright** (browser automation) | ~25 | ~5k |
+| **Atlassian** (Jira + Confluence) | ~30 | ~5k |
+| **AWS** (S3, EC2, Lambda…) | 100+ | 20k+ |
+| **Filesystem + Slack + Postgres** (typical combo) | ~30 | ~5k |
+
+> Connect 3–4 servers → **15k+ tokens consumed before the user even types a prompt.**
 
 ---
 
