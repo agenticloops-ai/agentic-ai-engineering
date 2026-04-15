@@ -247,7 +247,7 @@ response = llm(messages, tools, params)
 </div>
 </div>
 
-<span class="eyebrow">one prompt in, one answer out — every LLM product on earth starts here</span>
+<span class="eyebrow">one prompt in, one answer out — the core building block of all LLM products</span>
 
 ---
 
