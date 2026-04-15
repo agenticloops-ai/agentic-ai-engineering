@@ -208,44 +208,29 @@ One of those posts —
 
 # 🤔 Why Understand the Internals?
 
-AI is moving fast. Like any fast-growing technology, it's hard to separate **hype** from **substance**.
-
-I look at it pragmatically:
-
-> This technology isn't going anywhere.
-> As engineers, we need to adapt and learn.
-
-Understanding the patterns matters — just like any other technology.
-
----
-
-# 🌐 Same Story as the Early Web
+AI is moving fast — hard to separate **hype** from **substance**.
+This technology isn't going anywhere. As engineers, we need to adapt.
 
 <div class="columns">
 <div>
 
 ### <span class="accent">Mid-90s → Early 2000s</span>
-The internet was new and confusing — then it changed everything.
+The web was new and confusing — then it changed everything.
 
-Some engineers adapted: HTML → JS → frameworks. They realized the web didn't *replace* software engineering — it *became part of it*.
-
-Others struggled.
+Engineers who adapted (HTML → JS → frameworks) realized the web didn't *replace* software engineering — it *became part of it*.
 
 </div>
 <div>
 
 ### <span class="accent">AI Today</span>
-It won't replace software engineering — it'll **become part of it**.
+Same arc. It won't replace software engineering — it'll **become part of it**.
 
-Engineers who understand how agents work will:
-- 🏗️ build better systems
-- 🐛 debug them more effectively
-- 🎯 design for AI's strengths *and* limits
+Engineers who understand how agents work will build better systems, debug them more effectively, and design for AI's strengths *and* limits.
 
 </div>
 </div>
 
-> Just as understanding **HTTP and statelessness** made you a better web developer — understanding **prompts, tools, memory, and failure modes** makes you a better engineer in an AI-augmented world.
+> Just as **HTTP and statelessness** made you a better web developer — **prompts, tools, memory, and failure modes** make you a better engineer in an AI-augmented world.
 
 ### 🎯 The goal isn't to become an AI specialist.
 
