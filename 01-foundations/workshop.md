@@ -568,49 +568,6 @@ flowchart LR
 
 ---
 
-# ⚙️ MCP in Practice
-
-```json
-// .mcp.json
-{
-  "mcpServers": {
-    "github":   { "command": "npx", "args": ["@modelcontextprotocol/server-github"] },
-    "postgres": { "command": "uvx", "args": ["mcp-server-postgres", "$DB_URL"] }
-  }
-}
-```
-
-**On launch:** agent connects → `list_tools` → merges ~20 schemas into every LLM call.
-
-> User: *"find open PRs that touch the users table"*
-> → agent routes across both MCPs automatically.
-
-<div class="callout danger">💸 <strong>The tax nobody shows you:</strong> every MCP tool's name, description, and JSON schema sits in the context on every single call. 5 MCPs × 15 tools ≈ <strong>10–20k tokens gone before the user types.</strong></div>
-
----
-
-# ⚠️ Trade-offs of Stacking MCPs
-
-| Trade-off | Symptom |
-|---|---|
-| ① **Context bloat** | Schemas crowd out the task |
-| ② **Choice paralysis** | LLMs degrade with lookalike tools |
-| ③ **Security surface** | Each server reads creds, can exfiltrate |
-| ④ **Latency & startup** | RPC hops + cold-start npx/uvx |
-| ⑤ **Name collisions** | Two `search` tools → mispicks |
-| ⑥ **Version drift** | Schema changes silently break evals |
-
-### 📊 Real servers — tool counts add up fast
-
-| GitHub | Playwright | Atlassian | AWS |
-|:-:|:-:|:-:|:-:|
-| ~35 | ~25 | ~30 | 100+ |
-| 6k tok | 5k tok | 5k tok | 20k+ tok |
-
-<div class="callout ok">👍 <strong>Rule of thumb:</strong> keep active tools to ~5–10. Use profiles or dynamic loading.</div>
-
----
-
 # 📦 Skills — Lazy-Loaded Playbooks
 
 ```mermaid
