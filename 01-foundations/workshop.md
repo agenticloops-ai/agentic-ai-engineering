@@ -405,39 +405,6 @@ flowchart TD
 
 ---
 
-# 🧾 The 3 Truths Nobody Tells Consumers
-
-<div class="columns">
-<div>
-
-### ① <span class="cons">Statelessness</span>
-The LLM has no memory. Every "it remembered me" is code replaying history.
-
-<span class="chip">you control it</span>
-
-### ② <span class="cons">Non-determinism</span>
-Same input → different outputs. Great for creativity, catastrophic for reliability.
-
-<span class="chip warn">need evals, not unit tests</span>
-
-</div>
-<div>
-
-### ③ <span class="cons">Context pollution</span>
-Every tool result, retry, error gets appended. After 20 steps the agent is swimming in its own exhaust.
-
-<span class="chip danger">summarize · compact · fork</span>
-
-### ➕ Cost compounds
-Turn N resends turns 1..N-1. Cost is ~O(N²) over a session.
-
-<span class="chip warn">cap steps, cap tokens</span>
-
-</div>
-</div>
-
----
-
 # 🌐 MCP — Model Context Protocol
 
 ```mermaid
