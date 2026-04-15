@@ -310,6 +310,12 @@ flowchart LR
     L -->|return| O([📄 Response])
 ```
 
+<span class="eyebrow">one prompt in, one answer out · no memory · no tools</span>
+
+---
+
+# <span class="step-pill">Step 1</span> Pros & Cons
+
 <div class="columns">
 <div>
 
@@ -317,6 +323,7 @@ flowchart LR
 - Stateless & predictable
 - Easy to cache
 - Cheapest possible call
+- Great for one-shot tasks
 
 </div>
 <div>
@@ -324,16 +331,22 @@ flowchart LR
 ### <span class="cons">⚠️ Cons</span>
 - No memory
 - No actions
+- No iteration
 - No grounding in reality
 
 </div>
 </div>
 
+---
+
+# <span class="step-pill">Step 1</span> Code
+
 ```python
 def ask(prompt: str) -> str:
     r = client.messages.create(
         model="claude-sonnet-4-6",
-        messages=[{"role":"user","content":prompt}])
+        messages=[{"role":"user","content":prompt}],
+    )
     return r.content[0].text
 ```
 
@@ -351,11 +364,18 @@ flowchart LR
     L -->|reply| U
 ```
 
+<span class="eyebrow">the client keeps the state · the LLM never remembers</span>
+
+---
+
+# <span class="step-pill">Step 2</span> Pros & Cons
+
 <div class="columns">
 <div>
 
 ### <span class="pros">✅ Pros</span>
 - Natural multi-turn UX
+- Context across messages
 - Foundation for everything
 
 </div>
@@ -369,10 +389,16 @@ flowchart LR
 </div>
 </div>
 
+---
+
+# <span class="step-pill">Step 2</span> Code
+
 ```python
-history.append({"role":"user","content":msg})
+history.append({"role":"user", "content": msg})
+
 r = client.messages.create(messages=history)   # ← replay ALL of it
-history.append({"role":"assistant","content":r.content[0].text})
+
+history.append({"role":"assistant", "content": r.content[0].text})
 ```
 
 <div class="callout danger">⚠️ <strong>First failure mode:</strong> history grows unbounded → context window fills → older info drifts out. <em>Context pollution</em> incoming.</div>
@@ -387,6 +413,12 @@ flowchart LR
     T -->|return| L
     L -->|respond| O([📄 Response])
 ```
+
+<span class="eyebrow">the LLM doesn't call functions · it requests them · YOU run them</span>
+
+---
+
+# <span class="step-pill">Step 3</span> Pros & Cons
 
 <div class="columns">
 <div>
@@ -407,14 +439,23 @@ flowchart LR
 </div>
 </div>
 
+---
+
+# <span class="step-pill">Step 3</span> Code
+
 ```python
-tools = [{"name":"get_weather",
-          "input_schema":{"type":"object",
-            "properties":{"city":{"type":"string"}}}}]
+tools = [{
+  "name": "get_weather",
+  "description": "Current weather for a city",
+  "input_schema": {"type":"object",
+    "properties": {"city": {"type":"string"}},
+    "required": ["city"]}
+}]
+
 # LLM emits tool_use → YOUR code runs it → return tool_result
 ```
 
-<div class="callout">💡 <strong>Key insight:</strong> the LLM does not *call* your function. It <em>requests</em> it. <strong>You are the runtime.</strong></div>
+<div class="callout">💡 <strong>Key insight:</strong> the LLM does not <em>call</em> your function. It <em>requests</em> it. <strong>You are the runtime.</strong></div>
 
 ---
 
@@ -428,6 +469,12 @@ flowchart TD
     E -->|append| B
     C -->|no| D([📄 Response])
 ```
+
+<span class="eyebrow">think → act → observe → repeat</span>
+
+---
+
+# <span class="step-pill">Step 4</span> Pros & Cons
 
 <div class="columns">
 <div>
@@ -448,12 +495,19 @@ flowchart TD
 </div>
 </div>
 
+---
+
+# <span class="step-pill">Step 4</span> Code
+
 ```python
 for step in range(MAX_STEPS):
     r = client.messages.create(tools=tools, messages=messages)
-    messages.append({"role":"assistant","content":r.content})
-    if r.stop_reason != "tool_use": break   # ← natural-language answer
-    messages.append({"role":"user","content":run_tools(r)})
+    messages.append({"role":"assistant", "content": r.content})
+
+    if r.stop_reason != "tool_use":
+        break                                   # ← natural-language answer
+
+    messages.append({"role":"user", "content": run_tools(r)})
 ```
 
 <div class="callout ok">✨ <strong>That's the entire agent.</strong> Cursor, Claude Code, Copilot Agent — all variants of this loop with better tools, prompts, and guardrails.</div>
