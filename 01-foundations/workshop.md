@@ -500,7 +500,7 @@ It's a **control flow** —
 
 🧱 Start simple → add primitives only when needed
 🔧 Tools give power — schemas cost tokens
-🌐 MCP adds hands · 📦 Skills add instincts
+🌐 MCP adds more tools & integrations · 📦 Skills add on-demand playbooks
 🧹 **Context is the new RAM — manage it**
 
 <br>
