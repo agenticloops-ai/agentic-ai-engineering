@@ -45,11 +45,6 @@ Agent fluency is the new data-structures interview. We teach it **from first pri
 > 💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
 > **Build one this weekend. You'll understand agents better than reading 100 blog posts.**
 
-## 🎯 Who is this for?
-
-- **Engineers** who want to move beyond chat wrappers — understand how AI agents actually work **under the hood**, then build tool-using, autonomous ones from scratch
-- **Anyone** who prefers **learning by running real code** over watching videos or reading theory
-
 No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
 
 ## 🧭 Why this repo?
