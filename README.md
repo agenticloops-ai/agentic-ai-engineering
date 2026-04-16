@@ -1,8 +1,6 @@
-
-
 <div align="center">
 
-![AI Agents Engineering](common/images/banner.png)
+<!-- ![AI Agents Engineering](common/images/banner.png) -->
 
 <!-- Keep these links. Translations will automatically update with the README. -->
 [English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) |
@@ -22,35 +20,67 @@
 </div>
 
 # Agentic AI Engineering
-*by [AgenticLoops.ai](https://agenticloops.ai) - for Engineers, from Engineers*
+**Stop reading about agents. Start building them.**
 
-**A practical, hands-on guide to AI agent development**. Learn by building real agents - from basic LLM interactions to autonomous tool-using systems. Master agentic patterns, explore popular frameworks, and discover deployment strategies through interactive tutorials.
+This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
 
-📝 **[Subscribe to our Substack](https://agenticloopsai.substack.com)** to get deep-dive engineering posts on AI agents. No hype, just engineering insights.
+> Building AI agents is engineering, not magic. Master the constraints, not the hype.
 
-## 🎯 Who Is This For?
+## ❓ Why you need to learn this?
 
-- **Engineers** who want to understand how AI agents work **under the hood** and move beyond chat wrappers... and build tool-using, autonomous agents
+▶️ [Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
+
+> _How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?_
+>
+> **_If you don't know this, your career is in jeopardy._**
+>
+> _What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure._
+>
+> _**This is now baseline knowledge** because we're getting candidates in that can answer this stuff._
+>
+> — **Geoffrey Huntley**, creator of [Ralph Wiggum](https://ghuntley.com/ralph/)
+
+Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
+
+> 💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
+> **Build one this weekend. You'll understand agents better than reading 100 blog posts.**
+
+## 🎯 Who is this for?
+
+- **Engineers** who want to move beyond chat wrappers — understand how AI agents actually work **under the hood**, then build tool-using, autonomous ones from scratch
 - **Anyone** who prefers **learning by running real code** over watching videos or reading theory
 
 No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
 
-**We're starting small but adding new tutorials continuously.** If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) - your input directly shapes what we build next.
+## 🧭 Why this repo?
 
-## 🚀 Quick Start
+- **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
+- **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
+- **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
+
+## ⚡ 60-second quickstart
 
 ```bash
-brew install uv
-
+brew install uv   # or: pipx install uv
 git clone https://github.com/agenticloops-ai/agentic-ai-engineering.git
-
 cd agentic-ai-engineering
-cp .env.example .env  # add your API keys
+cp .env.example .env   # add your Anthropic and/or OpenAI keys
 
-uv run --directory 01-foundations/01-simple-llm-call python 01_simple_call_anthropic.py
+uv run --directory 01-foundations/01-simple-llm-call python 01_llm_call_anthropic.py
 ```
 
-See 📚[SETUP.md](SETUP.md) for detailed setup instructions.
+That's it. Every tutorial is self-contained and idempotent — you can jump in anywhere. Full setup details in [SETUP.md](SETUP.md). Or [open in Codespaces](https://codespaces.new/agenticloops-ai/agentic-ai-engineering) and skip local setup entirely.
+
+> If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
+
+---
+
+## 📚 Companion reading
+
+The tutorials teach you to build. Our [Substack](https://agenticloopsai.substack.com) gives you the mental model first - a foundational primer on how agents actually work, followed by teardowns of real production agents you use every day. **Read the post. Open the tutorial. Rebuild the pattern.**
+
+[**How Agents Work: The Patterns Behind the Magic**](https://agenticloopsai.substack.com/p/how-agents-work-the-patterns-behind) - the core agentic loop from first principles. The four pattern levels (one-shot → single-tool → ReAct → planning), the role of the system prompt as behavioral design, and Ralph Mode as the outer loop. If you read one thing before opening the repo, read this. Pairs with → `01-foundations`.
+
 
 ## 🗂️ Tutorials Structure
 
@@ -86,17 +116,16 @@ Architectural patterns that separate toy demos from real agents. Based on Anthro
 
 ### 🧬 [03 - Advanced Techniques](03-advanced-techniques/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
-Practical engineering problems you'll hit the moment agents leave the prototype stage. Context limits, cost, memory, multimodal input — solved one tutorial at a time.
+Practical engineering problems you'll hit the moment agents leave the prototype stage. Context, cost, memory, multimodality, safety — solved one tutorial at a time.
 
 1. **[Structured Output](03-advanced-techniques/01-structured-output/)** — JSON mode, schemas, constrained generation
-2. **[Context Management](03-advanced-techniques/02-context-management/)** — Window strategies, summarization, chunking
-3. **[Memory](03-advanced-techniques/03-memory/)** — Short-term, long-term, vector stores
-4. **[Prompt Caching](03-advanced-techniques/04-prompt-caching/)** — Cache strategies, cost reduction
-5. **[Multimodal](03-advanced-techniques/05-multimodal/)** — Vision, audio, file processing
-6. **[MCP](03-advanced-techniques/06-mcp/)** — Model Context Protocol, standardized tool integration
-7. **[Multi-Agent Systems](03-advanced-techniques/07-multi-agent-systems/)** — Agent-to-agent communication, delegation
-8. **[RAG Techniques](03-advanced-techniques/08-rag-techniques/)** — Hybrid search, GraphRAG, agentic retrieval
-9. **[Streaming](03-advanced-techniques/09-streaming/)** — SSE, token-by-token output, streaming tool calls
+2. **[Streaming](03-advanced-techniques/02-streaming/)** — SSE, token-by-token output, streaming tool calls
+3. **[Context Engineering](03-advanced-techniques/03-context-engineering/)** — Window strategies, summarization, tool context
+4. **[Cost Optimization](03-advanced-techniques/04-cost-optimization/)** — Prompt caching, model routing
+5. **[Memory](03-advanced-techniques/05-memory/)** — Short-term, long-term, memory inspection
+6. **[RAG Techniques](03-advanced-techniques/06-rag-techniques/)** — Hybrid search, agentic retrieval
+7. **[Multimodal](03-advanced-techniques/07-multimodal/)** — Vision, image generation, audio
+8. **[Guardrails](03-advanced-techniques/08-guardrails/)** — Input/output filtering, safety patterns
 
 ### 🧪 [04 - Testing & Evaluation](04-testing-evaluation/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
