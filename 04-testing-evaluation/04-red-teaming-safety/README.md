@@ -10,6 +10,10 @@ Agents have access to tools, execute code, and make autonomous decisions — a s
 
 All examples are educational and defensive. The purpose is to teach defense through understanding offense.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/red-teaming-safety.gif" alt="Adversarial prompts hit layered input, tool-call, and output guardrails while Attack Success Rate is measured across attack categories." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Test agents against **prompt injection** attacks (direct and indirect)

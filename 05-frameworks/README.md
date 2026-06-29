@@ -9,6 +9,10 @@ One agent, nine implementations. Build the same system with each framework so yo
 
 > 🚧 **Coming soon** — this module is under active development. [Subscribe to our Substack](https://agenticloopsai.substack.com) or ⭐️ star the repo to get notified when tutorials drop.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/frameworks/frameworks-overview.gif" alt="The same reference agent built nine times across different frameworks, fanning out to highlight the structural trade-offs between each implementation." width="820">
+</p>
+
 ## 💡 Why This Module Exists
 
 After building agents from scratch in modules 01-03, you understand exactly what frameworks abstract away. Now you can make informed decisions about when a framework helps — and when it just adds complexity.

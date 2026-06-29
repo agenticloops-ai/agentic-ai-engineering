@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Authentication, sandboxing, prompt injection defense, and tool-use permissions. Build agents that are safe to expose to untrusted input.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/production/security-guardrails.gif" alt="Authentication, sandboxing, and prompt-injection defenses shielding an agent from untrusted input" width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Implement authentication and authorization for agent access

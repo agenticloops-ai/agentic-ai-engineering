@@ -8,6 +8,10 @@ icon: "award"
 
 The capstone project that **combines all five techniques** from this module into a single, reusable evaluation harness. Unit testing patterns, evals, tracing, red teaming, and benchmarking compose into a complete quality system for a real agent.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/eval-harness.gif" alt="Tasks flow through a unified pipeline that runs the traced agent, scores it with graders, runs safety and benchmark stages, and emits one combined quality report." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Wire all 5 testing techniques into a unified evaluation pipeline

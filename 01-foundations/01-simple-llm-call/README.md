@@ -40,16 +40,11 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### 1. Simple LLM Call Flow
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A(["⚡ Input Prompt"]) -->|request| B["🧠 LLM Call   "]
-    B -->|response| C(["📄 Response Text"])
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/foundations/simple-llm-call.gif" alt="A simple LLM call: you send a prompt to the model, and tokens stream back as the response" width="640">
+</p>
+
+A prompt goes in, the model generates, and tokens stream back — that round trip is one LLM call.
 
 ### 2. LLM Client Initialization
 

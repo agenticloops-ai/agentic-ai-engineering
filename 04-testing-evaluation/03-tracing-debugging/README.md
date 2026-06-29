@@ -10,6 +10,10 @@ When an agent does something unexpected, you need to know **exactly why**. Traci
 
 This tutorial teaches **observability as a first-class concern** using pure Python. No external dependencies — you learn the concepts, then apply them with production tools.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/tracing-debugging.gif" alt="Nested spans capture every LLM call, tool invocation, and decision point into a trace tree that exposes anti-patterns and pinpoints where an agent run failed." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Build a span-based trace collector with context managers and decorators

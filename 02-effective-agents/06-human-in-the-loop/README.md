@@ -36,23 +36,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ## 🔑 Key Concepts
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ Request     "] -->|request| B["🧠 Draft     "]
-    B -->|draft| C["👤 Checkpoint 1     "]
-    C -->|approve| D["📄 Final Email     "]
-    C -->|"reject + feedback"| E["🧠 Revise     "]
-    C -->|edit| D
-    E -->|revised| F["👤 Checkpoint 2     "]
-    F -->|approve| D
-    F -->|"reject + feedback"| E
-    F -->|edit| D
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/human-in-the-loop.gif" alt="An LLM drafts an email that pauses at human checkpoints where a person can approve, edit, or reject with feedback, looping back through revision until the email is approved." width="720">
+</p>
 
 ### Checkpoint Placement
 

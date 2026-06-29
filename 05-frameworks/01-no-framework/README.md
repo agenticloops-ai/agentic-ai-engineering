@@ -9,6 +9,10 @@ status: "coming-soon"
 
 The raw SDK baseline. Pure Anthropic/OpenAI client code with no abstractions. This is your reference implementation — everything else is measured against it.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/frameworks/no-framework.gif" alt="A bare agent loop wired directly to a provider SDK client, with no framework layer between the prompt, the model call, and tool execution." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Build a complete agent using only provider SDKs

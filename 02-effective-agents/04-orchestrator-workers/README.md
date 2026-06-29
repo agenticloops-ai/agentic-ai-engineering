@@ -36,22 +36,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ## 🔑 Key Concepts
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ Topic     "] -->|request| B["🧠 Orchestrator     "]
-    B -->|"plan (dynamic)"| C["🔧 Worker 1     "]
-    B -->|"plan (dynamic)"| D["🔧 Worker 2     "]
-    B -->|"plan (dynamic)"| E["🔧 Worker N     "]
-    C -->|research| F["🧠 Synthesizer     "]
-    D -->|research| F
-    E -->|research| F
-    F -->|combine| G["📄 Final Article     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/orchestrator-workers.gif" alt="An orchestrator LLM dynamically plans subtopics for a topic, delegates them to parallel worker LLMs, then a synthesizer combines their research into a final article." width="720">
+</p>
 
 ### Dynamic Decomposition
 

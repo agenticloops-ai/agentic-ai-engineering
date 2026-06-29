@@ -64,32 +64,9 @@ Not every application needs RAG. The decision depends on your knowledge base siz
 ### 2. The RAG Pipeline
 
 <!-- prettier-ignore -->
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    subgraph Indexing ["📥 Indexing (once)"]
-        A["📄 Documents    "] --> B["✂️ Chunk         "]
-        B --> C["🔢 Embed (local) "]
-        C --> D["💾 Index (Chroma)"]
-        B --> E["💾 BM25 Index   "]
-    end
-
-    subgraph Retrieval ["🔍 Retrieval (per query)"]
-        F["🗣️ Query         "] --> G["🔢 Embed Query   "]
-        G --> H["🔍 Vector Search "]
-        F --> I["🔍 BM25 Search   "]
-        H --> J["🔀 RRF Fusion    "]
-        I --> J
-        J --> K["📊 Rerank        "]
-    end
-
-    K --> L["🧠 Generate (Claude)"]
-    L --> M["📄 Answer + Citations"]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/rag-techniques.gif" alt="RAG pipeline where documents are chunked, embedded, and indexed once into Chroma and BM25, then each query is searched via vector and keyword paths, fused with RRF, reranked, and passed to Claude to generate an answer with citations." width="720">
+</p>
 
 ### 3. Chunking
 

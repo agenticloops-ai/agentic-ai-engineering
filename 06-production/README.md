@@ -7,6 +7,10 @@ description: "The gap between 'works on my laptop' and 'runs reliably at scale' 
 
 The gap between "works on my laptop" and "runs reliably at scale." Principles, deployment, monitoring, cost control, and security for agents serving real users.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/production/production-overview.gif" alt="An agent moving from a laptop demo to reliable production with deployment, monitoring, cost control, and security" width="820">
+</p>
+
 > 🚧 **Coming soon** — this module is under active development. [Subscribe to our Substack](https://agenticloopsai.substack.com) or ⭐️ star the repo to get notified when tutorials drop.
 
 ## 💡 Why This Module Matters

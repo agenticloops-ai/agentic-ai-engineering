@@ -113,20 +113,9 @@ On the first call, `cache_creation_input_tokens > 0`. On subsequent calls with t
 Not every task needs your most capable (and expensive) model. A routing layer classifies each task and sends it to the right model:
 
 <!-- prettier-ignore -->
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ User Task         "] --> B["🧠 Classifier (Haiku) "]
-    B -- "easy" --> C["🧠 Haiku              "]
-    B -- "hard" --> D["🧠 Sonnet             "]
-    C --> E["📄 Response           "]
-    D --> E
-    E --> F["💰 Cost Tracking      "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/cost-optimization.gif" alt="Model routing flow where a cheap Haiku classifier labels each task as easy or hard and routes it to Haiku or Sonnet accordingly, then tracks the resulting cost." width="720">
+</p>
 
 The classifier itself runs on Haiku (cheap), adding minimal overhead. Even with the classification cost, routing simple tasks to Haiku saves significantly vs sending everything to Sonnet.
 

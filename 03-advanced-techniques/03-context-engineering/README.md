@@ -117,23 +117,9 @@ The summary preserves key facts and decisions. Recent messages stay verbatim so 
 ### 4. Compression Flow
 
 <!-- prettier-ignore -->
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ User Message     "] --> B["📝 Append to History "]
-    B --> C{"⚙️ History > Budget? "}
-    C -- No --> D["🧠 Send to LLM      "]
-    C -- Yes --> E["✂️ Split Messages    "]
-    E --> F["🧠 Summarize Old     "]
-    F --> G["📝 Replace with Summary"]
-    G --> D
-    D --> H["💬 Display Response  "]
-    H --> I["📊 Show Budget       "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/context-engineering.gif" alt="Compression flow where each user message is appended to history, and if history exceeds the budget the older messages are split off and summarized before sending to the LLM and showing the updated budget." width="720">
+</p>
 
 ### 5. Why Summarize Instead of Drop?
 

@@ -67,25 +67,9 @@ The loop continues until the LLM responds with just text (no tool calls), indica
 
 ### RAG Pipeline
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TB
-  subgraph Indexing["📥 Indexing"]
-    direction LR
-    A["📁 Repository"] -->|chunk| B["📄 Chunks"]
-    B -->|embed| C["🔢 Vectors"]
-
-  end
-  C -->|store| D["🗄️ ChromaDB"]  
-
-  E["🗣️ User Query"] -->|embed| F["🔢 Query Vector"]
-  F -->|similarity search| D
-  D -->|relevant chunks| G["🧠 LLM"]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/foundations/codebase-navigator.gif" alt="RAG pipeline: the repository is indexed into a vector store, a question searches the vectors by similarity, and the most relevant code is retrieved so the model can answer grounded in real code" width="720">
+</p>
 
 **Chunking strategy**: Python files split on top-level `class`/`def` definitions. Other files split every 50 lines with 10-line overlap. Simple heuristics that work well for educational purposes.
 

@@ -41,21 +41,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 A blog post (selected from `input/` or pasted custom) is sent to 3 independent writers simultaneously:
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["📄 Blog Post     "] -->|fan-out| B["🧠 LinkedIn Writer     "]
-    A -->|fan-out| C["🧠 Twitter Writer     "]
-    A -->|fan-out| D["🧠 Newsletter Writer     "]
-    B -->|result| E["⚙️ Aggregator     "]
-    C -->|result| E
-    D -->|result| E
-    E -->|combine| F["📄 Promo Pack     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/parallelization.gif" alt="A single blog post fans out concurrently to LinkedIn, Twitter, and Newsletter writers, whose results fan back in to an aggregator that combines them into one promo pack." width="720">
+</p>
 
 Each writer has a focused system prompt and runs as a separate thread. Results are collected as they complete and aggregated into a "Promo Pack" saved to `output/`.
 

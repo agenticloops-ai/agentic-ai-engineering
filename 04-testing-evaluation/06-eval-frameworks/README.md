@@ -8,6 +8,10 @@ icon: "puzzle-piece"
 
 Explore **production eval frameworks** recommended in Anthropic's [Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents). Each script demonstrates a different framework's approach to evaluating the same research assistant agent — from YAML-driven configs to pre-built scorers to tracing platforms.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/eval-frameworks.gif" alt="The same agent is evaluated through Promptfoo YAML configs, Braintrust AutoEvals scorers, and Langfuse tracing to compare framework tradeoffs." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Define eval suites declaratively using **Promptfoo's YAML configuration**

@@ -7,20 +7,9 @@ description: "Measure quality, catch regressions, and build confidence in AI age
 
 Agents are non-deterministic — testing them requires different thinking. This module teaches the mental models, patterns, and techniques for building confidence in AI agents before shipping. Following Anthropic's principle of **eval-driven development**, you'll learn to define success criteria before building, measure quality continuously, and catch regressions automatically.
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["1 · ✅ Unit Testing     "] -->|"+ scoring"| B["2 · 📊 Evals     "]
-    B -->|"+ observability"| C["3 · 🔍 Tracing     "]
-    C -->|"+ adversarial"| D["4 · 🔒 Red Teaming     "]
-    D -->|"+ comparison"| E["5 · ⚖️ Benchmarking     "]
-    E -->|"+ frameworks"| F["6 · 🧩 Eval Frameworks     "]
-    F -->|"combine all"| G["🏆 Eval Harness     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/testing-evaluation-overview.gif" alt="The module's progression builds from unit testing through evals, tracing, red teaming, benchmarking, and frameworks, culminating in a combined eval harness." width="820">
+</p>
 
 ## 🗺️ Progression Path
 

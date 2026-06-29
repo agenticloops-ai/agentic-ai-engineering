@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Token budgets, caching strategies, model routing, and knowing when a smaller model is the right call. Keep costs predictable as usage grows.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/production/cost-controls.gif" alt="Token budgets, caching, and model routing controlling agent spend as usage scales" width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Set and enforce token budgets per request

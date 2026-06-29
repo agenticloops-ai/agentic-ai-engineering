@@ -11,21 +11,9 @@ Practical engineering problems you'll hit the moment agents leave the prototype 
 
 ## 🗺️ Progression Path
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["1 · 📋 Structured Output     "] -->|"+ real-time output"| B["2 · 🌊 Streaming     "]
-    B -->|"+ window strategies"| C["3 · 🧠 Context Engineering     "]
-    C -->|"+ cost reduction"| D["4 · 💰 Cost Optimization     "]
-    D -->|"+ persistence"| E["5 · 📝 Memory Systems     "]
-    E -->|"+ retrieval"| F["6 · 🔍 RAG Techniques     "]
-    F -->|"+ non-text input"| G["7 · 🖼️ Multimodal     "]
-    G -->|"+ safety & quality"| H["8 · 🛡️ Guardrails     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/advanced-techniques-overview.gif" alt="Progression path through the advanced techniques module, building from structured output to streaming, context engineering, cost optimization, memory, RAG, multimodal, and guardrails." width="820">
+</p>
 
 | Step | Tutorial | What It Adds |
 |:----:|----------|-------------|

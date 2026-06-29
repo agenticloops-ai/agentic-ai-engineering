@@ -48,30 +48,9 @@ uv run --directory 02-effective-agents/07-content-writer python 01_content_write
     └── tools.py                     # Tool schemas (classify, plan, evaluate, SEO) + web search
 ```
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ User Input     "] -->|topic| B["⚙️ Classify (Routing)     "]
-    B -->|content_type| HC1["👤 Human Checkpoint 1     "]
-    HC1 --> C["⚙️ Plan (Orchestrator)     "]
-    C -->|subtopics| HC2["👤 Human Checkpoint 2     "]
-    HC2 --> D["🔧 Research (Workers)     "]
-    D -->|"parallel web search"| D
-    D -->|sections| E["📝 Write (Chaining)     "]
-    E -->|draft| F["⚙️ Evaluate     "]
-    F -->|"avg < 7.0"| G["📝 Refine     "]
-    G -->|revised| F
-    F -->|"avg >= 7.0"| HC3["👤 Human Checkpoint 3     "]
-    HC3 -->|approved| H["📣 Social Media (Fan-out)     "]
-    H -->|"parallel: LinkedIn + Twitter + Newsletter"| H
-    H --> I["🏷️ SEO Title (Voting)     "]
-    I -->|"3 candidates → evaluator"| I
-    I --> J["📄 Complete Package     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/content-writer.gif" alt="A full content pipeline composes every pattern — classify, plan, parallel research, write, evaluate-refine loop, three human checkpoints, social media fan-out, and SEO title voting — into one end-to-end agent producing a complete package." width="720">
+</p>
 
 ## 🔑 Key Concepts
 

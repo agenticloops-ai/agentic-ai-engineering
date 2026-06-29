@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Google's Agent Development Kit. Multi-agent orchestration with built-in tool support and Gemini integration.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/frameworks/google-adk.gif" alt="A Google ADK setup orchestrating multiple agents around native Gemini models with built-in tool definitions and execution primitives." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Build agents using Google's ADK architecture

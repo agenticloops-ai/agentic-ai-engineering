@@ -116,19 +116,9 @@ class TicketAnalysis(BaseModel):
 
 The retry loop: extract → validate → on error, send validation message back → retry.
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A["🗣️ Input Text"] --> B["🧠 LLM Extract"]
-    B --> C["⚙️ Pydantic\nValidate"]
-    C -->|"✅ valid"| D["📄 Result"]
-    C -->|"❌ error"| E["📝 Error\nFeedback"]
-    E -->|"retry"| B
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/structured-output.gif" alt="Self-healing extraction loop where input text is parsed by the LLM, validated by Pydantic, and on error the validation feedback is sent back to retry until a valid result is produced." width="720">
+</p>
 
 ### Technique 4: Batch Extraction
 

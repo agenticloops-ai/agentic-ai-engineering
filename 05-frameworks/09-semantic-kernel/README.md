@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Microsoft's AI orchestration SDK. Plugin architecture, planner system, and deep integration with Azure services.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/frameworks/semantic-kernel.gif" alt="A Semantic Kernel setup where a planner decomposes a task and invokes plugin skills and functions integrated with Azure AI services." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Build agents using Semantic Kernel's plugin system

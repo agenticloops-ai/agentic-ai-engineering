@@ -38,20 +38,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 Every message passes through guards before and after the agent processes it:
 
 <!-- prettier-ignore -->
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A["User Input     "] --> B["Input Guard    "]
-    B -- "blocked" --> C["Rejection      "]
-    B -- "passed" --> D["Agent          "]
-    D --> E["Output Guard   "]
-    E -- "issues" --> F["Warning/Retry  "]
-    E -- "clean" --> G["Response       "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/guardrails.gif" alt="Guardrail pipeline where user input passes through an input guard that blocks or forwards to the agent, whose output then passes through an output guard that flags issues for retry or releases a clean response." width="720">
+</p>
 
 The input guard catches attacks *before* they reach the agent. The output guard verifies the response *before* the user sees it. This dual layer means a single bypass isn't enough to exploit the system.
 

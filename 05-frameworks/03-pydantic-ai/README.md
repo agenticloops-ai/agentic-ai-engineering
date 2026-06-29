@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Type-safe agent framework built on Pydantic. Strong typing, dependency injection, and structured outputs as first-class citizens.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/frameworks/pydantic-ai.gif" alt="A Pydantic AI agent passing typed inputs through dependency injection into a model call that returns runtime-validated structured outputs." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Define agents with Pydantic models for type safety

@@ -24,6 +24,10 @@
 
 This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/brand/hero.gif" alt="The agent loop: an agent reasons, acts with tools, observes the result, and repeats until the task is done." width="860">
+</p>
+
 > Building AI agents is engineering, not magic. Master the constraints, not the hype.
 
 ## ❓ Why you need to learn this?

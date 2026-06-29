@@ -47,23 +47,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 Agents need different kinds of memory for different purposes — just like humans distinguish between what they're currently thinking about, what happened recently, and what they know as facts.
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ User Input     "] -->|"chat"| B["🧠 Agent Loop     "]
-    B -->|"store"| C["💭 Working Memory  "]
-    B -->|"store"| D["📝 Episodic Memory "]
-    B -->|"store"| E["🔍 Semantic Memory "]
-    C -.->|"session only"| B
-    D -->|"keyword search"| B
-    E -->|"vector search"| B
-    D -->|"JSON file"| F["💾 data/episodic.json"]
-    E -->|"ChromaDB"| G["💾 data/chroma/    "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/memory.gif" alt="Three-tier memory architecture where the agent loop stores and retrieves across working memory, episodic memory backed by a JSON file with keyword search, and semantic memory backed by ChromaDB with vector search." width="720">
+</p>
 
 | Tier | Purpose | Storage | Lifespan | Search |
 |------|---------|---------|----------|--------|

@@ -42,20 +42,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 The core pattern is simple: call the LLM, execute any requested tools, feed results back, repeat until done.
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A(["🗣️ User Task        "]) -->|init| B["🧠 LLM Call      "]
-    B -->|evaluate| C{"⚙️ Tool Calls?     "}
-    C -->|"no tools"| D(["📄 Return Response  "])
-    C -->|"has tools"| E["🔧 Execute Tools    "]
-    E -->|collect| F["📝 Append Results   "]
-    F -->|iterate| B
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/foundations/agent-loop.gif" alt="The agent loop: the agent evaluates whether a tool is needed, runs tools and feeds results back in a loop, and exits when no tool is required" width="720">
+</p>
 
 ```python
 while iteration < max_iterations:

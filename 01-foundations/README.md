@@ -7,6 +7,10 @@ description: "Master the core building blocks of AI agents through progressive, 
 
 Master the core building blocks of AI agents through progressive, hands-on tutorials.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/foundations/foundations-overview.gif" alt="Foundations progression: a simple LLM call grows into prompt engineering, then chat with history, tool use, the autonomous agent loop, and finally retrieval-augmented generation (RAG)." width="820">
+</p>
+
 <!-- TODO: Add reference to blog post "How Agents Work: The Patterns Behind the Magic" on Substack -->
 
 ## 🗺️ Progression Path

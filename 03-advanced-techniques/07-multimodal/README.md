@@ -114,17 +114,9 @@ for part in response.candidates[0].content.parts:
 
 ### 4. Audio Pipeline
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A["📝 Text Input   "] -->|"TTS"| B["🔊 Audio File   "]
-    B -->|"STT"| C["📝 Transcription "]
-    C -->|"compare"| D["✅ Verification  "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/multimodal.gif" alt="Audio round-trip pipeline where text input is converted to an audio file via text-to-speech, transcribed back to text via speech-to-text, then compared against the original for verification." width="720">
+</p>
 
 OpenAI provides separate endpoints for each direction:
 

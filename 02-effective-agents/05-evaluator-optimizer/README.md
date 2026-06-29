@@ -36,20 +36,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ## 🔑 Key Concepts
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart TD
-    A["🗣️ Topic     "] -->|request| B["🔧 Research / Haiku + 🔍     "]
-    B -->|data| C["🧠 Write / Haiku     "]
-    C -->|draft| D["⚙️ Evaluate / Haiku     "]
-    D -->|"avg < 7.0"| E["🧠 Refine / Sonnet     "]
-    E -->|revised| D
-    D -->|"avg >= 7.0"| F["📄 Final Post     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/evaluator-optimizer.gif" alt="A draft flows through research, writing, and evaluation, looping back to a refiner while the average score stays below threshold and exiting to a final post once it passes." width="720">
+</p>
 
 ### Pipeline: Research → Write → Evaluate → Refine
 

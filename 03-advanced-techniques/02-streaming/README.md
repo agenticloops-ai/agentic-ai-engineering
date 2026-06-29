@@ -10,6 +10,10 @@ Make agents feel alive with real-time, token-by-token responses. Every tutorial 
 
 The real challenge isn't basic streaming — it's streaming with tool calls. When Claude decides to call a tool mid-response, you need to detect it, execute the tool, feed the result back, and resume streaming. This tutorial makes that approachable.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/advanced-techniques/streaming.gif" alt="Token-by-token streaming where text deltas render live in the terminal, a tool_use block is detected mid-stream and executed, and the stream resumes with the tool result fed back into the response." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Stream Claude responses token-by-token using `client.messages.stream()`

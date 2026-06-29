@@ -9,6 +9,10 @@ status: "coming-soon"
 
 Metrics, structured logging, and distributed tracing for production agents. Know when things break before your users tell you.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/production/monitoring-observability.gif" alt="Metrics, structured logs, and distributed traces flowing into dashboards and alerts for a running agent" width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Instrument agents with meaningful metrics

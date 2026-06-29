@@ -45,18 +45,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### 1. Prompt Engineering Layers
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A(["🗣️ System Prompt "]) -->|shape behavior| D["🧠 LLM Call   "]
-    B(["📝 Few-Shot Examples"]) -->|teach patterns| D
-    C(["📋 Output Schema "]) -->|constrain format| D
-    D -->|response| E(["📄 Structured Output"])
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/foundations/prompt-engineering.gif" alt="Prompt engineering: a system prompt, few-shot examples, and an output schema all feed into the LLM to produce a structured response" width="640">
+</p>
 
 Each layer adds more control over the LLM's response. Used together, they let you build agents that produce reliable, parseable output.
 

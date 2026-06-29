@@ -8,6 +8,10 @@ icon: "bar-chart-2"
 
 When you need to decide between Claude Sonnet vs. GPT-4o-mini, or between two prompt strategies, benchmarking gives you **data instead of vibes**. Systematic head-to-head comparison across dimensions that matter: accuracy, latency, cost, and reliability.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/benchmarking.gif" alt="A model-by-prompt configuration matrix runs the same tasks to plot accuracy against cost and reveal the Pareto-optimal frontier." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Compare models on accuracy, latency, token usage, and cost

@@ -38,18 +38,9 @@ Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=for
 
 ### Sequential Pipeline
 
-```mermaid
----
-config:
-  look: handDrawn
-  theme: neutral
----
-flowchart LR
-    A["🗣️ Topic     "] -->|request| B["🧠 Outliner / Sonnet     "]
-    B -->|outline| C["🧠 Writer / Haiku + 🔍     "]
-    C -->|draft| D["🧠 Editor / Sonnet     "]
-    D -->|polished| E["📄 Final Post     "]
-```
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/effective-agents/prompt-chaining.gif" alt="A topic flows through a sequential pipeline of focused LLM steps — Outliner, Writer with web search, then Editor — each output feeding the next to produce a final blog post." width="720">
+</p>
 
 Each step has a focused system prompt and a single responsibility. The output of one step becomes the input of the next.
 

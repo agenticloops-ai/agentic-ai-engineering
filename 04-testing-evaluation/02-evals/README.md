@@ -8,6 +8,10 @@ icon: "bar-chart"
 
 Move beyond deterministic assertions to **statistical evaluation** of agent quality. Following Anthropic's eval-driven development methodology: define success criteria as eval tasks, score with multiple grader types, track quality over time, and catch regressions automatically.
 
+<p align="center">
+  <img src="https://graphics.agenticloops.ai/animations/testing-evaluation/evals.gif" alt="A golden dataset feeds eval tasks through agent trials that are scored by code-based and LLM-as-judge graders to produce pass rates that surface regressions." width="720">
+</p>
+
 ## 🎯 What You'll Learn
 
 - Build code-based graders: keyword matching, regex, source citation, tool-call verification
