@@ -178,13 +178,21 @@ class LiteLLMTokenTracker(TokenUsageTracker):
             )
 
 
-class GeminiTokenTracker(TokenUsageTracker):
-    """Token tracker for Google Gemini API."""
+class GeminiTokenTracker:
+    """Tracks token usage for Google Gemini API calls."""
+    
+    def __init__(self):
+        self.total_input = 0
+        self.total_output = 0
 
-    def track(self, usage: Any) -> None:
-        """Track tokens from Gemini's usage_metadata."""
-        if hasattr(usage, "prompt_token_count"):
-            self.total_input_tokens += usage.prompt_token_count or 0
-            self.total_output_tokens += getattr(usage, "candidates_token_count", 0) or 0
-        else:
-            logger.warning("Invalid Gemini usage format: %s.", type(usage))
+    def track(self, usage_metadata) -> None:
+        if usage_metadata:
+            self.total_input += getattr(usage_metadata, "prompt_token_count", 0)
+            self.total_output += getattr(usage_metadata, "candidates_token_count", 0)
+
+    def report(self) -> None:
+        print(f"Token Usage -> Input: {self.total_input} | Output: {self.total_output}")
+
+    def reset(self) -> None:
+        self.total_input = 0
+        self.total_output = 0

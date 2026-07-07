@@ -14,7 +14,7 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 - Apply few-shot prompting for in-context learning
 - Guide reasoning with chain-of-thought (CoT) prompting
 - Extract structured JSON output via prompt instructions
-- Use provider-specific techniques: Anthropic XML scaffolding, OpenAI JSON schema enforcement
+- Use provider-specific techniques: Anthropic XML scaffolding, OpenAI JSON schema enforcement, Gemini system instructions
 - Compare prompting strategies side-by-side to understand their trade-offs
 
 ## 📦 Available Examples
@@ -23,10 +23,13 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 | ----------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Anthropic](../../common/badges/anthropic.svg) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering                             |
 | ![OpenAI](../../common/badges/openai.svg)       | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering                             |
-| ![Anthropic](../../common/badges/anthropic.svg) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
-| ![OpenAI](../../common/badges/openai.svg)       | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
-| ![Anthropic](../../common/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML scaffolding & native schema  |
-| ![OpenAI](../../common/badges/openai.svg)       | [06_structured_output_openai.py](06_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
+| ![Gemini](../../common/badges/gemini.svg)       | [03_system_prompts_gemini.py](03_system_prompts_gemini.py)             | System prompts & role engineering                             |
+| ![Anthropic](../../common/badges/anthropic.svg) | [04_few_shot_cot_anthropic.py](04_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![OpenAI](../../common/badges/openai.svg)       | [05_few_shot_cot_openai.py](05_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![Gemini](../../common/badges/gemini.svg)       | [06_few_shot_cot_gemini.py](06_few_shot_cot_gemini.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![Anthropic](../../common/badges/anthropic.svg) | [07_structured_output_anthropic.py](07_structured_output_anthropic.py) | Product extraction — prompt, XML scaffolding & native schema  |
+| ![OpenAI](../../common/badges/openai.svg)       | [08_structured_output_openai.py](08_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
+| ![Gemini](../../common/badges/gemini.svg)       | [09_structured_output_gemini.py](09_structured_output_gemini.py)       | Product extraction — prompt, scaffolding & schema enforcement |
 
 ## 🚀 Quick Start
 
@@ -37,6 +40,7 @@ uv run --directory 01-foundations/02-prompt-engineering python {script_name}
 
 # Example
 uv run --directory 01-foundations/02-prompt-engineering python 01_system_prompts_anthropic.py
+uv run --directory 01-foundations/02-prompt-engineering python 09_structured_output_gemini.py
 ```
 
 Or use the [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner) VS Code extension to run the currently open script with a single click.
@@ -85,6 +89,23 @@ response = client.responses.create(
     model="gpt-4o",
     instructions="You are a senior support engineer at a SaaS company...",  # System prompt
     input="Analyze this support ticket...",
+)
+```
+
+**Gemini** — system prompt via `GenerateContentConfig`:
+```python
+from google.genai import types
+
+config = types.GenerateContentConfig(
+    system_instruction="You are a senior support engineer at a SaaS company...",  # System prompt
+    temperature=0.1,
+    max_output_tokens=200,
+)
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="Analyze this support ticket...",
+    config=config,
 )
 ```
 
@@ -183,6 +204,26 @@ response = client.responses.create(
 )
 ```
 
+**Gemini — native JSON schema via `response_schema`:**
+```python
+from google.genai import types
+
+config = types.GenerateContentConfig(
+    system_instruction="You are a product data extraction assistant.",
+    temperature=0.0,
+    max_output_tokens=512,
+    response_mime_type="application/json",
+    response_schema=ProductExtraction,
+)
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents=product_description,
+    config=config,
+)
+product = response.text
+```
+
 > **Both providers now offer schema enforcement.** Anthropic's `output_config` and OpenAI's `text.format` both guarantee valid JSON via constrained decoding. Prompt-based techniques (XML scaffolding) remain useful when you need more control over the prompting strategy.
 
 ### 5. Output Validation
@@ -206,7 +247,7 @@ def try_parse_json(raw: str) -> dict | None:
 
 - **Prompt injection** — System prompts can be overridden by adversarial user input. Never rely solely on prompts for security boundaries. This becomes critical in [Tool Use](../04-tool-use/README.md).
 - **Token costs** — Few-shot examples add input tokens to every call. In high-volume agents, consider whether the accuracy improvement justifies the cost.
-- **JSON reliability** — Prompt-based JSON extraction can fail. Use provider-native schema enforcement (Anthropic `output_config`, OpenAI `text.format`) for guaranteed valid JSON in production.
+- **JSON reliability** — Prompt-based JSON extraction can fail. Use provider-native schema enforcement (Anthropic `output_config`, OpenAI `text.format`, Gemini `response_schema`) for guaranteed valid JSON in production.
 - **Temperature** — Set `temperature=0.0` for classification and structured output tasks where consistency matters. These scripts all use low temperature for reproducible results.
 
 ## 👉 Next Steps
