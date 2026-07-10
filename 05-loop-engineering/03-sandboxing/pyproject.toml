@@ -1,0 +1,19 @@
+[project]
+name = "lesson-loop-sandboxing"
+version = "0.1.0"
+description = "Lesson 3: Sandboxing - run agent-generated code in isolation"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "common",
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=14.0.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
