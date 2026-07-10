@@ -1,0 +1,20 @@
+[project]
+name = "lesson-loop-extensible-agent"
+version = "0.1.0"
+description = "Lesson 7: Extensible Agent - capstone combining hooks, sandbox, MCP, subagents, and compaction"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.40.0",
+    "common",
+    "mcp>=1.8.0",
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=14.0.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
