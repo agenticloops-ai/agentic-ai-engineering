@@ -118,7 +118,7 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 6. **[Eval Frameworks](04-testing-evaluation/06-eval-frameworks/)** — Promptfoo, Braintrust, Langfuse integration
 7. **[Eval Harness](04-testing-evaluation/07-eval-harness/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Complete eval pipeline combining all techniques
 
-### 🔁 [05 - Loop Engineering](05-loop-engineering/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🔁 [05 - Loop Engineering](05-loop-engineering/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Take the bare agent loop and harness it. Skills, hooks, sandboxing, MCP, subagents, and compaction — one control surface at a time — turn a naive loop into a real, extensible agent.
 
