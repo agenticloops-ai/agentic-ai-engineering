@@ -63,7 +63,7 @@ Agent fluency is the new data-structures interview. We teach it **from first pri
 <em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
 <br/>
 <em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
-<br/><br/>
+<br/>
 <a href="https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr">▶️ Fundamental skills and knowledge you must have in 2026 for SWE</a>
 </td>
 </tr>
