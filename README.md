@@ -186,17 +186,6 @@ The gap between "works on my laptop" and "runs reliably at scale." Principles, d
 If you find this project useful, consider supporting us:
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-Support_Us-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/agenticloops-ai)
-
-## ⭐ Star History
-
-<a href="https://star-history.com/#agenticloops-ai/agentic-ai-engineering&Date">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date" />
-  </picture>
-</a>
-
 ## 💬 FAQ
 
 **Module not found?** Run `uv sync` in the lesson directory.
