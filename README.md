@@ -118,30 +118,42 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 6. **[Eval Frameworks](04-testing-evaluation/06-eval-frameworks/)** — Promptfoo, Braintrust, Langfuse integration
 7. **[Eval Harness](04-testing-evaluation/07-eval-harness/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Complete eval pipeline combining all techniques
 
-### 🏗️ [05 - Frameworks](05-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🔁 [05 - Loop Engineering](05-loop-engineering/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+
+Take the bare agent loop and harness it. Skills, hooks, sandboxing, MCP, subagents, and compaction — one control surface at a time — turn a naive loop into a real, extensible agent.
+
+1. **[Skills](05-loop-engineering/01-skills/)** — Filesystem Agent Skills, progressive disclosure
+2. **[Hooks & Lifecycle](05-loop-engineering/02-hooks-lifecycle/)** — Intercept pre/post tool-use and stop events
+3. **[Sandboxing](05-loop-engineering/03-sandboxing/)** — Isolate agent-run code with resource limits
+4. **[MCP Integration](05-loop-engineering/04-mcp/)** — Discover tools from MCP servers, publish your own
+5. **[Subagents & Delegation](05-loop-engineering/05-subagents/)** — Spawn child loops with isolated context
+6. **[Context Compaction](05-loop-engineering/06-context-compaction/)** — Compact history in long-running loops
+7. **[Extensible Agent](05-loop-engineering/07-extensible-agent/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Hooks + sandbox + MCP + subagents + compaction combined
+
+### 🏗️ [06 - Frameworks](06-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 One agent, nine implementations. Build the same system with each framework and compare trade-offs with your own hands.
 
-1. **[No Framework](05-frameworks/01-no-framework/)** — Raw SDK baseline
-2. **[LangGraph](05-frameworks/02-langgraph/)** — Graph-based orchestration
-3. **[Pydantic AI](05-frameworks/03-pydantic-ai/)** — Type-safe agents
-4. **[Google ADK](05-frameworks/04-google-adk/)** — Google's Agent Development Kit
-5. **[AWS Strands](05-frameworks/05-aws-strands/)** — AWS agent SDK
-6. **[CrewAI](05-frameworks/06-crewai/)** — Role-based multi-agent collaboration
-7. **[AutoGen](05-frameworks/07-autogen/)** — Multi-agent conversations
-8. **[LlamaIndex](05-frameworks/08-llamaindex/)** — Data-centric agents
-9. **[Semantic Kernel](05-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
+1. **[No Framework](06-frameworks/01-no-framework/)** — Raw SDK baseline
+2. **[LangGraph](06-frameworks/02-langgraph/)** — Graph-based orchestration
+3. **[Pydantic AI](06-frameworks/03-pydantic-ai/)** — Type-safe agents
+4. **[Google ADK](06-frameworks/04-google-adk/)** — Google's Agent Development Kit
+5. **[AWS Strands](06-frameworks/05-aws-strands/)** — AWS agent SDK
+6. **[CrewAI](06-frameworks/06-crewai/)** — Role-based multi-agent collaboration
+7. **[AutoGen](06-frameworks/07-autogen/)** — Multi-agent conversations
+8. **[LlamaIndex](06-frameworks/08-llamaindex/)** — Data-centric agents
+9. **[Semantic Kernel](06-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
 
-### 🏭 [06 - Production](06-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🏭 [07 - Production](07-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
 The gap between "works on my laptop" and "runs reliably at scale." Principles, deployment, monitoring, cost control, and security.
 
-1. **[12-Factor Agents](06-production/01-twelve-factor-agents/)** — Principles for production-grade agents
-2. **[Deployment Strategies](06-production/02-deployment-strategies/)** — Containers, serverless, scaling
-3. **[Monitoring & Observability](06-production/03-monitoring-observability/)** — Metrics, logging, tracing in prod
-4. **[Cost Optimization](06-production/04-cost-optimization/)** — Token budgets, caching, model routing
-5. **[Security & Guardrails](06-production/05-security-guardrails/)** — Auth, sandboxing, injection defense
-6. **[Error Handling & Resilience](06-production/06-error-handling-resilience/)** — Retries, fallbacks, graceful degradation
+1. **[12-Factor Agents](07-production/01-twelve-factor-agents/)** — Principles for production-grade agents
+2. **[Deployment Strategies](07-production/02-deployment-strategies/)** — Containers, serverless, scaling
+3. **[Monitoring & Observability](07-production/03-monitoring-observability/)** — Metrics, logging, tracing in prod
+4. **[Cost Optimization](07-production/04-cost-optimization/)** — Token budgets, caching, model routing
+5. **[Security & Guardrails](07-production/05-security-guardrails/)** — Auth, sandboxing, injection defense
+6. **[Error Handling & Resilience](07-production/06-error-handling-resilience/)** — Retries, fallbacks, graceful degradation
 
 
 ## 🗂️ Tutorials Structure
