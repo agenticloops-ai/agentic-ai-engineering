@@ -29,7 +29,7 @@ This is the repo for engineers who want to understand what's behind popular agen
 
 - 🔁 **The whole path** — from your first LLM call to a production eval harness
 - 🧱 **No fancy frameworks** — just an LLM API, some tools, and a loop
-- 🐍 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
+- 🌱 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
 
 💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
 
