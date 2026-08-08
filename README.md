@@ -21,36 +21,45 @@
 </div>
 
 # Agentic AI Engineering
-**Stop reading about agents. Start building them.**
+**Building AI agents is engineering, not magic. Stop reading about agents. Start building them.**
 
-This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
+This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
 
-> Building AI agents is engineering, not magic. Master the constraints, not the hype.
+No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
+
+> 💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
+> **Build one this weekend. You'll understand agents better than reading 100 blog posts.**
 
 <div align="center">
-<img src="https://graphics.agenticloops.ai/animations/brand/hero.gif" width="500" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
+<img src=".docs/agentic-loop.gif" width="500" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
 </div>
 
 ## ❓ Why you need to learn this?
 
 ▶️ [Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
 
-> _How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?_
->
-> **_If you don't know this, your career is in jeopardy._**
->
-> _What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure._
->
-> _**This is now baseline knowledge** because we're getting candidates in that can answer this stuff._
->
-> — **Geoffrey Huntley**, creator of [Ralph Wiggum](https://ghuntley.com/ralph/)
+<table>
+<tr>
+<td width="150" align="center" valign="top">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="120" alt="Geoffrey Huntley" /></a>
+<br/><br/>
+<b>Geoffrey Huntley</b>
+<br/>
+<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
+</td>
+<td valign="middle">
+<em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
+<br/><br/>
+<b><em>If you don't know this, your career is in jeopardy.</em></b>
+<br/><br/>
+<em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
+<br/><br/>
+<em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
+</td>
+</tr>
+</table>
 
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
-
-> 💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
-> **Build one this weekend. You'll understand agents better than reading 100 blog posts.**
-
-No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
 
 ## 🧭 Why this repo?
 
