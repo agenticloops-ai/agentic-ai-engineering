@@ -37,7 +37,7 @@ If you find this useful, a ⭐️ star helps us know we're on the right track. J
 
 <br clear="both" />
 
-## 🧭 Why this repo?
+## 🎯 Why this repo?
 
 - 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
 - ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
