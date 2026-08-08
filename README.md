@@ -25,7 +25,7 @@
 
 <table>
 <tr>
-<td width="55%" valign="middle">
+<td width="55%" valign="top">
 
 This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** — and how to build one yourself.
 
