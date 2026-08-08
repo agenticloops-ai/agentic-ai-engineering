@@ -23,9 +23,7 @@
 # Agentic AI Engineering
 **Building AI agents is engineering, not magic. Stop reading about agents. Start building them.**
 
-<table>
-<tr>
-<td width="55%" valign="top">
+<img align="right" width="400" src=".docs/agentic-loop.gif" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
 
 This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** — and how to build one yourself.
 
@@ -33,22 +31,17 @@ This is the repo for engineers who want to understand what's behind popular agen
 - 🧱 **No fancy frameworks** — just an LLM API, some tools, and a loop
 - 🐍 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
 
-**🧭 Why this repo?**
-
-- 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
-- ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
-- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
-
 > 💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
 
 If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
 
-</td>
-<td valign="middle" align="center">
-<img src=".docs/agentic-loop.gif" width="420" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
-</td>
-</tr>
-</table>
+<br clear="both" />
+
+## 🧭 Why this repo?
+
+- 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
+- ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
+- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
 
 ## ❓ Why you need to learn this?
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
