@@ -21,8 +21,8 @@ The [context engineering tutorial](../03-context-engineering/) taught you to man
 
 | Provider                                        | File                                                                             | Description                                       |
 | ----------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_prompt_caching_anthropic.py](01_prompt_caching_anthropic.py)                 | Customer support agent with cached policy document |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_model_routing_anthropic.py](02_model_routing_anthropic.py)                   | Difficulty-based routing (Haiku vs Sonnet)         |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_prompt_caching_anthropic.py](01_prompt_caching_anthropic.py)                 | Customer support agent with cached policy document |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [02_model_routing_anthropic.py](02_model_routing_anthropic.py)                   | Difficulty-based routing (Haiku vs Sonnet)         |
 
 ## 🚀 Quick Start
 

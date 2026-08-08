@@ -19,7 +19,7 @@ One LLM generates a response while another evaluates it in a loop, refining unti
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_evaluator_optimizer.py](01_evaluator_optimizer.py) | Blog post refinement with 5-dimension evaluation loop |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_evaluator_optimizer.py](01_evaluator_optimizer.py) | Blog post refinement with 5-dimension evaluation loop |
 
 ## 🚀 Quick Start
 

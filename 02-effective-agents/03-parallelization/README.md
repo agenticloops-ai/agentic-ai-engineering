@@ -20,7 +20,7 @@ Fan-out for independent work, fan-in to combine. Independent tasks run concurren
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_parallelization.py](01_parallelization.py) | Social media promo pack + SEO title voting |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_parallelization.py](01_parallelization.py) | Social media promo pack + SEO title voting |
 
 ## 🚀 Quick Start
 

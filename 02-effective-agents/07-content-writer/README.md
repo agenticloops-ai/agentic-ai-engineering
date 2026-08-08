@@ -21,7 +21,7 @@ A production-ready content creation pipeline that composes **all six patterns** 
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_content_writer.py](01_content_writer.py) | Entry point: async event consumer + Rich UI |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_content_writer.py](01_content_writer.py) | Entry point: async event consumer + Rich UI |
 | | [content_writer/models.py](content_writer/models.py) | Pydantic data models + typed event system |
 | | [content_writer/agent.py](content_writer/agent.py) | Agent class with `run_stream()` async generator |
 | | [content_writer/prompts.py](content_writer/prompts.py) | Production-quality system prompts |

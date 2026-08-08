@@ -19,7 +19,7 @@ Every previous tutorial taught you to build capable agents. This one teaches you
 
 | Provider                                        | File                                                     | Description                                 |
 | ----------------------------------------------- | -------------------------------------------------------- | ------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_guardrails_anthropic.py](01_guardrails_anthropic.py) | Customer support agent with full guardrails |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_guardrails_anthropic.py](01_guardrails_anthropic.py) | Customer support agent with full guardrails |
 
 ## Quick Start
 

@@ -19,7 +19,7 @@ Route to specialized handlers based on content analysis. The router picks the ri
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_routing.py](01_routing.py) | Content strategist with 3 specialized routes |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_routing.py](01_routing.py) | Content strategist with 3 specialized routes |
 
 ## 🚀 Quick Start
 

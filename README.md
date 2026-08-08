@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- ![AI Agents Engineering](common/images/banner.png) -->
+<!-- ![AI Agents Engineering](.docs/banner.png) -->
 
 <!-- Keep these links. Translations will automatically update with the README. -->
 [English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) |
@@ -12,6 +12,7 @@
 [Português](https://zdoc.app/pt/agenticloops-ai/agentic-ai-engineering) |
 [中文](https://zdoc.app/zh/agenticloops-ai/agentic-ai-engineering)
 
+[![GitHub stars](https://img.shields.io/github/stars/agenticloops-ai/agentic-ai-engineering?style=for-the-badge&logo=github&color=e3b341&labelColor=191919)](https://github.com/agenticloops-ai/agentic-ai-engineering/stargazers)
 [![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
 [![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
@@ -20,38 +21,55 @@
 </div>
 
 # Agentic AI Engineering
-**Stop reading about agents. Start building them.**
+**Building AI agents is engineering, not magic. Stop reading about agents. Start building them.**
 
-This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
+<img align="right" width="400" src=".docs/agentic-loop.gif" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
 
-> Building AI agents is engineering, not magic. Master the constraints, not the hype.
+This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** — and how to build one yourself.
+
+- 🔁 **The whole path** — from your first LLM call to a production eval harness
+- 🧱 **No fancy frameworks** — just an LLM API, some tools, and a loop
+- 🌱 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
+
+💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
+
+If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
+
+<br clear="both" />
+
+## 🎯 Why this repo?
+
+- 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
+- ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
+- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
 
 ## ❓ Why you need to learn this?
-
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
 
-▶️ [Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
+<table>
+<tr>
+<td width="170" align="center" valign="middle">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="140" alt="Geoffrey Huntley" /></a>
+<br/>
+<b>Geoffrey Huntley</b>
+<br/>
+<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
+</td>
+<td valign="middle">
+<em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
+<br/>
+<b><em>If you don't know this, your career is in jeopardy.</em></b>
+<br/>
+<em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
+<br/>
+<em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
+<br/>
+<a href="https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr">▶️ Fundamental skills and knowledge you must have in 2026 for SWE</a>
+</td>
+</tr>
+</table>
 
-> _How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?_
->
-> **_If you don't know this, your career is in jeopardy._**
->
-> _What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure._
->
-> _**This is now baseline knowledge** because we're getting candidates in that can answer this stuff._
->
-> — **Geoffrey Huntley**, creator of [Ralph Wiggum](https://ghuntley.com/ralph/)
-
-💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
-**Build one this weekend. You'll understand agents better than reading 100 blog posts.**
-
-No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
-
-## 🧭 Why this repo?
-
-- **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
-- **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
-- **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
+**All the answers are in this repo.** What a tool call is, how the inferencing loop works, what lives in the context — you won't just read the answers, you'll build them with your own hands, starting in [01 - Foundations](01-foundations/README.md). Next interview, you're the one at the whiteboard drawing the loop.
 
 ## ⚡ 60-second quickstart
 
@@ -65,8 +83,6 @@ uv run --directory 01-foundations/01-simple-llm-call python 01_llm_call_anthropi
 ```
 
 That's it. Every tutorial is self-contained and idempotent — you can jump in anywhere. Full setup details in [SETUP.md](SETUP.md). Or [open in Codespaces](https://codespaces.new/agenticloops-ai/agentic-ai-engineering) and skip local setup entirely.
-
-> If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
 
 ---
 
@@ -176,7 +192,6 @@ The tutorials teach you to build. Our [Substack](https://agenticloopsai.substack
 If you find this project useful, consider supporting us:
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-Support_Us-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/agenticloops-ai)
-
 ## 💬 FAQ
 
 **Module not found?** Run `uv sync` in the lesson directory.

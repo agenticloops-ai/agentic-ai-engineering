@@ -19,7 +19,7 @@ A central LLM dynamically breaks down a task, delegates subtasks to worker LLMs,
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_orchestrator_workers.py](01_orchestrator_workers.py) | Deep dive researcher with dynamic subtopic planning |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_orchestrator_workers.py](01_orchestrator_workers.py) | Deep dive researcher with dynamic subtopic planning |
 
 ## 🚀 Quick Start
 

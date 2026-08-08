@@ -21,12 +21,12 @@ Learn how to shape LLM behavior through prompting techniques. Every AI agent's c
 
 | Provider                                        | File                                                                   | Description                                                   |
 | ----------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering                             |
-| ![OpenAI](../../common/badges/openai.svg)       | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering                             |
-| ![Anthropic](../../common/badges/anthropic.svg) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
-| ![OpenAI](../../common/badges/openai.svg)       | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
-| ![Anthropic](../../common/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML scaffolding & native schema  |
-| ![OpenAI](../../common/badges/openai.svg)       | [06_structured_output_openai.py](06_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_system_prompts_anthropic.py](01_system_prompts_anthropic.py)       | System prompts & role engineering                             |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [02_system_prompts_openai.py](02_system_prompts_openai.py)             | System prompts & role engineering                             |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [03_few_shot_cot_anthropic.py](03_few_shot_cot_anthropic.py)           | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [04_few_shot_cot_openai.py](04_few_shot_cot_openai.py)                 | Zero-shot, few-shot & chain-of-thought demos                  |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [05_structured_output_anthropic.py](05_structured_output_anthropic.py) | Product extraction — prompt, XML scaffolding & native schema  |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [06_structured_output_openai.py](06_structured_output_openai.py)       | Product extraction — prompt, scaffolding & schema enforcement |
 
 ## 🚀 Quick Start
 

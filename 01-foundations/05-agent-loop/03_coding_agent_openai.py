@@ -134,7 +134,7 @@ class CodingAgent:
     Executes tools in a loop until the task is complete.
     """
 
-    def __init__(self, model: str = "codex-mini-latest"):
+    def __init__(self, model: str = "gpt-4.1"):
         self.client = OpenAI()
         self.model = model
         self.max_iterations = 10

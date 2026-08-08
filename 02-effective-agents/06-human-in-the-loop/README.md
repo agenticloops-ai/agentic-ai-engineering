@@ -19,7 +19,7 @@ Pause the workflow at strategic checkpoints for human review. The LLM drafts an 
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_human_in_the_loop.py](01_human_in_the_loop.py) | Email drafting with 2 strategic checkpoints |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_human_in_the_loop.py](01_human_in_the_loop.py) | Email drafting with 2 strategic checkpoints |
 
 ## 🚀 Quick Start
 
