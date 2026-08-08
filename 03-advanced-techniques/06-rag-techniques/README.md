@@ -23,8 +23,8 @@ But naive RAG (embed everything, retrieve top-5, hope for the best) has well-doc
 
 | Provider                                        | File                                                                             | Description                                 |
 | ----------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_rag_pipeline_anthropic.py](01_rag_pipeline_anthropic.py)                     | Full RAG pipeline with hybrid search        |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_agentic_rag_anthropic.py](02_agentic_rag_anthropic.py)                       | Agent-controlled retrieval with tool use    |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_rag_pipeline_anthropic.py](01_rag_pipeline_anthropic.py)                     | Full RAG pipeline with hybrid search        |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [02_agentic_rag_anthropic.py](02_agentic_rag_anthropic.py)                       | Agent-controlled retrieval with tool use    |
 
 ## 🚀 Quick Start
 

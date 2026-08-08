@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- ![AI Agents Engineering](common/images/banner.png) -->
+<!-- ![AI Agents Engineering](.docs/banner.png) -->
 
 <!-- Keep these links. Translations will automatically update with the README. -->
 [English](https://zdoc.app/en/agenticloops-ai/agentic-ai-engineering) |

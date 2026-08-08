@@ -24,8 +24,8 @@ You'll implement a three-tier memory architecture inspired by human cognition: w
 
 | Provider                                        | File                                                                           | Description                               |
 | ----------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_memory_agent_anthropic.py](01_memory_agent_anthropic.py)                   | Personal assistant with tiered memory     |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_memory_inspector_anthropic.py](02_memory_inspector_anthropic.py)           | Memory browser/inspector (no LLM calls)   |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_memory_agent_anthropic.py](01_memory_agent_anthropic.py)                   | Personal assistant with tiered memory     |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [02_memory_inspector_anthropic.py](02_memory_inspector_anthropic.py)           | Memory browser/inspector (no LLM calls)   |
 
 ## 🚀 Quick Start
 

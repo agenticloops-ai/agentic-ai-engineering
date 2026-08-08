@@ -19,9 +19,9 @@ Learn how to make basic calls to LLM APIs. This tutorial demonstrates how to int
 
 | Provider                                        | File                                                 | Description                        |
 | ----------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
-| ![OpenAI](../../common/badges/openai.svg)       | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
-| ![LiteLLM](../../common/badges/litellm.svg)     | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_llm_call_anthropic.py](01_llm_call_anthropic.py) | Basic Claude Messages API calls    |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [02_llm_call_openai.py](02_llm_call_openai.py)       | Basic OpenAI Responses API calls   |
+| ![LiteLLM](../../.docs/badges/litellm.svg)     | [03_llm_call_litellm.py](03_llm_call_litellm.py)     | Unified interface for any provider |
 
 ## 🚀 Quick Start
 

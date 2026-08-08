@@ -23,9 +23,9 @@ Move beyond text-only agents. This tutorial teaches three core multimodal skills
 
 | Provider                                        | File                                                           | Description                         |
 | ----------------------------------------------- | -------------------------------------------------------------- | ----------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_vision_anthropic.py](01_vision_anthropic.py)               | Image analysis with Claude vision   |
-| ![Gemini](../../common/badges/gemini.svg)       | [02_image_generation_gemini.py](02_image_generation_gemini.py) | Native image generation with Gemini |
-| ![OpenAI](../../common/badges/openai.svg)       | [03_audio_openai.py](03_audio_openai.py)                       | Text-to-speech and speech-to-text   |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_vision_anthropic.py](01_vision_anthropic.py)               | Image analysis with Claude vision   |
+| ![Gemini](../../.docs/badges/gemini.svg)       | [02_image_generation_gemini.py](02_image_generation_gemini.py) | Native image generation with Gemini |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [03_audio_openai.py](03_audio_openai.py)                       | Text-to-speech and speech-to-text   |
 
 ## 🚀 Quick Start
 

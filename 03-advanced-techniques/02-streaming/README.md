@@ -23,8 +23,8 @@ The real challenge isn't basic streaming — it's streaming with tool calls. Whe
 
 | Provider                                        | File                                                         | Description                      |
 | ----------------------------------------------- | ------------------------------------------------------------ | -------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_streaming_fundamentals.py](01_streaming_fundamentals.py) | Text streaming + multi-turn chat |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_streaming_agent.py](02_streaming_agent.py)               | Streaming agent with tool calls  |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_streaming_fundamentals.py](01_streaming_fundamentals.py) | Text streaming + multi-turn chat |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [02_streaming_agent.py](02_streaming_agent.py)               | Streaming agent with tool calls  |
 
 ## 🚀 Quick Start
 
