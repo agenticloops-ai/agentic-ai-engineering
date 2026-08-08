@@ -12,6 +12,7 @@
 [Português](https://zdoc.app/pt/agenticloops-ai/agentic-ai-engineering) |
 [中文](https://zdoc.app/zh/agenticloops-ai/agentic-ai-engineering)
 
+[![GitHub stars](https://img.shields.io/github/stars/agenticloops-ai/agentic-ai-engineering?style=for-the-badge&logo=github&color=e3b341&labelColor=191919)](https://github.com/agenticloops-ai/agentic-ai-engineering/stargazers)
 [![Website](https://img.shields.io/badge/Website-agenticloops.ai-green?style=for-the-badge&logo=googlechrome&logoColor=white)](https://agenticloops.ai)
 [![Substack](https://img.shields.io/badge/Substack-Blogs_&_Newsletter-orange?style=for-the-badge&logo=substack&logoColor=white)](https://agenticloopsai.substack.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/agenticloops-ai)
@@ -26,19 +27,42 @@ This is the repo for engineers who want to understand what's behind popular agen
 
 > Building AI agents is engineering, not magic. Master the constraints, not the hype.
 
+<div align="center">
+<img src="https://graphics.agenticloops.ai/animations/brand/hero.gif" width="500" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
+</div>
+
 ## ❓ Why you need to learn this?
 
 ▶️ [Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
 
-> _How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?_
->
-> **_If you don't know this, your career is in jeopardy._**
->
-> _What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure._
->
-> _**This is now baseline knowledge** because we're getting candidates in that can answer this stuff._
->
-> — **Geoffrey Huntley**, creator of [Ralph Wiggum](https://ghuntley.com/ralph/)
+<table>
+<tr>
+<td width="150" align="center" valign="top">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="120" alt="Geoffrey Huntley" /></a>
+<br/><br/>
+<b>Geoffrey Huntley</b>
+<br/>
+<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
+</td>
+<td valign="middle">
+<em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
+<br/><br/>
+<b><em>If you don't know this, your career is in jeopardy.</em></b>
+<br/><br/>
+<em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
+<br/><br/>
+<em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
+</td>
+</tr>
+</table>
+
+He keeps coming back to one question — **_show me the inferencing loop._** Here it is:
+
+<div align="center">
+<img src=".docs/agentic-loop.png" width="480" alt="The agentic loop: REASON to ACT to OBSERVE" />
+</div>
+
+> _**REASON → ACT → OBSERVE.** Every box above, built from scratch in [01 · Foundations](01-foundations/README.md) — no framework required._
 
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
 
@@ -165,6 +189,16 @@ The gap between "works on my laptop" and "runs reliably at scale." Principles, d
 If you find this project useful, consider supporting us:
 
 [![Sponsor](https://img.shields.io/badge/Sponsor-Support_Us-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/agenticloops-ai)
+
+## ⭐ Star History
+
+<a href="https://star-history.com/#agenticloops-ai/agentic-ai-engineering&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=agenticloops-ai/agentic-ai-engineering&type=Date" />
+  </picture>
+</a>
 
 ## 💬 FAQ
 
