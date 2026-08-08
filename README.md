@@ -23,16 +23,24 @@
 # Agentic AI Engineering
 **Building AI agents is engineering, not magic. Stop reading about agents. Start building them.**
 
-This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** and how to build one by yourself. From your first LLM call to a production eval harness.
+<table>
+<tr>
+<td width="55%" valign="middle">
 
-No prior AI/ML experience required - just Python basics and **curiosity** about building LLM-powered agents.
+This is the repo for engineers who want to understand what's behind popular agents like **Claude Code**, **Claude Cowork**, **Codex**, and **GitHub Copilot** — and how to build one yourself.
 
-> 💡 None of this requires fancy frameworks. Just an LLM API, some tools, and a loop.
-> **Build one this weekend. You'll understand agents better than reading 100 blog posts.**
+- 🔁 **The whole path** — from your first LLM call to a production eval harness
+- 🧱 **No fancy frameworks** — just an LLM API, some tools, and a loop
+- 🐍 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
 
-<div align="center">
-<img src=".docs/agentic-loop.gif" width="500" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
-</div>
+> 💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
+
+</td>
+<td valign="middle" align="center">
+<img src=".docs/agentic-loop.gif" width="420" alt="The agentic loop: a prompt joins the system prompt and tool schemas in the context, the LLM reasons, executes tools, results append back to the context, and the loop repeats until it can answer" />
+</td>
+</tr>
+</table>
 
 ## ❓ Why you need to learn this?
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
