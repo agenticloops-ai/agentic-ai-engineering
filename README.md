@@ -35,11 +35,13 @@ This is the repo for engineers who want to understand what's behind popular agen
 
 **🧭 Why this repo?**
 
-- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
 - 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
 - ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
+- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
 
 > 💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
+
+If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
 
 </td>
 <td valign="middle" align="center">
@@ -86,8 +88,6 @@ uv run --directory 01-foundations/01-simple-llm-call python 01_llm_call_anthropi
 ```
 
 That's it. Every tutorial is self-contained and idempotent — you can jump in anywhere. Full setup details in [SETUP.md](SETUP.md). Or [open in Codespaces](https://codespaces.new/agenticloops-ai/agentic-ai-engineering) and skip local setup entirely.
-
-> If you find this useful, a ⭐️ star helps us know we're on the right track. Join the [💬 discussion](https://github.com/agenticloops-ai/agentic-ai-engineering/discussions) or report an [🐛 issue](https://github.com/agenticloops-ai/agentic-ai-engineering/issues) — your input directly shapes what we build next.
 
 ---
 
