@@ -35,31 +35,30 @@ No prior AI/ML experience required - just Python basics and **curiosity** about 
 </div>
 
 ## ❓ Why you need to learn this?
-
-▶️ [Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
+Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
 
 <table>
 <tr>
-<td width="150" align="center" valign="top">
-<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="120" alt="Geoffrey Huntley" /></a>
-<br/><br/>
+<td width="170" align="center" valign="middle">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="140" alt="Geoffrey Huntley" /></a>
+<br/>
 <b>Geoffrey Huntley</b>
 <br/>
 <sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
 </td>
 <td valign="middle">
 <em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
-<br/><br/>
+<br/>
 <b><em>If you don't know this, your career is in jeopardy.</em></b>
-<br/><br/>
+<br/>
 <em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
-<br/><br/>
+<br/>
 <em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
+<br><br>
+<a href="https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr">▶️ Fundamental skills and knowledge you must have in 2026 for SWE</a>
 </td>
 </tr>
 </table>
-
-Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
 
 ## 🧭 Why this repo?
 
