@@ -69,6 +69,8 @@ Agent fluency is the new data-structures interview. We teach it **from first pri
 </tr>
 </table>
 
+**All the answers are in this repo.** What a tool call is, how the inferencing loop works, what lives in the context — you won't just read the answers, you'll build them with your own hands, starting in [01 - Foundations](01-foundations/README.md). Next interview, you're the one at the whiteboard drawing the loop.
+
 ## ⚡ 60-second quickstart
 
 ```bash
