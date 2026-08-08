@@ -33,6 +33,12 @@ This is the repo for engineers who want to understand what's behind popular agen
 - 🧱 **No fancy frameworks** — just an LLM API, some tools, and a loop
 - 🐍 **No prior AI/ML experience required** — Python basics and **curiosity** are enough
 
+**🧭 Why this repo?**
+
+- 🔬 **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
+- 📦 **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
+- ⚡ **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
+
 > 💡 **Build one this weekend.** You'll understand agents better than reading 100 blog posts.
 
 </td>
@@ -67,12 +73,6 @@ Agent fluency is the new data-structures interview. We teach it **from first pri
 </td>
 </tr>
 </table>
-
-## 🧭 Why this repo?
-
-- **We take production agents apart.** The [_Disassembling AI Agents_](https://agenticloopsai.substack.com) Substack series reverse-engineers Claude Code, GitHub Copilot, and OpenCode. You read how real agents work, then rebuild the pieces here.
-- **First principles, no black boxes.** You build the agent loop, the tool executor, the memory layer, the eval harness from scratch — _before_ we introduce a single framework. Learn what each abstraction is hiding before you let one hide it for you.
-- **Runnable in one command.** `uv run --directory <tutorial> python <script>.py`. No conda dance. No Jupyter kernel hunt.
 
 ## ⚡ 60-second quickstart
 
