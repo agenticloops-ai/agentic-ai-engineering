@@ -46,19 +46,28 @@ If you find this useful, a ⭐️ star helps us know we're on the right track. J
 ## ❓ Why you need to learn this?
 Agent fluency is the new data-structures interview. We teach it **from first principles** - you build the loop, the tool calls, the memory, and the evals yourself before we ever introduce a framework. No magic. No black boxes. Just the primitives, in the order they were invented.
 
-<a href="https://ghuntley.com"><img align="left" width="150" src="https://avatars.githubusercontent.com/u/127353?v=4" alt="Geoffrey Huntley" /></a>
-
-_How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?_
-
-**_If you don't know this, your career is in jeopardy._**
-
-_What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure._
-
-_**This is now baseline knowledge** because we're getting candidates in that can answer this stuff._
-
-— **[Geoffrey Huntley](https://ghuntley.com)**, creator of [Ralph Wiggum](https://ghuntley.com/ralph/) · [▶️ Fundamental skills and knowledge you must have in 2026 for SWE](https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr)
-
-<br clear="both" />
+<table>
+<tr>
+<td width="170" align="center" valign="middle">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="140" alt="Geoffrey Huntley" /></a>
+<br/>
+<b>Geoffrey Huntley</b>
+<br/>
+<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
+</td>
+<td valign="middle">
+<em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
+<br/>
+<b><em>If you don't know this, your career is in jeopardy.</em></b>
+<br/>
+<em>What is a tool call? If you don't know what that is, you need to learn what it is and all these basic fundamentals. I preference candidates if they know what a tool call is, how the inferencing loop works, pull out a whiteboard — the same way we used to say, show me a linked list, reverse me this data structure.</em>
+<br/>
+<em><b>This is now baseline knowledge</b> because we're getting candidates in that can answer this stuff.</em>
+<br/><br/>
+<a href="https://www.youtube.com/clip/UgkxNl2grro6BiM_x9bGSH_xMOSl32fxvthr">▶️ Fundamental skills and knowledge you must have in 2026 for SWE</a>
+</td>
+</tr>
+</table>
 
 ## ⚡ 60-second quickstart
 
