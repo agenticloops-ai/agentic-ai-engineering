@@ -48,14 +48,14 @@ Agent fluency is the new data-structures interview. We teach it **from first pri
 
 <table>
 <tr>
-<td width="170" align="center" valign="middle">
-<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="140" alt="Geoffrey Huntley" /></a>
+<td width="22%" align="center" valign="middle">
+<a href="https://ghuntley.com"><img src="https://avatars.githubusercontent.com/u/127353?v=4" width="72" alt="Geoffrey Huntley" /></a>
 <br/>
 <b>Geoffrey Huntley</b>
 <br/>
-<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph&nbsp;Wiggum</a></sub>
+<sub>creator of <a href="https://ghuntley.com/ralph/">Ralph Wiggum</a></sub>
 </td>
-<td valign="middle">
+<td width="78%" valign="middle">
 <em>How many of you actually can pull out a whiteboard and build me an agent? Can you show me the inferencing loop?</em>
 <br/>
 <b><em>If you don't know this, your career is in jeopardy.</em></b>
