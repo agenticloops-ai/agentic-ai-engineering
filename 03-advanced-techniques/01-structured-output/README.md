@@ -22,8 +22,8 @@ Get validated, typed, production-safe data from LLMs — and handle when it brea
 
 | Provider | Script | Description |
 |----------|--------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_structured_output_anthropic.py](01_structured_output_anthropic.py) | 4 techniques: tool_use, native schema, validation+retry, batch |
-| ![OpenAI](../../common/badges/openai.svg) | [02_structured_output_openai.py](02_structured_output_openai.py) | OpenAI comparison: `text.format` with strict schema (simple + complex) |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_structured_output_anthropic.py](01_structured_output_anthropic.py) | 4 techniques: tool_use, native schema, validation+retry, batch |
+| ![OpenAI](../../.docs/badges/openai.svg) | [02_structured_output_openai.py](02_structured_output_openai.py) | OpenAI comparison: `text.format` with strict schema (simple + complex) |
 
 ## 🚀 Quick Start
 

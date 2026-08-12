@@ -19,8 +19,8 @@ Learn how to give LLMs the ability to call functions (tools) to interact with th
 
 | Provider                                        | File                                                 | Description                        |
 | ----------------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
-| ![OpenAI](../../common/badges/openai.svg)       | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_tool_use_anthropic.py](01_tool_use_anthropic.py) | Tool use with Claude Messages API  |
+| ![OpenAI](../../.docs/badges/openai.svg)       | [02_tool_use_openai.py](02_tool_use_openai.py)       | Tool use with OpenAI Responses API |
 
 ## 🚀 Quick Start
 

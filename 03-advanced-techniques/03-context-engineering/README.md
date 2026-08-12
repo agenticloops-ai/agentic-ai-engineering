@@ -22,8 +22,8 @@ The key insight: context engineering isn't about cramming more in — it's about
 
 | Provider                                        | File                                                                       | Description                                               |
 | ----------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_context_engineering_anthropic.py](01_context_engineering_anthropic.py) | Interactive chat with budget management                   |
-| ![Anthropic](../../common/badges/anthropic.svg) | [02_tool_context_anthropic.py](02_tool_context_anthropic.py)               | Tool output context strategies (naive/truncate/summarize) |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_context_engineering_anthropic.py](01_context_engineering_anthropic.py) | Interactive chat with budget management                   |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [02_tool_context_anthropic.py](02_tool_context_anthropic.py)               | Tool output context strategies (naive/truncate/summarize) |
 
 ## 🚀 Quick Start
 

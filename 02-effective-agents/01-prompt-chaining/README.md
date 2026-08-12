@@ -19,7 +19,7 @@ Decompose a task into a sequence of fixed steps, where each LLM call processes t
 
 | Provider | File | Description |
 |----------|------|-------------|
-| ![Anthropic](../../common/badges/anthropic.svg) | [01_prompt_chaining.py](01_prompt_chaining.py) | Blog post assembly line with 3-step chain |
+| ![Anthropic](../../.docs/badges/anthropic.svg) | [01_prompt_chaining.py](01_prompt_chaining.py) | Blog post assembly line with 3-step chain |
 
 ## 🚀 Quick Start
 
