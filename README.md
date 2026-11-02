@@ -134,7 +134,7 @@ Agents are non-deterministic — testing them requires different thinking. Measu
 6. **[Eval Frameworks](04-testing-evaluation/06-eval-frameworks/)** — Promptfoo, Braintrust, Langfuse integration
 7. **[Eval Harness](04-testing-evaluation/07-eval-harness/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Complete eval pipeline combining all techniques
 
-### 🔁 [05 - Loop Engineering](05-loop-engineering/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
+### 🔁 [05 - Loop Engineering](05-loop-engineering/README.md) ![new](https://img.shields.io/badge/new-brightgreen)
 
 Take the bare agent loop and harness it. Skills, hooks, sandboxing, MCP, subagents, and compaction — one control surface at a time — turn a naive loop into a real, extensible agent.
 
@@ -144,7 +144,7 @@ Take the bare agent loop and harness it. Skills, hooks, sandboxing, MCP, subagen
 4. **[MCP Integration](05-loop-engineering/04-mcp/)** — Discover tools from MCP servers, publish your own
 5. **[Subagents & Delegation](05-loop-engineering/05-subagents/)** — Spawn child loops with isolated context
 6. **[Context Compaction](05-loop-engineering/06-context-compaction/)** — Compact history in long-running loops
-7. **[Extensible Agent](05-loop-engineering/07-extensible-agent/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Hooks + sandbox + MCP + subagents + compaction combined
+7. **[Extensible Agent](05-loop-engineering/07-extensible-agent/)** ![🏆 capstone](https://img.shields.io/badge/🏆_capstone-blue) — Skills + hooks + sandbox + MCP + subagents + compaction combined
 
 ### 🏗️ [06 - Frameworks](06-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
