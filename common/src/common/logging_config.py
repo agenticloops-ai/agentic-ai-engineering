@@ -29,7 +29,8 @@ def setup_logging(name: str = __name__, level: int = logging.INFO) -> logging.Lo
                 rich_tracebacks=True,
                 show_time=False,
                 show_path=False,
-                markup=True,
+                # Log messages carry tool input and output: as markup, "[/x]" would raise
+                markup=False,
             )
         ],
         force=True,  # Override any existing config

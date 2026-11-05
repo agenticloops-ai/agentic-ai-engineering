@@ -1,0 +1,18 @@
+[project]
+name = "lesson-hooks-lifecycle"
+version = "0.1.0"
+description = "Lesson: Hooks & Lifecycle - Intercept the agent loop with pluggable callbacks"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=2.0.0",
+    "common",
+    "python-dotenv>=1.0.0",
+    "rich>=13.7.0",
+]
+
+[tool.uv.sources]
+common = { path = "../../common", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
