@@ -148,17 +148,18 @@ Take the bare agent loop and harness it. Skills, hooks, sandboxing, MCP, subagen
 
 ### 🏗️ [06 - Frameworks](06-frameworks/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
-One agent, nine implementations. Build the same system with each framework and compare trade-offs with your own hands.
+One agent, ten implementations. Build the same system with each framework and compare trade-offs with your own hands.
 
 1. **[No Framework](06-frameworks/01-no-framework/)** — Raw SDK baseline
-2. **[LangGraph](06-frameworks/02-langgraph/)** — Graph-based orchestration
-3. **[Pydantic AI](06-frameworks/03-pydantic-ai/)** — Type-safe agents
-4. **[Google ADK](06-frameworks/04-google-adk/)** — Google's Agent Development Kit
-5. **[AWS Strands](06-frameworks/05-aws-strands/)** — AWS agent SDK
-6. **[CrewAI](06-frameworks/06-crewai/)** — Role-based multi-agent collaboration
-7. **[AutoGen](06-frameworks/07-autogen/)** — Multi-agent conversations
-8. **[LlamaIndex](06-frameworks/08-llamaindex/)** — Data-centric agents
-9. **[Semantic Kernel](06-frameworks/09-semantic-kernel/)** — Microsoft AI orchestration
+2. **[Pi](06-frameworks/02-pi/)** - Minimal agent harness
+3. **[LangGraph](06-frameworks/03-langgraph/)** — Graph-based orchestration
+4. **[Pydantic AI](06-frameworks/04-pydantic-ai/)** — Type-safe agents
+5. **[Google ADK](06-frameworks/05-google-adk/)** — Google's Agent Development Kit
+6. **[AWS Strands](06-frameworks/06-aws-strands/)** — AWS agent SDK
+7. **[CrewAI](06-frameworks/07-crewai/)** — Role-based multi-agent collaboration
+8. **[AutoGen](06-frameworks/08-autogen/)** — Multi-agent conversations
+9. **[LlamaIndex](06-frameworks/09-llamaindex/)** — Data-centric agents
+10. **[Semantic Kernel](06-frameworks/10-semantic-kernel/)** — Microsoft AI orchestration
 
 ### 🏭 [07 - Production](07-production/README.md) ![coming soon](https://img.shields.io/badge/coming%20soon-orange)
 
