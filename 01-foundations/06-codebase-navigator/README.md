@@ -26,8 +26,8 @@ An agent that helps engineers explore and understand unfamiliar codebases. Point
 | # | Script | Provider | What it demonstrates |
 |---|--------|----------|---------------------|
 | 01 | `01_codebase_navigator.py` | ![Anthropic](https://img.shields.io/badge/Anthropic-191919?style=for-the-badge&logo=anthropic&logoColor=white) | Full augmented LLM with RAG, tools, and memory |
+| 02 | `02_augmented_llm_openai.py` | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white) | Port using OpenAI Chat Completions + function calling API |
 
-> **Contributions welcome!** We're looking for help porting this tutorial to additional providers. See [#13 — Port to OpenAI API](https://github.com/agenticloops-ai/ai-agents-engineering/issues/13) if you'd like to contribute.
 
 ## 🔑 Key Concepts
 
